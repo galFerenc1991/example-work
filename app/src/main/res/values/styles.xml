@@ -8,4 +8,61 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Texts styles. -->
+
+    <style name="PampTitleStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/text_size_splash_big</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuthTitleStyle">
+        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="LoginForgotPasswordStyle">
+        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TILStyle">
+        <item name="android:textColorHint">@color/textColorGray</item>
+        <item name="errorTextAppearance">@style/ErrorAppearance</item>
+    </style>
+
+    <style name="ErrorAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorRed</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="AuthEditTextStyle">
+        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+    </style>
+
+    <style name="SignUpTextStyle">
+        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:textSize">@dimen/text_size_very_small</item>
+    </style>
+
+    <!-- Button text styles -->
+
+    <style name="AuthButtonTextStyle">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="ConfirmButtonTextStyle">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
 </resources>

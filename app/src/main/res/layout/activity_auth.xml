@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/flContainer_AM"
+        android:id="@+id/flContainer_AA"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

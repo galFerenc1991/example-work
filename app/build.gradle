@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.ferenc.pamp"
         minSdkVersion 21
@@ -16,11 +17,68 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
+def androidSupportVersion = '26.1.0'
+def androidAnnotationVersion = '4.3.1'
+def rxJavaVersion = '2.0.0'
+def rxBindingVersion = '2.0.0'
+def retrofitVersion = '2.3.0'
+def picassoVersion = '2.5.2'
+def cropVersion = '1.0.1@aar'
+def adapterVersion = '0.3.0'
+def gsonVersion = "2.8.1"
+def playServiceVersion = '11.6.0'
+def firebaseVersion = '11.6.0'
+def stethoVersion = '1.5.0'
+def swipeLayoutVersion = '1.2.0@aar'
+def mapUtilsVersion = '0.4+'
+def mpAndroidChartsVersion = 'v3.0.2'
+
 dependencies {
+    /*Android support*/
+    compile "com.android.support:design:${androidSupportVersion}"
+    compile "com.android.support:cardview-v7:${androidSupportVersion}"
+
+    /*Android annotations*/
+    annotationProcessor "org.androidannotations:androidannotations:${androidAnnotationVersion}"
+    compile "org.androidannotations:androidannotations-api:${androidAnnotationVersion}"
+
+    /*Utilities*/
+    implementation "com.squareup.picasso:picasso:${picassoVersion}"
+    implementation "com.github.alex-michenko:recycleradapters:${adapterVersion}"
+    implementation "com.soundcloud.android:android-crop:${cropVersion}"
+    implementation "com.daimajia.swipelayout:library:${swipeLayoutVersion}"
+    implementation 'com.romandanylyk:pageindicatorview:0.2.0'
+    /*Reactive*/
+    implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
+    implementation "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}"
+
+    /*Networking*/
+    implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+
+    /*Location*/
+    implementation "com.google.android.gms:play-services-location:${playServiceVersion}"
+    implementation "com.google.android.gms:play-services-places:${playServiceVersion}"
+//    compile "com.google.maps.android:android-maps-utils:${mapUtilsVersion}"
+
+    /*Notifications*/
+    implementation "com.google.firebase:firebase-messaging:${firebaseVersion}"
+
+    /*Social*/
+    implementation 'com.facebook.android:facebook-login:4.28.0'
+    implementation "com.android.support:customtabs:${androidSupportVersion}"
+    implementation 'com.google.android.gms:play-services-auth:11.6.0'
+
+    /*Debug*/
+    implementation "com.facebook.stetho:stetho-okhttp3:${stethoVersion}"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

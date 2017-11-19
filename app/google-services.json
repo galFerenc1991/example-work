@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "773378553548",
+    "project_id": "pamp-6fb0c"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773378553548:android:e9f63a7f5ccacc33",
+        "android_client_info": {
+          "package_name": "com.ferenc.pamp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "773378553548-46hfgulvfai96cd7aiba7v7c2ii7g1rm.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "773378553548-9ku0aba8pub9bfcl9qeorurrup1b7eht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ferenc.pamp",
+            "certificate_hash": "706d66d3199bc8207bbf3da5f82d5875f4f71cef"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1iGfAY4EqrnL_OhS6_9yqy_fVYorgiNo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

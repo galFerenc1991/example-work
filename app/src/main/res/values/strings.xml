@@ -1,3 +1,139 @@
 <resources>
     <string name="app_name">Pamp</string>
+
+    <string name="facebook_app_id">871957926301011</string>
+    <string name="fb_login_protocol_scheme">fb145956836131010</string>
+
+    <!--Titles-->
+    <string name="title_auth">Pamp</string>
+    <string name="title_sign_up">Créer un compte</string>
+    <string name="title_login">"Connectez-vous"</string>
+    <string name="title_create_password">Finalister Votre Creation de Compte</string>
+
+
+    <!--Buttons-->
+    <string name="button_sign_in">S\'inscrire</string>
+    <string name="button_login_facebook">Facebook</string>
+    <string name="button_login_google">Google</string>
+    <string name="button_login_pamp">Se connecter</string>
+    <string name="button_confirm">Valider</string>
+    <string name="button_start_using">Commencer à utiliser</string>
+    <string name="button_ok">OK</string>
+    <string name="button_send">ENVOYER</string>
+    <string name="button_cancel">ANNULER</string>
+    <string name="button_retry">recommencez</string>
+
+
+
+
+    <!--Hints-->
+    <string name="hint_name">Prénom</string>
+    <string name="hint_surname">Nom</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_country">Pays de résidence</string>
+    <string name="hint_password">Mot de passe</string>
+    <string name="hint_confirm_password">Confirmer le mot de passe</string>
+
+    <!--Error messages-->
+    <string name="err_msg_required">Required field</string>
+    <string name="err_msg_invalid_number">Incorrect number</string>
+    <string name="err_msg_already_registered">Already registered</string>
+    <string name="err_msg_invalid_password">Incorrect password</string>
+    <string name="err_msg_invalid_email">Incorrect email</string>
+    <string name="err_msg_entered_password_is_incorrect">The password you\'ve entered is incorrect</string>
+    <string name="err_msg_invalid_email_or_empty_fields">Invalid email or some fields is empty</string>
+    <string name="err_msg_empty_fields_or_passwords_not_matches">Empty fields or passwords not matches</string>
+    <string name="err_msg_passwords_not_matches">Passwords don\'t match</string>
+    <string name="err_msg_invalid_code">Incorrect code</string>
+    <string name="err_msg_invalid_licence">Invalid licence ID</string>
+    <string name="err_msg_bad_credentials">Incorrect email or password</string>
+    <string name="err_msg_something_goes_wrong">Something went wrong</string>
+    <string name="err_msg_no_data">No data</string>
+    <string name="err_msg_no_requests">You Have No Requesy</string>
+    <string name="err_msg_connection_problem">Connection lost</string>
+    <string name="err_msg_user_not_registered">User not registered</string>
+    <string name="err_msg_email_invalid">Invalid email</string>
+    <string name="err_msg_play_services_unavailable">Google Play Services is not available.</string>
+    <string name="err_msg_select_address_fail">Error while select address. Try again</string>
+    <string name="err_msg_avatar_is_required">Avatar is required for Driver</string>
+    <string name="err_msg_set_rating">Set user rating</string>
+    <string name="err_msg_token_expired">Token expired</string>
+    <string name="err_msg_select_start_point">Select start point</string>
+    <string name="err_msg_select_destination">Select destination</string>
+    <string name="err_msg_select_route">Select your route</string>
+    <string name="err_msg_request_is_sent">Your Request has been sent successfully.\nTrack status in the Requests Screen.</string>
+    <string name="err_msg_specify_departure_time">Specify departure time</string>
+    <string name="err_msg_specify_ride_flexibility">Specify ride flexibility</string>
+    <string name="err_msg_user_not_driver">Please complete your driver profile by inserting a vehicle</string>
+    <string name="err_msg_select_date_in_future">Select a date in the future</string>
+    <string name="err_msg_title_no_travel">No Travel on your route</string>
+    <string name="err_msg_no_route">Follow this route to get alerts about new trip or\noffer a trip yourself and find passengers</string>
+    <string name="err_msg_title_no_result_for_request">No any result on your request</string>
+    <string name="err_msg_no_result_for_request">Follow this route to get alerts about new trip,\noffer a trip yourself and find passengers\nor try another search options.</string>
+
+    <!--Messages-->
+    <string name="msg_try_login_with_new_password">Try to login with the new password</string>
+
+
+    <!--Menu-->
+    <string name="menu_share">Share</string>
+    <string name="menu_notifications">Notifications</string>
+
+    <!--Verification Dialog-->
+    <string name="verification_dialog_title">Vérification de votre email</string>
+    <string name="verification_dialog_message">Pour finaliser vorte création de compte un email vous a été envoyé</string>
+
+    <!--Forgot password Dialog-->
+    <string name="forgot_password_dialog_title">Mot de passe oublié ?</string>
+    <string name="forgot_password__message">"S'il vous plaît entrer votre adresse mail enregistré sur votre compte."</string>
+
+    <!--Days-->
+    <string-array name="days_of_week">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+    <string-array name="days_of_week_short">
+        <item>MON</item>
+        <item>TUE</item>
+        <item>WED</item>
+        <item>THU</item>
+        <item>FRI</item>
+        <item>SAT</item>
+        <item>SUN</item>
+    </string-array>
+
+    <!--Texts-->
+    <!--Splash texts-->
+    <string name="text_splash_title">Bienvenue sur</string>
+    <string name="text_splash_subtext">Partager avec mes proches</string>
+
+    <!--Tutorial texts-->
+    <string name="text_first_tutorial_title_text">"Lu systeme D n'aura jamais été aussi facile"</string>
+    <string name="text_first_tutorial_second_text">Pour partager et accéder directement à toutes les meilleures spécialités régionales de petits producteurs locaux</string>
+    <string name="text_second_tutorial_title_text">"100% gratuit pour envoyer des produits coupe de coeur á vos proches"</string>
+    <string name="text_second_tutorial_second_text">"Aussi simple qu'envoyer un SMS"</string>
+    <string name="text_second_tutorial_third_text">"Récolter vos commandes en un temps limité"</string>
+    <string name="text_second_tutorial_fourth_text">"Ne vous souciez plus du paiement"</string>
+    <string name="text_third_tutorial_title_text">"Créez des liens directs avec les meilleurs produits de nos terroirs"</string>
+    <string name="text_third_tutorial_second_text">"Commander á plusieurs directement á la source"</string>
+    <string name="text_third_tutorial_third_text">"Recever des bons plans et commander en 1 clic"</string>
+    <string name="text_third_tutorial_fourth_text">"Soutener les petits producteurs par une juste rémunération sans intermédiaire"</string>
+
+    <!--Auth texts-->
+    <string name="text_already_registered">déjà inscrit ?</string>
+
+    <!--SignUp texts-->
+
+    <!--Create Password texts-->
+
+    <string name="text_create_password_first">"Nous nous engageons à protéger votre vie privée et ne vendrons ou ne louerons jamais votre adresse e-mail ni aucune autre données.En poursuivant, vous acceptez nos conditions d’utilisation et notre politique de confidentialité"</string>
+    <string name="text_create_password_second">Conditions d’utilisation (et politique de confidentialité)</string>
+    <string name="text_forgot_password">mot de passe oublié ?</string>
+    <string name="text_or">ou</string>
+
 </resources>

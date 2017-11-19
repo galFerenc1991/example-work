@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#51a7dd</color>
+    <color name="colorPrimaryLight">#fff8e0</color>
+    <color name="colorPrimaryDark">#3b92c8</color>
+
+    <color name="colorPrimaryTransparent">#9651a7dd</color>
+    <color name="colorPrimaryDarkTransparent">#883b92c8</color>
+    <color name="colorLogoDark">#312c85</color>
+    <color name="colorRed">#f44336</color>
+    <color name="colorGrayLight">#f2f2f2</color>
+
+    <color name="colorBlackTransparent">#88000000</color>
+    <color name="colorGray">#8a000000</color>
+    <color name="colorDivider">#1e000000</color>
+    <color name="colorStatusBar">#c5c5c5</color>
+    <color name="colorBackgroundGrey">#777777</color>
+    <color name="colorUnselectedPageIndicator">#b7b692</color>
+    <color name="colorSelectedPageIndicator">#333333</color>
+
+
+    <!--Text color-->
+    <color name="textColorGray">#333333</color>
+    <color name="textColorLoginForgotPassword">#f1e881</color>
+    <color name="textColorGreen">#34c47c</color>
+
+
+
+    <color name="textColorLightGray">#8a615f5f</color>
+    <color name="textColorCyan">#00838f</color>
+    <color name="textColorWhiteTransparent">#61fafafa</color>
+    <color name="textColorCyanLight">#00acc3</color>
+    <color name="textColorRed">#d32f2f</color>
+
+
+    <color name="textColorBlack">#de000000</color>
+    <color name="textColorBlackTutorial">#333333</color>
+
+    <color name="textColorLight">#79c7d6</color>
+
+    <color name="tintColorGrey">#1E000000</color>
+    <color name="textSelectedPreference">#2997a1</color>
+
+    <color name="black_transparent">#c8000000</color>
 </resources>

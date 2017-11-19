@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpTutorialContainer_AT"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/btnStartUsing_AT"
+        style="@style/ConfirmButtonTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/confirm_button_height"
+        android:layout_above="@+id/indicator_AT"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:background="@drawable/bg_confirm_button"
+        android:paddingBottom="@dimen/margin_half"
+        android:paddingEnd="@dimen/margin_triple"
+        android:paddingStart="@dimen/margin_triple"
+        android:paddingTop="@dimen/margin_half"
+        android:text="@string/button_start_using"
+        android:visibility="invisible" />
+
+    <com.rd.PageIndicatorView
+        android:id="@+id/indicator_AT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_default"
+        app:piv_animationType="thinWorm"
+        app:piv_selectedColor="@color/colorSelectedPageIndicator"
+        app:piv_unselectedColor="@color/colorUnselectedPageIndicator" />
+
+</RelativeLayout>
