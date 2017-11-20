@@ -33,6 +33,7 @@
     <dimen name="text_size_splash_big">66sp</dimen>
 
     <!--Images-->
+    <dimen name="bottom_bar_height">56dp</dimen>
     <dimen name="icon_size">18dp</dimen>
     <dimen name="icon_min_size">30dp</dimen>
 

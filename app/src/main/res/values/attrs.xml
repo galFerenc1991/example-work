@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CenteredRadioButton">
+        <attr name="drawable" format="reference" />
+        <attr name="badgeVerticalPadding" format="integer" />
+        <attr name="badgeHorizontalPadding" format="integer" />
+        <attr name="badgeCornerRadius" format="integer" />
+        <attr name="badgeTextSize" format="integer" />
+    </declare-styleable>
+</resources>

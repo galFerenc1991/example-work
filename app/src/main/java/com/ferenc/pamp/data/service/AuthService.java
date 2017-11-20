@@ -1,5 +1,6 @@
 package com.ferenc.pamp.data.service;
 
+import com.ferenc.pamp.data.model.auth.CountryList;
 import com.ferenc.pamp.data.model.auth.ForgotPasswordRequest;
 import com.ferenc.pamp.data.model.auth.RefreshTokenResponse;
 import com.ferenc.pamp.data.model.auth.SignInRequest;
@@ -10,6 +11,7 @@ import com.ferenc.pamp.data.model.common.User;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
@@ -40,4 +42,7 @@ public interface AuthService {
 
     @POST("/user/signup/")
     Observable<SignUpResponse> signUp(@Body SignUpRequest request);
+
+    @GET("resources/countries/")
+    Observable<CountryList> getCountryList();
 }

@@ -16,6 +16,7 @@ public class SignUpPresenter implements SignUpContract.Presenter {
     private SignUpContract.View mView;
     private SignUpContract.Model mModel;
     private CompositeDisposable mCompositeDisposable;
+    private String mCountry;
 
     public SignUpPresenter(SignUpContract.View _view, SignUpContract.Model _model) {
         this.mView = _view;
@@ -44,7 +45,7 @@ public class SignUpPresenter implements SignUpContract.Presenter {
 
         if (errCodeEmail == ValidationManager.OK && errCodeSurname == ValidationManager.OK && errCodeName == ValidationManager.OK && errCodeCountry == ValidationManager.OK) {
             mView.openCreatePasswordScreen(textRefactor(_firstName)
-                    ,textRefactor(_lastName)
+                    , textRefactor(_lastName)
                     , textRefactor(_email)
                     , textRefactor(_country));
         } else {
@@ -52,7 +53,7 @@ public class SignUpPresenter implements SignUpContract.Presenter {
         }
     }
 
-    private String textRefactor(String text){
+    private String textRefactor(String text) {
         return text.replaceAll("\\s+$", "");
     }
 
@@ -80,6 +81,17 @@ public class SignUpPresenter implements SignUpContract.Presenter {
                     mView.hideProgress();
                     mView.showCustomMessage(throwable.getMessage(), true);
                 }));
+    }
+
+    @Override
+    public void selectCountry() {
+        mView.startSelectCountryScreen(mCountry);
+    }
+
+    @Override
+    public void setSelectedCountry(String _country) {
+        mCountry = _country;
+        mView.setCountry(_country);
     }
 
     @Override

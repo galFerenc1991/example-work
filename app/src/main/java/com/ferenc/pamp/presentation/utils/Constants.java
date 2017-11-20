@@ -16,6 +16,12 @@ public abstract class Constants {
 
     /*REQUEST CODES*/
     public static final int REQUEST_CODE_GOOGLE = 0;
+    public static final int REQUEST_CODE_COUNTRY_DIALOG = 1;
+
+    /*KEYS*/
+    public static final String KEY_COUNTRY = "country";
+
+
 
     /*GOOGLE CODES*/
     public static final String GOOGLE_CLIENT_ID = "773378553548-46hfgulvfai96cd7aiba7v7c2ii7g1rm.apps.googleusercontent.com";

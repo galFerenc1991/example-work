@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -15,6 +17,8 @@ import com.ferenc.pamp.R;
 import com.ferenc.pamp.domain.AuthRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
+import com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker.CountryDialog;
+import com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker.CountryDialog_;
 import com.ferenc.pamp.presentation.screens.auth.sign_up.create_password.CreatePasswordFragment_;
 import com.ferenc.pamp.presentation.screens.main.MainActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -30,6 +34,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.Arrays;
@@ -70,6 +75,8 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
     protected FrameLayout btnCreateFacebook;
     @ViewById(R.id.btnLoginGoogle_FSU)
     protected FrameLayout btnCreateGoogle;
+    @ViewById(R.id.llCountrySpinner_FSU)
+    protected LinearLayout btnCountrySpinner;
 
     @ViewById(R.id.etSurname_FSU)
     protected EditText etSurname;
@@ -77,8 +84,8 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
     protected EditText etName;
     @ViewById(R.id.etEmail_FSU)
     protected EditText etEmail;
-    @ViewById(R.id.etCountry_FSU)
-    protected EditText etCountry;
+    @ViewById(R.id.tvCountry_FSU)
+    protected TextView tvCountry;
 
     @Bean
     protected AuthRepository mAuthRepository;
@@ -108,7 +115,7 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
                 .subscribe(o -> mPresenter.openCreatePasswordScreen(etSurname.getText().toString()
                         , etName.getText().toString()
                         , etEmail.getText().toString()
-                        , etCountry.getText().toString()));
+                        , tvCountry.getText().toString()));
 
         RxView.clicks(btnCreateFacebook)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
@@ -116,6 +123,9 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
         RxView.clicks(btnCreateGoogle)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> signInWithGoogle());
+        RxView.clicks(btnCountrySpinner)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.selectCountry());
     }
 
     public void createAndRegistrationFacebookCallbackManager() {
@@ -171,6 +181,11 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
     }
 
     @Override
+    public void setCountry(String _selectedCountry) {
+        tvCountry.setText(_selectedCountry);
+    }
+
+    @Override
     public void openAuthScreen() {
         mActivity.getSupportFragmentManager().popBackStack();
     }
@@ -191,5 +206,19 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
                 .mEmail(_email)
                 .mCountry(_country)
                 .build());
+    }
+
+    @Override
+    public void startSelectCountryScreen(String _country) {
+        CountryDialog dialog = CountryDialog_.builder()
+                .mCountry(_country)
+                .build();
+        dialog.setTargetFragment(this, Constants.REQUEST_CODE_COUNTRY_DIALOG);
+        dialog.show(mActivity.getSupportFragmentManager(), "");
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_COUNTRY_DIALOG)
+    protected void resultCountryCode(@OnActivityResult.Extra(Constants.KEY_COUNTRY) String country) {
+        mPresenter.setSelectedCountry(country);
     }
 }

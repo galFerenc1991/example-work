@@ -55,11 +55,11 @@ public class AuthFragment extends ContentFragment implements AuthContract.View {
     protected void initUI() {
         RxView.clicks(btnLoginPamp)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.login());
+                .subscribe(o -> mPresenter.signUp());
 
         RxView.clicks(btnSignInEmail)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.signUp());
+                .subscribe(o -> mPresenter.login());
 
     }
 

@@ -3,6 +3,7 @@ package com.ferenc.pamp.domain;
 import android.util.Log;
 
 import com.ferenc.pamp.data.api.Rest;
+import com.ferenc.pamp.data.model.auth.CountryList;
 import com.ferenc.pamp.data.model.auth.ForgotPasswordRequest;
 import com.ferenc.pamp.data.model.auth.SignInRequest;
 import com.ferenc.pamp.data.model.auth.SignUpRequest;
@@ -12,6 +13,7 @@ import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.service.AuthService;
 import com.ferenc.pamp.presentation.screens.auth.login.LoginContract;
 import com.ferenc.pamp.presentation.screens.auth.sign_up.SignUpContract;
+import com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker.CountryContract;
 import com.ferenc.pamp.presentation.screens.auth.sign_up.create_password.CreatePasswordContract;
 import com.ferenc.pamp.presentation.screens.main.home.HomeContract;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
@@ -22,6 +24,10 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import io.reactivex.Observable;
 
 /**
@@ -29,7 +35,7 @@ import io.reactivex.Observable;
  * Ferenc on 2017.11.16..
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class AuthRepository extends NetworkRepository implements CreatePasswordContract.Model, LoginContract.Model, SignUpContract.Model , HomeContract.Model{
+public class AuthRepository extends NetworkRepository implements CreatePasswordContract.Model, LoginContract.Model, SignUpContract.Model, HomeContract.Model, CountryContract.Model {
     @Bean
     protected Rest rest;
     @Bean
@@ -131,5 +137,14 @@ public class AuthRepository extends NetworkRepository implements CreatePasswordC
     @Override
     public Observable<SignUpResponse> forgotPassword(ForgotPasswordRequest request) {
         return getNetworkObservable(authService.forgotPassword(request));
+    }
+
+    @Override
+    public Observable<List<String>> getCountryList() {
+        return getNetworkObservable(authService.getCountryList())
+                .flatMap(countryList -> {
+                 List<String> countri = Arrays.asList(countryList.getCountry());
+                    return Observable.just(countri);
+                });
     }
 }

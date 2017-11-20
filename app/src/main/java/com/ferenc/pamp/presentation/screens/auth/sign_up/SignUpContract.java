@@ -23,6 +23,10 @@ public interface SignUpContract {
         void openHomeScreen();
 
         void openCreatePasswordScreen(String _firstName, String _lastName, String _email, String _country);
+
+        void startSelectCountryScreen(String _selectedCountry);
+
+        void setCountry(String _selectedCountry);
     }
 
     interface Presenter extends BasePresenter {
@@ -33,6 +37,10 @@ public interface SignUpContract {
         void loginOrCreateWithFacebook(String _facebookToken);
 
         void loginOrCreateWithGoogle(String _googleToken);
+
+        void selectCountry();
+
+        void setSelectedCountry(String _country);
 
     }
 

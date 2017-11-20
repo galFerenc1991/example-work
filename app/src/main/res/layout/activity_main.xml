@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,6 +7,107 @@
     <FrameLayout
         android:id="@+id/flContainer_AM"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llBottomBar_AM"
+        android:backgroundTint="@android:color/white" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/llBottomBar_AM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/llTabGoodPlan_AM"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivGoodPlan_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_half"
+                android:src="@drawable/ic_bon_plan_act_ic" />
+
+            <TextView
+                android:id="@+id/tvGoodPlan_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="bon plan"
+                android:textColor="@color/textColorGreen" />
+
+            <View
+                android:id="@+id/viewGoodPlan_AM"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/textColorGreen" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llTabPropose_AM"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivPropose_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_half"
+                android:src="@drawable/ic_proposer_ic" />
+
+            <TextView
+                android:id="@+id/tvPropose_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="proposer" />
+
+            <View
+                android:id="@+id/viewPropose_AM"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llTabAccount_AM"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivAccount_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_half"
+                android:src="@drawable/ic_compte_ic" />
+
+            <TextView
+                android:id="@+id/tvAccount_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="compte" />
+
+            <View
+                android:id="@+id/viewAccount_AM"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

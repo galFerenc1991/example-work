@@ -78,21 +78,37 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/tilCountry_FSU"
-            style="@style/TILStyle"
+        <LinearLayout
+            android:id="@+id/llCountrySpinner_FSU"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_country">
+            android:layout_marginTop="@dimen/margin_default">
 
-            <EditText
-                android:id="@+id/etCountry_FSU"
-                style="@style/AuthEditTextStyle"
+            <TextView
+                android:id="@+id/tvCountry_FSU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_edit" />
+                android:hint="@string/hint_country"
+                android:textColor="@color/textColorGray"
+                android:textColorHint="@color/textColorGray"
+                android:textSize="@dimen/text_size_default" />
+        </LinearLayout>
+        <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:id="@+id/tilCountry_FSU"-->
+        <!--style="@style/TILStyle"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="@string/hint_country">-->
 
-        </android.support.design.widget.TextInputLayout>
+        <!--<EditText-->
+        <!--android:id="@+id/etCountry_FSU"-->
+        <!--style="@style/AuthEditTextStyle"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:drawableEnd="@drawable/ic_edit" />-->
+
+        <!--</android.support.design.widget.TextInputLayout>-->
 
         <FrameLayout
             android:id="@+id/btnCreatePamp_FSU"
