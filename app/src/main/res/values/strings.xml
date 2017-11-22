@@ -9,6 +9,9 @@
     <string name="title_sign_up">Créer un compte</string>
     <string name="title_login">"Connectez-vous"</string>
     <string name="title_create_password">Finalister Votre Creation de Compte</string>
+    <string name="title_received_plans">Received Good Deals</string>
+    <string name="title_proposed_plans">Proposed Good Deals</string>
+
 
 
     <!--Buttons-->
@@ -22,6 +25,10 @@
     <string name="button_send">ENVOYER</string>
     <string name="button_cancel">ANNULER</string>
     <string name="button_retry">recommencez</string>
+    <string name="button_propose">PROPOSER</string>
+    <string name="button_re_broadcast">Re-diffuser</string>
+    <string name="button_re_use">Réutiliser</string>
+
 
 
 
@@ -73,6 +80,8 @@
 
     <!--Messages-->
     <string name="msg_try_login_with_new_password">Try to login with the new password</string>
+    <string name="msg_empty_received_good_plans">Partager l’appli \npour + de \nbons plans !</string>
+    <string name="msg_empty_proposed_good_plans">Proposer votre \npremier bon plan… \nC’est tellement bon !</string>
 
 
     <!--Menu-->

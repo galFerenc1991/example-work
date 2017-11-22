@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.base.tabs;
 
 import android.support.design.widget.TabLayout;
 
+import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
 import com.ferenc.pamp.presentation.custom.ScrollableViewPager;
 
@@ -20,10 +21,10 @@ public abstract class ContentTabsFragment extends ContentFragment {
 
     public TabPagerAdapter tabPagerAdapter;
 
-    @ViewById
-    protected TabLayout tlTabs_FCT;
-    @ViewById
-    public ScrollableViewPager vpContent_FCT;
+    @ViewById(R.id.tlTabs_FCT)
+    protected TabLayout tlTabs;
+    @ViewById(R.id.vpContent_FCT)
+    public ScrollableViewPager vpContent;
 
     @AfterInject
     protected void initData() {
@@ -35,9 +36,10 @@ public abstract class ContentTabsFragment extends ContentFragment {
 
     @AfterViews
     protected void initUI() {
-        mActivity.getToolbarManager().enableToolbarElevation(false);
-        vpContent_FCT.setAdapter(tabPagerAdapter);
-        tlTabs_FCT.setupWithViewPager(vpContent_FCT);
+        mActivity.getToolbarManager().enableToolbarElevation(true);
+        mActivity.getToolbarManager().hideToolbar(true);
+        vpContent.setAdapter(tabPagerAdapter);
+        tlTabs.setupWithViewPager(vpContent);
     }
 
     @Override

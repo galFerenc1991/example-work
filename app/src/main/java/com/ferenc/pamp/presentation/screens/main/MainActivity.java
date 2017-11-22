@@ -10,12 +10,10 @@ import android.widget.TextView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.base.BaseActivity;
-import com.ferenc.pamp.presentation.screens.auth.AuthFragment_;
-import com.ferenc.pamp.presentation.screens.main.home.HomeFragment_;
+import com.ferenc.pamp.presentation.screens.main.good_plan.GoodPlanFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -24,6 +22,9 @@ import java.util.concurrent.TimeUnit;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
+
+    @ViewById(R.id.toolbar_AM)
+    protected Toolbar mToolBar;
 
     @ViewById(R.id.llTabGoodPlan_AM)
     protected LinearLayout mTabGoodPlan;
@@ -61,11 +62,11 @@ public class MainActivity extends BaseActivity {
     }
 
     protected void initFragment() {
-        replaceFragment(HomeFragment_.builder().build());
+        replaceFragment(GoodPlanFragment_.builder().build());
     }
 
     @AfterViews
-    protected void initBottomBar(){
+    protected void initBottomBar() {
         RxView.clicks(mTabGoodPlan)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> {
@@ -125,6 +126,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected Toolbar getToolbar() {
-        return null;
+        return mToolBar;
     }
 }

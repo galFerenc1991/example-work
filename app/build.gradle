@@ -54,6 +54,9 @@ dependencies {
     implementation "com.soundcloud.android:android-crop:${cropVersion}"
     implementation "com.daimajia.swipelayout:library:${swipeLayoutVersion}"
     implementation 'com.romandanylyk:pageindicatorview:0.2.0'
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation "com.android.support:recyclerview-v7:${androidSupportVersion}"
+
     /*Reactive*/
     implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
     implementation "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}"

@@ -135,4 +135,10 @@ public class CountryDialog extends DialogFragment implements CountryContract.Vie
     public void showPlaceholder(Constants.PlaceholderType placeholderType) {
 
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.unsubscribe();
+    }
 }

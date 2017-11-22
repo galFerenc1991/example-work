@@ -2,43 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rlPlaceholder_VC"
-    tools:visibility="visible"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="@drawable/bg_green"
     android:padding="@dimen/padding_double"
-    android:visibility="gone">
+    android:visibility="gone"
+    tools:visibility="visible">
 
     <TextView
         android:id="@+id/tvPlaceholderMessage_VC"
-        tools:text="Connection problems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_large"
-        android:textColor="@color/colorGray"
+        android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:textColor="@color/colorGray"
+        android:textSize="@dimen/text_size_large"
+        tools:text="Connection problems" />
 
     <ImageView
         android:id="@+id/ivPlaceholderImage_VC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/icon_min_size"
-        android:minWidth="@dimen/icon_min_size"
-        android:layout_marginBottom="@dimen/margin_default"
         android:layout_above="@id/tvPlaceholderMessage_VC"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:minHeight="@dimen/icon_min_size"
+        android:minWidth="@dimen/icon_min_size"
         tools:src="@drawable/places_ic_clear" />
 
     <Button
         android:id="@+id/btnPlaceholderAction_VC"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/default_button_height"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/confirm_button_height"
+        android:layout_below="@id/tvPlaceholderMessage_VC"
+        android:paddingStart="@dimen/padding_double"
+        android:paddingEnd="@dimen/padding_double"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_triple"
+        android:background="@drawable/bg_confirm_button"
+        android:text="@string/button_retry" />
+
+    <ImageButton
+        android:id="@+id/btnPlaceholderAction1_VC"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@id/tvPlaceholderMessage_VC"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
-        android:text="@string/button_retry" />
+        android:layout_marginTop="@dimen/margin_triple"
+        android:background="@drawable/bg_circle_button"
+        android:src="@drawable/ic_re_diffuser_ic" />
 
 </RelativeLayout>

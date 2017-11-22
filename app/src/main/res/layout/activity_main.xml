@@ -4,11 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_AM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp" />
+
     <FrameLayout
         android:id="@+id/flContainer_AM"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/llBottomBar_AM"
+        android:layout_below="@+id/toolbar_AM"
         android:backgroundTint="@android:color/white" />
 
     <LinearLayout
@@ -52,7 +60,7 @@
         <LinearLayout
             android:id="@+id/llTabPropose_AM"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
             android:layout_weight="1"
             android:orientation="vertical">
 

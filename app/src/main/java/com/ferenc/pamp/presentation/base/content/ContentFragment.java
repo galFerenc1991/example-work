@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -53,6 +54,8 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
     protected ImageView ivPlaceholderImage_VC;
     @ViewById
     protected Button btnPlaceholderAction_VC;
+    @ViewById
+    protected ImageButton btnPlaceholderAction1_VC;
 
     private Snackbar snackbar;
 
@@ -88,6 +91,12 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
                 .subscribe(aVoid -> onPlaceholderAction());
         swipeContainer_VC.setEnabled(false);
         swipeContainer_VC.setColorSchemeColors(ContextCompat.getColor(mActivity, R.color.colorPrimaryDark));
+
+        RxView.clicks(btnPlaceholderAction1_VC)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(aVoid -> onPlaceholderAction());
+        swipeContainer_VC.setEnabled(false);
+        swipeContainer_VC.setColorSchemeColors(ContextCompat.getColor(mActivity, R.color.colorPrimaryDark));
     }
 
     protected void onPlaceholderAction() {
@@ -119,6 +128,9 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
         ivPlaceholderImage_VC.setImageResource(placeholderType.getIconRes());
         tvPlaceholderMessage_VC.setText(placeholderType.getMessageRes());
         btnPlaceholderAction_VC.setVisibility(placeholderType == Constants.PlaceholderType.EMPTY
+                ? View.GONE
+                : View.VISIBLE);
+        btnPlaceholderAction1_VC.setVisibility(placeholderType == Constants.PlaceholderType.EMPTY
                 ? View.GONE
                 : View.VISIBLE);
     }

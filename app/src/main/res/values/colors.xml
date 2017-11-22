@@ -10,6 +10,10 @@
     <color name="colorLogoDark">#312c85</color>
     <color name="colorRed">#f44336</color>
     <color name="colorGrayLight">#f2f2f2</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorReuseIndicator">#f900ca</color>
+    <color name="colorRebroadcast">#2980b9</color>
+
 
     <color name="colorBlackTransparent">#88000000</color>
     <color name="colorGray">#8a000000</color>
@@ -24,6 +28,8 @@
     <color name="textColorGray">#333333</color>
     <color name="textColorLoginForgotPassword">#f1e881</color>
     <color name="textColorGreen">#34c47c</color>
+    <color name="textColorBlack">#000000</color>
+
 
 
 
@@ -34,8 +40,6 @@
     <color name="textColorRed">#d32f2f</color>
 
 
-    <color name="textColorBlack">#de000000</color>
-    <color name="textColorBlackTutorial">#333333</color>
 
     <color name="textColorLight">#79c7d6</color>
 

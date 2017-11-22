@@ -18,7 +18,8 @@ public abstract class ValidationManager {
 
     private static final Pattern regExPhoneNumber = Pattern.compile("^[0-9]{12,15}$");   //12-15 digits
     private static final Pattern regExLicenceId = Pattern.compile("^([A-Z]{3})(\\040)(\\d{6})$");   //3 upper case letter and 6 digits
-    private static final Pattern regExPassword = Pattern.compile("^(?=\\S*[a-z])(?=\\S*[A-Z])(?=\\S*[^a-zA-Z\\d])\\S{6,24}$");   //6-24, lower, upper, special
+//    private static final Pattern regExPassword = Pattern.compile("^(?=\\S*[a-z])(?=\\S*[A-Z])(?=\\S*[^a-zA-Z\\d])\\S{6,24}$");   //6-24, lower, upper, special
+    private static final Pattern regExPassword = Pattern.compile("^\\S{6,24}$");   //6-24, lower, upper, special
 
     public static int validatePhoneNumber(String phoneNumber) {
         if(TextUtils.isEmpty(phoneNumber)) return EMPTY;

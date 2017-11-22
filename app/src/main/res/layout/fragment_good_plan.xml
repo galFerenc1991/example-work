@@ -11,26 +11,19 @@
         android:orientation="vertical">
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tlTabs_FCT"
+            android:id="@+id/tlTabs_FGP"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/colorWhite"
-            app:tabSelectedTextColor="@color/textColorGray"
-            app:tabTextColor="@color/textColorGray"
-            app:tabIndicatorColor="@color/color_tab_indicator"/>
-
-        <View
-            android:id="@+id/viewWhiteLine_FCT"
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_below="@id/tlTabs_FCT"
-            android:background="@color/colorWhite" />
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:tabSelectedTextColor="@color/textColorGreen"
+            app:tabTextColor="@color/textColorGray" />
 
         <com.ferenc.pamp.presentation.custom.ScrollableViewPager
-            android:id="@+id/vpContent_FCT"
+            android:id="@+id/vpContent_FGP"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/viewWhiteLine_FCT"
+            android:layout_below="@id/tlTabs_FCT"
             android:overScrollMode="never" />
 
     </RelativeLayout>

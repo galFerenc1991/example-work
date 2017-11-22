@@ -51,6 +51,24 @@
         <item name="android:textSize">@dimen/text_size_very_small</item>
     </style>
 
+    <style name="GoodPlanWithTextStyle">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="ProductNameTextStyle">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="OrderStatusTextStyle">
+        <item name="android:textColor">@color/textColorGreen</item>
+        <item name="android:textSize">@dimen/text_size_very_small</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
     <!-- Button text styles -->
 
     <style name="AuthButtonTextStyle">

@@ -64,7 +64,7 @@ public class CountryPresenter implements CountryContract.Presenter {
 
     @Override
     public void unsubscribe() {
-
+        mCompositeDisposable.clear();
     }
 
     @Override

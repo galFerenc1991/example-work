@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_default_height">
+
+    <ImageView
+        android:id="@+id/ivAvatar_LIDP"
+        android:layout_width="@dimen/profile_image_default_size"
+        android:layout_height="@dimen/profile_image_default_size"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:src="@drawable/ic_add_profile_picture" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_toEndOf="@+id/ivAvatar_LIDP">
+
+        <TextView
+            android:id="@+id/tvGoodPlanWith_LIDP"
+            style="@style/GoodPlanWithTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_half"
+            android:text="Bon plan de Romaric" />
+
+        <TextView
+            android:id="@+id/tvProductName_LIDP"
+            style="@style/ProductNameTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Entre-Deux-Mer/ Chateau de..." />
+
+        <TextView
+            android:id="@+id/tvOrderStatus_LIDP"
+            style="@style/OrderStatusTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:drawableStart="@drawable/ic_check"
+            android:gravity="center_vertical"
+            android:text="Vous avez commandé" />
+
+        <TextView
+            android:id="@+id/tvPlanStatus_LIDP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="@dimen/margin_half"
+            android:layout_marginTop="@dimen/margin_half"
+            android:text="Closed" />
+
+        <ImageView
+            android:id="@+id/ivReuseIndicator_LIDP"
+            android:layout_width="22dp"
+            android:layout_height="44dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/bg_reused_indicator" />
+    </RelativeLayout>
+</RelativeLayout>

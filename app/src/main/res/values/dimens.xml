@@ -20,8 +20,6 @@
 
     <dimen name="default_button_height">48dp</dimen>
     <dimen name="confirm_button_height">39dp</dimen>
-    <dimen name="photo_size">70dp</dimen>
-    <dimen name="find_padding_radio_button">22dp</dimen>
 
     <!--Typography-->
     <dimen name="text_size_very_small">12sp</dimen>
@@ -36,5 +34,11 @@
     <dimen name="bottom_bar_height">56dp</dimen>
     <dimen name="icon_size">18dp</dimen>
     <dimen name="icon_min_size">30dp</dimen>
+    <dimen name="profile_image_default_size">66dp</dimen>
+
+    <!--Item-->
+    <dimen name="item_default_height">100dp</dimen>
+    <dimen name="item_swipe_width">90dp</dimen>
+
 
 </resources>

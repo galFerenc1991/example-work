@@ -66,7 +66,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 //        }
         if (errCodeEmail == ValidationManager.OK && errCodePass == ValidationManager.OK) {
             mView.showProgressMain();
-            mCompositeDisposable.add(mModel.signIn(new SignInRequest(_email, _password))
+            mCompositeDisposable.add(mModel.signIn(new SignInRequest(_email.replaceAll("\\s+$", ""), _password))
                     .subscribe(user -> {
                         mView.hideProgress();
                         mView.openHomeScreen();
