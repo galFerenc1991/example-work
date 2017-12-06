@@ -183,8 +183,6 @@ public class LoginFragment extends ContentFragment implements LoginContract.View
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Constants.REQUEST_CODE_GOOGLE) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
@@ -195,7 +193,6 @@ public class LoginFragment extends ContentFragment implements LoginContract.View
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             mPresenter.loginWithGoogle(account.getIdToken());
         } catch (ApiException e) {
-            Log.d("Google", "signInResult:failed code=" + e.getStatusCode());
         }
     }
 

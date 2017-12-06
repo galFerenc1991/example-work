@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvTitle_ADD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:elevation="120dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivBack_ADD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_default"
+                android:src="@drawable/ic_arrow_back_green" />
+
+            <TextView
+                style="@style/AuthTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/text_size_title"
+                android:layout_marginStart="@dimen/margin_default"
+                android:text="@string/title_delivery_date" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvStartDate_ADD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cvTitle_ADD"
+        android:layout_margin="@dimen/margin_quart"
+        android:elevation="3dp">
+
+        <RelativeLayout
+            android:id="@+id/rlStartDate_ADD"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:layout_below="@+id/cvTitle_ADD">
+
+            <TextView
+                style="@style/DescriptionGoodPlanTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_default"
+                android:drawablePadding="@dimen/margin_double"
+                android:drawableStart="@drawable/ic_calendar"
+                android:hint="@string/hint_good_plan_delivery_begin_date" />
+
+            <TextView
+                android:id="@+id/tvStartDate_ADD"
+                style="@style/DeliveryDateTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginStart="@dimen/margin_default" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/textColorGrayTransparent" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvEndDate_ADD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cvStartDate_ADD"
+        android:layout_marginEnd="@dimen/margin_quart"
+        android:layout_marginStart="@dimen/margin_quart"
+        android:elevation="3dp">
+
+        <RelativeLayout
+            android:id="@+id/rlEndDate_ADD"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height">
+
+            <TextView
+                style="@style/DescriptionGoodPlanTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_default"
+                android:drawablePadding="@dimen/margin_double"
+                android:drawableStart="@drawable/ic_calendar"
+                android:hint="@string/hint_good_plan_delivery_finish_date" />
+
+            <TextView
+                android:id="@+id/tvEndDate_ADD"
+                style="@style/DeliveryDateTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginStart="@dimen/margin_default" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/textColorGrayTransparent" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <Button
+        android:id="@+id/btnValidate_ADD"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/confirm_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:background="@drawable/bg_confirm_button"
+        android:paddingEnd="@dimen/padding_double"
+        android:paddingStart="@dimen/padding_double"
+        android:text="@string/button_confirm" />
+</RelativeLayout>

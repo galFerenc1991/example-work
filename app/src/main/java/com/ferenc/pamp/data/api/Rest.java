@@ -1,13 +1,14 @@
 package com.ferenc.pamp.data.api;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.ferenc.pamp.PampApp;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.api.exceptions.TimeoutException;
 import com.ferenc.pamp.data.service.AuthService;
+import com.ferenc.pamp.data.service.GoodDealService;
+import com.ferenc.pamp.data.service.UserService;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.google.gson.Gson;
 
@@ -98,5 +99,13 @@ public class Rest {
 
     public AuthService getAuthService() {
         return retrofit.create(AuthService.class);
+    }
+
+    public UserService getUserService() {
+        return retrofit.create(UserService.class);
+    }
+
+    public GoodDealService getGoodDealService(){
+        return retrofit.create(GoodDealService.class);
     }
 }

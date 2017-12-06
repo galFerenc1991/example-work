@@ -7,7 +7,8 @@ package com.ferenc.pamp.data.api;
 
 public abstract class RestConst {
 
-    public static final String BASE_URL = "https://pamp-qa.herokuapp.com/";
+    public static final String BASE_URL = "http://45.77.55.49:3031";
+    // : "http://45.77.55.49:3031/"
 
     public static final String HEADER_AUTH = "authorization";
     public static final String HEADER_ACCEPT = "Accept";

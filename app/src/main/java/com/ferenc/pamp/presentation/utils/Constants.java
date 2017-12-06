@@ -15,16 +15,39 @@ public abstract class Constants {
     public static final int CLICK_DELAY = 600;
 
     /*REQUEST CODES*/
-    public static final int REQUEST_CODE_GOOGLE = 0;
-    public static final int REQUEST_CODE_COUNTRY_DIALOG = 1;
+    public static final int REQUEST_CODE_GOOGLE = 1;
+    public static final int REQUEST_CODE_COUNTRY_DIALOG = 2;
+    public static final int REQUEST_CODE_INPUT_ACTIVITY_NAME = 3;
+    public static final int REQUEST_CODE_INPUT_ACTIVITY_DESCRIPTION = 4;
+    public static final int REQUEST_CODE_INPUT_ACTIVITY_PRICE = 5;
+    public static final int REQUEST_CODE_INPUT_ACTIVITY_PRICE_DESCRIPTION = 6;
+    public static final int REQUEST_CODE_INPUT_ACTIVITY_QUANTITY = 7;
+    public static final int REQUEST_CODE_ACTIVITY_DELIVERY_DATE = 8;
+    public static final int REQUEST_CODE_ACTIVITY_DELIVERY_PLACE = 9;
+    public static final int REQUEST_CODE_ACTIVITY_AUTOCOMPLETE_PLACE = 10;
+
+    /*PERMISSIONS REQUEST CODES*/
+    public static final int REQUEST_CODE_REED_CONTACTS = 11;
+    public static final int REQUEST_CODE_SEND_SMS = 12;
+
+
 
     /*KEYS*/
     public static final String KEY_COUNTRY = "country";
+    public static final String KEY_INPUT_INDICATOR = "indicator";
+    public static final String KEY_INPUT_RESULT = "indicator";
+    public static final String KEY_START_DATE_RESULT = "startDate";
+    public static final String KEY_END_DATE_RESULT = "endDate";
+    public static final String KEY_PLACE_RESULT = "place";
 
+    /*KEYS*/
+    public static final int DESCRIPTION_TAB_POSITION = 0;
+    public static final int DELIVERY_TAB_POSITION = 1;
+    public static final int SHARE_TAB_POSITION = 2;
 
 
     /*GOOGLE CODES*/
-    public static final String GOOGLE_CLIENT_ID = "773378553548-46hfgulvfai96cd7aiba7v7c2ii7g1rm.apps.googleusercontent.com";
+    public static final String GOOGLE_CLIENT_ID = "392469561251-kl0irng19cc3ne0vurejkb6fanu1tv3j.apps.googleusercontent.com";
 
 
     public enum MessageType {

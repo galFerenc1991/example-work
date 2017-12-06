@@ -5,11 +5,15 @@ import android.view.View;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
+import com.ferenc.pamp.presentation.screens.main.MainActivity;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.jakewharton.rxbinding2.view.RxView;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by
@@ -42,18 +46,28 @@ public class ProposedPlansFragment extends ContentFragment implements ProposedPl
 
     @AfterViews
     protected void initUI() {
+        RxView.clicks(btnPlaceholderAction_VC)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.openProposerFragment());
+
         mPresenter.subscribe();
     }
 
     @Override
     public void showPlaceholder(Constants.PlaceholderType placeholderType) {
         super.showPlaceholder(placeholderType);
-        if (placeholderType == Constants.PlaceholderType.EMPTY){
+        if (placeholderType == Constants.PlaceholderType.EMPTY) {
             tvPlaceholderMessage_VC.setText(R.string.msg_empty_proposed_good_plans);
             ivPlaceholderImage_VC.setVisibility(View.INVISIBLE);
             btnPlaceholderAction_VC.setVisibility(View.VISIBLE);
             btnPlaceholderAction_VC.setText(R.string.button_propose);
         }
+    }
+
+    @Override
+    public void openProposerFragment() {
+        MainActivity activity = (MainActivity) getActivity();
+        activity.clickedPropose();
     }
 
     @Override

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/image_340">
+
+    <TextView
+        android:id="@+id/tvTitleDelivery_FD"
+        style="@style/DeliveryTitleTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_double"
+        android:layout_marginStart="@dimen/margin_double"
+        android:layout_marginTop="@dimen/margin_large"
+        android:gravity="center_horizontal"
+        android:text="@string/text_title_delivery" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvTitleDelivery_FD"
+        android:layout_margin="@dimen/margin_default"
+        android:background="@color/colorGreyTransparent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_size_large"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_bar_height">
+
+                <TextView
+                    android:id="@+id/tvCloseDate_FDel"
+                    style="@style/DescriptionGoodPlanTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="@dimen/margin_double"
+                    android:drawableStart="@drawable/ic_hourglass"
+                    android:hint="@string/hint_good_plan_closing_date" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@color/textColorGrayTransparent" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_bar_height">
+
+                <TextView
+                    android:id="@+id/tvDeliveryPlace_FDel"
+                    style="@style/DescriptionGoodPlanTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="@dimen/margin_double"
+                    android:drawableStart="@drawable/ic_location"
+                    android:hint="@string/hint_good_plan_delivery_place" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@color/textColorGrayTransparent" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvDeliveryDate_FDel"
+                    style="@style/DescriptionGoodPlanTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/margin_double"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:hint="@string/hint_good_plan_delivery_date" />
+
+                <TextView
+                    style="@style/DescriptionGoodPlanQuantityTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_default"
+                    android:layout_marginStart="60dp"
+                    android:text="@string/text_description_delivery" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

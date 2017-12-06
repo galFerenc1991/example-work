@@ -12,10 +12,11 @@ import com.ferenc.pamp.presentation.base.content.ContentView;
 
 public interface ProposedPlansContract {
     interface View extends ContentView, BaseView<Presenter> {
-
+        void openProposerFragment();
     }
 
     interface Presenter extends BasePresenter {
+        void openProposerFragment();
 
     }
 

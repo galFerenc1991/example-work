@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvTitle_ADP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:elevation="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivBack_ADP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_default"
+                android:src="@drawable/ic_arrow_back_green" />
+
+            <TextView
+                style="@style/AuthTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_default"
+                android:text="@string/title_delivery_place"
+                android:textSize="@dimen/text_size_title" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvSelectPlace_ADD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cvTitle_ADP"
+        android:layout_margin="@dimen/margin_quart"
+        android:elevation="3dp">
+
+        <RelativeLayout
+            android:id="@+id/rlSelectPlace_ADP"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:layout_below="@+id/cvTitle_ADP">
+
+            <TextView
+                style="@style/DescriptionGoodPlanTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_default"
+                android:drawablePadding="@dimen/margin_double"
+                android:drawableStart="@drawable/ic_add_circle_green"
+                android:hint="@string/hint_good_plan_delivery_select_place" />
+
+            <!--<TextView-->
+            <!--android:id="@+id/tvStartDate_ADP"-->
+            <!--style="@style/DeliveryDateTextStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginEnd="@dimen/margin_default"-->
+            <!--android:layout_marginStart="@dimen/margin_default" />-->
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:background="@color/textColorGrayTransparent" />-->
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

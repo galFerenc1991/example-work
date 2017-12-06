@@ -1,8 +1,15 @@
 package com.ferenc.pamp.presentation.screens.main;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,6 +18,8 @@ import android.widget.TextView;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.screens.main.good_plan.GoodPlanFragment_;
+import com.ferenc.pamp.presentation.screens.main.profile.ProfileFragment_;
+import com.ferenc.pamp.presentation.screens.main.propose.ProposeFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -25,6 +34,8 @@ public class MainActivity extends BaseActivity {
 
     @ViewById(R.id.toolbar_AM)
     protected Toolbar mToolBar;
+    @ViewById(R.id.tlBottomBar)
+    protected TabLayout tlBottomBar;
 
     @ViewById(R.id.llTabGoodPlan_AM)
     protected LinearLayout mTabGoodPlan;
@@ -58,15 +69,59 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initFragment();
+        if (savedInstanceState == null)
+            initFragment();
     }
 
-    protected void initFragment() {
+    private void initFragment() {
         replaceFragment(GoodPlanFragment_.builder().build());
     }
 
     @AfterViews
     protected void initBottomBar() {
+
+        TabLayout.Tab tab1 = tlBottomBar.newTab();
+        tab1.setIcon(R.drawable.selector_bb_tab1);
+        tab1.setText("bon plan");
+//        tab1.setCustomView(R.layout.view_tab1);
+        TabLayout.Tab tab2 = tlBottomBar.newTab();
+        tab2.setIcon(R.drawable.selector_bb_tab2);
+        tab2.setText("proposer");
+//        tab2.setCustomView(R.layout.view_tab2);
+        TabLayout.Tab tab3 = tlBottomBar.newTab();
+        tab3.setIcon(R.drawable.selector_bb_tab3);
+        tab3.setText("compte");
+//        tab3.setCustomView(R.layout.view_tab3);
+        tlBottomBar.addTab(tab1);
+        tlBottomBar.addTab(tab2);
+        tlBottomBar.addTab(tab3);
+        tlBottomBar.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        replaceFragmentClearBackstack(GoodPlanFragment_.builder().build());
+                        break;
+                    case 1:
+                        replaceFragmentClearBackstack(ProposeFragment_.builder().build());
+                        break;
+                    case 2:
+                        replaceFragmentClearBackstack(ProfileFragment_.builder().build());
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         RxView.clicks(mTabGoodPlan)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> {
@@ -82,6 +137,8 @@ public class MainActivity extends BaseActivity {
 
                     ivPropose.setImageResource(R.drawable.ic_proposer_ic);
                     ivAccount.setImageResource(R.drawable.ic_compte_ic);
+
+                    replaceFragmentClearBackstack(GoodPlanFragment_.builder().build());
                 });
 
         RxView.clicks(mTabPropose)
@@ -99,6 +156,8 @@ public class MainActivity extends BaseActivity {
 
                     ivGoodPlan.setImageResource(R.drawable.ic_bon_plan_ic);
                     ivAccount.setImageResource(R.drawable.ic_compte_ic);
+
+                    replaceFragmentClearBackstack(ProposeFragment_.builder().build());
                 });
 
         RxView.clicks(mTabAccount)
@@ -116,7 +175,26 @@ public class MainActivity extends BaseActivity {
 
                     ivGoodPlan.setImageResource(R.drawable.ic_bon_plan_ic);
                     ivPropose.setImageResource(R.drawable.ic_proposer_ic);
+
+                    replaceFragmentClearBackstack(ProfileFragment_.builder().build());
                 });
+    }
+
+    public void clickedPropose() {
+        viewProposeIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.textColorGreen));
+        tvPropose.setTextColor(ContextCompat.getColor(this, R.color.textColorGreen));
+        ivPropose.setImageResource(R.drawable.ic_proposer_act_ic);
+
+        viewGoodPlanIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.textColorWhiteTransparent));
+        viewAccountIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.textColorWhiteTransparent));
+
+        tvGoodPlnan.setTextColor(ContextCompat.getColor(this, R.color.colorGray));
+        tvAccount.setTextColor(ContextCompat.getColor(this, R.color.colorGray));
+
+        ivGoodPlan.setImageResource(R.drawable.ic_bon_plan_ic);
+        ivAccount.setImageResource(R.drawable.ic_compte_ic);
+
+        replaceFragmentClearBackstack(ProposeFragment_.builder().build());
     }
 
     @Override

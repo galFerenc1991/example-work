@@ -9,9 +9,14 @@
     <string name="title_sign_up">Créer un compte</string>
     <string name="title_login">"Connectez-vous"</string>
     <string name="title_create_password">Finalister Votre Creation de Compte</string>
-    <string name="title_received_plans">Received Good Deals</string>
-    <string name="title_proposed_plans">Proposed Good Deals</string>
-
+    <string name="title_received_plans">Bons plans reçus</string>
+    <string name="title_proposed_plans"> Bons plans proposés</string>
+    <string name="title_description">Description</string>
+    <string name="title_delivery">Livraison</string>
+    <string name="title_share">Diffusion</string>
+    <string name="title_propose">VOTRE BON PLAN</string>
+    <string name="title_delivery_date">Date de Livraison</string>
+    <string name="title_delivery_place">Lieu de Livraison</string>
 
 
     <!--Buttons-->
@@ -28,9 +33,8 @@
     <string name="button_propose">PROPOSER</string>
     <string name="button_re_broadcast">Re-diffuser</string>
     <string name="button_re_use">Réutiliser</string>
-
-
-
+    <string name="button_next">suivant</string>
+    <string name="button_share">Diffuser</string>
 
 
     <!--Hints-->
@@ -40,6 +44,18 @@
     <string name="hint_country">Pays de résidence</string>
     <string name="hint_password">Mot de passe</string>
     <string name="hint_confirm_password">Confirmer le mot de passe</string>
+    <string name="hint_good_plan_name">Nom du produit</string>
+    <string name="hint_good_plan_description">Décrire votre bon plan</string>
+    <string name="hint_good_plan_price">Prix</string>
+    <string name="hint_good_plan_price_description">Quoi? (unité)</string>
+    <string name="hint_good_plan_quantity">Quantité maximum (optionnel)</string>
+    <string name="hint_good_plan_closing_date">Date de clôture du bon plan</string>
+    <string name="hint_good_plan_delivery_place">Lieu de livraison</string>
+    <string name="hint_good_plan_delivery_date">Date de livraison</string>
+    <string name="hint_good_plan_delivery_begin_date">Début</string>
+    <string name="hint_good_plan_delivery_finish_date">Fin</string>
+    <string name="hint_good_plan_delivery_select_place">Entrer un nouveau lieu de livraison</string>
+
 
     <!--Error messages-->
     <string name="err_msg_required">Required field</string>
@@ -92,9 +108,27 @@
     <string name="verification_dialog_title">Vérification de votre email</string>
     <string name="verification_dialog_message">Pour finaliser vorte création de compte un email vous a été envoyé</string>
 
+    <!--Verification Error Dialog-->
+    <string name="verification_error_dialog_title">Pour diffuser votre bon plan \nvous devez remplir les champs \nobligatoires suivants :</string>
+
+    <string name="text_good_plan_name">- nom du produit</string>
+    <string name="text_good_plan_description">- décrire votre bon plan</string>
+    <string name="text_good_plan_price">- prix</string>
+    <string name="text_good_plan_price_description">- prix quoi? (unité)</string>
+    <string name="text_good_plan_closing_date">- date de clôture du bon plan</string>
+    <string name="text_good_plan_delivery_place">- lieu de livraison</string>
+    <string name="text_good_plan_delivery_date">- date de livraison</string>
+
     <!--Forgot password Dialog-->
     <string name="forgot_password_dialog_title">Mot de passe oublié ?</string>
     <string name="forgot_password__message">"S'il vous plaît entrer votre adresse mail enregistré sur votre compte."</string>
+
+    <!--Date PickerDialog-->
+    <string name="close_date_dialog_title">Date de clôture</string>
+    <string name="start_delivery_date_dialog_title">Date de livraison (début)</string>
+    <string name="end_delivery_date_dialog_title">Date de livraison (fin)</string>
+
+
 
     <!--Days-->
     <string-array name="days_of_week">
@@ -117,6 +151,7 @@
     </string-array>
 
     <!--Texts-->
+
     <!--Splash texts-->
     <string name="text_splash_title">Bienvenue sur</string>
     <string name="text_splash_subtext">Partager avec mes proches</string>
@@ -136,13 +171,28 @@
     <!--Auth texts-->
     <string name="text_already_registered">déjà inscrit ?</string>
 
-    <!--SignUp texts-->
-
     <!--Create Password texts-->
-
     <string name="text_create_password_first">"Nous nous engageons à protéger votre vie privée et ne vendrons ou ne louerons jamais votre adresse e-mail ni aucune autre données.En poursuivant, vous acceptez nos conditions d’utilisation et notre politique de confidentialité"</string>
     <string name="text_create_password_second">Conditions d’utilisation (et politique de confidentialité)</string>
     <string name="text_forgot_password">mot de passe oublié ?</string>
     <string name="text_or">ou</string>
+
+    <!--Description propose-->
+    <string name="text_description_quantity">Si vous êtes limité pour le transport ou si votre producteur produit en quantité limitée, pensez à bloquer automatiquement les commandes quand la limite est atteinte</string>
+
+    <!--Delivery propose-->
+    <string name="text_title_delivery">Paramétrer les conditions pour répondre et récupérer les produits</string>
+    <string name="text_description_delivery">Vous pourrez la changer à tout moment, tout au long du bon plan</string>
+
+    <!--Profile texts-->
+    <string name="text_profile_information">Vos informations de profil</string>
+    <string name="text_good_plans">Vos bons plans commandés</string>
+    <string name="text_about">A propos</string>
+    <string name="text_share">Partagez cette appli</string>
+    <string name="text_connect">Nous contacter</string>
+    <string name="text_logout">Logout</string>
+    <string name="text_connect_description">Posez vos questions, faites nous des suggestions, donnez nous votre avis, signaler un bug…</string>
+
+
 
 </resources>

@@ -54,6 +54,10 @@ public abstract class ValidationManager {
         return TextUtils.isEmpty(gender) ? EMPTY : OK;
     }
 
+    public static int validateText(String _text) {
+        return TextUtils.isEmpty(_text) ? EMPTY : OK;
+    }
+
     public static int validateEmail(String email) {
         String result = email.replaceAll("\\s+$", "");
         return android.util.Patterns.EMAIL_ADDRESS.matcher(result).matches() ? OK : INVALID;
@@ -67,6 +71,16 @@ public abstract class ValidationManager {
     public static int validateNumberOfSeats(String number) {
         if(TextUtils.isEmpty(number)) return EMPTY;
         return Integer.valueOf(number) > 0 ? OK : INVALID;
+    }
+
+    public static int validateNumber(String _number) {
+        if(TextUtils.isEmpty(_number)) return EMPTY;
+        return Integer.valueOf(_number) > 0 ? OK : INVALID;
+    }
+
+    public static int validateLongNumber(String _number) {
+        if(TextUtils.isEmpty(_number)) return EMPTY;
+        return Long.valueOf(_number) > 0 ? OK : INVALID;
     }
 
     public static int validateColor(String color) {

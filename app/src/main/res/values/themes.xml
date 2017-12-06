@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">@color/textColorGray</item>
         <item name="colorPrimaryDark">@color/textColorGray</item>
@@ -11,12 +12,11 @@
         <item name="colorControlActivated">@color/textColorGray</item>
     </style>
 
-
     <style name="DialogTheme" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="colorAccent">@color/textColorGreen</item>
     </style>
 
-    <style name="DialogTheme.Country" >
+    <style name="DialogTheme.Country">
         <item name="colorAccent">@color/textColorGreen</item>
         <item name="android:textColorPrimary">@color/textColorGray</item>
         <item name="colorControlNormal">@color/textColorGreen</item>

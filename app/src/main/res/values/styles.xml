@@ -10,6 +10,19 @@
 
     </style>
 
+    <style name="InputTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorAccent">@color/textColorBlack</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent
+        </item> <!-- Or any transparency or color you need -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/textColorGreenTransparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
+
     <!-- Texts styles. -->
 
     <style name="PampTitleStyle">
@@ -17,6 +30,12 @@
         <item name="android:textSize">@dimen/text_size_splash_big</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DeliveryTitleTextStyle">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="AuthTitleStyle">
@@ -66,6 +85,65 @@
     <style name="OrderStatusTextStyle">
         <item name="android:textColor">@color/textColorGreen</item>
         <item name="android:textSize">@dimen/text_size_very_small</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DescriptionGoodPlanTextStyle">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textColorHint">@color/textColorGrayTransparent</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="GoodPlanVerificationErrorTextStyle">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_size_big</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="CustomTabTextAppearanceStyle">
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="BottomBarTabTextAppearanceStyle">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="DeliveryDateTextStyle">
+        <item name="android:textColor">@color/textColorGreen</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="ValidateErrorDialogTextStyle">
+        <item name="android:layout_margin">@dimen/margin_half</item>
+        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="ContactNameTextStyle">
+        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="ContactPhoneTextStyle">
+        <item name="android:textColor">@color/textColorLightGray</item>
+        <item name="android:textSize">@dimen/text_size_very_small</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DescriptionGoodPlanQuantityTextStyle">
+        <item name="android:textColor">@color/textColorGrayTransparent</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="ProposeInputEditTextStyle">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 

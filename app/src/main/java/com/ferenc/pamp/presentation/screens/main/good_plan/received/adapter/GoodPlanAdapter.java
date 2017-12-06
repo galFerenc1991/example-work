@@ -30,7 +30,6 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
 
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
             itemView.setOnClickListener(view -> {
-                Toast.makeText(view.getContext(), "onItemSelected:", Toast.LENGTH_LONG).show();
             });
         }
     }

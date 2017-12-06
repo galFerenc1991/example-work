@@ -10,14 +10,32 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:id="@+id/rlTitle_FCT"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:background="@color/colorWhite"
+            android:visibility="visible">
+
+            <TextView
+                style="@style/AuthTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/title_propose" />
+        </RelativeLayout>
+
         <android.support.design.widget.TabLayout
             android:id="@+id/tlTabs_FCT"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_below="@+id/rlTitle_FCT"
             android:background="@color/colorWhite"
+            android:elevation="@dimen/padding_half"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            app:tabIndicatorColor="@color/color_tab_indicator"
             app:tabSelectedTextColor="@color/textColorGray"
-            app:tabTextColor="@color/textColorGray"
-            app:tabIndicatorColor="@color/color_tab_indicator"/>
+            app:tabTextColor="@color/textColorGray" />
 
         <View
             android:id="@+id/viewWhiteLine_FCT"

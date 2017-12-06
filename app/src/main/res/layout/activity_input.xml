@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorWhite"
+        android:minHeight="@dimen/item_default_height">
+
+        <!--<View-->
+        <!--android:id="@+id/viewLine_AI"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_below="@+id/etContent_AI"-->
+        <!--android:background="@color/textColorGray" />-->
+
+        <ImageView
+            android:id="@+id/ivContentIcon_AI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_default"
+            android:src="@drawable/ic_calendar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivContentIcon_AI"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etContent_AI"
+                style="@style/ProposeInputEditTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:maxLines="3"
+                android:paddingBottom="@dimen/margin_default" />
+
+            <Button
+                android:id="@+id/btnOK_AI"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/ok_button_height"
+                android:layout_marginBottom="7dp"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/bg_confirm_button"
+                android:paddingEnd="@dimen/padding_double"
+                android:paddingStart="@dimen/padding_double"
+                android:text="@string/button_ok"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -14,6 +14,7 @@ import com.ferenc.pamp.presentation.screens.auth.login.LoginContract;
 import com.ferenc.pamp.presentation.screens.auth.sign_up.SignUpContract;
 import com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker.CountryContract;
 import com.ferenc.pamp.presentation.screens.auth.sign_up.create_password.CreatePasswordContract;
+import com.ferenc.pamp.presentation.screens.main.profile.ProfileContract;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 
@@ -32,7 +33,7 @@ import io.reactivex.Observable;
  * Ferenc on 2017.11.16..
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class AuthRepository extends NetworkRepository implements CreatePasswordContract.Model, LoginContract.Model, SignUpContract.Model, CountryContract.Model {
+public class AuthRepository extends NetworkRepository implements CreatePasswordContract.Model, LoginContract.Model, SignUpContract.Model, CountryContract.Model ,ProfileContract.Model{
     @Bean
     protected Rest rest;
     @Bean
@@ -118,18 +119,18 @@ public class AuthRepository extends NetworkRepository implements CreatePasswordC
                 });
     }
 
-//    @Override
-//    public Observable<SignUpResponse> signOut() {
-//        return getNetworkObservable(authService.signOut())
-//                .flatMap(signUpResponse -> {
-//                    mSharedPrefManager.edit()
-//                            .getAccessToken()
-//                            .remove()
-//                            .apply();
-//                    Log.d("Token", "Writed token: " + mSharedPrefManager.getAccessToken().get());
-//                    return Observable.just(signUpResponse);
-//                });
-//    }
+    @Override
+    public Observable<SignUpResponse> signOut() {
+        return getNetworkObservable(authService.signOut())
+                .flatMap(signUpResponse -> {
+                    mSharedPrefManager.edit()
+                            .getAccessToken()
+                            .remove()
+                            .apply();
+                    Log.d("Token", "Writed token: " + mSharedPrefManager.getAccessToken().get());
+                    return Observable.just(signUpResponse);
+                });
+    }
 
     @Override
     public Observable<SignUpResponse> forgotPassword(ForgotPasswordRequest request) {
@@ -140,8 +141,8 @@ public class AuthRepository extends NetworkRepository implements CreatePasswordC
     public Observable<List<String>> getCountryList() {
         return getNetworkObservable(authService.getCountryList())
                 .flatMap(countryList -> {
-                 List<String> countri = Arrays.asList(countryList.getCountry());
-                    return Observable.just(countri);
+                 List<String> country = Arrays.asList(countryList.getCountry());
+                    return Observable.just(country);
                 });
     }
 }

@@ -13,6 +13,8 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorReuseIndicator">#f900ca</color>
     <color name="colorRebroadcast">#2980b9</color>
+    <color name="colorGreyTransparent">#e2f5ec</color>
+
 
 
     <color name="colorBlackTransparent">#88000000</color>
@@ -28,7 +30,10 @@
     <color name="textColorGray">#333333</color>
     <color name="textColorLoginForgotPassword">#f1e881</color>
     <color name="textColorGreen">#34c47c</color>
+    <color name="textColorGreenTransparent">#6434c47c</color>
     <color name="textColorBlack">#000000</color>
+    <color name="textColorGrayTransparent">#80333333</color>
+
 
 
 
@@ -39,9 +44,6 @@
     <color name="textColorCyanLight">#00acc3</color>
     <color name="textColorRed">#d32f2f</color>
 
-
-
-    <color name="textColorLight">#79c7d6</color>
 
     <color name="tintColorGrey">#1E000000</color>
     <color name="textSelectedPreference">#2997a1</color>

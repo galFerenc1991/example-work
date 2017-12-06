@@ -22,6 +22,11 @@ public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
     }
 
     @Override
+    public void openProposerFragment() {
+        mView.openProposerFragment();
+    }
+
+    @Override
     public void subscribe() {
         mView.showPlaceholder(Constants.PlaceholderType.EMPTY);
     }
