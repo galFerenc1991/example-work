@@ -3,6 +3,7 @@ package com.ferenc.pamp.data.model.home.good_deal;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ferenc.pamp.data.model.common.Contributor;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -23,17 +24,19 @@ public class GoodDealResponse implements Parcelable {
     public long deliveryEndDate;
     public String deliveryAddress;
     public String title;
+    public Long createdAt;
+    public boolean isResend;
     public int rank;
     public String unit;
-    public String contributor;
-    public List<String> recipients;
+    public Contributor contributor;
+    public List<Contributor> recipients;
     public String state;
     @SerializedName("_id")
     public String id;
 
+
     public GoodDealResponse() {
     }
-
 
     @Override
     public int describeContents() {
@@ -51,10 +54,12 @@ public class GoodDealResponse implements Parcelable {
         dest.writeLong(this.deliveryEndDate);
         dest.writeString(this.deliveryAddress);
         dest.writeString(this.title);
+        dest.writeValue(this.createdAt);
+        dest.writeByte(this.isResend ? (byte) 1 : (byte) 0);
         dest.writeInt(this.rank);
         dest.writeString(this.unit);
-        dest.writeString(this.contributor);
-        dest.writeStringList(this.recipients);
+        dest.writeParcelable(this.contributor, flags);
+        dest.writeTypedList(this.recipients);
         dest.writeString(this.state);
         dest.writeString(this.id);
     }
@@ -69,10 +74,12 @@ public class GoodDealResponse implements Parcelable {
         this.deliveryEndDate = in.readLong();
         this.deliveryAddress = in.readString();
         this.title = in.readString();
+        this.createdAt = (Long) in.readValue(Long.class.getClassLoader());
+        this.isResend = in.readByte() != 0;
         this.rank = in.readInt();
         this.unit = in.readString();
-        this.contributor = in.readString();
-        this.recipients = in.createStringArrayList();
+        this.contributor = in.readParcelable(Contributor.class.getClassLoader());
+        this.recipients = in.createTypedArrayList(Contributor.CREATOR);
         this.state = in.readString();
         this.id = in.readString();
     }

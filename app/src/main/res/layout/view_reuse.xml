@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlReuse_VR"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/textColorGreen">
@@ -16,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivReBroadcast"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/padding_default"
         android:text="@string/button_re_use"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/text_size_very_small" />

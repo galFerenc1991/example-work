@@ -1,17 +1,19 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.received;
 
-import android.support.v7.widget.DividerItemDecoration;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.daimajia.swipe.util.Attributes;
 import com.ferenc.pamp.R;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
-import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.ProposedPlansContract;
-import com.ferenc.pamp.presentation.screens.main.good_plan.received.adapter.GoodPlanAdapter;
+import com.ferenc.pamp.presentation.screens.main.good_plan.good_plan_adapter.GoodPlanAdapter;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.jakewharton.rxbinding2.view.RxView;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -20,7 +22,8 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by
@@ -48,28 +51,39 @@ public class ReceivedPlansFragment extends ContentFragment implements ReceivedPl
     @ViewById(R.id.rvReceivedPlans_FRP)
     protected RecyclerView rvReceivedPlans;
 
+    @Bean
+    protected GoodDealRepository mGoodDealRepository;
 
     protected GoodPlanAdapter mGoodPlanAdapter;
-
-    private ArrayList<String> mDataSet;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new ReceivedPlansPresenter(this);
+        new ReceivedPlansPresenter(this, mGoodDealRepository);
     }
 
     @AfterViews
     protected void initUI() {
-        rvReceivedPlans.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        String[] adapterData = new String[]{"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"};
-        mDataSet = new ArrayList<String>(Arrays.asList(adapterData));
-        mGoodPlanAdapter = new GoodPlanAdapter(getContext(), mDataSet);
-//        ((RecyclerViewAdapter) mAdapter).setMode(Attributes.Mode.Single);
+        rvReceivedPlans.setLayoutManager(new LinearLayoutManager(getContext()));
+        mGoodPlanAdapter = new GoodPlanAdapter(Constants.ITEM_TYPE_RE_BROADCAST);
         rvReceivedPlans.setAdapter(mGoodPlanAdapter);
 
-        // mPresenter.subscribe();
+        RxView.clicks(btnPlaceholderAction_VC)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe();
+
+        mPresenter.subscribe();
+    }
+
+    @Override
+    public void setReceivedGoodPlanList(List<GoodDealResponse> _receivedGoodPlansList) {
+        mGoodPlanAdapter.setList(_receivedGoodPlansList);
+    }
+
+    @Override
+    public void sharePlayStoreLincInSMS() {
+
     }
 
     @Override

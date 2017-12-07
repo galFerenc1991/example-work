@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main;
 
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -16,21 +17,31 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ferenc.pamp.R;
+import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
+import com.ferenc.pamp.presentation.base.models.GoodDeal;
 import com.ferenc.pamp.presentation.screens.main.good_plan.GoodPlanFragment_;
 import com.ferenc.pamp.presentation.screens.main.profile.ProfileFragment_;
 import com.ferenc.pamp.presentation.screens.main.propose.ProposeFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.jakewharton.rxbinding2.view.RxView;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.concurrent.TimeUnit;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainContract.View {
+
+    private MainContract.Presenter mPresenter;
+
+    @Bean
+    protected GoodDealRepository mGoodDealRepository;
 
     @ViewById(R.id.toolbar_AM)
     protected Toolbar mToolBar;
@@ -77,8 +88,30 @@ public class MainActivity extends BaseActivity {
         replaceFragment(GoodPlanFragment_.builder().build());
     }
 
+    @AfterInject
+    @Override
+    public void initPresenter() {
+        new MainPresenter(this, mGoodDealRepository);
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
     @AfterViews
     protected void initBottomBar() {
+
+        FirebaseDynamicLinks
+                .getInstance().getDynamicLink(this.getIntent())
+                .addOnSuccessListener(pendingDynamicLinkData -> {
+                    Uri deepLink = null;
+                    if (pendingDynamicLinkData != null) {
+                        deepLink = pendingDynamicLinkData.getLink();
+                        String id = deepLink.getQueryParameter("id");
+                        mPresenter.connectGoodDeal(id);
+                    }
+                });
 
         TabLayout.Tab tab1 = tlBottomBar.newTab();
         tab1.setIcon(R.drawable.selector_bb_tab1);

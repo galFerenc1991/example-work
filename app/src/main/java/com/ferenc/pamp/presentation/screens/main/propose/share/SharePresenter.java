@@ -8,11 +8,13 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.ferenc.pamp.PampApp_;
+import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.presentation.base.models.GoodDeal;
 import com.ferenc.pamp.presentation.base.models.UserContact;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
+import com.ferenc.pamp.presentation.utils.FirebaseDynamicLinkGenerator;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealValidateManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
@@ -142,20 +144,9 @@ public class SharePresenter implements ShareContract.Presenter {
                 mCompositeDisposable.add(mModel.createGoodDeal(createRequestParameter(contactDHList))
                         .subscribe(goodDealResponse -> {
                             mView.hideProgress();
-                            DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                                    .setLink(Uri.parse("https://example.com/"))
-                                    .setDynamicLinkDomain("ra5v9.app.goo.gl")
-                                    .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
-                                    .setIosParameters(new DynamicLink.IosParameters.Builder("com.example.ios").build())
-                                    .buildDynamicLink();
-
-                            Uri dynamicLinkUri = dynamicLink.getUri();
-
-                            mView.sendSmsWith(dynamicLinkUri, getSelectedContacts(contactDHList));
-
+                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList));
                         }, throwable -> {
                             mView.hideProgress();
-
                         }));
             } else {
                 mView.openVerificationErrorPopUP();

@@ -25,11 +25,20 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                    <action android:name="android.intent.action.VIEW"/>
-                    <category android:name="android.intent.category.DEFAULT"/>
-                    <category android:name="android.intent.category.BROWSABLE"/>
-                    <data android:host="example.com" android:scheme="http"/>
-                    <data android:host="example.com" android:scheme="https"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="pampconnect.com"
+                    android:scheme="http" />
+                <data
+                    android:host="pampconnect.com"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 
@@ -37,7 +46,9 @@
             android:name=".presentation.screens.tutorial.TutorialActivity_"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme" />
+            android:theme="@style/SplashTheme">
+
+        </activity>
 
         <activity
             android:name=".presentation.screens.auth.AuthActivity_"
@@ -45,11 +56,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme" />
 
+
         <activity
             android:name=".presentation.screens.main.MainActivity_"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme">
+
+        </activity>
 
         <activity
             android:name=".presentation.custom.InputActivity_"

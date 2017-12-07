@@ -1,5 +1,8 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan;
 
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.tabs.ContentTabsFragment;
@@ -9,6 +12,7 @@ import com.ferenc.pamp.presentation.screens.main.good_plan.received.ReceivedPlan
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
 /**
@@ -19,6 +23,8 @@ import org.androidannotations.annotations.res.StringRes;
 @EFragment
 public class GoodPlanFragment extends ContentTabsFragment {
 
+    @ViewById(R.id.rlTitle_FCT)
+    protected RelativeLayout rlTitle;
     @StringRes(R.string.title_received_plans)
     protected String receivedTabTitle;
     @StringRes(R.string.title_proposed_plans)
@@ -32,6 +38,7 @@ public class GoodPlanFragment extends ContentTabsFragment {
 
     @AfterViews
     public void configViewPager(){
+        rlTitle.setVisibility(View.GONE);
         vpContent.setPagingEnabled(false);
     }
 

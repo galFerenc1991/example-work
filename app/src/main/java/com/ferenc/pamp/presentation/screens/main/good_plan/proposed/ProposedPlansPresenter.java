@@ -1,5 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.proposed;
 
+import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.utils.Constants;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -12,10 +13,12 @@ import io.reactivex.disposables.CompositeDisposable;
 public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
 
     private ProposedPlansContract.View mView;
+    private ProposedPlansContract.Model mModel;
     private CompositeDisposable mCompositeDisposable;
 
-    public ProposedPlansPresenter(ProposedPlansContract.View mView) {
+    public ProposedPlansPresenter(ProposedPlansContract.View mView, ProposedPlansContract.Model _goodDealRepository) {
         this.mView = mView;
+        this.mModel = _goodDealRepository;
         this.mCompositeDisposable = new CompositeDisposable();
 
         mView.setPresenter(this);
@@ -28,7 +31,23 @@ public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
 
     @Override
     public void subscribe() {
-        mView.showPlaceholder(Constants.PlaceholderType.EMPTY);
+        mView.showProgressMain();
+        mCompositeDisposable.add(mModel.getProposedGoodDeal()
+                .subscribe(goodDealResponseListResponse -> {
+                    if (!goodDealResponseListResponse.data.isEmpty()) {
+                        mView.hideProgress();
+                        mView.setProposedGoodPlanList(goodDealResponseListResponse.data);
+                    } else {
+                        mView.showPlaceholder(Constants.PlaceholderType.EMPTY);
+                    }
+                }, throwable -> {
+                    mView.hideProgress();
+                }));
+    }
+
+    @Override
+    public void onRefresh() {
+
     }
 
     @Override

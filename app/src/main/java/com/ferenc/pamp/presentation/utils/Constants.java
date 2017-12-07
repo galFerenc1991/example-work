@@ -45,6 +45,9 @@ public abstract class Constants {
     public static final int DELIVERY_TAB_POSITION = 1;
     public static final int SHARE_TAB_POSITION = 2;
 
+    /*GOOD_PLANS_ITEM_TYPE*/
+    public static final int ITEM_TYPE_RE_BROADCAST = 0;
+    public static final int ITEM_TYPE_REUSE = 1;
 
     /*GOOGLE CODES*/
     public static final String GOOGLE_CLIENT_ID = "392469561251-kl0irng19cc3ne0vurejkb6fanu1tv3j.apps.googleusercontent.com";

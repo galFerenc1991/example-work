@@ -22,4 +22,8 @@ public abstract class RestConst {
 
     public static final int ITEMS_PER_PAGE = 25;
 
+    /*GOOD_PLANS_LIST_REQUEST_PARAMETERS*/
+    public static final String RECEIVED_GOOD_DEAL_LIST_REQUEST_PARAMETER = "received";
+    public static final String PROPOSED_GOOD_DEAL_LIST_REQUEST_PARAMETER = "proposed";
+
 }

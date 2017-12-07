@@ -9,7 +9,7 @@
         android:layout_height="@dimen/profile_image_default_size"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/margin_medium"
-        android:src="@drawable/ic_add_profile_picture" />
+        android:src="@drawable/ic_userpic" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,6 +45,17 @@
             android:text="Vous avez commandé" />
 
         <TextView
+            android:id="@+id/tvTimeBeforeClosing_LIDP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="@dimen/margin_half"
+            android:layout_marginTop="@dimen/margin_half"
+            android:drawableStart="@drawable/ic_hourglass_mini"
+            android:text="progress" />
+
+        <TextView
             android:id="@+id/tvPlanStatus_LIDP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +63,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="@dimen/margin_half"
             android:layout_marginTop="@dimen/margin_half"
-            android:text="Closed" />
+            android:text="Confirmed"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/ivReuseIndicator_LIDP"

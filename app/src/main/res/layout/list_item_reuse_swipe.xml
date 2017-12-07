@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:weightSum="1">
 
-        <include layout="@layout/view_re_broadcast" />
+        <include layout="@layout/view_reuse" />
         <!--What you want to show-->
     </LinearLayout>
     <!-- Bottom View End-->
@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:background="#ffffff">
 
-        <include layout="@layout/list_item_dood_plan" />
+        <include layout="@layout/list_item_good_plan" />
         <!--What you want to show in SurfaceView-->
     </LinearLayout>
 </com.daimajia.swipe.SwipeLayout>

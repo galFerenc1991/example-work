@@ -1,10 +1,17 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.received;
 
+import com.ferenc.pamp.data.model.base.ListResponse;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.base.BaseModel;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.BaseView;
 import com.ferenc.pamp.presentation.base.content.ContentView;
+import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.ProposedPlansContract;
+
+import java.util.List;
+
+import io.reactivex.Observable;
 
 /**
  * Created by
@@ -13,14 +20,16 @@ import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.ProposedPlan
 
 public interface ReceivedPlansContract {
     interface View extends ContentView, BaseView<Presenter> {
-
+        void setReceivedGoodPlanList(List<GoodDealResponse> _receivedGoodPlansList);
+        void sharePlayStoreLincInSMS();
     }
 
-    interface Presenter extends BasePresenter {
-
+    interface Presenter extends RefreshablePresenter {
+        void sharePlayStoreLincInSMS();
     }
 
     interface Model extends BaseModel {
+        Observable<ListResponse<GoodDealResponse>> getReceivedGoodDeal();
 
     }
 }

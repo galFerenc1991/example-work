@@ -5,11 +5,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -103,11 +103,13 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
         }
 //        sendIntent.putExtra(ContactsContract.Intents.Insert.PHONE, "0660892231");
 //        startActivity(sendIntent);
-        Uri uri = Uri.parse("smsto: 0993527900");
+
+        Uri uri = Uri.parse("smsto: 0665949534");
         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-        it.putExtra("sms_body", "Here you can set the SMS text to be sent  \n" + _dynamicLink);
+        it.putExtra("sms_body", "Je vous envoi bon plan ... á retrouver sur PAMP en téléchargeant I'appli  \n" + _dynamicLink.toString());
         startActivity(it);
     }
+
 
     @Override
     public void setContactAdapterList(List<ContactDH> _list) {

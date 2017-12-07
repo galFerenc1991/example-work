@@ -1,5 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.profile;
 
+import android.content.Intent;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -7,6 +8,7 @@ import com.ferenc.pamp.R;
 import com.ferenc.pamp.domain.AuthRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
+import com.ferenc.pamp.presentation.screens.auth.AuthActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -76,7 +78,9 @@ public class ProfileFragment extends ContentFragment implements ProfileContract.
 
     @Override
     public void logOut() {
-        mActivity.finish();
+        AuthActivity_.intent(this)
+                .flags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
+                .start();
     }
 
     @Override

@@ -2,9 +2,6 @@ package com.ferenc.pamp.presentation.screens.main.propose.delivery;
 
 import com.ferenc.pamp.presentation.base.models.GoodDeal;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
-import com.ferenc.pamp.presentation.utils.GoodDealValidateManager;
-import com.ferenc.pamp.presentation.utils.ValidationManager;
-import com.ferenc.pamp.presentation.utils.Validator;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

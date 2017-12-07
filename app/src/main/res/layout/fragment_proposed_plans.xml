@@ -5,7 +5,7 @@
     android:background="@drawable/image_340">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvReceivedPlans_FRP"
+        android:id="@+id/rvReceivedPlans_FPP"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
