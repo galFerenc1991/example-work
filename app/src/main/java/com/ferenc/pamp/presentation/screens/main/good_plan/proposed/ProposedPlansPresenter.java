@@ -1,6 +1,5 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.proposed;
 
-import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.utils.Constants;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -16,10 +15,16 @@ public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
     private ProposedPlansContract.Model mModel;
     private CompositeDisposable mCompositeDisposable;
 
+    private int page;
+    private int totalPages = Integer.MAX_VALUE;
+    private boolean needRefresh;
+
     public ProposedPlansPresenter(ProposedPlansContract.View mView, ProposedPlansContract.Model _goodDealRepository) {
         this.mView = mView;
         this.mModel = _goodDealRepository;
         this.mCompositeDisposable = new CompositeDisposable();
+        this.page = 1;
+        needRefresh = true;
 
         mView.setPresenter(this);
     }
@@ -31,23 +36,43 @@ public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
 
     @Override
     public void subscribe() {
-        mView.showProgressMain();
-        mCompositeDisposable.add(mModel.getProposedGoodDeal()
+        if (needRefresh) {
+            mView.showProgressMain();
+            loadData(1);
+        }
+    }
+
+    private void loadData(int _page) {
+        mCompositeDisposable.add(mModel.getProposedGoodDeal(_page)
                 .subscribe(goodDealResponseListResponse -> {
-                    if (!goodDealResponseListResponse.data.isEmpty()) {
-                        mView.hideProgress();
+                    mView.hideProgress();
+                    this.page = _page;
+                    totalPages = goodDealResponseListResponse.meta.pages;
+                    if (page == 1) {
                         mView.setProposedGoodPlanList(goodDealResponseListResponse.data);
+                        needRefresh = goodDealResponseListResponse.data.isEmpty();
+                        if (goodDealResponseListResponse.data.isEmpty())
+                            mView.showPlaceholder(Constants.PlaceholderType.EMPTY);
                     } else {
-                        mView.showPlaceholder(Constants.PlaceholderType.EMPTY);
+                        mView.addProposedGoodPlanList(goodDealResponseListResponse.data);
                     }
+
                 }, throwable -> {
                     mView.hideProgress();
                 }));
     }
 
     @Override
-    public void onRefresh() {
+    public void loadNextPage() {
+        if (page < totalPages) {
+            mView.showProgressPagination();
+            loadData(page + 1);
+        }
+    }
 
+    @Override
+    public void onRefresh() {
+        loadData(1);
     }
 
     @Override

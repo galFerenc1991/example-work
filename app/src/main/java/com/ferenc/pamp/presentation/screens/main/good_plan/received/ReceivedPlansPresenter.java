@@ -1,9 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.received;
 
-import android.net.Uri;
 
 import com.ferenc.pamp.presentation.utils.Constants;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -18,34 +16,60 @@ public class ReceivedPlansPresenter implements ReceivedPlansContract.Presenter {
     private ReceivedPlansContract.Model mModel;
     private CompositeDisposable mCompositeDisposable;
 
+    private int page;
+    private int totalPages = Integer.MAX_VALUE;
+    private boolean needRefresh;
+
     public ReceivedPlansPresenter(ReceivedPlansContract.View _view, ReceivedPlansContract.Model _model) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
+        this.page = 1;
+        needRefresh = true;
 
         mView.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
-        mView.showProgressMain();
-        mCompositeDisposable.add(mModel.getReceivedGoodDeal()
+        if(needRefresh){
+            mView.showProgressMain();
+            loadData(1);
+        }
+
+    }
+
+    private void loadData(int _page) {
+        mCompositeDisposable.add(mModel.getReceivedGoodDeal(_page)
                 .subscribe(goodDealResponseListResponse -> {
                     mView.hideProgress();
-                    if (!goodDealResponseListResponse.data.isEmpty()) {
+                    this.page = _page;
+                    totalPages = goodDealResponseListResponse.meta.pages;
+                    if (page == 1){
                         mView.setReceivedGoodPlanList(goodDealResponseListResponse.data);
+                        needRefresh = goodDealResponseListResponse.data.isEmpty();
+                        if (goodDealResponseListResponse.data.isEmpty())
+                            mView.showPlaceholder(Constants.PlaceholderType.EMPTY);
                     } else {
-                        mView.showPlaceholder(Constants.PlaceholderType.EMPTY);
+                        mView.addReceivedGoodPlanList(goodDealResponseListResponse.data);
                     }
+
                 }, throwable -> {
                     mView.hideProgress();
                 }));
     }
 
+    @Override
+    public void loadNextPage() {
+        if (page < totalPages) {
+            mView.showProgressPagination();
+            loadData(page + 1);
+        }
+    }
 
     @Override
     public void onRefresh() {
-
+        loadData(1);
     }
 
     @Override

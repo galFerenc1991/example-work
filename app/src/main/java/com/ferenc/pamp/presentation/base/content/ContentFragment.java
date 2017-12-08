@@ -90,13 +90,7 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(aVoid -> onPlaceholderAction());
         swipeContainer_VC.setEnabled(false);
-        swipeContainer_VC.setColorSchemeColors(ContextCompat.getColor(mActivity, R.color.colorPrimaryDark));
-
-        RxView.clicks(btnPlaceholderAction1_VC)
-                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> onPlaceholderAction());
-        swipeContainer_VC.setEnabled(false);
-        swipeContainer_VC.setColorSchemeColors(ContextCompat.getColor(mActivity, R.color.colorPrimaryDark));
+        swipeContainer_VC.setColorSchemeColors(ContextCompat.getColor(mActivity, R.color.colorAccent));
     }
 
     protected void onPlaceholderAction() {

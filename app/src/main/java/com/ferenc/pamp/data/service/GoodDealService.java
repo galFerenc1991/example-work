@@ -25,7 +25,9 @@ public interface GoodDealService {
     Observable<GoodDealResponse> createGoodDeal(@Body GoodDealRequest request);
 
     @GET("/deal/{type}/list")
-    Observable<ListResponse<GoodDealResponse>> getGoodDeals(@Path("type") String _type);
+    Observable<ListResponse<GoodDealResponse>> getGoodDeals(@Path("type") String _type,
+                                                            @Query("page") int page,
+                                                            @Query("limit") int limit);
 
     @PUT("/deal/{id}/connect")
     Observable<ConnectGoodDealResponse> connectGoodDeal(@Path("id") String _id);

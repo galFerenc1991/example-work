@@ -34,6 +34,6 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <include layout="@layout/view_placeholder"/>
+    <include layout="@layout/view_placeholder" />
 
 </FrameLayout>

@@ -143,6 +143,12 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
         notifyDataSetChanged();
     }
 
+    public void addListDH(List<GoodDealResponse> list) {
+        int oldSize = listGD.size();
+        listGD.addAll(list);
+        notifyItemRangeInserted(oldSize, listGD.size());
+    }
+
     @Override
     public int getItemCount() {
         return listGD.size();

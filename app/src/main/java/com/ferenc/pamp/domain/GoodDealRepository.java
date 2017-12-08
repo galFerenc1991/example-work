@@ -64,12 +64,12 @@ public class GoodDealRepository extends NetworkRepository implements ShareContra
     }
 
     @Override
-    public Observable<ListResponse<GoodDealResponse>> getProposedGoodDeal() {
-        return getNetworkObservable(goodDealService.getGoodDeals(RestConst.PROPOSED_GOOD_DEAL_LIST_REQUEST_PARAMETER));
+    public Observable<ListResponse<GoodDealResponse>> getProposedGoodDeal(int _page) {
+        return getNetworkObservable(goodDealService.getGoodDeals(RestConst.PROPOSED_GOOD_DEAL_LIST_REQUEST_PARAMETER,  _page, RestConst.ITEMS_PER_PAGE));
     }
 
     @Override
-    public Observable<ListResponse<GoodDealResponse>> getReceivedGoodDeal() {
-        return getNetworkObservable(goodDealService.getGoodDeals(RestConst.RECEIVED_GOOD_DEAL_LIST_REQUEST_PARAMETER));
+    public Observable<ListResponse<GoodDealResponse>> getReceivedGoodDeal(int _page) {
+        return getNetworkObservable(goodDealService.getGoodDeals(RestConst.RECEIVED_GOOD_DEAL_LIST_REQUEST_PARAMETER, _page, RestConst.ITEMS_PER_PAGE));
     }
 }

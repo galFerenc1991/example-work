@@ -1,6 +1,5 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.received;
 
-import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,11 +7,11 @@ import android.view.View;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.domain.GoodDealRepository;
-import com.ferenc.pamp.presentation.base.BasePresenter;
-import com.ferenc.pamp.presentation.base.content.ContentFragment;
+import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
+import com.ferenc.pamp.presentation.base.refreshable.RefreshableFragment;
+import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.screens.main.good_plan.good_plan_adapter.GoodPlanAdapter;
 import com.ferenc.pamp.presentation.utils.Constants;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import org.androidannotations.annotations.AfterInject;
@@ -21,7 +20,6 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * Ferenc on 2017.11.21..
  */
 @EFragment
-public class ReceivedPlansFragment extends ContentFragment implements ReceivedPlansContract.View {
+public class ReceivedPlansFragment extends RefreshableFragment implements ReceivedPlansContract.View {
     @Override
     public void setPresenter(ReceivedPlansContract.Presenter presenter) {
         mPresenter = presenter;
@@ -42,11 +40,12 @@ public class ReceivedPlansFragment extends ContentFragment implements ReceivedPl
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected RefreshablePresenter getPresenter() {
         return mPresenter;
     }
 
     private ReceivedPlansContract.Presenter mPresenter;
+    protected EndlessScrollListener mScrollListener;
 
     @ViewById(R.id.rvReceivedPlans_FRP)
     protected RecyclerView rvReceivedPlans;
@@ -64,10 +63,17 @@ public class ReceivedPlansFragment extends ContentFragment implements ReceivedPl
 
     @AfterViews
     protected void initUI() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mScrollListener = new EndlessScrollListener(layoutManager, () -> {
+            if (isRefreshing()) return false;
+            mPresenter.loadNextPage();
+            return true;
+        });
 
-        rvReceivedPlans.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvReceivedPlans.setLayoutManager(layoutManager);
         mGoodPlanAdapter = new GoodPlanAdapter(Constants.ITEM_TYPE_RE_BROADCAST);
         rvReceivedPlans.setAdapter(mGoodPlanAdapter);
+        rvReceivedPlans.addOnScrollListener(mScrollListener);
 
         RxView.clicks(btnPlaceholderAction_VC)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
@@ -78,7 +84,13 @@ public class ReceivedPlansFragment extends ContentFragment implements ReceivedPl
 
     @Override
     public void setReceivedGoodPlanList(List<GoodDealResponse> _receivedGoodPlansList) {
+        mScrollListener.reset();
         mGoodPlanAdapter.setList(_receivedGoodPlansList);
+    }
+
+    @Override
+    public void addReceivedGoodPlanList(List<GoodDealResponse> _receivedGoodPlansList) {
+        mGoodPlanAdapter.addListDH(_receivedGoodPlansList);
     }
 
     @Override

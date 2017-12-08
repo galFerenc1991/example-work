@@ -7,8 +7,9 @@ import android.view.View;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.domain.GoodDealRepository;
-import com.ferenc.pamp.presentation.base.BasePresenter;
-import com.ferenc.pamp.presentation.base.content.ContentFragment;
+import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
+import com.ferenc.pamp.presentation.base.refreshable.RefreshableFragment;
+import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.screens.main.MainActivity;
 import com.ferenc.pamp.presentation.screens.main.good_plan.good_plan_adapter.GoodPlanAdapter;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -28,7 +29,7 @@ import java.util.concurrent.TimeUnit;
  * Ferenc on 2017.11.21..
  */
 @EFragment
-public class ProposedPlansFragment extends ContentFragment implements ProposedPlansContract.View {
+public class ProposedPlansFragment extends RefreshableFragment implements ProposedPlansContract.View {
     @Override
     public void setPresenter(ProposedPlansContract.Presenter presenter) {
         mPresenter = presenter;
@@ -40,11 +41,13 @@ public class ProposedPlansFragment extends ContentFragment implements ProposedPl
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected RefreshablePresenter getPresenter() {
         return mPresenter;
     }
 
     private ProposedPlansContract.Presenter mPresenter;
+    protected EndlessScrollListener mScrollListener;
+
 
     @ViewById(R.id.rvReceivedPlans_FPP)
     protected RecyclerView rvProposedPlans;
@@ -63,10 +66,17 @@ public class ProposedPlansFragment extends ContentFragment implements ProposedPl
 
     @AfterViews
     protected void initUI() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mScrollListener = new EndlessScrollListener(layoutManager, () -> {
+            if (isRefreshing()) return false;
+            mPresenter.loadNextPage();
+            return true;
+        });
 
-        rvProposedPlans.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvProposedPlans.setLayoutManager(layoutManager);
         mGoodPlanAdapter = new GoodPlanAdapter(Constants.ITEM_TYPE_REUSE);
         rvProposedPlans.setAdapter(mGoodPlanAdapter);
+        rvProposedPlans.addOnScrollListener(mScrollListener);
 
         RxView.clicks(btnPlaceholderAction_VC)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
@@ -77,7 +87,13 @@ public class ProposedPlansFragment extends ContentFragment implements ProposedPl
 
     @Override
     public void setProposedGoodPlanList(List<GoodDealResponse> _proposedGoodPlansList) {
+        mScrollListener.reset();
         mGoodPlanAdapter.setList(_proposedGoodPlansList);
+    }
+
+    @Override
+    public void addProposedGoodPlanList(List<GoodDealResponse> _receivedGoodPlansList) {
+        mGoodPlanAdapter.addListDH(_receivedGoodPlansList);
     }
 
     @Override
