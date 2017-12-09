@@ -52,7 +52,7 @@ public class ReceivedPlansFragment extends RefreshableFragment implements Receiv
 
     @Bean
     protected GoodDealRepository mGoodDealRepository;
-
+    @Bean
     protected GoodPlanAdapter mGoodPlanAdapter;
 
     @AfterInject
@@ -71,7 +71,7 @@ public class ReceivedPlansFragment extends RefreshableFragment implements Receiv
         });
 
         rvReceivedPlans.setLayoutManager(layoutManager);
-        mGoodPlanAdapter = new GoodPlanAdapter(Constants.ITEM_TYPE_RE_BROADCAST);
+        mGoodPlanAdapter.setAdapterItemType(Constants.ITEM_TYPE_RE_BROADCAST);
         rvReceivedPlans.setAdapter(mGoodPlanAdapter);
         rvReceivedPlans.addOnScrollListener(mScrollListener);
 

@@ -84,6 +84,8 @@ public class DescriptionFragment extends ContentFragment implements DescriptionC
         RxView.clicks(tvQuantity)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedInputField(Constants.REQUEST_CODE_INPUT_ACTIVITY_QUANTITY));
+
+        mPresenter.subscribe();
     }
 
     @Override
@@ -139,7 +141,7 @@ public class DescriptionFragment extends ContentFragment implements DescriptionC
     }
 
     @Override
-    public void setPriceDescription(String _priceDescription) {
+    public void setUnit(String _priceDescription) {
         tvPriceDescription.setText(_priceDescription);
     }
 

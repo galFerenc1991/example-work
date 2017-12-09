@@ -20,7 +20,7 @@ public interface DescriptionContract {
 
         void setPrice(String _price);
 
-        void setPriceDescription(String _priceDescription);
+        void setUnit(String _priceDescription);
 
         void setQuantity(String _quantity);
     }

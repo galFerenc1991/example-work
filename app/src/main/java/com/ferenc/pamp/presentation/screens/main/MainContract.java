@@ -15,6 +15,7 @@ import io.reactivex.Observable;
 public interface MainContract {
     interface View extends BaseView<Presenter> {
 
+        void openProposedFlow();
     }
 
     interface Presenter extends BasePresenter {

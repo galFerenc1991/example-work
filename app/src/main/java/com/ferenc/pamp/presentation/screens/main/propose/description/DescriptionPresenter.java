@@ -1,6 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.propose.description;
 
-import com.ferenc.pamp.presentation.base.models.GoodDeal;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 
 /**
@@ -12,7 +12,7 @@ public class DescriptionPresenter implements DescriptionContract.Presenter {
 
     private DescriptionContract.View mView;
     private GoodDealManager mGoodDealManager;
-    private GoodDeal mGoodDeal;
+    private GoodDealRequest mGoodDeal;
 
     public DescriptionPresenter(DescriptionContract.View _view, GoodDealManager _goodDealManager) {
         this.mView = _view;
@@ -23,7 +23,14 @@ public class DescriptionPresenter implements DescriptionContract.Presenter {
 
     @Override
     public void subscribe() {
-
+        GoodDealRequest reUseGoodDeal = mGoodDealManager.getGoodDeal();
+        if (reUseGoodDeal.getProduct() != null) {
+            mView.setName(reUseGoodDeal.getProduct());
+            mView.setDescription(reUseGoodDeal.getDescription());
+            mView.setPrice(String.valueOf(reUseGoodDeal.getPrice()));
+            mView.setUnit(reUseGoodDeal.getUnit());
+            mView.setQuantity(String.valueOf(reUseGoodDeal.getQuantity()));
+        }
     }
 
     @Override
@@ -34,7 +41,7 @@ public class DescriptionPresenter implements DescriptionContract.Presenter {
     @Override
     public void saveName(String _name) {
         mGoodDeal = mGoodDealManager.getGoodDeal();
-        mGoodDeal.setName(_name);
+        mGoodDeal.setProduct(_name);
         mGoodDealManager.saveGoodDeal(mGoodDeal);
         mView.setName(_name);
     }
@@ -64,9 +71,9 @@ public class DescriptionPresenter implements DescriptionContract.Presenter {
     @Override
     public void savePriceDescription(String _priceDescription) {
         mGoodDeal = mGoodDealManager.getGoodDeal();
-        mGoodDeal.setPriceDescription(_priceDescription);
+        mGoodDeal.setUnit(_priceDescription);
         mGoodDealManager.saveGoodDeal(mGoodDeal);
-        mView.setPriceDescription(_priceDescription);
+        mView.setUnit(_priceDescription);
     }
 
     @Override

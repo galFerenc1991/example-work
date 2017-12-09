@@ -14,9 +14,16 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.api.RestConst;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.presentation.base.models.GoodDeal;
+import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.squareup.picasso.Picasso;
+
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +32,7 @@ import java.util.List;
  * Created by
  * Ferenc on 2017.11.22..
  */
-
+@EBean
 public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.SimpleViewHolder> {
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
@@ -60,10 +67,18 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
         }
     }
 
+    @Bean
+    protected ProposeRelay mProposeRelay;
+    @Bean
+    protected GoodDealManager mGoodDealManager;
     private List<GoodDealResponse> listGD = new ArrayList<>();
     private int mGoodPlanItemType;
 
-    public GoodPlanAdapter(int _goodPlanItemType) {
+    public GoodPlanAdapter() {
+
+    }
+
+    public void setAdapterItemType(int _goodPlanItemType) {
         mGoodPlanItemType = _goodPlanItemType;
     }
 
@@ -129,12 +144,36 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
             });
         } else {
             viewHolder.rlReuse.setOnClickListener(view -> {
-
+                mGoodDealManager.saveGoodDeal(getGoodDealFromItem(goodDealResponse));
+                mProposeRelay.proposeRelay.accept(true);
             });
         }
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         mItemManger.bindView(viewHolder.itemView, position);
 
+    }
+
+    private GoodDealRequest getGoodDealFromItem(GoodDealResponse _goodDealResponse) {
+//        GoodDealRequest goodDealForReBroadcast = mGoodDealManager.getGoodDeal();
+//        goodDealForReBroadcast.product = _goodDealResponse.product;
+//        goodDealForReBroadcast.description = _goodDealResponse.description;
+//        goodDealForReBroadcast.price = _goodDealResponse.price;
+//        goodDealForReBroadcast.unit = _goodDealResponse.unit;
+//        goodDealForReBroadcast.quantity = _goodDealResponse.quantity;
+//        goodDealForReBroadcast.closingDate = _goodDealResponse.closingDate;
+
+        GoodDealRequest goodDealRequest = new GoodDealRequest.Builder()
+                .setProduct(_goodDealResponse.product)
+                .setDescription(_goodDealResponse.description)
+                .setPrice(_goodDealResponse.price)
+                .setUnit(_goodDealResponse.unit)
+                .setQuantity(_goodDealResponse.quantity)
+                .setClosingDate(_goodDealResponse.closingDate)
+                .setDeliveryAddress(_goodDealResponse.deliveryAddress)
+                .setDeliveryStartDate(_goodDealResponse.deliveryStartDate)
+                .setDeliveryEndDate(_goodDealResponse.deliveryEndDate)
+                .build();
+        return goodDealRequest;
     }
 
     public void setList(@NonNull List<GoodDealResponse> list) {

@@ -1,6 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.propose.delivery;
 
-import com.ferenc.pamp.presentation.base.models.GoodDeal;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 
 import java.text.SimpleDateFormat;
@@ -17,13 +17,23 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
     private DeliveryContract.View mView;
     private GoodDealManager mGoodDealManager;
     private Calendar mCloseDate;
-    private GoodDeal mGoodDeal;
+    private GoodDealRequest mGoodDeal;
 
     public DeliveryPresenter(DeliveryContract.View _view, GoodDealManager _goodDealManager) {
         this.mView = _view;
         this.mGoodDealManager = _goodDealManager;
 
         mView.setPresenter(this);
+    }
+
+    @Override
+    public void subscribe() {
+        GoodDealRequest reUseGoodDeal = mGoodDealManager.getGoodDeal();
+        if (reUseGoodDeal.getProduct() != null) {
+            mView.setCloseDate(convertServerDateToString(reUseGoodDeal.getClosingDate()));
+            mView.setDeliveryDate(convertServerDateToString(reUseGoodDeal.getDeliveryStartDate()) + "\n" + convertServerDateToString(reUseGoodDeal.getDeliveryEndDate()));
+            mView.setDeliveryPlace(reUseGoodDeal.getDeliveryAddress());
+        }
     }
 
     @Override
@@ -35,24 +45,20 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
     public void setCloseDate(Calendar _closeDate) {
         mCloseDate = _closeDate;
         mGoodDeal = mGoodDealManager.getGoodDeal();
-        mGoodDeal.setCloseDate(getCloseDateForServer(mCloseDate));
+        mGoodDeal.setClosingDate(getCloseDateForServer(mCloseDate));
         mGoodDealManager.saveGoodDeal(mGoodDeal);
-        mView.setCloseDate(getCloseDateString(mCloseDate));
+        mView.setCloseDate(getCloseDateInString(mCloseDate));
     }
 
     @Override
     public void setDeliveryDate(String _startDate, String _endDate) {
-//        mGoodDeal = mGoodDealManager.getGoodDeal();
-//        mGoodDeal.setStartDelivery(_startDate);
-//        mGoodDeal.setEndDelivery(_endDate);
-//        mGoodDealManager.saveGoodDeal(mGoodDeal);
         mView.setDeliveryDate(_startDate + "\n" + _endDate);
     }
 
     @Override
     public void setDeliveryPlace(String _selectedPlace) {
         mGoodDeal = mGoodDealManager.getGoodDeal();
-        mGoodDeal.setDeliveryPlace(_selectedPlace);
+        mGoodDeal.setDeliveryAddress(_selectedPlace);
         mGoodDealManager.saveGoodDeal(mGoodDeal);
         mView.setDeliveryPlace(_selectedPlace);
     }
@@ -67,20 +73,21 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
         mView.openDateScreen();
     }
 
-    private String getCloseDateString(Calendar calendar) {
+    private String getCloseDateInString(Calendar calendar) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM 'at' HH:mm", Locale.getDefault());
         return sdf.format(calendar.getTime());
+    }
+
+    private String convertServerDateToString(long _dateInMillis) {
+        Calendar date = Calendar.getInstance();
+        date.setTimeInMillis(_dateInMillis);
+        return getCloseDateInString(date);
     }
 
     private Long getCloseDateForServer(Calendar calendar) {
 //        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss zzz", Locale.getDefault());
 //        return sdf.format(calendar.getTime());
         return calendar.getTimeInMillis();
-    }
-
-    @Override
-    public void subscribe() {
-
     }
 
     @Override

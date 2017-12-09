@@ -2,15 +2,11 @@ package com.ferenc.pamp.presentation.screens.main.propose.share;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
-import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.ferenc.pamp.PampApp_;
-import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
-import com.ferenc.pamp.presentation.base.models.GoodDeal;
 import com.ferenc.pamp.presentation.base.models.UserContact;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
@@ -18,11 +14,6 @@ import com.ferenc.pamp.presentation.utils.FirebaseDynamicLinkGenerator;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealValidateManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.dynamiclinks.DynamicLink;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +32,6 @@ public class SharePresenter implements ShareContract.Presenter {
     private ShareContract.Model mModel;
     private CompositeDisposable mCompositeDisposable;
     private List<ContactDH> mPhoneContactList;
-    private GoodDealRequest mGoodDealRequest;
     private GoodDealManager mGoodDealManager;
 
     public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager) {
@@ -49,7 +39,6 @@ public class SharePresenter implements ShareContract.Presenter {
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mPhoneContactList = new ArrayList<>();
-        this.mGoodDealRequest = new GoodDealRequest();
         this.mGoodDealManager = _goodDealManager;
 
         mView.setPresenter(this);
@@ -158,18 +147,9 @@ public class SharePresenter implements ShareContract.Presenter {
     }
 
     private GoodDealRequest createRequestParameter(List<ContactDH> contactDHList) {
-        GoodDeal savedGoodDeal = mGoodDealManager.getGoodDeal();
-        mGoodDealRequest.product = savedGoodDeal.getName();
-        mGoodDealRequest.description = savedGoodDeal.getDescription();
-        mGoodDealRequest.price = savedGoodDeal.getPrice();
-        mGoodDealRequest.quantity = savedGoodDeal.getQuantity();
-        mGoodDealRequest.unit = savedGoodDeal.getPriceDescription();
-        mGoodDealRequest.closingDate = savedGoodDeal.getCloseDate();
-        mGoodDealRequest.deliveryStartDate = savedGoodDeal.getStartDelivery();
-        mGoodDealRequest.deliveryEndDate = savedGoodDeal.getEndDelivery();
-        mGoodDealRequest.deliveryAddress = savedGoodDeal.getDeliveryPlace();
-        mGoodDealRequest.contacts = getSelectedContacts(contactDHList);
-        return mGoodDealRequest;
+        GoodDealRequest savedGoodDeal = mGoodDealManager.getGoodDeal();
+        savedGoodDeal.contacts = getSelectedContacts(contactDHList);
+        return savedGoodDeal;
     }
 
     private List<String> getSelectedContacts(List<ContactDH> contactDHList) {

@@ -83,6 +83,8 @@ public class DeliveryFragment extends ContentFragment implements DeliveryContrac
         RxView.clicks(tvDeliveryDate)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedDeliveryDate());
+
+        mPresenter.subscribe();
     }
 
     @Override

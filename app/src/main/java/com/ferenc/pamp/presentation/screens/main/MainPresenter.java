@@ -1,5 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main;
 
+import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -14,10 +15,12 @@ public class MainPresenter implements MainContract.Presenter {
     private MainContract.View mView;
     private MainContract.Model mModel;
     private CompositeDisposable mCompositeDisposable;
+    private ProposeRelay mProposeRelay;
 
-    public MainPresenter(MainContract.View _view, MainContract.Model _model) {
+    public MainPresenter(MainContract.View _view, MainContract.Model _model, ProposeRelay _proposeRelay) {
         this.mView = _view;
         this.mModel = _model;
+        this.mProposeRelay = _proposeRelay;
         this.mCompositeDisposable = new CompositeDisposable();
 
         mView.setPresenter(this);
@@ -25,17 +28,19 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void subscribe() {
-
+        mProposeRelay.proposeRelay.subscribe(aBoolean -> {
+            mView.openProposedFlow();
+        });
     }
 
     @Override
     public void connectGoodDeal(String _id) {
         mCompositeDisposable.add(mModel.connectGoodDeal(_id)
-        .subscribe(connectGoodDealResponse -> {
-            ToastManager.showToast(" GoodDeal : " + _id + "connected!");
-        }, throwable -> {
+                .subscribe(connectGoodDealResponse -> {
+                    ToastManager.showToast(" GoodDeal : " + _id + "connected!");
+                }, throwable -> {
 
-        }));
+                }));
     }
 
     @Override

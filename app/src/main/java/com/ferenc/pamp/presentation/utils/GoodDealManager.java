@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.utils;
 
 import android.text.TextUtils;
 
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.presentation.base.models.GoodDeal;
 import com.google.gson.Gson;
 
@@ -20,23 +21,23 @@ public class GoodDealManager {
     @Pref
     protected SharedPrefManager_ prefManager;
 
-    public void saveGoodDeal(GoodDeal goodDeal) {
-        if (goodDeal == null) {
+    public void saveGoodDeal(GoodDealRequest _goodDealRequest) {
+        if (_goodDealRequest == null) {
             clearGoodDeal();
         } else {
             prefManager
                     .edit()
                     .getGoodDeal()
-                    .put(gson.toJson(goodDeal))
+                    .put(gson.toJson(_goodDealRequest))
                     .apply();
         }
     }
 
-    public GoodDeal getGoodDeal() {
+    public GoodDealRequest getGoodDeal() {
         String goodDealStr = prefManager.getGoodDeal().get();
         return TextUtils.isEmpty(goodDealStr)
-                ? new GoodDeal()
-                : gson.fromJson(goodDealStr, GoodDeal.class);
+                ? new GoodDealRequest()
+                : gson.fromJson(goodDealStr, GoodDealRequest.class);
     }
 
 

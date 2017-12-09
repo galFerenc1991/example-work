@@ -21,6 +21,7 @@ import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.base.models.GoodDeal;
 import com.ferenc.pamp.presentation.screens.main.good_plan.GoodPlanFragment_;
+import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.screens.main.profile.ProfileFragment_;
 import com.ferenc.pamp.presentation.screens.main.propose.ProposeFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -42,6 +43,9 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Bean
     protected GoodDealRepository mGoodDealRepository;
+
+    @Bean
+    protected ProposeRelay mProposeRelay;
 
     @ViewById(R.id.toolbar_AM)
     protected Toolbar mToolBar;
@@ -91,7 +95,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @AfterInject
     @Override
     public void initPresenter() {
-        new MainPresenter(this, mGoodDealRepository);
+        new MainPresenter(this, mGoodDealRepository, mProposeRelay);
     }
 
     @Override
@@ -101,6 +105,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @AfterViews
     protected void initBottomBar() {
+        mPresenter.subscribe();
 
         FirebaseDynamicLinks
                 .getInstance().getDynamicLink(this.getIntent())
@@ -128,6 +133,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         tlBottomBar.addTab(tab1);
         tlBottomBar.addTab(tab2);
         tlBottomBar.addTab(tab3);
+        tlBottomBar.getTabAt(0).select();
         tlBottomBar.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -228,6 +234,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         ivAccount.setImageResource(R.drawable.ic_compte_ic);
 
         replaceFragmentClearBackstack(ProposeFragment_.builder().build());
+    }
+
+    @Override
+    public void openProposedFlow() {
+        tlBottomBar.getTabAt(1).select();
     }
 
     @Override

@@ -56,7 +56,7 @@ public class InputActivity extends AppCompatActivity {
     private void setInputIndicatorIcon(int _requestCode) {
         switch (_requestCode) {
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_NAME:
-                etContent.setText(mGoodDealManager.getGoodDeal().getName());
+                etContent.setText(mGoodDealManager.getGoodDeal().getProduct());
                 ivContentIndicator.setImageResource(R.drawable.ic_good_plan_name);
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_DESCRIPTION:
@@ -75,7 +75,7 @@ public class InputActivity extends AppCompatActivity {
                 ivContentIndicator.setImageResource(R.drawable.ic_price);
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_PRICE_DESCRIPTION:
-                etContent.setText(mGoodDealManager.getGoodDeal().getPriceDescription());
+                etContent.setText(mGoodDealManager.getGoodDeal().getUnit());
                 ivContentIndicator.setImageResource(R.drawable.ic_help);
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_QUANTITY:

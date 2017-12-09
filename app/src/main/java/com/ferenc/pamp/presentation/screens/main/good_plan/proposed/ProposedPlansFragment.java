@@ -12,6 +12,7 @@ import com.ferenc.pamp.presentation.base.refreshable.RefreshableFragment;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.screens.main.MainActivity;
 import com.ferenc.pamp.presentation.screens.main.good_plan.good_plan_adapter.GoodPlanAdapter;
+import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -54,9 +55,8 @@ public class ProposedPlansFragment extends RefreshableFragment implements Propos
 
     @Bean
     protected GoodDealRepository mGoodDealRepository;
-
+    @Bean
     protected GoodPlanAdapter mGoodPlanAdapter;
-
 
     @AfterInject
     @Override
@@ -74,7 +74,7 @@ public class ProposedPlansFragment extends RefreshableFragment implements Propos
         });
 
         rvProposedPlans.setLayoutManager(layoutManager);
-        mGoodPlanAdapter = new GoodPlanAdapter(Constants.ITEM_TYPE_REUSE);
+        mGoodPlanAdapter.setAdapterItemType(Constants.ITEM_TYPE_REUSE);
         rvProposedPlans.setAdapter(mGoodPlanAdapter);
         rvProposedPlans.addOnScrollListener(mScrollListener);
 

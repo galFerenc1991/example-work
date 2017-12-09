@@ -3,6 +3,7 @@ package com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_date
 import android.widget.Toast;
 
 import com.ferenc.pamp.PampApp_;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.presentation.base.models.GoodDeal;
 import com.ferenc.pamp.presentation.utils.DateManager;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
@@ -22,7 +23,7 @@ public class DeliveryDatePresenter implements DeliveryDateContract.Presenter {
     private Calendar mStartDate;
     private Calendar mEndDate;
     private GoodDealManager mGoodDealManager;
-    private GoodDeal mGoodDeal;
+    private GoodDealRequest mGoodDeal;
 
     public DeliveryDatePresenter(DeliveryDateContract.View _view, GoodDealManager _goodDealManager) {
         this.mView = _view;
@@ -56,8 +57,8 @@ public class DeliveryDatePresenter implements DeliveryDateContract.Presenter {
         mStartDate = _startDate;
         mGoodDeal = mGoodDealManager.getGoodDeal();
 
-        if (mGoodDeal.getCloseDate() < _startDate.getTimeInMillis()) {
-            mGoodDeal.setStartDelivery(getDateForServer(_startDate));
+        if (mGoodDeal.getClosingDate() < _startDate.getTimeInMillis()) {
+            mGoodDeal.setDeliveryStartDate(getDateForServer(_startDate));
             mGoodDealManager.saveGoodDeal(mGoodDeal);
             mView.setStartDate(getDateTOString(_startDate));
         } else{
@@ -69,7 +70,7 @@ public class DeliveryDatePresenter implements DeliveryDateContract.Presenter {
     public void setEndDate(Calendar _endDate) {
         mEndDate = _endDate;
         mGoodDeal = mGoodDealManager.getGoodDeal();
-        mGoodDeal.setEndDelivery(getDateForServer(_endDate));
+        mGoodDeal.setDeliveryEndDate(getDateForServer(_endDate));
         mGoodDealManager.saveGoodDeal(mGoodDeal);
         mView.setEndDate(getDateTOString(_endDate));
     }
