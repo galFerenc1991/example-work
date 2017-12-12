@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.received;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -80,9 +81,9 @@ public class ReceivedPlansFragment extends RefreshableFragment implements Receiv
         rvReceivedPlans.setAdapter(mGoodPlanAdapter);
         rvReceivedPlans.addOnScrollListener(mScrollListener);
 
-        RxView.clicks(btnPlaceholderAction_VC)
+        RxView.clicks(btnPlaceholderAction1_VC)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe();
+                .subscribe(o -> mPresenter.sharePlayStoreLincInSMS());
 
         mPresenter.subscribe();
     }
@@ -105,7 +106,17 @@ public class ReceivedPlansFragment extends RefreshableFragment implements Receiv
 
     @Override
     public void sharePlayStoreLincInSMS() {
-
+        Intent it = new Intent(Intent.ACTION_SENDTO);
+        it.setData(Uri.parse("smsto:"));
+        it.putExtra("sms_body", "Je vous recommande\n" +
+                "cet appli: PAMP ... nous\n" +
+                "pourrons partager\n" +
+                "facilement tous nos\n" +
+                "bons plans de petits\n" +
+                "producteurs.\n" +
+                "Https//:AppStore.pamp .c\n" +
+                "om");
+        startActivity(it);
     }
 
     @Override

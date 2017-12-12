@@ -118,9 +118,9 @@ public class CreatePasswordFragment extends ContentFragment implements CreatePas
         Spannable titleSpannable = new SpannableString(mDialogTitle);
         Spannable messageSpannable = new SpannableString(mDialogMessage);
 
-        titleSpannable.setSpan(new StyleSpan(Typeface.NORMAL), 0, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        titleSpannable.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        titleSpannable.setSpan(new AbsoluteSizeSpan(bigTextSize), 0, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        titleSpannable.setSpan(new StyleSpan(Typeface.NORMAL), 0, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        titleSpannable.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        titleSpannable.setSpan(new AbsoluteSizeSpan(bigTextSize), 0, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         messageSpannable.setSpan(new StyleSpan(Typeface.NORMAL), 0, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         messageSpannable.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

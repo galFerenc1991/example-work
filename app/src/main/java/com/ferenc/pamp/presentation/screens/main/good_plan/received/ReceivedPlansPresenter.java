@@ -80,7 +80,7 @@ public class ReceivedPlansPresenter implements ReceivedPlansContract.Presenter {
 
     @Override
     public void sharePlayStoreLincInSMS() {
-
+        mView.sharePlayStoreLincInSMS();
     }
 
     @Override
