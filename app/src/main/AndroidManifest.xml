@@ -61,9 +61,13 @@
             android:name=".presentation.screens.main.MainActivity_"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"/>
 
-        </activity>
+        <activity
+            android:name=".presentation.screens.main.good_plan.received.re_diffuser.ReDiffuserActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
 
         <activity
             android:name=".presentation.custom.InputActivity_"

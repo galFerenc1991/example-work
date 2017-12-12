@@ -28,7 +28,7 @@
 
     <!--Text color-->
     <color name="textColorGray">#333333</color>
-    <color name="textColorLoginForgotPassword">#f1e881</color>
+    <color name="textColorReBroadcastIndicator">#daca4e</color>
     <color name="textColorGreen">#34c47c</color>
     <color name="textColorGreenTransparent">#6434c47c</color>
     <color name="textColorBlack">#000000</color>

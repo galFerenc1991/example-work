@@ -9,8 +9,7 @@
         android:id="@+id/bottom_wrapper"
         android:layout_width="@dimen/item_swipe_width"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:orientation="vertical">
 
         <include layout="@layout/view_reuse" />
         <!--What you want to show-->

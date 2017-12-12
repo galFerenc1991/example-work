@@ -1,10 +1,10 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay;
 
-import com.jakewharton.rxrelay2.BehaviorRelay;
+import com.jakewharton.rxrelay2.PublishRelay;
+import com.jakewharton.rxrelay2.Relay;
 
 import org.androidannotations.annotations.EBean;
 
-import io.reactivex.Observable;
 
 /**
  * Created by
@@ -14,5 +14,5 @@ import io.reactivex.Observable;
 @EBean(scope = EBean.Scope.Singleton)
 public class ProposeRelay {
 
-    public BehaviorRelay<Boolean> proposeRelay = BehaviorRelay.create();
+    public Relay<Boolean> proposeRelay = PublishRelay.create();
 }

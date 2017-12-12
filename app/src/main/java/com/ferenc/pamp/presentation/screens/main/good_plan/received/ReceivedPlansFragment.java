@@ -1,5 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.received;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,6 +12,8 @@ import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshableFragment;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.screens.main.good_plan.good_plan_adapter.GoodPlanAdapter;
+import com.ferenc.pamp.presentation.screens.main.good_plan.received.re_diffuser.ReDiffuserActivity_;
+import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -54,11 +57,13 @@ public class ReceivedPlansFragment extends RefreshableFragment implements Receiv
     protected GoodDealRepository mGoodDealRepository;
     @Bean
     protected GoodPlanAdapter mGoodPlanAdapter;
+    @Bean
+    protected ReceiveRelay mReceiveRelay;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new ReceivedPlansPresenter(this, mGoodDealRepository);
+        new ReceivedPlansPresenter(this, mGoodDealRepository, mReceiveRelay);
     }
 
     @AfterViews
@@ -80,6 +85,11 @@ public class ReceivedPlansFragment extends RefreshableFragment implements Receiv
                 .subscribe();
 
         mPresenter.subscribe();
+    }
+
+    @Override
+    public void openReBroadcastFlow() {
+        ReDiffuserActivity_.intent(mActivity).start();
     }
 
     @Override

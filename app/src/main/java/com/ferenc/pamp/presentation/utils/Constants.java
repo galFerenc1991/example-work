@@ -25,10 +25,11 @@ public abstract class Constants {
     public static final int REQUEST_CODE_ACTIVITY_DELIVERY_DATE = 8;
     public static final int REQUEST_CODE_ACTIVITY_DELIVERY_PLACE = 9;
     public static final int REQUEST_CODE_ACTIVITY_AUTOCOMPLETE_PLACE = 10;
+    public static final int REQUEST_CODE_INPUT_ACTIVITY_DESCRIPTION_FROM_RE_BROADCAST_FLOW = 11;
 
     /*PERMISSIONS REQUEST CODES*/
-    public static final int REQUEST_CODE_REED_CONTACTS = 11;
-    public static final int REQUEST_CODE_SEND_SMS = 12;
+    public static final int REQUEST_CODE_REED_CONTACTS = 12;
+    public static final int REQUEST_CODE_SEND_SMS = 13;
 
 
 

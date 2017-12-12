@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
+import com.ferenc.pamp.presentation.custom.InputActivity_;
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_date.DeliveryDateActivity_;
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_place.DeliveryPlaceActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -22,6 +27,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
@@ -59,21 +65,45 @@ public class DeliveryFragment extends ContentFragment implements DeliveryContrac
     protected TextView tvDeliveryPlace;
     @ViewById(R.id.tvDeliveryDate_FDel)
     protected TextView tvDeliveryDate;
-
+    @ViewById(R.id.tvProductDescription_FDel)
+    protected TextView tvProductDescription;
+    @ViewById(R.id.rlCloseDate_FDel)
+    protected RelativeLayout rlCloseDate;
+    @ViewById(R.id.rlProductDescription_FDel)
+    protected RelativeLayout rlProductDescription;
+    @ViewById(R.id.rlBackground_FDel)
+    protected RelativeLayout rlBackground;
     @Bean
     protected GoodDealManager mGoodDealManager;
+
+    @FragmentArg
+    protected boolean isReBroadcastFlow;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new DeliveryPresenter(this, mGoodDealManager);
+        new DeliveryPresenter(this, mGoodDealManager, isReBroadcastFlow);
     }
 
     @AfterViews
     protected void initUI() {
+        if (!isReBroadcastFlow) {
+            rlProductDescription.setVisibility(View.GONE);
+        } else {
+            rlCloseDate.setVisibility(View.GONE);
+            rlBackground.setBackgroundColor(getResources().getColor(R.color.color_re_broadcast_tab_indicator));
+            tvProductDescription.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_description_yelow, 0, 0, 0);
+            tvDeliveryPlace.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_location_yelow, 0, 0, 0);
+            tvDeliveryDate.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_yelow, 0, 0, 0);
+        }
+
         RxView.clicks(tvCloseDate)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedCloseDate());
+
+        RxView.clicks(tvProductDescription)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.clickedInputField(Constants.REQUEST_CODE_INPUT_ACTIVITY_DESCRIPTION_FROM_RE_BROADCAST_FLOW));
 
         RxView.clicks(tvDeliveryPlace)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
@@ -85,6 +115,19 @@ public class DeliveryFragment extends ContentFragment implements DeliveryContrac
                 .subscribe(o -> mPresenter.clickedDeliveryDate());
 
         mPresenter.subscribe();
+    }
+
+    @Override
+    public void openInputActivity(int _requestCode) {
+        InputActivity_.intent(this)
+                .extra(Constants.KEY_INPUT_INDICATOR, _requestCode)
+                .startForResult(_requestCode);
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_INPUT_ACTIVITY_DESCRIPTION_FROM_RE_BROADCAST_FLOW)
+    void resultDescription(int resultCode, @OnActivityResult.Extra(value = Constants.KEY_INPUT_RESULT) String _description) {
+        if (resultCode == Activity.RESULT_OK)
+            mPresenter.saveProductDescription(_description);
     }
 
     @Override
@@ -147,6 +190,11 @@ public class DeliveryFragment extends ContentFragment implements DeliveryContrac
     }
 
     @Override
+    public void setProductDescription(String _nameDescription) {
+        tvProductDescription.setText(_nameDescription);
+    }
+
+    @Override
     public void setDeliveryDate(String _deliveryDate) {
         tvDeliveryDate.setText(_deliveryDate);
     }
@@ -155,5 +203,4 @@ public class DeliveryFragment extends ContentFragment implements DeliveryContrac
     public void setDeliveryPlace(String _deliveryPlace) {
         tvDeliveryPlace.setText(_deliveryPlace);
     }
-
 }

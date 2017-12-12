@@ -18,6 +18,7 @@ import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.base.models.GoodDeal;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
+import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.squareup.picasso.Picasso;
@@ -69,6 +70,8 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
 
     @Bean
     protected ProposeRelay mProposeRelay;
+    @Bean
+    protected ReceiveRelay mReceiveRelay;
     @Bean
     protected GoodDealManager mGoodDealManager;
     private List<GoodDealResponse> listGD = new ArrayList<>();
@@ -140,7 +143,8 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
 
         if (mGoodPlanItemType == Constants.ITEM_TYPE_RE_BROADCAST) {
             viewHolder.rlReBroadcast.setOnClickListener(view -> {
-
+                mGoodDealManager.saveGoodDeal(getGoodDealFromItem(goodDealResponse));
+                mReceiveRelay.receiveRelay.accept(true);
             });
         } else {
             viewHolder.rlReuse.setOnClickListener(view -> {
@@ -154,14 +158,6 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
     }
 
     private GoodDealRequest getGoodDealFromItem(GoodDealResponse _goodDealResponse) {
-//        GoodDealRequest goodDealForReBroadcast = mGoodDealManager.getGoodDeal();
-//        goodDealForReBroadcast.product = _goodDealResponse.product;
-//        goodDealForReBroadcast.description = _goodDealResponse.description;
-//        goodDealForReBroadcast.price = _goodDealResponse.price;
-//        goodDealForReBroadcast.unit = _goodDealResponse.unit;
-//        goodDealForReBroadcast.quantity = _goodDealResponse.quantity;
-//        goodDealForReBroadcast.closingDate = _goodDealResponse.closingDate;
-
         GoodDealRequest goodDealRequest = new GoodDealRequest.Builder()
                 .setProduct(_goodDealResponse.product)
                 .setDescription(_goodDealResponse.description)
