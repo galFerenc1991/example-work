@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:orientation="horizontal"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal">
+
+    <android.support.v4.widget.CircleImageView
+        android:id="@+id/civInterlocutorAvatar_IMD"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/bg_circle_button"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"/>
+
+    <!--app:cardBackgroundColor="@color/msgGoodDealDiffusionColorOther"-->
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvMsgBackground_IMD"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="5dp"
+        android:padding="10dp"
+        app:cardCornerRadius="0dp"
+        app:cardBackgroundColor="@color/msgMyGoodDealDiffusionColor">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tvMsgAuthorName_IMD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android"
+                android:textSize="14sp"
+                android:textColor="@color/textColorBlack"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:id="@+id/tvMsgText_IMD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Je retourne ce week-end dans mon village dans la région bordelaise et je vous ai dégoter 2 vins de producteurs que je connais très bien ….. alors profitez en :-) Entre-Deux-Mer"
+                android:textSize="14sp"
+                android:textColor="@color/textColorBlack"
+                />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v4.widget.CircleImageView
+        android:id="@+id/civMyAvatar_IMD"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/bg_circle_button"
+        android:layout_marginLeft="10dp"
+        android:visibility="visible"/>
+
+</LinearLayout>

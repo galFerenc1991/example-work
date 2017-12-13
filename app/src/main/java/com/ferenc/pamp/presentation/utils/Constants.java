@@ -52,6 +52,23 @@ public abstract class Constants {
     /*GOOGLE CODES*/
     public static final String GOOGLE_CLIENT_ID = "392469561251-kl0irng19cc3ne0vurejkb6fanu1tv3j.apps.googleusercontent.com";
 
+    /*MESSAGES CODES*/
+    public static final String GOOD_DEAL_DEFFUSION              = "M1";
+    public static final String PRODUCT_ORDERING                 = "M2";
+    public static final String ORDER_CHANGING                   = "M3";
+    public static final String ORDER_CANCELLATION               = "M4";
+    public static final String GOOD_DEAL_DELIVERY_DATE_CHANGED  = "M5";
+    public static final String GOOD_DEAL_CLOSING_DATE_CHANGED   = "M6";
+    public static final String GOOD_DEAL_ADD_RECEPIENTS         = "M7";
+    public static final String GOOD_DEAL_CANCELLATION           = "M8";
+    public static final String CLOSING_DATE                     = "M9";
+    public static final String GOOD_DEAL_CLOSING                = "M10";
+    public static final String GOOD_DEAL_CONFIRMATION           = "M11-1";
+    public static final String GOOD_DEAL_CONFIRMATION_REJECTED  = "M11-2";
+    public static final String GOOD_DEAL_CONFIRMATION_APPLYED   = "M11-3";
+    public static final String DELIVERY_DATE                    = "M11";
+
+
 
     public enum MessageType {
         CONNECTION_PROBLEMS(R.string.err_msg_connection_problem, true),

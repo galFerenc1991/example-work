@@ -18,6 +18,9 @@
     <string name="title_propose">VOTRE BON PLAN</string>
     <string name="title_delivery_date">Date de Livraison</string>
     <string name="title_delivery_place">Lieu de Livraison</string>
+    <string name="title_messenger">Messagerie</string>
+    <string name="title_orders">Commandes</string>
+
 
 
     <!--Buttons-->

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:id="@+id/llToolBar_FChT"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/ivBack_FChT"
+                android:layout_width="@dimen/bottom_bar_height"
+                android:layout_height="@dimen/bottom_bar_height"
+                app:srcCompat="@drawable/ic_arrow_back_green"
+                android:background="?attr/selectableItemBackground"
+                android:padding="15dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/ivBack_FChT">
+
+                <TextView
+                    android:id="@+id/tvToolBarName_FChT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BON PLAN"
+                    android:textColor="@color/textColorBlack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvParticipants_FChT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sasha, Vasia, Shoni, Feri, Ivan.."
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/ivShare_FChT"
+                android:layout_width="@dimen/bottom_bar_height"
+                android:layout_height="@dimen/bottom_bar_height"
+                android:padding="15dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_share_msg"
+                android:background="?attr/selectableItemBackground"
+                android:visibility="visible"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout_FChT"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/llToolBar_FChT"
+        android:background="@color/colorWhite"
+        android:elevation="@dimen/padding_half"
+        app:tabIndicatorColor="@color/color_tab_indicator"
+        app:tabSelectedTextColor="@color/msgMyGoodDealDiffusionColor"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        app:tabTextColor="@color/textColorGray" />
+
+    <View
+        android:id="@+id/viewUnderline_FChT"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tabLayout_FChT"
+        android:background="@color/colorWhite"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/shadow"
+        android:layout_below="@+id/viewUnderline_FChT"/>
+
+</RelativeLayout>

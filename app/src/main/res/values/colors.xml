@@ -36,6 +36,11 @@
 
 
 
+    <!--messages colors-->
+    <color name="msgMyGoodDealDiffusionColor">#34C47C</color>
+    <color name="msgGoodDealDiffusionColorOther">#CCCCCC</color>
+    <color name="msgGoodDealDateLocationColor">#0077C5</color>
+    <color name="msgYellowColor">#FF9E03</color>
 
 
     <color name="textColorLightGray">#8a615f5f</color>
