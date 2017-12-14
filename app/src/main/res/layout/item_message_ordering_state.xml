@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/rlBackground_IMOS"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,6 +9,8 @@
     android:paddingLeft="20dp"
     android:paddingRight="10dp"
     android:layout_marginRight="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     android:background="@drawable/bg_msg_product_ordering">
 
     <LinearLayout
@@ -16,7 +19,7 @@
         android:orientation="vertical"
         android:id="@+id/linearLayout2">
         <TextView
-            android:id="@+id/tvOrderOwnerName_IMPO"
+            android:id="@+id/tvOrderOwnerName_IMOS"
             android:text="Android:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,7 +27,7 @@
             android:textColor="@color/textColorBlack"
             android:textStyle="bold"/>
         <TextView
-            android:id="@+id/tvPriceDescription_IMPO"
+            android:id="@+id/tvPriceDescription_IMOS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="14 / bottle de 75cl"
@@ -33,7 +36,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/ivOrderState_IMPO"
+        android:id="@+id/ivOrderState_IMOS"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerVertical="true"

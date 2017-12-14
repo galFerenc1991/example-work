@@ -3,6 +3,8 @@ package com.ferenc.pamp.data.model.base;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ferenc.pamp.data.model.common.User;
+
 import java.util.ArrayList;
 
 /**

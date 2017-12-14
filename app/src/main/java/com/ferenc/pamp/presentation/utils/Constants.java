@@ -53,20 +53,30 @@ public abstract class Constants {
     public static final String GOOGLE_CLIENT_ID = "392469561251-kl0irng19cc3ne0vurejkb6fanu1tv3j.apps.googleusercontent.com";
 
     /*MESSAGES CODES*/
-    public static final String GOOD_DEAL_DEFFUSION              = "M1";
-    public static final String PRODUCT_ORDERING                 = "M2";
-    public static final String ORDER_CHANGING                   = "M3";
-    public static final String ORDER_CANCELLATION               = "M4";
-    public static final String GOOD_DEAL_DELIVERY_DATE_CHANGED  = "M5";
-    public static final String GOOD_DEAL_CLOSING_DATE_CHANGED   = "M6";
-    public static final String GOOD_DEAL_ADD_RECEPIENTS         = "M7";
-    public static final String GOOD_DEAL_CANCELLATION           = "M8";
-    public static final String CLOSING_DATE                     = "M9";
-    public static final String GOOD_DEAL_CLOSING                = "M10";
-    public static final String GOOD_DEAL_CONFIRMATION           = "M11-1";
-    public static final String GOOD_DEAL_CONFIRMATION_REJECTED  = "M11-2";
-    public static final String GOOD_DEAL_CONFIRMATION_APPLYED   = "M11-3";
-    public static final String DELIVERY_DATE                    = "M11";
+    public static final String M1_GOOD_DEAL_DIFFUSION                   = "M1";
+
+    public static final String M2_PRODUCT_ORDERING                      = "M2";
+    public static final String M3_ORDER_CHANGING                        = "M3";
+    public static final String M4_ORDER_CANCELLATION                    = "M4";
+
+    public static final String M5_GOOD_DEAL_DELIVERY_DATE_CHANGED       = "M5";
+    public static final String M6_GOOD_DEAL_CLOSING_DATE_CHANGED        = "M6";
+    public static final String M9_CLOSING_DATE                          = "M9";
+    public static final String M12_DELIVERY_DATE                        = "M12";
+
+    public static final String M8_GOOD_DEAL_CANCELLATION                = "M8";
+    public static final String M10_GOOD_DEAL_CLOSING                    = "M10";
+
+    public static final String M11_1_GOOD_DEAL_CONFIRMATION             = "M11_1";
+    public static final String M11_2_GOOD_DEAL_CONFIRMATION_REJECTED    = "M11_2";
+    public static final String M11_3_GOOD_DEAL_CONFIRMATION_APPLYED     = "M11_3";
+
+    public static final int DEFAULT_MSG_GROUP_TYPE              = 0;
+    public static final int M1_MSG_GROUP_TYPE                   = 1;
+    public static final int M2_M3_M4_MSG_GROUP_TYPE             = 2;
+    public static final int M5_M6_M9_M12_MSG_GROUP_TYPE         = 3;
+    public static final int M8_M10_MSG_GROUP_TYPE               = 4;
+    public static final int M11_1_M11_2_M11_3_MSG_GROUP_TYPE    = 5;
 
 
 

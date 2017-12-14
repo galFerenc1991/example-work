@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.ferenc.pamp.R;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 
 
@@ -19,16 +20,17 @@ import org.androidannotations.annotations.Extra;
 public class ChatActivity extends BaseActivity {
 
     @Extra
-    public int fromWhere;
+    protected int fromWhere;
+
+    @Extra
+    protected GoodDealResponse goodDealResponse;
 
     Toolbar toolbar;
 
     @AfterViews
     protected void initFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, ChatFragment_.builder().build())
-                .commit();
+        replaceFragment(ChatFragment_.builder().goodDealResponse(goodDealResponse).build());
+
     }
 
     @Override

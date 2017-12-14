@@ -163,6 +163,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
                 ChatActivity_
                         .intent(context)
                         .fromWhere(mGoodPlanItemType)
+                        .goodDealResponse(goodDealResponse)
                         .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .start());
 

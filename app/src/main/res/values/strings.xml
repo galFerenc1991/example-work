@@ -197,6 +197,9 @@
     <string name="text_logout">Logout</string>
     <string name="text_connect_description">Posez vos questions, faites nous des suggestions, donnez nous votre avis, signaler un bug…</string>
 
+    <!--Messenger texts-->
+    <string name="bon_plan_close">BON PLAN CLOS</string>
+    <string name="bon_plan_annule">BON PLAN ANNULE</string>
 
 
 </resources>

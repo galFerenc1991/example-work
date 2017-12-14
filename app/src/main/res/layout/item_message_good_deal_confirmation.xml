@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/rlBackground_IMGDC"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,14 +9,16 @@
     android:paddingLeft="10dp"
     android:paddingRight="20dp"
     android:layout_marginLeft="20dp"
-    android:background="@drawable/bg_msg_good_deal_state_yellow">
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_msg_good_deal_confirmation_green">
 
     <ImageView
         android:id="@+id/ivGoodDealConfirmationState_IMGDC"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_cloud_off" />
+        android:src="@drawable/ic_finger_up_msg" />
 
 
     <TextView
