@@ -16,10 +16,14 @@ import com.ferenc.pamp.presentation.utils.GoodDealValidateManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by
@@ -59,15 +63,12 @@ public class SharePresenter implements ShareContract.Presenter {
                             header = String.valueOf(contactName.charAt(0));
                             contactDHList.add(new ContactDH(header, ContactAdapter.TYPE_HEADER));
                         }
-//                        isCurrent = country.equalsIgnoreCase(mCountry);
-//                        if (isCurrent) {
-//                            selectedPos = countryDHList.size();
-//                            mCountry = country;
-//                        }
                         contactDHList.add(new ContactDH(contact, ContactAdapter.TYPE_ITEM));
                     }
                     return Observable.just(contactDHList);
                 })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(contactDHList -> {
                     mPhoneContactList = contactDHList;
                     mView.hideProgress();

@@ -48,6 +48,7 @@
             android:layout_below="@+id/cvTitle_ADP">
 
             <TextView
+                android:id="@+id/tvAddress_ADP"
                 style="@style/DescriptionGoodPlanTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

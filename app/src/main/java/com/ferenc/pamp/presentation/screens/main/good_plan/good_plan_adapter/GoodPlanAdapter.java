@@ -21,6 +21,7 @@ import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_rela
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
+import com.ferenc.pamp.presentation.utils.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.Bean;
@@ -102,9 +103,10 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
     public void onBindViewHolder(SimpleViewHolder viewHolder, int position) {
         GoodDealResponse goodDealResponse = listGD.get(position);
         Picasso.with(PampApp_.getInstance())
-                .load(RestConst.BASE_URL + goodDealResponse.contributor.avatar)
+                .load(RestConst.BASE_URL + "/" + goodDealResponse.contributor.avatar)
                 .placeholder(R.drawable.ic_userpic)
                 .error(R.drawable.ic_userpic)
+                .transform(new RoundedTransformation(200, 0))
                 .fit()
                 .centerCrop()
                 .into(viewHolder.ivProfileImage);

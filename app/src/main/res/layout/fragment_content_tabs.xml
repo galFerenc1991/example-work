@@ -44,7 +44,7 @@
             android:elevation="@dimen/padding_half"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
             app:tabIndicatorColor="@color/color_tab_indicator"
-            app:tabSelectedTextColor="@color/textColorGray"
+            app:tabSelectedTextColor="@color/textColorGreen"
             app:tabTextColor="@color/textColorGray" />
 
         <View

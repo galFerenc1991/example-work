@@ -49,6 +49,7 @@
             android:layout_below="@+id/cvTitle_ADD">
 
             <TextView
+                android:id="@+id/tvStartDateItem_ADD"
                 style="@style/DescriptionGoodPlanTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,6 +94,7 @@
             android:layout_height="@dimen/bottom_bar_height">
 
             <TextView
+                android:id="@+id/tvEndDateItem_ADD"
                 style="@style/DescriptionGoodPlanTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

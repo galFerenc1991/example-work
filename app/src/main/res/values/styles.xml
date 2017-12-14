@@ -6,6 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorSecondary">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="ReBroadcastTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/textColorReBroadcastIndicator</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/textColorReBroadcastIndicator</item>
+        <item name="android:colorSecondary">@color/textColorReBroadcastIndicator</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
@@ -144,6 +154,10 @@
         <item name="android:textColor">@color/textColorBlack</item>
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="toolbar_theme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/colorPrimary</item>
     </style>
 
     <!-- Button text styles -->

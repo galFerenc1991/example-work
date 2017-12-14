@@ -1,9 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.propose;
 
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -67,10 +65,10 @@ public class ProposeFragment extends ContentTabsFragment {
         if (!isReBroadcastFlow) {
             adapter.addFragment(DescriptionFragment_.builder().build(), mDescriptionTabName);
             adapter.addFragment(DeliveryFragment_.builder().isReBroadcastFlow(isReBroadcastFlow).build(), mDeliveryTabName);
-            adapter.addFragment(ShareFragment_.builder().build(), mShareTabName);
+            adapter.addFragment(ShareFragment_.builder().isReBroadcastFlow(isReBroadcastFlow).build(), mShareTabName);
         } else {
             adapter.addFragment(DeliveryFragment_.builder().isReBroadcastFlow(isReBroadcastFlow).build(), mDeliveryTabName);
-            adapter.addFragment(ShareFragment_.builder().build(), mReBroadcastName);
+            adapter.addFragment(ShareFragment_.builder().isReBroadcastFlow(isReBroadcastFlow).build(), mReBroadcastName);
         }
     }
 
@@ -87,6 +85,7 @@ public class ProposeFragment extends ContentTabsFragment {
                     });
             ivBack.setVisibility(View.VISIBLE);
             tvTitle.setText(mTitleReBroadcast);
+            tlTabLayout.setTabTextColors(ContextCompat.getColorStateList(mActivity,R.color.color_tab_text_indicator));
             tlTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.color_re_broadcast_tab_indicator));
         }
     }

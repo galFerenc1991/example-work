@@ -37,7 +37,7 @@ public class MainPresenter implements MainContract.Presenter {
     public void connectGoodDeal(String _id) {
         mCompositeDisposable.add(mModel.connectGoodDeal(_id)
                 .subscribe(connectGoodDealResponse -> {
-                    ToastManager.showToast(" GoodDeal : " + _id + "connected!");
+                    ToastManager.showToast(" GoodDeal : " + _id + "connected! \nif you don't see it in received list, please do refresh");
                 }, throwable -> {
 
                 }));

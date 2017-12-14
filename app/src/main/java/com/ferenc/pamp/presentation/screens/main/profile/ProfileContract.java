@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.profile;
 
 import com.ferenc.pamp.data.model.auth.SignUpResponse;
+import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.presentation.base.BaseModel;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.BaseView;
@@ -17,15 +18,22 @@ public interface ProfileContract {
 
     interface View extends ContentView, BaseView<Presenter> {
         void logOut();
+        void openEditProfile();
+        void setUserProfilePictureAndName(String _avatarUrl, String _name);
+        void sharePamp();
     }
 
     interface Presenter extends BasePresenter {
         void clickedLogOut();
         void clickedProfileInformation();
+        void clickedSharePamp();
 
     }
 
-    interface Model extends BaseModel {
+    interface SignOutModel extends BaseModel {
         Observable<SignUpResponse> signOut();
+    }
+    interface UserProfileModel extends BaseModel{
+        Observable<User> getUserProfile();
     }
 }

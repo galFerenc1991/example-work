@@ -33,7 +33,7 @@ import io.reactivex.Observable;
  * Ferenc on 2017.11.16..
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class AuthRepository extends NetworkRepository implements CreatePasswordContract.Model, LoginContract.Model, SignUpContract.Model, CountryContract.Model ,ProfileContract.Model{
+public class AuthRepository extends NetworkRepository implements CreatePasswordContract.Model, LoginContract.Model, SignUpContract.Model, CountryContract.Model, ProfileContract.SignOutModel {
     @Bean
     protected Rest rest;
     @Bean
@@ -127,6 +127,7 @@ public class AuthRepository extends NetworkRepository implements CreatePasswordC
                             .getAccessToken()
                             .remove()
                             .apply();
+                    mSignedUserManager.clearUser();
                     Log.d("Token", "Writed token: " + mSharedPrefManager.getAccessToken().get());
                     return Observable.just(signUpResponse);
                 });
@@ -141,7 +142,7 @@ public class AuthRepository extends NetworkRepository implements CreatePasswordC
     public Observable<List<String>> getCountryList() {
         return getNetworkObservable(authService.getCountryList())
                 .flatMap(countryList -> {
-                 List<String> country = Arrays.asList(countryList.getCountry());
+                    List<String> country = Arrays.asList(countryList.getCountry());
                     return Observable.just(country);
                 });
     }

@@ -29,6 +29,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
@@ -73,6 +74,9 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     @Bean
     protected GoodDealManager mGoodDealManager;
 
+    @FragmentArg
+    protected boolean isReBroadcastFlow;
+
     @AfterInject
     @Override
     public void initPresenter() {
@@ -84,6 +88,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
 
     @AfterViews
     protected void initUI() {
+        initStyle();
         RxView.clicks(btnShare)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> checkSendSMSPermission());
@@ -92,6 +97,13 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
         rvContactList.setAdapter(mContactAdapter);
 
         checkReedContactsPermission();
+    }
+
+    private void initStyle() {
+        if (isReBroadcastFlow) {
+            btnShare.setBackground(getResources().getDrawable(R.drawable.bg_confirm_button_yellow));
+            mActivity.setTheme(R.style.ReBroadcastTheme);
+        }
     }
 
     @Override

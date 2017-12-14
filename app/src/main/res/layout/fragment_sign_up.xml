@@ -94,21 +94,6 @@
                 android:textColorHint="@color/textColorGray"
                 android:textSize="@dimen/text_size_default" />
         </LinearLayout>
-        <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:id="@+id/tilCountry_FSU"-->
-        <!--style="@style/TILStyle"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:hint="@string/hint_country">-->
-
-        <!--<EditText-->
-        <!--android:id="@+id/etCountry_FSU"-->
-        <!--style="@style/AuthEditTextStyle"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:drawableEnd="@drawable/ic_edit" />-->
-
-        <!--</android.support.design.widget.TextInputLayout>-->
 
         <FrameLayout
             android:id="@+id/btnCreatePamp_FSU"
