@@ -208,7 +208,18 @@
     <string name="text_connect_description">Posez vos questions, faites nous des suggestions, donnez nous votre avis, signaler un bug…</string>
 
     <!--Messenger texts-->
-    <string name="bon_plan_close">BON PLAN CLOS</string>
-    <string name="bon_plan_annule">BON PLAN ANNULE</string>
+    <string name="text_bon_plan_close">BON PLAN CLOS</string>
+    <string name="text_bon_plan_annule">BON PLAN ANNULE</string>
+    <string name="text_bon_plan_confirme">Bon plan confirme</string>
+    <string name="text_commande_annule">Commande annulee</string>
+    <string name="text_commande_confirmee">Commande confirme</string>
+
+    <string name="text_change_date">Changement date de livraison:</string>
+    <string name="text_change_closing_date">Changement date de clôture du bon plan:</string>
+    <string name="text_closing_date">Attention plus qu`i jour avant la clôture du bon plan:</string>
+    <string name="text_delivery_date">Noubliez pas derecuperer votre bon plan</string>
+    <string name="text_name_a_change">a change:</string>
+
+
 
 </resources>

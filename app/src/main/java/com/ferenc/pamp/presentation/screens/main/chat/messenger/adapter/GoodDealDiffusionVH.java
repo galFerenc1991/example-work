@@ -62,7 +62,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
 
         if (data.getGoodDealResponse().contributor.id.equals(data.getMyUser().getId())) {
             Picasso.with(PampApp_.getInstance())
-                    .load(data.getMyUser().getAvatar())
+                    .load(data.getMyUser().getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civMyAvatar);
@@ -84,8 +84,8 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         tvDealDescription.setText(data.getMessageResponse().text);
         tvDealPriceDescription.setText(data.getGoodDealResponse().description);
         tvDealAmountItems.setText(data.getGoodDealResponse().unit);
-        tvDealStartDate.setText(new SimpleDateFormat("MM/dd/yyyy", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryStartDate)));
-        tvDealEndDate.setText(new SimpleDateFormat("MM/dd/yyyy", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryEndDate)));
+        tvDealStartDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryStartDate)));
+        tvDealEndDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryEndDate)));
         tvDealLocation.setText(data.getGoodDealResponse().deliveryAddress);
 
     }

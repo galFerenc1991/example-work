@@ -1,10 +1,8 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ferenc.pamp.PampApp;
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -35,14 +33,17 @@ public class GoodDealEndingVH extends RecyclerVH<MessagesDH> {
     @Override
     public void bindData(MessagesDH data) {
 
-        if (data.getMessageResponse().code.equals(Constants.M10_GOOD_DEAL_CLOSING)) {
-            tvDealEndingState.setText(R.string.bon_plan_close);
-            tvDealEndingState.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.textColorBlack));
-            viewUnderline.setBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.textColorBlack));
-        } else if(data.getMessageResponse().code.equals(Constants.M8_GOOD_DEAL_CANCELLATION)){
-            tvDealEndingState.setText(R.string.bon_plan_annule);
-            tvDealEndingState.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.colorRed));
-            viewUnderline.setBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.colorRed));
+        switch (data.getMessageResponse().code) {
+            case Constants.M10_GOOD_DEAL_CLOSING:
+                tvDealEndingState.setText(R.string.text_bon_plan_close);
+                tvDealEndingState.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.textColorBlack));
+                viewUnderline.setBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.textColorBlack));
+                break;
+            case Constants.M8_GOOD_DEAL_CANCELLATION:
+                tvDealEndingState.setText(R.string.text_bon_plan_annule);
+                tvDealEndingState.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.colorRed));
+                viewUnderline.setBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.colorRed));
+                break;
         }
 
     }

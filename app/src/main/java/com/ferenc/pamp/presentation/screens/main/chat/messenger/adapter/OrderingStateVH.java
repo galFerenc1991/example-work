@@ -39,14 +39,24 @@ public class OrderingStateVH extends RecyclerVH<MessagesDH> {
 
     @Override
     public void bindData(MessagesDH data) {
-        if (data.getMessageResponse().code.equals(Constants.M2_PRODUCT_ORDERING) || data.getMessageResponse().code.equals(Constants.M3_ORDER_CHANGING)) {
-            ivOrderState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_check_msg));
-            rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_product_ordering));
-        } else if (data.getMessageResponse().code.equals(Constants.M4_ORDER_CANCELLATION)) {
-            ivOrderState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_close_msg));
-            rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_cancel_ordering));
+        switch (data.getMessageResponse().code) {
+            case Constants.M2_PRODUCT_ORDERING:
+                ivOrderState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_check_msg));
+                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_product_ordering));
+                tvOrderOwnerName.setText(data.getMessageResponse().user != null ? data.getMessageResponse().user.getFirstName() : "user == null");
+
+                break;
+            case Constants.M3_ORDER_CHANGING:
+                ivOrderState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_check_msg));
+                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_product_ordering));
+                tvOrderOwnerName.setText(data.getMessageResponse().user != null ? data.getMessageResponse().user.getFirstName() : "user == null" + " " + PampApp_.getInstance().getString(R.string.text_name_a_change));
+                break;
+            case Constants.M4_ORDER_CANCELLATION:
+                ivOrderState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_close_msg));
+                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_cancel_ordering));
+                tvOrderOwnerName.setText(data.getMessageResponse().user != null ? data.getMessageResponse().user.getFirstName() : "user == null");
+                break;
         }
-        tvOrderOwnerName.setText(data.getMessageResponse().user.getFirstName());
-        tvPriceDescription.setText(data.getMessageResponse().text);
+        tvPriceDescription.setText(data.getGoodDealResponse().unit);
     }
 }
