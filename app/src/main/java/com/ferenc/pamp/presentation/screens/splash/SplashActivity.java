@@ -1,6 +1,8 @@
 package com.ferenc.pamp.presentation.screens.splash;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.screens.auth.AuthActivity_;
@@ -42,7 +44,6 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     public void startTutorial() {
         TutorialActivity_.intent(this).start();
     }
-
     @Override
     public void openAuth() {
         AuthActivity_.intent(this).start();

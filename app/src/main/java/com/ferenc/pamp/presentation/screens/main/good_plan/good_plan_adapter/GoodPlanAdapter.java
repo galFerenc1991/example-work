@@ -1,5 +1,8 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.good_plan_adapter;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,12 +14,14 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+import com.ferenc.pamp.PampApp;
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.api.RestConst;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.base.models.GoodDeal;
+import com.ferenc.pamp.presentation.screens.main.chat.ChatActivity_;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -26,6 +31,7 @@ import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +55,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
 
         public RelativeLayout rlReuse;
         public RelativeLayout rlReBroadcast;
+        private RelativeLayout rlRootLayout;
 
         public SimpleViewHolder(View itemView) {
             super(itemView);
@@ -61,6 +68,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
             ivReuseIndicator = (ImageView) itemView.findViewById(R.id.ivReuseIndicator_LIDP);
             rlReuse = (RelativeLayout) itemView.findViewById(R.id.rlReuse_VR);
             rlReBroadcast = (RelativeLayout) itemView.findViewById(R.id.rlReBroadcast_VRB);
+            rlRootLayout = (RelativeLayout) itemView.findViewById(R.id.rlRootLayout_LIGP);
 
 
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
@@ -77,6 +85,8 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
     protected GoodDealManager mGoodDealManager;
     private List<GoodDealResponse> listGD = new ArrayList<>();
     private int mGoodPlanItemType;
+    @RootContext
+    protected Context context;
 
     public GoodPlanAdapter() {
 
@@ -154,6 +164,15 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
                 mProposeRelay.proposeRelay.accept(true);
             });
         }
+
+        viewHolder.rlRootLayout.setOnClickListener(view ->
+                ChatActivity_
+                        .intent(context)
+                        .fromWhere(mGoodPlanItemType)
+                        .goodDealResponse(goodDealResponse)
+                        .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .start());
+
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         mItemManger.bindView(viewHolder.itemView, position);
 

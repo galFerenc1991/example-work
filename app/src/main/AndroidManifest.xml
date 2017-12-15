@@ -102,6 +102,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/DialogTheme.Country" />
 
+        <activity
+            android:name=".presentation.screens.main.chat.ChatActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
 
         <activity
             android:name="com.facebook.FacebookActivity"

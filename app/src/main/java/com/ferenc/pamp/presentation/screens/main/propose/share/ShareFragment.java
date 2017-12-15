@@ -42,6 +42,7 @@ import java.util.concurrent.TimeUnit;
  */
 @EFragment
 public class ShareFragment extends ContentFragment implements ShareContract.View {
+
     @Override
     public void setPresenter(ShareContract.Presenter presenter) {
         mPresenter = presenter;

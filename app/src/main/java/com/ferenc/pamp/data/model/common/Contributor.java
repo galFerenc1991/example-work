@@ -3,6 +3,7 @@ package com.ferenc.pamp.data.model.common;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ferenc.pamp.data.api.RestConst;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -33,6 +34,10 @@ public class Contributor implements Parcelable{
     }
 
     public Contributor() {
+    }
+
+    public String getAvatar() {
+        return RestConst.BASE_URL + "/" + avatar;
     }
 
     protected Contributor(Parcel in) {
