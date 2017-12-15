@@ -38,6 +38,8 @@
     <dimen name="profile_image_default_size">66dp</dimen>
     <dimen name="profile_image_big_size">80dp</dimen>
     <dimen name="contact_picture_default_size">20dp</dimen>
+    <dimen name="order_image_size">45dp</dimen>
+
 
 
     <!--Item-->

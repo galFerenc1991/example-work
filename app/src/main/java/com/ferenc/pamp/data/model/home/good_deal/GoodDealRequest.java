@@ -14,7 +14,7 @@ public class GoodDealRequest implements Parcelable {
 
     private String product;
     private String description;
-    private int price;
+    private double price;
     private String unit;
     private int quantity;
     private long closingDate;
@@ -39,11 +39,11 @@ public class GoodDealRequest implements Parcelable {
         this.description = description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -126,7 +126,7 @@ public class GoodDealRequest implements Parcelable {
             return this;
         }
 
-        public Builder setPrice(int _price) {
+        public Builder setPrice(double _price) {
             goodDealRequest.price = _price;
             return this;
         }
@@ -171,7 +171,7 @@ public class GoodDealRequest implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.product);
         dest.writeString(this.description);
-        dest.writeInt(this.price);
+        dest.writeDouble(this.price);
         dest.writeString(this.unit);
         dest.writeInt(this.quantity);
         dest.writeLong(this.closingDate);
@@ -187,7 +187,7 @@ public class GoodDealRequest implements Parcelable {
     protected GoodDealRequest(Parcel in) {
         this.product = in.readString();
         this.description = in.readString();
-        this.price = in.readInt();
+        this.price = in.readDouble();
         this.unit = in.readString();
         this.quantity = in.readInt();
         this.closingDate = in.readLong();

@@ -75,7 +75,7 @@ public abstract class ValidationManager {
 
     public static int validateNumber(String _number) {
         if(TextUtils.isEmpty(_number)) return EMPTY;
-        return Integer.valueOf(_number) > 0 ? OK : INVALID;
+        return Double.valueOf(_number) > 0 ? OK : INVALID;
     }
 
     public static int validateLongNumber(String _number) {

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +34,7 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -109,15 +111,17 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
 
     @Override
     public void sendSmsWith(Uri _dynamicLink, List<String> _selectedContacts) {
-//        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
-//        sendIntent.putExtra("sms body", _dynamicLink);
-        for (String contact : _selectedContacts) {
-//            sendIntent.putExtra(ContactsContract.Intents.Insert.PHONE, contact);
-        }
-//        sendIntent.putExtra(ContactsContract.Intents.Insert.PHONE, "0660892231");
-//        startActivity(sendIntent);
+        ArrayList<String> selectedContacts = new ArrayList<>(_selectedContacts);
 
-        Uri uri = Uri.parse("smsto: 0665949534");
+//
+//        String numbers = "" ;
+//        for (String contact : selectedContacts) {
+//            numbers = numbers +";" + contact;
+//        }
+        //            it.putStringArrayListExtra(ContactsContract.Intents.Insert.PHONE, selectedContacts);
+
+
+        Uri uri = Uri.parse("smsto: " + selectedContacts.get(0));
         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
         it.putExtra("sms_body", "Je vous envoi bon plan ... á retrouver sur PAMP en téléchargeant I'appli  \n" + _dynamicLink.toString());
         startActivity(it);
@@ -164,7 +168,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mPresenter.share(mContactAdapter.getListDH());
             } else {
-//                ToastManager.showToast("Please, allow for PAMP access to address book.");
+                ToastManager.showToast("Please, allow for PAMP access to send SMS.");
             }
         }
     }
