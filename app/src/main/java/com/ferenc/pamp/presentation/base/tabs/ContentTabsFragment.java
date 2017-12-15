@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.base.tabs;
 
 import android.support.design.widget.TabLayout;
+import android.view.View;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
@@ -33,6 +34,14 @@ public abstract class ContentTabsFragment extends ContentFragment {
     }
 
     public abstract void addFragmentsToAdapter(TabPagerAdapter adapter);
+
+    public void toggleTabsVisibility(Boolean hide) {
+        if (hide) {
+            tlTabs.setVisibility(View.GONE);
+        } else {
+            tlTabs.setVisibility(View.VISIBLE);
+        }
+    }
 
     @AfterViews
     protected void initUI() {

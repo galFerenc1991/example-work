@@ -21,8 +21,6 @@
             android:layout_marginRight="10dp"
             android:visibility="gone"/>
 
-        <!--app:cardBackgroundColor="@color/msgGoodDealDiffusionColorOther"-->
-
         <android.support.v7.widget.CardView
             android:id="@+id/cvDealBackground_IMGDD"
             android:layout_width="240dp"

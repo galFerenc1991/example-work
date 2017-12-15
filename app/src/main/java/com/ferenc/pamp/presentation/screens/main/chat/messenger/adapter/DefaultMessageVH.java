@@ -28,7 +28,7 @@ public class DefaultMessageVH extends RecyclerVH<MessagesDH> {
     private CardView cvMsgBackground;
 
 
-    public DefaultMessageVH(View itemView) {
+    DefaultMessageVH(View itemView) {
         super(itemView);
         civInterlocutorAvatar = (CircleImageView) itemView.findViewById(R.id.civInterlocutorAvatar_IMD);
         civMyAvatar = (CircleImageView) itemView.findViewById(R.id.civMyAvatar_IMD);
@@ -45,7 +45,7 @@ public class DefaultMessageVH extends RecyclerVH<MessagesDH> {
 
     @Override
     public void bindData(MessagesDH data) {
-        if (data.getGoodDealResponse().contributor.id.equals(data.getMyUser().getId())) {
+        if (data.getMessageResponse().user.getId().equals(data.getMyUser().getId())) {
             Picasso.with(PampApp_.getInstance())
                     .load(data.getMyUser().getAvatar())
                     .placeholder(R.drawable.ic_userpic)
@@ -56,13 +56,13 @@ public class DefaultMessageVH extends RecyclerVH<MessagesDH> {
             tvMsgAuthorName.setText(data.getMyUser().getFirstName());
         } else {
             Picasso.with(PampApp_.getInstance())
-                    .load(data.getGoodDealResponse().contributor.getAvatar())
+                    .load(data.getMessageResponse().user.getAvatar())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civInterlocutorAvatar);
             civInterlocutorAvatar.setVisibility(View.VISIBLE);
             cvMsgBackground.setCardBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
-            tvMsgAuthorName.setText(data.getGoodDealResponse().contributor.firstName);
+            tvMsgAuthorName.setText(data.getMessageResponse().user.getFirstName());
 
         }
         tvMsgText.setText(data.getMessageResponse().text);

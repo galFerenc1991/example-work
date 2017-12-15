@@ -26,12 +26,20 @@ public interface MessengerContract {
 
         void addItem(List<MessagesDH> _list);
 
+        void sendMessage();
+
+        void addImage();
+
     }
 
     interface Presenter extends RefreshablePresenter {
         void openMessengerFragment();
 
         void loadNextPage();
+
+        void sendMessage();
+
+        void addImage();
 
     }
 

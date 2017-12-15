@@ -1,6 +1,8 @@
 package com.ferenc.pamp.presentation.screens.main.chat;
 
 import android.app.Activity;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
@@ -9,9 +11,12 @@ import com.ferenc.pamp.presentation.base.tabs.ContentTabsFragment;
 import com.ferenc.pamp.presentation.base.tabs.TabPagerAdapter;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerFragment_;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.OrderFragment_;
+import com.ferenc.pamp.presentation.utils.Constants;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
 /**
@@ -30,13 +35,37 @@ public class ChatFragment extends ContentTabsFragment {
     @FragmentArg
     protected GoodDealResponse goodDealResponse;
 
+    @FragmentArg
+    protected int fromWhere;
+
+    @ViewById(R.id.rlTitle_FCT)
+    protected RelativeLayout rlTitle;
+
 
     @Override
     public void addFragmentsToAdapter(TabPagerAdapter adapter) {
-        adapter.addFragment(MessengerFragment_.builder().goodDealResponse(goodDealResponse).build(), titleMessenger);
-        adapter.addFragment(OrderFragment_.builder().build(), titleOrders);
+        switch (fromWhere) {
+            case Constants.ITEM_TYPE_RE_BROADCAST:
+                adapter.addFragment(MessengerFragment_.builder().goodDealResponse(goodDealResponse).build(), titleMessenger);
+                break;
+            case Constants.ITEM_TYPE_REUSE:
+                adapter.addFragment(MessengerFragment_.builder().goodDealResponse(goodDealResponse).build(), titleMessenger);
+                adapter.addFragment(OrderFragment_.builder().build(), titleOrders);
+                break;
+            default:
+                throw new RuntimeException("ChatFragment :: addFragmentsToAdapter [Can find needed fragment(s)]");
+        }
+    }
+
+    @AfterViews
+    protected void toggleTabsVisibility() {
+        rlTitle.setVisibility(View.GONE);
+
+        if (fromWhere == Constants.ITEM_TYPE_RE_BROADCAST)
+            toggleTabsVisibility(true);
 
     }
+
 
     @Override
     protected int getLayoutRes() {
