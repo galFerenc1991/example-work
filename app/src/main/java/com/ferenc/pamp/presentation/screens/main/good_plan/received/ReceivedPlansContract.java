@@ -25,6 +25,10 @@ public interface ReceivedPlansContract {
         void openReBroadcastFlow();
 
         void sharePlayStoreLincInSMS();
+
+        void checkSendSMSPermission();
+
+        boolean isSendSMSPermissionNotGranted();
     }
 
     interface Presenter extends RefreshablePresenter {

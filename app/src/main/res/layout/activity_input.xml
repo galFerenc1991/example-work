@@ -13,13 +13,6 @@
         android:background="@color/colorWhite"
         android:minHeight="@dimen/item_default_height">
 
-        <!--<View-->
-        <!--android:id="@+id/viewLine_AI"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:layout_below="@+id/etContent_AI"-->
-        <!--android:background="@color/textColorGray" />-->
-
         <ImageView
             android:id="@+id/ivContentIcon_AI"
             android:layout_width="wrap_content"

@@ -16,7 +16,7 @@ public abstract class Constants {
 
     /*REQUEST CODES*/
     public static final int REQUEST_CODE_GOOGLE = 1;
-    public static final int REQUEST_CODE_COUNTRY_DIALOG = 2;
+    public static final int REQUEST_CODE_COUNTRY_PICKER = 2;
     public static final int REQUEST_CODE_INPUT_ACTIVITY_NAME = 3;
     public static final int REQUEST_CODE_INPUT_ACTIVITY_DESCRIPTION = 4;
     public static final int REQUEST_CODE_INPUT_ACTIVITY_PRICE = 5;
@@ -26,12 +26,13 @@ public abstract class Constants {
     public static final int REQUEST_CODE_ACTIVITY_DELIVERY_PLACE = 9;
     public static final int REQUEST_CODE_ACTIVITY_AUTOCOMPLETE_PLACE = 10;
     public static final int REQUEST_CODE_INPUT_ACTIVITY_DESCRIPTION_FROM_RE_BROADCAST_FLOW = 11;
+    public static final int REQUEST_CODE_GET_IMAGE = 301;
+    public static final int REQUEST_CODE_CROP_IMAGE = 302;
 
     /*PERMISSIONS REQUEST CODES*/
     public static final int REQUEST_CODE_REED_CONTACTS = 12;
     public static final int REQUEST_CODE_SEND_SMS = 13;
-
-
+    public static final int REQUEST_CODE_CAMERA = 14;
 
     /*KEYS*/
     public static final String KEY_COUNTRY = "country";
@@ -40,11 +41,8 @@ public abstract class Constants {
     public static final String KEY_START_DATE_RESULT = "startDate";
     public static final String KEY_END_DATE_RESULT = "endDate";
     public static final String KEY_PLACE_RESULT = "place";
+    public static final String KEY_IS_REBROADCAST = "rebroadcast";
 
-    /*KEYS*/
-    public static final int DESCRIPTION_TAB_POSITION = 0;
-    public static final int DELIVERY_TAB_POSITION = 1;
-    public static final int SHARE_TAB_POSITION = 2;
 
     /*GOOD_PLANS_ITEM_TYPE*/
     public static final int ITEM_TYPE_RE_BROADCAST = 0;

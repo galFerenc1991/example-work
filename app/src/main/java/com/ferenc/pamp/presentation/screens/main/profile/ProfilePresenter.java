@@ -1,6 +1,9 @@
 package com.ferenc.pamp.presentation.screens.main.profile;
 
 
+import com.ferenc.pamp.data.model.common.User;
+import com.ferenc.pamp.presentation.utils.SignedUserManager;
+
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -11,12 +14,20 @@ import io.reactivex.disposables.CompositeDisposable;
 public class ProfilePresenter implements ProfileContract.Presenter {
 
     private ProfileContract.View mView;
-    private ProfileContract.Model mModel;
+    private ProfileContract.SignOutModel mModel;
+    private ProfileContract.UserProfileModel mProfileModel;
     private CompositeDisposable mCompositeDisposable;
+    private SignedUserManager mUserManager;
 
-    public ProfilePresenter(ProfileContract.View _view, ProfileContract.Model _model) {
+    public ProfilePresenter(ProfileContract.View _view
+            , ProfileContract.SignOutModel _model
+            , ProfileContract.UserProfileModel _profileModel
+            , SignedUserManager _userManager) {
+
         this.mView = _view;
         this.mModel = _model;
+        this.mProfileModel = _profileModel;
+        this.mUserManager = _userManager;
         this.mCompositeDisposable = new CompositeDisposable();
 
         mView.setPresenter(this);
@@ -24,7 +35,24 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     @Override
     public void subscribe() {
+        User signedUser = mUserManager.getCurrentUser();
+        if (signedUser != null) {
+            mView.setUserProfilePictureAndName(signedUser.getAvatar(), signedUser.getFirstName());
+        } else {
+            mView.showProgressMain();
+            mCompositeDisposable.add(mProfileModel.getUserProfile()
+                    .subscribe(user -> {
+                        mView.hideProgress();
+                        mView.setUserProfilePictureAndName(user.getAvatar(), user.getFirstName());
+                    }, throwable -> {
+                        mView.hideProgress();
+                    }));
+        }
+    }
 
+    @Override
+    public void clickedSharePamp() {
+        mView.sharePamp();
     }
 
     @Override
@@ -41,7 +69,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     @Override
     public void clickedProfileInformation() {
-
+        mView.openEditProfile();
     }
 
     @Override

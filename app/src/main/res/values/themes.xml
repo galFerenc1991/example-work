@@ -16,9 +16,14 @@
         <item name="colorAccent">@color/textColorGreen</item>
     </style>
 
+    <style name="DialogThemeReBroadcast" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="colorAccent">@color/textColorReBroadcastIndicator</item>
+    </style>
+
     <style name="DialogTheme.Country">
         <item name="colorAccent">@color/textColorGreen</item>
         <item name="android:textColorPrimary">@color/textColorGray</item>
+        <item name="windowNoTitle">true</item>
         <item name="colorControlNormal">@color/textColorGreen</item>
     </style>
 

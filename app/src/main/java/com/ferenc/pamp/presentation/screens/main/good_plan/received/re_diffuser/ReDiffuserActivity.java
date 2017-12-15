@@ -42,4 +42,8 @@ public class ReDiffuserActivity extends BaseActivity{
         replaceFragment(ProposeFragment_.builder().isReBroadcastFlow(true).build());
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

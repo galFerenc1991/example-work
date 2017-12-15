@@ -96,6 +96,11 @@ public class ToolbarManager {
         }
     }
 
+    public void closeActivityWhenBackArrowPressed(BaseActivity _activity) {
+        toolbar.setNavigationOnClickListener(view -> {
+            _activity.finish();
+        });
+    }
 
     public void displayToolbar(boolean isShown) {
         toolbar.setVisibility(isShown ? View.VISIBLE : View.GONE);

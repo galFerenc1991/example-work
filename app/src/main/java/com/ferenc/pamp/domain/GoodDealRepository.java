@@ -50,7 +50,7 @@ public class GoodDealRepository extends NetworkRepository implements ShareContra
 
     @Override
     public Observable<List<String>> getUsedUserContact() {
-        return getNetworkObservable(userService.getSavedUserContact());
+        return userService.getSavedUserContact();
     }
 
     @Override
