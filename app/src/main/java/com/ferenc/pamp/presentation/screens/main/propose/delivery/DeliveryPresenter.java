@@ -18,10 +18,12 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
     private GoodDealManager mGoodDealManager;
     private Calendar mCloseDate;
     private GoodDealRequest mGoodDeal;
+    private boolean mIsReBroadcastFlow;
 
-    public DeliveryPresenter(DeliveryContract.View _view, GoodDealManager _goodDealManager) {
+    public DeliveryPresenter(DeliveryContract.View _view, GoodDealManager _goodDealManager, boolean _isReBroadcastFlow) {
         this.mView = _view;
         this.mGoodDealManager = _goodDealManager;
+        this.mIsReBroadcastFlow = _isReBroadcastFlow;
 
         mView.setPresenter(this);
     }
@@ -30,9 +32,13 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
     public void subscribe() {
         GoodDealRequest reUseGoodDeal = mGoodDealManager.getGoodDeal();
         if (reUseGoodDeal.getProduct() != null) {
-            mView.setCloseDate(convertServerDateToString(reUseGoodDeal.getClosingDate()));
-            mView.setDeliveryDate(convertServerDateToString(reUseGoodDeal.getDeliveryStartDate()) + "\n" + convertServerDateToString(reUseGoodDeal.getDeliveryEndDate()));
-            mView.setDeliveryPlace(reUseGoodDeal.getDeliveryAddress());
+            if (!mIsReBroadcastFlow){
+                mView.setCloseDate(convertServerDateToString(reUseGoodDeal.getClosingDate()));
+                mView.setDeliveryDate(convertServerDateToString(reUseGoodDeal.getDeliveryStartDate()) + "\n" + convertServerDateToString(reUseGoodDeal.getDeliveryEndDate()));
+                mView.setDeliveryPlace(reUseGoodDeal.getDeliveryAddress());
+            } else {
+                mView.setProductDescription(reUseGoodDeal.getDescription());
+            }
         }
     }
 
@@ -48,6 +54,19 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
         mGoodDeal.setClosingDate(getCloseDateForServer(mCloseDate));
         mGoodDealManager.saveGoodDeal(mGoodDeal);
         mView.setCloseDate(getCloseDateInString(mCloseDate));
+    }
+
+    @Override
+    public void clickedInputField(int _requestCode) {
+        mView.openInputActivity(_requestCode);
+    }
+
+    @Override
+    public void saveProductDescription(String _productDescription) {
+        mGoodDeal = mGoodDealManager.getGoodDeal();
+        mGoodDeal.setDescription(_productDescription);
+        mGoodDealManager.saveGoodDeal(mGoodDeal);
+        mView.setProductDescription(_productDescription);
     }
 
     @Override

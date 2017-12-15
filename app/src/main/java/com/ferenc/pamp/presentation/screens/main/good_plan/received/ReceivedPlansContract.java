@@ -22,6 +22,8 @@ public interface ReceivedPlansContract {
 
         void addReceivedGoodPlanList(List<GoodDealResponse> _receivedGoodPlansList);
 
+        void openReBroadcastFlow();
+
         void sharePlayStoreLincInSMS();
     }
 

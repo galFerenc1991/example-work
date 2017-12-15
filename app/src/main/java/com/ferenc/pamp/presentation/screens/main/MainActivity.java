@@ -1,16 +1,10 @@
 package com.ferenc.pamp.presentation.screens.main;
 
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.AbsoluteSizeSpan;
-import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,7 +13,6 @@ import android.widget.TextView;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
-import com.ferenc.pamp.presentation.base.models.GoodDeal;
 import com.ferenc.pamp.presentation.screens.main.good_plan.GoodPlanFragment_;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.screens.main.profile.ProfileFragment_;
@@ -62,7 +55,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @ViewById(R.id.ivGoodPlan_AM)
     protected ImageView ivGoodPlan;
     @ViewById(R.id.tvGoodPlan_AM)
-    protected TextView tvGoodPlnan;
+    protected TextView tvGoodPlan;
     @ViewById(R.id.viewGoodPlan_AM)
     protected View viewGoodPlanIndicator;
 
@@ -142,7 +135,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                         replaceFragmentClearBackstack(GoodPlanFragment_.builder().build());
                         break;
                     case 1:
-                        replaceFragmentClearBackstack(ProposeFragment_.builder().build());
+                        replaceFragmentClearBackstack(ProposeFragment_.builder().isReBroadcastFlow(false).build());
                         break;
                     case 2:
                         replaceFragmentClearBackstack(ProfileFragment_.builder().build());
@@ -165,7 +158,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> {
                     viewGoodPlanIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.textColorGreen));
-                    tvGoodPlnan.setTextColor(ContextCompat.getColor(this, R.color.textColorGreen));
+                    tvGoodPlan.setTextColor(ContextCompat.getColor(this, R.color.textColorGreen));
                     ivGoodPlan.setImageResource(R.drawable.ic_bon_plan_act_ic);
 
                     viewProposeIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.textColorWhiteTransparent));
@@ -190,7 +183,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                     viewGoodPlanIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.textColorWhiteTransparent));
                     viewAccountIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.textColorWhiteTransparent));
 
-                    tvGoodPlnan.setTextColor(ContextCompat.getColor(this, R.color.colorGray));
+                    tvGoodPlan.setTextColor(ContextCompat.getColor(this, R.color.colorGray));
                     tvAccount.setTextColor(ContextCompat.getColor(this, R.color.colorGray));
 
                     ivGoodPlan.setImageResource(R.drawable.ic_bon_plan_ic);
@@ -209,7 +202,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                     viewGoodPlanIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.textColorWhiteTransparent));
                     viewProposeIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.textColorWhiteTransparent));
 
-                    tvGoodPlnan.setTextColor(ContextCompat.getColor(this, R.color.colorGray));
+                    tvGoodPlan.setTextColor(ContextCompat.getColor(this, R.color.colorGray));
                     tvPropose.setTextColor(ContextCompat.getColor(this, R.color.colorGray));
 
                     ivGoodPlan.setImageResource(R.drawable.ic_bon_plan_ic);
@@ -227,13 +220,13 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         viewGoodPlanIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.textColorWhiteTransparent));
         viewAccountIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.textColorWhiteTransparent));
 
-        tvGoodPlnan.setTextColor(ContextCompat.getColor(this, R.color.colorGray));
+        tvGoodPlan.setTextColor(ContextCompat.getColor(this, R.color.colorGray));
         tvAccount.setTextColor(ContextCompat.getColor(this, R.color.colorGray));
 
         ivGoodPlan.setImageResource(R.drawable.ic_bon_plan_ic);
         ivAccount.setImageResource(R.drawable.ic_compte_ic);
 
-        replaceFragmentClearBackstack(ProposeFragment_.builder().build());
+        replaceFragmentClearBackstack(ProposeFragment_.builder().isReBroadcastFlow(false).build());
     }
 
     @Override

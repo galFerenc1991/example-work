@@ -12,9 +12,11 @@
     <string name="title_create_password">Finalister Votre Creation de Compte</string>
     <string name="title_received_plans">Bons plans reçus</string>
     <string name="title_proposed_plans"> Bons plans proposés</string>
+    <string name="title_rebroadcast_tab_fragment">Re-Diffuser le bon plan</string>
     <string name="title_description">Description</string>
     <string name="title_delivery">Livraison</string>
     <string name="title_share">Diffusion</string>
+    <string name="title_rebroadcast">Re-Diffuser</string>
     <string name="title_propose">VOTRE BON PLAN</string>
     <string name="title_delivery_date">Date de Livraison</string>
     <string name="title_delivery_place">Lieu de Livraison</string>

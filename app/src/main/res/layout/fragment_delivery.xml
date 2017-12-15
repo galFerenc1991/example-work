@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlBackground_FDel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/image_340">
@@ -16,91 +18,137 @@
         android:gravity="center_horizontal"
         android:text="@string/text_title_delivery" />
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/tvSubTitleDelivery_FD"
+        style="@style/DeliveryTitleTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_double"
+        android:layout_marginStart="@dimen/margin_double"
+        android:layout_marginTop="@dimen/margin_large"
+        android:gravity="center_horizontal"
+        android:text="@string/text_title_delivery" />
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:cardElevation="3dp"
         android:layout_below="@+id/tvTitleDelivery_FD"
-        android:layout_margin="@dimen/margin_default"
-        android:background="@color/colorGreyTransparent">
+        android:layout_margin="@dimen/margin_default">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/text_size_large"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_bar_height">
-
-                <TextView
-                    android:id="@+id/tvCloseDate_FDel"
-                    style="@style/DescriptionGoodPlanTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:drawablePadding="@dimen/margin_double"
-                    android:drawableStart="@drawable/ic_hourglass"
-                    android:hint="@string/hint_good_plan_closing_date" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:background="@color/textColorGrayTransparent" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_bar_height">
-
-                <TextView
-                    android:id="@+id/tvDeliveryPlace_FDel"
-                    style="@style/DescriptionGoodPlanTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:drawablePadding="@dimen/margin_double"
-                    android:drawableStart="@drawable/ic_location"
-                    android:hint="@string/hint_good_plan_delivery_place" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:background="@color/textColorGrayTransparent" />
-            </RelativeLayout>
+            android:layout_height="match_parent"
+            android:background="@color/colorGreyTransparent">
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginStart="@dimen/text_size_large"
+                android:layout_marginEnd="@dimen/text_size_large"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvDeliveryDate_FDel"
-                    style="@style/DescriptionGoodPlanTextStyle"
+                <RelativeLayout
+                    android:id="@+id/rlCloseDate_FDel"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="@dimen/margin_double"
-                    android:drawableStart="@drawable/ic_calendar"
-                    android:hint="@string/hint_good_plan_delivery_date" />
+                    android:layout_height="@dimen/bottom_bar_height">
 
-                <TextView
-                    style="@style/DescriptionGoodPlanQuantityTextStyle"
+                    <TextView
+                        android:id="@+id/tvCloseDate_FDel"
+                        style="@style/DescriptionGoodPlanTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="@dimen/margin_double"
+                        android:drawableStart="@drawable/ic_hourglass"
+                        android:hint="@string/hint_good_plan_closing_date" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:background="@color/textColorGrayTransparent" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlProductDescription_FDel"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/bottom_bar_height">
+
+                    <TextView
+                        android:id="@+id/tvProductDescription_FDel"
+                        style="@style/DescriptionGoodPlanTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="@dimen/margin_double"
+                        android:drawableStart="@drawable/ic_description"
+                        android:ellipsize="end"
+                        android:hint="@string/hint_good_plan_description"
+                        android:maxLines="2" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:background="@color/textColorGrayTransparent" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/bottom_bar_height">
+
+                    <TextView
+                        android:id="@+id/tvDeliveryPlace_FDel"
+                        style="@style/DescriptionGoodPlanTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="@dimen/margin_double"
+                        android:drawableStart="@drawable/ic_location"
+                        android:hint="@string/hint_good_plan_delivery_place" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:background="@color/textColorGrayTransparent" />
+                </RelativeLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_default"
-                    android:layout_marginStart="60dp"
-                    android:text="@string/text_description_delivery" />
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvDeliveryDate_FDel"
+                        style="@style/DescriptionGoodPlanTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/margin_double"
+                        android:drawableStart="@drawable/ic_calendar"
+                        android:hint="@string/hint_good_plan_delivery_date" />
+
+                    <TextView
+                        style="@style/DescriptionGoodPlanQuantityTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_default"
+                        android:layout_marginStart="60dp"
+                        android:text="@string/text_description_delivery" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
+        </RelativeLayout>
 
-        </LinearLayout>
-
-    </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

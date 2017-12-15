@@ -1,9 +1,11 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.received;
 
 
+import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by
@@ -15,14 +17,16 @@ public class ReceivedPlansPresenter implements ReceivedPlansContract.Presenter {
     private ReceivedPlansContract.View mView;
     private ReceivedPlansContract.Model mModel;
     private CompositeDisposable mCompositeDisposable;
+    private ReceiveRelay mReceiveRelay;
 
     private int page;
     private int totalPages = Integer.MAX_VALUE;
     private boolean needRefresh;
 
-    public ReceivedPlansPresenter(ReceivedPlansContract.View _view, ReceivedPlansContract.Model _model) {
+    public ReceivedPlansPresenter(ReceivedPlansContract.View _view, ReceivedPlansContract.Model _model, ReceiveRelay _receiveRelay) {
         this.mView = _view;
         this.mModel = _model;
+        this.mReceiveRelay = _receiveRelay;
         this.mCompositeDisposable = new CompositeDisposable();
         this.page = 1;
         needRefresh = true;
@@ -32,11 +36,13 @@ public class ReceivedPlansPresenter implements ReceivedPlansContract.Presenter {
 
     @Override
     public void subscribe() {
-        if(needRefresh){
+        if (needRefresh) {
             mView.showProgressMain();
             loadData(1);
         }
-
+        mCompositeDisposable.add(mReceiveRelay.receiveRelay.subscribe(aBoolean -> {
+            mView.openReBroadcastFlow();
+        }));
     }
 
     private void loadData(int _page) {
@@ -45,7 +51,7 @@ public class ReceivedPlansPresenter implements ReceivedPlansContract.Presenter {
                     mView.hideProgress();
                     this.page = _page;
                     totalPages = goodDealResponseListResponse.meta.pages;
-                    if (page == 1){
+                    if (page == 1) {
                         mView.setReceivedGoodPlanList(goodDealResponseListResponse.data);
                         needRefresh = goodDealResponseListResponse.data.isEmpty();
                         if (goodDealResponseListResponse.data.isEmpty())
@@ -74,7 +80,7 @@ public class ReceivedPlansPresenter implements ReceivedPlansContract.Presenter {
 
     @Override
     public void sharePlayStoreLincInSMS() {
-
+        mView.sharePlayStoreLincInSMS();
     }
 
     @Override

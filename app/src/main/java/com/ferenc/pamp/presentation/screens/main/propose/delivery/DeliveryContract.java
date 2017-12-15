@@ -16,11 +16,15 @@ public interface DeliveryContract {
     interface View extends ContentView, BaseView<Presenter> {
         void openDatePicker(Calendar _calendar);
 
+        void openInputActivity(int _requestCode);
+
         void openLocationScreen();
 
         void openDateScreen();
 
         void setCloseDate(String _closeDate);
+
+        void setProductDescription(String _nameDescription);
 
         void setDeliveryDate(String _deliveryDate);
 
@@ -31,11 +35,16 @@ public interface DeliveryContract {
     interface Presenter extends BasePresenter {
         void clickedCloseDate();
 
+        void clickedInputField(int _requestCode);
+
         void clickedDeliveryPlace();
 
         void clickedDeliveryDate();
 
         void setCloseDate(Calendar _closeDate);
+
+        void saveProductDescription(String _productDescription);
+
 
         void setDeliveryDate(String _startDate, String _endDate);
 
