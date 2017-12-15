@@ -63,6 +63,11 @@ public class InputActivity extends AppCompatActivity {
                 etContent.setText(mGoodDealManager.getGoodDeal().getDescription());
                 ivContentIndicator.setImageResource(R.drawable.ic_description);
                 break;
+            case Constants.REQUEST_CODE_INPUT_ACTIVITY_DESCRIPTION_FROM_RE_BROADCAST_FLOW:
+                btnOk.setBackground(getResources().getDrawable(R.drawable.bg_confirm_button_yellow));
+                etContent.setText(mGoodDealManager.getGoodDeal().getDescription());
+                ivContentIndicator.setImageResource(R.drawable.ic_description_yelow);
+                break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_PRICE:
                 String priceFromCash = String.valueOf(mGoodDealManager.getGoodDeal().getPrice());
                 if (priceFromCash.equals("0")) {

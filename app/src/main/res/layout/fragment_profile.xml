@@ -187,10 +187,20 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="@dimen/profile_image_big_size"
-        android:layout_height="@dimen/profile_image_big_size"
+    <RelativeLayout
+        android:id="@+id/rlAvatarFrame_FP"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:src="@drawable/ic_userpic" />
+        android:background="@drawable/shape_white_circle_profile_image">
+
+        <ImageView
+            android:id="@+id/ivProfilePicture_FP"
+            android:layout_width="@dimen/profile_image_big_size"
+            android:layout_height="@dimen/profile_image_big_size"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_userpic" />
+
+    </RelativeLayout>
 </RelativeLayout>

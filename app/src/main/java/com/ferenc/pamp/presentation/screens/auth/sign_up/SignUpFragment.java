@@ -17,8 +17,7 @@ import com.ferenc.pamp.R;
 import com.ferenc.pamp.domain.AuthRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
-import com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker.CountryDialog;
-import com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker.CountryDialog_;
+import com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker.CountryPickerActivity_;
 import com.ferenc.pamp.presentation.screens.auth.sign_up.create_password.CreatePasswordFragment_;
 import com.ferenc.pamp.presentation.screens.main.MainActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -210,14 +209,12 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
 
     @Override
     public void startSelectCountryScreen(String _country) {
-        CountryDialog dialog = CountryDialog_.builder()
-                .mCountry(_country)
-                .build();
-        dialog.setTargetFragment(this, Constants.REQUEST_CODE_COUNTRY_DIALOG);
-        dialog.show(mActivity.getSupportFragmentManager(), "");
+        CountryPickerActivity_.intent(this)
+                .extra(Constants.KEY_COUNTRY, _country)
+                .startForResult(Constants.REQUEST_CODE_COUNTRY_PICKER);
     }
 
-    @OnActivityResult(Constants.REQUEST_CODE_COUNTRY_DIALOG)
+    @OnActivityResult(Constants.REQUEST_CODE_COUNTRY_PICKER)
     protected void resultCountryCode(@OnActivityResult.Extra(Constants.KEY_COUNTRY) String country) {
         mPresenter.setSelectedCountry(country);
     }

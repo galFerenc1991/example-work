@@ -107,8 +107,7 @@ public class DeliveryFragment extends ContentFragment implements DeliveryContrac
 
         RxView.clicks(tvDeliveryPlace)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.
-                        clickedDeliveryPlace());
+                .subscribe(o -> mPresenter.clickedDeliveryPlace());
 
         RxView.clicks(tvDeliveryDate)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
@@ -160,6 +159,7 @@ public class DeliveryFragment extends ContentFragment implements DeliveryContrac
     @Override
     public void openLocationScreen() {
         DeliveryPlaceActivity_.intent(this)
+                .extra(Constants.KEY_IS_REBROADCAST, isReBroadcastFlow)
                 .startForResult(Constants.REQUEST_CODE_ACTIVITY_DELIVERY_PLACE);
     }
 
@@ -173,6 +173,7 @@ public class DeliveryFragment extends ContentFragment implements DeliveryContrac
     @Override
     public void openDateScreen() {
         DeliveryDateActivity_.intent(this)
+                .extra(Constants.KEY_IS_REBROADCAST, isReBroadcastFlow)
                 .startForResult(Constants.REQUEST_CODE_ACTIVITY_DELIVERY_DATE);
     }
 

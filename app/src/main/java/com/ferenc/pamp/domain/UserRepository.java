@@ -1,10 +1,15 @@
 package com.ferenc.pamp.domain;
 
 import com.ferenc.pamp.data.api.Rest;
+import com.ferenc.pamp.data.model.common.User;
+import com.ferenc.pamp.data.model.common.UserUpdateRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.service.AuthService;
 import com.ferenc.pamp.data.service.UserService;
+import com.ferenc.pamp.presentation.screens.main.profile.ProfileContract;
+import com.ferenc.pamp.presentation.screens.main.profile.ProfileFragment;
+import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.EditProfileContract;
 import com.ferenc.pamp.presentation.screens.main.propose.share.ShareContract;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
@@ -24,7 +29,7 @@ import io.reactivex.Observable;
  * Ferenc on 2017.12.01..
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class UserRepository extends NetworkRepository  {
+public class UserRepository extends NetworkRepository implements ProfileContract.UserProfileModel, EditProfileContract.Model {
 
     @Bean
     protected Rest rest;
@@ -41,12 +46,20 @@ public class UserRepository extends NetworkRepository  {
         userService = rest.getUserService();
     }
 
-//    @Override
-//    public Observable<List<String>> get() {
-//        return getNetworkObservable(authService.getCountryList())
-//                .flatMap(countryList -> {
-//                    List<String> country = Arrays.asList(countryList.getCountry());
-//                    return Observable.just(country);
-//                });
-//    }
+    @Override
+    public Observable<User> getUserProfile() {
+        return getNetworkObservable(userService.getUser()
+                .flatMap(user -> {
+                    mSignedUserManager.saveUser(user);
+                    return Observable.just(user);
+                }));
+    }
+
+    @Override
+    public Observable<User> updateUser(UserUpdateRequest _user) {
+        return getNetworkObservable(userService.updateUser(_user).flatMap(user -> {
+            mSignedUserManager.saveUser(user);
+            return Observable.just(user);
+        }));
+    }
 }

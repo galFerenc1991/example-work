@@ -1,9 +1,7 @@
 package com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker;
 
-
-import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,8 +18,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
@@ -31,8 +28,8 @@ import java.util.concurrent.TimeUnit;
  * Created by
  * Ferenc on 2017.11.20..
  */
-@EFragment(R.layout.fragment_country_list)
-public class CountryDialog extends DialogFragment implements CountryContract.View {
+@EActivity(R.layout.activity_country_picker)
+public class CountryPickerActivity extends AppCompatActivity implements CountryContract.View {
 
     private CountryContract.Presenter mPresenter;
 
@@ -51,20 +48,17 @@ public class CountryDialog extends DialogFragment implements CountryContract.Vie
     @Bean
     protected CountryAdapter mCountryAdapter;
 
-    @FragmentArg
-    protected String mCountry;
-
     @AfterInject
     @Override
     public void initPresenter() {
-        new CountryPresenter(this, mAuthRepo, mCountry);
+        new CountryPresenter(this, mAuthRepo, getIntent().getStringExtra(Constants.KEY_COUNTRY));
         mCountryAdapter.setOnCardClickListener((view, position, viewType) ->
                 mPresenter.selectItem(mCountryAdapter.getItem(position), position));
     }
 
     @AfterViews
     protected void initUI() {
-        rvCountryList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvCountryList.setLayoutManager(new LinearLayoutManager(this));
         rvCountryList.setAdapter(mCountryAdapter);
 
         RxView.clicks(btnOk)
@@ -73,7 +67,7 @@ public class CountryDialog extends DialogFragment implements CountryContract.Vie
 
         RxView.clicks(btnCancel)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> dismiss());
+                .subscribe(o -> finish());
 
         mPresenter.subscribe();
     }
@@ -92,18 +86,13 @@ public class CountryDialog extends DialogFragment implements CountryContract.Vie
     public void returnResult(String country) {
         Intent intent = new Intent();
         intent.putExtra(Constants.KEY_COUNTRY, country);
-        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-        dismiss();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override
     public void setPresenter(CountryContract.Presenter presenter) {
         mPresenter = presenter;
-    }
-
-    @Override
-    public int getTheme() {
-        return R.style.DialogTheme_Country;
     }
 
     @Override
@@ -137,8 +126,8 @@ public class CountryDialog extends DialogFragment implements CountryContract.Vie
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected void onDestroy() {
+        super.onDestroy();
         mPresenter.unsubscribe();
     }
 }

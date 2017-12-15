@@ -35,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 public class DeliveryDateActivity extends AppCompatActivity implements DeliveryDateContract.View {
 
     private DeliveryDateContract.Presenter mPresenter;
+    private boolean isRebroadcast;
 
     @ViewById(R.id.ivBack_ADD)
     protected ImageView btnBack;
@@ -49,6 +50,11 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
     @ViewById(R.id.btnValidate_ADD)
     protected Button btnValidate;
 
+    @ViewById(R.id.tvStartDateItem_ADD)
+    protected TextView tvStartDateItem;
+    @ViewById(R.id.tvEndDateItem_ADD)
+    protected TextView tvEndDateItem;
+
     @Bean
     protected GoodDealManager mGoodDealManager;
 
@@ -56,10 +62,23 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
     @Override
     public void initPresenter() {
         new DeliveryDatePresenter(this, mGoodDealManager);
+        isRebroadcast = getIntent().getBooleanExtra(Constants.KEY_IS_REBROADCAST, false);
     }
 
     @AfterViews
     protected void initUI() {
+        if (isRebroadcast) {
+            setTheme(R.style.ReBroadcastTheme);
+            btnBack.setImageResource(R.drawable.ic_arrow_back_yellow);
+            btnValidate.setBackground(getResources().getDrawable(R.drawable.bg_confirm_button_yellow));
+            tvStartDateItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_yelow, 0, 0, 0);
+            tvEndDateItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_yelow, 0, 0, 0);
+        }
+
+        setClickListeners();
+    }
+
+    private void setClickListeners() {
         RxView.clicks(btnBack)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedBack());
@@ -88,7 +107,9 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
         Locale.setDefault(Locale.FRANCE);
 
         Calendar result = Calendar.getInstance();
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, R.style.DialogTheme, (view, hourOfDay, minute) -> {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this
+                , isRebroadcast ? R.style.DialogThemeReBroadcast : R.style.DialogTheme
+                , (view, hourOfDay, minute) -> {
             result.set(Calendar.HOUR_OF_DAY, hourOfDay);
             result.set(Calendar.MINUTE, minute);
             if (DateManager.isBeforeNow(result)) {
@@ -99,7 +120,9 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
             }
         }, _startDate.get(Calendar.HOUR_OF_DAY), _startDate.get(Calendar.MINUTE), true);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, (view, year, month, dayOfMonth) -> {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this
+                , isRebroadcast ? R.style.DialogThemeReBroadcast : R.style.DialogTheme
+                , (view, year, month, dayOfMonth) -> {
             result.set(year, month, dayOfMonth);
             timePickerDialog.show();
         }, _startDate.get(Calendar.YEAR), _startDate.get(Calendar.MONTH), _startDate.get(Calendar.DAY_OF_MONTH));
@@ -115,7 +138,9 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
         Locale.setDefault(Locale.FRANCE);
 
         Calendar result = Calendar.getInstance();
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, R.style.DialogTheme, (view, hourOfDay, minute) -> {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this
+                , isRebroadcast ? R.style.DialogThemeReBroadcast : R.style.DialogTheme
+                , (view, hourOfDay, minute) -> {
             result.set(Calendar.HOUR_OF_DAY, hourOfDay);
             result.set(Calendar.MINUTE, minute);
             if (DateManager.isBeforeNow(result)) {
@@ -126,7 +151,9 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
             }
         }, _endDate.get(Calendar.HOUR_OF_DAY), _endDate.get(Calendar.MINUTE), true);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, (view, year, month, dayOfMonth) -> {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this
+                ,  isRebroadcast ? R.style.DialogThemeReBroadcast : R.style.DialogTheme
+                , (view, year, month, dayOfMonth) -> {
             result.set(year, month, dayOfMonth);
             timePickerDialog.show();
         }, _endDate.get(Calendar.YEAR), _endDate.get(Calendar.MONTH), _endDate.get(Calendar.DAY_OF_MONTH));

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ferenc.pamp.R;
@@ -38,6 +39,8 @@ public class DeliveryPlaceActivity extends AppCompatActivity implements Delivery
     protected ImageView ivBack;
     @ViewById(R.id.cvSelectPlace_ADD)
     protected CardView cvSelectPlace;
+    @ViewById(R.id.tvAddress_ADP)
+    protected TextView tvAddress;
 
     @Bean
     protected PlayServiceUtils playServiceUtils;
@@ -55,6 +58,11 @@ public class DeliveryPlaceActivity extends AppCompatActivity implements Delivery
 
     @AfterViews
     protected void initUI() {
+        if (getIntent().getBooleanExtra(Constants.KEY_IS_REBROADCAST, false)){
+            setTheme(R.style.ReBroadcastTheme);
+            ivBack.setImageResource(R.drawable.ic_arrow_back_yellow);
+            tvAddress.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_add_circle_yellow, 0, 0, 0);
+        }
         RxView.clicks(ivBack)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedBack());
