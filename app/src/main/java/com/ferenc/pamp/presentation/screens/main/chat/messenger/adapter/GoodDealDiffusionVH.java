@@ -84,8 +84,8 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         tvDealDescription.setText(data.getMessageResponse().text);
         tvDealPriceDescription.setText(data.getGoodDealResponse().description);
         tvDealAmountItems.setText(data.getGoodDealResponse().unit);
-        tvDealStartDate.setText(new SimpleDateFormat("MM/dd/yyyy", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryStartDate)));
-        tvDealEndDate.setText(new SimpleDateFormat("MM/dd/yyyy", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryEndDate)));
+        tvDealStartDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryStartDate)));
+        tvDealEndDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryEndDate)));
         tvDealLocation.setText(data.getGoodDealResponse().deliveryAddress);
 
     }

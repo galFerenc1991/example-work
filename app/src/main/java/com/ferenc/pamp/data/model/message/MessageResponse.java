@@ -18,6 +18,7 @@ public class MessageResponse implements Parcelable {
     public String text;
     public long createdAt;
     public User user;
+    public Description description;
 
     public MessageResponse(Parcel in) {
         _id = in.readString();

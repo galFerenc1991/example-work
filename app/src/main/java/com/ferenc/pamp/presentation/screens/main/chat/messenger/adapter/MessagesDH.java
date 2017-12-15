@@ -35,6 +35,7 @@ public class MessagesDH implements RecyclerDH {
     public GoodDealResponse getGoodDealResponse() {
         return mGoodDealResponse;
     }
+
     public User getMyUser() {
         return mMyUser;
     }
