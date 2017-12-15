@@ -15,7 +15,7 @@ import java.util.List;
 
 public class GoodDealResponse implements Parcelable {
 
-    public int price;
+    public double price;
     public String product;
     public int quantity;
     public long closingDate;
@@ -45,7 +45,7 @@ public class GoodDealResponse implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.price);
+        dest.writeDouble(this.price);
         dest.writeString(this.product);
         dest.writeInt(this.quantity);
         dest.writeLong(this.closingDate);
@@ -65,7 +65,7 @@ public class GoodDealResponse implements Parcelable {
     }
 
     protected GoodDealResponse(Parcel in) {
-        this.price = in.readInt();
+        this.price = in.readDouble();
         this.product = in.readString();
         this.quantity = in.readInt();
         this.closingDate = in.readLong();

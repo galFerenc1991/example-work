@@ -36,8 +36,9 @@
             android:id="@+id/ivAddImg_FChM"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:src="@drawable/ic_add_photo"
+            android:src="@drawable/ic_photo_camera_black"
             android:background="?attr/selectableItemBackground"
+            android:scaleType="center"
             android:layout_centerVertical="true"
             />
 

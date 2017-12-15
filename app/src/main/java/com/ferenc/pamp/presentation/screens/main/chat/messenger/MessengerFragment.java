@@ -3,6 +3,9 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
@@ -14,7 +17,9 @@ import com.ferenc.pamp.presentation.screens.main.chat.ChatActivity;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessengerAdapter;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.ReceivedPlansContract;
+import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
+import com.jakewharton.rxbinding2.view.RxView;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -24,6 +29,7 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by shonliu on 12/12/17.
@@ -51,6 +57,15 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @ViewById(R.id.rvMessages_FChM)
     protected RecyclerView rvMessages;
 
+    @ViewById(R.id.etInputText_FChM)
+    protected EditText etInputText;
+
+    @ViewById(R.id.ivAddImg_FChM)
+    protected ImageView ivAddImg;
+
+    @ViewById(R.id.rlSendMsg_FChM)
+    protected RelativeLayout rlSendMsg;
+
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_chat_messenger;
@@ -73,6 +88,15 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         rvMessages.setAdapter(mMessengerAdapter);
 
         mPresenter.subscribe();
+
+        RxView.clicks(ivAddImg)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.addImage());
+
+        RxView.clicks(rlSendMsg)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.sendMessage());
+
     }
 
     @Override
@@ -94,5 +118,17 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void addItem(List<MessagesDH> _list) {
         mMessengerAdapter.addListDH(_list);
+    }
+
+    @Override
+    public void sendMessage() {
+        if (etInputText.getText().toString().trim().equals("")) {
+            //TODO: send message;
+        }
+    }
+
+    @Override
+    public void addImage() {
+        //TODO : init avatar manager(with CAMERA parameter);
     }
 }

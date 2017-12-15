@@ -66,6 +66,7 @@ dependencies {
     /*Networking*/
     implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+    implementation ('io.socket:socket.io-client:1.0.0') { exclude group: 'org.json', module: 'json' }
 
     /*Location*/
     implementation "com.google.android.gms:play-services-location:${playServiceVersion}"

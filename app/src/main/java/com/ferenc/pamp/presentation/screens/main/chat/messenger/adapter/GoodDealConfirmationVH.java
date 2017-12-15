@@ -37,17 +37,38 @@ public class GoodDealConfirmationVH extends RecyclerVH<MessagesDH> {
     @Override
     public void bindData(MessagesDH data) {
 
-        if (data.getMessageResponse().code.equals(Constants.M11_1_GOOD_DEAL_CONFIRMATION)) {
-            rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_green));
-            ivGoodDealConfirmationState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_gift_msg));
-        } else if (data.getMessageResponse().code.equals(Constants.M11_2_GOOD_DEAL_CONFIRMATION_REJECTED)) {
-            rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_red));
-            ivGoodDealConfirmationState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_finger_down_msg));
-        } else if (data.getMessageResponse().code.equals(Constants.M11_3_GOOD_DEAL_CONFIRMATION_APPLYED)) {
-            rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_green));
-            ivGoodDealConfirmationState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_finger_up_msg));
+        switch (data.getMessageResponse().code) {
+            case Constants.M11_1_GOOD_DEAL_CONFIRMATION:
+                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_green));
+                ivGoodDealConfirmationState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_gift_msg));
+                tvStateConfirmationDescription.setText(PampApp_.getInstance().getString(R.string.text_bon_plan_confirme));
+                break;
+            case Constants.M11_2_GOOD_DEAL_CONFIRMATION_REJECTED:
+                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_red));
+                ivGoodDealConfirmationState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_finger_down_msg));
+                tvStateConfirmationDescription.setText(
+                        data.getMessageResponse().description != null
+                                ? data.getMessageResponse().description.firstName
+                                + " : "
+                                + PampApp_.getInstance().getString(R.string.text_commande_annule)
+                                : " : "
+                                + PampApp_.getInstance().getString(R.string.text_commande_annule)
+                );
+                break;
+            case Constants.M11_3_GOOD_DEAL_CONFIRMATION_APPLYED:
+                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_green));
+                ivGoodDealConfirmationState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_finger_up_msg));
+                tvStateConfirmationDescription.setText(
+                        data.getMessageResponse().description != null
+                                ? data.getMessageResponse().description.firstName
+                                + " : "
+                                + PampApp_.getInstance().getString(R.string.text_commande_confirmee)
+                                : " : "
+                                + PampApp_.getInstance().getString(R.string.text_commande_confirmee)
+                );
+                break;
         }
-        tvStateConfirmationDescription.setText(data.getMessageResponse().text);
+
 
     }
 }

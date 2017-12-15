@@ -62,7 +62,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
 
         if (data.getGoodDealResponse().contributor.id.equals(data.getMyUser().getId())) {
             Picasso.with(PampApp_.getInstance())
-                    .load(data.getMyUser().getAvatar())
+                    .load(data.getMyUser().getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civMyAvatar);
