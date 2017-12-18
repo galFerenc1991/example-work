@@ -3,6 +3,7 @@ package com.ferenc.pamp.data.model.message;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ferenc.pamp.data.model.common.Contributor;
 import com.ferenc.pamp.data.model.common.User;
 
 /**
@@ -17,6 +18,7 @@ public class MessageResponse implements Parcelable {
     public String code;
     public String text;
     public long createdAt;
+    public String content;
     public User user;
     public Description description;
 
@@ -26,6 +28,7 @@ public class MessageResponse implements Parcelable {
         code = in.readString();
         text = in.readString();
         createdAt = in.readInt();
+        content = in.readString();
         user = in.readParcelable(User.class.getClassLoader());
     }
 
@@ -57,6 +60,7 @@ public class MessageResponse implements Parcelable {
         parcel.writeString(code);
         parcel.writeString(text);
         parcel.writeLong(createdAt);
+        parcel.writeString(content);
         parcel.writeParcelable(user, i);
     }
 }

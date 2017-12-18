@@ -47,20 +47,22 @@ public class DefaultMessageVH extends RecyclerVH<MessagesDH> {
     public void bindData(MessagesDH data) {
         if (data.getMessageResponse().user.getId().equals(data.getMyUser().getId())) {
             Picasso.with(PampApp_.getInstance())
-                    .load(data.getMyUser().getAvatar())
+                    .load(data.getMyUser().getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civMyAvatar);
             civMyAvatar.setVisibility(View.VISIBLE);
+            civInterlocutorAvatar.setVisibility(View.GONE);
             cvMsgBackground.setCardBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
             tvMsgAuthorName.setText(data.getMyUser().getFirstName());
         } else {
             Picasso.with(PampApp_.getInstance())
-                    .load(data.getMessageResponse().user.getAvatar())
+                    .load(data.getMessageResponse().user.getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civInterlocutorAvatar);
             civInterlocutorAvatar.setVisibility(View.VISIBLE);
+            civMyAvatar.setVisibility(View.GONE);
             cvMsgBackground.setCardBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
             tvMsgAuthorName.setText(data.getMessageResponse().user.getFirstName());
 

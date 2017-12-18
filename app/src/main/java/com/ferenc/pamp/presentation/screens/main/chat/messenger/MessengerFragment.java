@@ -1,6 +1,5 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 
-import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
@@ -9,14 +8,14 @@ import android.widget.RelativeLayout;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.domain.ChatRepository;
+import com.ferenc.pamp.presentation.utils.SocketUtil;
 import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshableFragment;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
-import com.ferenc.pamp.presentation.screens.main.chat.ChatActivity;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessengerAdapter;
-import com.ferenc.pamp.presentation.screens.main.good_plan.received.ReceivedPlansContract;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -45,6 +44,9 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Bean
     protected SignedUserManager signedUserManager;
+
+    @Bean
+    protected SocketUtil socketUtil;
 
 
     @FragmentArg
@@ -79,23 +81,24 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @AfterInject
     @Override
     public void initPresenter() {
-        new MessengerPresenter(this, mChatRepository, goodDealResponse, signedUserManager.getCurrentUser());
+        new MessengerPresenter(this, mChatRepository, goodDealResponse, signedUserManager.getCurrentUser(), socketUtil);
     }
 
     @AfterViews
     protected void initUI() {
-        rvMessages.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setReverseLayout(true);
+        rvMessages.setLayoutManager(llm);
         rvMessages.setAdapter(mMessengerAdapter);
-
         mPresenter.subscribe();
 
         RxView.clicks(ivAddImg)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.addImage());
+                .subscribe(o -> addImage());
 
         RxView.clicks(rlSendMsg)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.sendMessage());
+                .subscribe(o -> sendMessage());
 
     }
 
@@ -117,18 +120,33 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void addItem(List<MessagesDH> _list) {
-        mMessengerAdapter.addListDH(_list);
+//        mMessengerAdapter.addListDH(_list);
+        mMessengerAdapter.insertItem(_list.get(0), 0);
+        if (rvMessages != null) {
+            rvMessages.scrollToPosition(0);
+        }
     }
 
     @Override
     public void sendMessage() {
-        if (etInputText.getText().toString().trim().equals("")) {
-            //TODO: send message;
+        if (!etInputText.getText().toString().trim().equals("")) {
+            MessageResponse messageResponse = new MessageResponse();
+
+            messageResponse.user = signedUserManager.getCurrentUser();
+            messageResponse.text = etInputText.getText().toString().trim();
+            mPresenter.sendMessage(messageResponse);
+            etInputText.setText("");
         }
     }
 
     @Override
     public void addImage() {
         //TODO : init avatar manager(with CAMERA parameter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        socketUtil.socketDisconnect();
     }
 }

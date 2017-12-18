@@ -37,7 +37,7 @@ public interface MessengerContract {
 
         void loadNextPage();
 
-        void sendMessage();
+        void sendMessage(MessageResponse _messageResponse);
 
         void addImage();
 
