@@ -22,11 +22,11 @@ public class GoodDealConfirmationVH extends RecyclerVH<MessagesDH> {
     private ImageView ivGoodDealConfirmationState;
     private TextView tvStateConfirmationDescription;
 
-    public GoodDealConfirmationVH(View itemView) {
+    GoodDealConfirmationVH(View itemView) {
         super(itemView);
-        rlBackground = (RelativeLayout) itemView.findViewById(R.id.rlBackground_IMGDC);
-        ivGoodDealConfirmationState = (ImageView) itemView.findViewById(R.id.ivGoodDealConfirmationState_IMGDC);
-        tvStateConfirmationDescription = (TextView) itemView.findViewById(R.id.tvStateConfirmationDescription_IMGDC);
+        rlBackground = itemView.findViewById(R.id.rlBackground_IMGDC);
+        ivGoodDealConfirmationState = itemView.findViewById(R.id.ivGoodDealConfirmationState_IMGDC);
+        tvStateConfirmationDescription = itemView.findViewById(R.id.tvStateConfirmationDescription_IMGDC);
     }
 
     @Override
@@ -39,13 +39,13 @@ public class GoodDealConfirmationVH extends RecyclerVH<MessagesDH> {
 
         switch (data.getMessageResponse().code) {
             case Constants.M11_1_GOOD_DEAL_CONFIRMATION:
-                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_green));
-                ivGoodDealConfirmationState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_gift_msg));
+                rlBackground.setBackground(data.getContext().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_green));
+                ivGoodDealConfirmationState.setImageDrawable(data.getContext().getResources().getDrawable(R.drawable.ic_gift_msg));
                 tvStateConfirmationDescription.setText(PampApp_.getInstance().getString(R.string.text_bon_plan_confirme));
                 break;
             case Constants.M11_2_GOOD_DEAL_CONFIRMATION_REJECTED:
-                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_red));
-                ivGoodDealConfirmationState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_finger_down_msg));
+                rlBackground.setBackground(data.getContext().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_red));
+                ivGoodDealConfirmationState.setImageDrawable(data.getContext().getResources().getDrawable(R.drawable.ic_finger_down_msg));
                 tvStateConfirmationDescription.setText(
                         data.getMessageResponse().description != null
                                 ? data.getMessageResponse().description.firstName
@@ -56,8 +56,8 @@ public class GoodDealConfirmationVH extends RecyclerVH<MessagesDH> {
                 );
                 break;
             case Constants.M11_3_GOOD_DEAL_CONFIRMATION_APPLYED:
-                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_green));
-                ivGoodDealConfirmationState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_finger_up_msg));
+                rlBackground.setBackground(data.getContext().getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_green));
+                ivGoodDealConfirmationState.setImageDrawable(data.getContext().getResources().getDrawable(R.drawable.ic_finger_up_msg));
                 tvStateConfirmationDescription.setText(
                         data.getMessageResponse().description != null
                                 ? data.getMessageResponse().description.firstName

@@ -1,12 +1,12 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 
+
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
-import com.ferenc.pamp.data.api.RestConst;
 import com.michenko.simpleadapter.OnCardClickListener;
 import com.michenko.simpleadapter.RecyclerVH;
 import com.squareup.picasso.Picasso;
@@ -37,18 +37,18 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
     private TextView tvDealLocation;
 
 
-    public GoodDealDiffusionVH(View itemView) {
+    GoodDealDiffusionVH(View itemView) {
         super(itemView);
-        civInterlocutorAvatar = (CircleImageView) itemView.findViewById(R.id.civInterlocutorAvatar_IMGDD);
-        civMyAvatar = (CircleImageView) itemView.findViewById(R.id.civMyAvatar_IMGDD);
-        cvDealBackground = (CardView) itemView.findViewById(R.id.cvDealBackground_IMGDD);
-        tvDealAuthorName = (TextView) itemView.findViewById(R.id.tvDealAuthorName_IMGDD);
-        tvDealDescription = (TextView) itemView.findViewById(R.id.tvDealDescription_IMGDD);
-        tvDealPriceDescription = (TextView) itemView.findViewById(R.id.tvDealPriceDescription_IMGDD);
-        tvDealAmountItems = (TextView) itemView.findViewById(R.id.tvDealAmountItems_IMGDD);
-        tvDealStartDate = (TextView) itemView.findViewById(R.id.tvDealStartDate_IMGDD);
-        tvDealEndDate = (TextView) itemView.findViewById(R.id.tvDealEndDate_IMGDD);
-        tvDealLocation = (TextView) itemView.findViewById(R.id.tvDealLocation_IMGDD);
+        civInterlocutorAvatar = itemView.findViewById(R.id.civInterlocutorAvatar_IMGDD);
+        civMyAvatar = itemView.findViewById(R.id.civMyAvatar_IMGDD);
+        cvDealBackground = itemView.findViewById(R.id.cvDealBackground_IMGDD);
+        tvDealAuthorName = itemView.findViewById(R.id.tvDealAuthorName_IMGDD);
+        tvDealDescription = itemView.findViewById(R.id.tvDealDescription_IMGDD);
+        tvDealPriceDescription = itemView.findViewById(R.id.tvDealPriceDescription_IMGDD);
+        tvDealAmountItems = itemView.findViewById(R.id.tvDealAmountItems_IMGDD);
+        tvDealStartDate = itemView.findViewById(R.id.tvDealStartDate_IMGDD);
+        tvDealEndDate = itemView.findViewById(R.id.tvDealEndDate_IMGDD);
+        tvDealLocation = itemView.findViewById(R.id.tvDealLocation_IMGDD);
 
     }
 
@@ -61,13 +61,13 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
     public void bindData(MessagesDH data) {
 
         if (data.getGoodDealResponse().contributor.id.equals(data.getMyUser().getId())) {
-            Picasso.with(PampApp_.getInstance())
+            Picasso.with(data.getContext())
                     .load(data.getMyUser().getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civMyAvatar);
             civMyAvatar.setVisibility(View.VISIBLE);
-            cvDealBackground.setCardBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
+            cvDealBackground.setCardBackgroundColor(data.getContext().getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
             tvDealAuthorName.setText(data.getMyUser().getFirstName());
         } else {
             Picasso.with(PampApp_.getInstance())
@@ -76,7 +76,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
                     .error(R.drawable.ic_userpic)
                     .into(civInterlocutorAvatar);
             civInterlocutorAvatar.setVisibility(View.VISIBLE);
-            cvDealBackground.setCardBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
+            cvDealBackground.setCardBackgroundColor(data.getContext().getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
             tvDealAuthorName.setText(data.getGoodDealResponse().contributor.firstName);
         }
 

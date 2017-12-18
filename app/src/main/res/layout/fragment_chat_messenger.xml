@@ -5,18 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!--tools:listitem="@layout/item_message_default"-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvMessages_FChM"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/rlMsgInputBlock_FChM"
-        tools:listitem="@layout/item_message_ordering_state"
-        />
+        android:layout_above="@+id/rlMsgInputBlock_FChM" />
 
     <View
         android:id="@+id/shadow"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/max_line_count"
         android:background="@drawable/shadow_reverted"
         android:layout_above="@+id/rlMsgInputBlock_FChM"/>
 
@@ -25,17 +24,16 @@
     <RelativeLayout
         android:id="@+id/rlMsgInputBlock_FChM"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/bottom_bar_height"
         android:orientation="horizontal"
         android:background="@android:color/white"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/ivAddImg_FChM"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="@dimen/bottom_bar_height"
+            android:layout_height="@dimen/bottom_bar_height"
             android:src="@drawable/ic_photo_camera_black"
             android:background="?attr/selectableItemBackground"
             android:scaleType="center"
@@ -45,30 +43,30 @@
         <EditText
             android:id="@+id/etInputText_FChM"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="@dimen/bottom_bar_height"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/ivAddImg_FChM"
             android:layout_toStartOf="@+id/rlSendMsg_FChM"
             android:background="@android:color/transparent"
-            android:hint="Type a message.."
-            android:paddingLeft="10dp"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:textSize="13sp" />
+            android:hint="@string/type_a_message"
+            android:paddingLeft="@dimen/padding_upper_medium"
+            android:paddingRight="@dimen/padding_upper_medium"
+            android:paddingBottom="@dimen/padding_quart"
+            android:paddingTop="@dimen/padding_quart"
+            android:textSize="@dimen/text_size_small" />
 
 
         <RelativeLayout
             android:id="@+id/rlSendMsg_FChM"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="@dimen/bottom_bar_height"
+            android:layout_height="@dimen/bottom_bar_height"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:background="?attr/selectableItemBackground">
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="@dimen/icon_min_size"
+                android:layout_height="@dimen/icon_min_size"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 app:srcCompat="@drawable/ic_send0"/>

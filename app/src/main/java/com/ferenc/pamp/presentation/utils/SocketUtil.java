@@ -46,7 +46,6 @@ public class SocketUtil {
     private String valDealID = "dealId";
 
 
-
     public void initSocket() {
         try {
             mSocket = IO.socket(RestConst.BASE_URL);
@@ -129,7 +128,7 @@ public class SocketUtil {
     }
 
     public void socketDisconnect() {
-        if (mSocket!=null) {
+        if (mSocket != null) {
             mSocket.disconnect();
         }
     }

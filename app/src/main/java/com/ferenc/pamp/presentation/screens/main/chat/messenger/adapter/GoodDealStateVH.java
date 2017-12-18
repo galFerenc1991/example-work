@@ -2,7 +2,6 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ferenc.pamp.PampApp_;
@@ -24,10 +23,10 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
     private ImageView ivGoodDealState;
     private TextView tvStateDescription;
 
-    public GoodDealStateVH(View itemView) {
+    GoodDealStateVH(View itemView) {
         super(itemView);
-        ivGoodDealState = (ImageView) itemView.findViewById(R.id.ivGoodDealState_IMGDS);
-        tvStateDescription = (TextView) itemView.findViewById(R.id.tvStateDescription_IMGDS);
+        ivGoodDealState = itemView.findViewById(R.id.ivGoodDealState_IMGDS);
+        tvStateDescription = itemView.findViewById(R.id.tvStateDescription_IMGDS);
     }
 
     @Override
@@ -40,7 +39,7 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
 
         switch (data.getMessageResponse().code) {
             case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
-                ivGoodDealState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_date_msg));
+                ivGoodDealState.setImageDrawable(data.getContext().getResources().getDrawable(R.drawable.ic_date_msg));
                 tvStateDescription.setText(
                         data.getMessageResponse().description != null
                                 ? PampApp_.getInstance().getString(R.string.text_change_date)
@@ -50,7 +49,7 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
                 );
                 break;
             case Constants.M12_DELIVERY_DATE:
-                ivGoodDealState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_date_msg));
+                ivGoodDealState.setImageDrawable(data.getContext().getResources().getDrawable(R.drawable.ic_date_msg));
                 tvStateDescription.setText(
                         data.getMessageResponse().description != null
                                 ? PampApp_.getInstance().getString(R.string.text_delivery_date)
@@ -60,7 +59,7 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
                 );
                 break;
             case Constants.M6_GOOD_DEAL_CLOSING_DATE_CHANGED:
-                ivGoodDealState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_hourglass_msg));
+                ivGoodDealState.setImageDrawable(data.getContext().getResources().getDrawable(R.drawable.ic_hourglass_msg));
                 tvStateDescription.setText(
                         data.getMessageResponse().description != null
                                 ? PampApp_.getInstance().getString(R.string.text_change_closing_date)
@@ -70,7 +69,7 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
                 );
                 break;
             case Constants.M9_CLOSING_DATE:
-                ivGoodDealState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_hourglass_msg));
+                ivGoodDealState.setImageDrawable(data.getContext().getResources().getDrawable(R.drawable.ic_hourglass_msg));
                 tvStateDescription.setText(
                         data.getMessageResponse().description != null
                                 ? PampApp_.getInstance().getString(R.string.text_closing_date)

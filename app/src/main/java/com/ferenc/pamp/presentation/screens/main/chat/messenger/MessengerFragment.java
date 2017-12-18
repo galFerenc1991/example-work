@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.model.message.MessageResponse;
@@ -81,7 +82,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @AfterInject
     @Override
     public void initPresenter() {
-        new MessengerPresenter(this, mChatRepository, goodDealResponse, signedUserManager.getCurrentUser(), socketUtil);
+        new MessengerPresenter(this, mChatRepository, goodDealResponse, signedUserManager.getCurrentUser(), socketUtil, PampApp_.getInstance());
     }
 
     @AfterViews

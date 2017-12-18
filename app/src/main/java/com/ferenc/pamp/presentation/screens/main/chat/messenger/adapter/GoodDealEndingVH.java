@@ -3,7 +3,6 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.michenko.simpleadapter.OnCardClickListener;
@@ -15,13 +14,13 @@ import com.michenko.simpleadapter.RecyclerVH;
 
 public class GoodDealEndingVH extends RecyclerVH<MessagesDH> {
 
-    protected TextView tvDealEndingState;
-    protected View viewUnderline;
+    private TextView tvDealEndingState;
+    private View viewUnderline;
 
-    public GoodDealEndingVH(View itemView) {
+    GoodDealEndingVH(View itemView) {
         super(itemView);
-        tvDealEndingState = (TextView) itemView.findViewById(R.id.tvDealEndingState_IMGDE);
-        viewUnderline = (View) itemView.findViewById(R.id.viewUnderline_IMGDE);
+        tvDealEndingState = itemView.findViewById(R.id.tvDealEndingState_IMGDE);
+        viewUnderline = itemView.findViewById(R.id.viewUnderline_IMGDE);
 
     }
 
@@ -36,13 +35,13 @@ public class GoodDealEndingVH extends RecyclerVH<MessagesDH> {
         switch (data.getMessageResponse().code) {
             case Constants.M10_GOOD_DEAL_CLOSING:
                 tvDealEndingState.setText(R.string.text_bon_plan_close);
-                tvDealEndingState.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.textColorBlack));
-                viewUnderline.setBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.textColorBlack));
+                tvDealEndingState.setTextColor(data.getContext().getResources().getColor(R.color.textColorBlack));
+                viewUnderline.setBackgroundColor(data.getContext().getResources().getColor(R.color.textColorBlack));
                 break;
             case Constants.M8_GOOD_DEAL_CANCELLATION:
                 tvDealEndingState.setText(R.string.text_bon_plan_annule);
-                tvDealEndingState.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.colorRed));
-                viewUnderline.setBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.colorRed));
+                tvDealEndingState.setTextColor(data.getContext().getResources().getColor(R.color.colorRed));
+                viewUnderline.setBackgroundColor(data.getContext().getResources().getColor(R.color.colorRed));
                 break;
         }
 

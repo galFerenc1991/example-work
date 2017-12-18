@@ -44,7 +44,6 @@ public interface MessengerContract {
     }
 
 
-
     interface Model extends BaseModel {
         Observable<ListResponse<MessageResponse>> getMessages(String _chatID, int _page);
     }
