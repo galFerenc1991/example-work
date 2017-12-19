@@ -68,6 +68,8 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         MessageResponse messageResponse = data.getMessageResponse();
         Context context = data.getContext();
         User user = data.getMyUser();
+        String deliveryStartDate = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryStartDate));
+        String deliveryEndDate = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryEndDate));
 
         if (goodDealResponse.contributor.id.equals(user.getId())) {
             Picasso.with(context)
@@ -93,8 +95,8 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         tvDealDescription.setText(messageResponse.text);
         tvDealPriceDescription.setText(goodDealResponse.description);
         tvDealAmountItems.setText(goodDealResponse.unit);
-        tvDealStartDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryStartDate)));
-        tvDealEndDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryEndDate)));
+        tvDealStartDate.setText(deliveryStartDate);
+        tvDealEndDate.setText(deliveryEndDate);
         tvDealLocation.setText(goodDealResponse.deliveryAddress);
 
     }

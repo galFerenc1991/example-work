@@ -50,7 +50,7 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
                         messageResponse.description != null
                                 ? context.getString(R.string.text_change_date)
                                 + "\n"
-                                + new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryStartDate))
+                                + deliveryStartDate
                                 : context.getString(R.string.text_change_date)
                 );
                 break;
