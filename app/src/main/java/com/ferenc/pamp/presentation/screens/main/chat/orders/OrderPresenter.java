@@ -11,6 +11,8 @@ public class OrderPresenter implements OrderContract.Presenter {
 
     public OrderPresenter(OrderContract.View _view) {
         this.mView = _view;
+
+        mView.setPresenter(this);
     }
 
     @Override

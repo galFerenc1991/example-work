@@ -20,6 +20,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".presentation.screens.splash.SplashActivity_"
+            android:launchMode="singleTask"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
@@ -76,6 +77,10 @@
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".presentation.custom.EndFlowActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".presentation.custom.InputActivity_"
@@ -101,6 +106,12 @@
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/DialogTheme.Country" />
+
+        <activity
+            android:name=".presentation.custom.SettingsActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogTheme.Settings" />
 
         <activity
             android:name=".presentation.screens.main.chat.ChatActivity_"

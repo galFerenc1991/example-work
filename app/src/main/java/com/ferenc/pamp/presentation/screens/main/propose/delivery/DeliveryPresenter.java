@@ -1,5 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.propose.delivery;
 
+import android.support.annotation.NonNull;
+
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 
@@ -32,7 +34,7 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
     public void subscribe() {
         GoodDealRequest reUseGoodDeal = mGoodDealManager.getGoodDeal();
         if (reUseGoodDeal.getProduct() != null) {
-            if (!mIsReBroadcastFlow){
+            if (!mIsReBroadcastFlow) {
                 mView.setCloseDate(convertServerDateToString(reUseGoodDeal.getClosingDate()));
                 mView.setDeliveryDate(convertServerDateToString(reUseGoodDeal.getDeliveryStartDate()) + "\n" + convertServerDateToString(reUseGoodDeal.getDeliveryEndDate()));
                 mView.setDeliveryPlace(reUseGoodDeal.getDeliveryAddress());
@@ -103,9 +105,8 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
         return getCloseDateInString(date);
     }
 
+    @NonNull
     private Long getCloseDateForServer(Calendar calendar) {
-//        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss zzz", Locale.getDefault());
-//        return sdf.format(calendar.getTime());
         return calendar.getTimeInMillis();
     }
 

@@ -106,11 +106,4 @@ public class InputActivity extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
-
-//    protected void hideKeyboard() {
-//        final InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-//        inputMethodManager.hideSoftInputFromWindow(etContent.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
-//
-//    }
-
 }

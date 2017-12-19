@@ -26,6 +26,7 @@ import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_rela
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
@@ -76,17 +77,19 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
             });
         }
     }
-
+    @RootContext
+    protected Context context;
     @Bean
     protected ProposeRelay mProposeRelay;
     @Bean
     protected ReceiveRelay mReceiveRelay;
     @Bean
     protected GoodDealManager mGoodDealManager;
+    @Bean
+    protected GoodDealResponseManager mGoodDealResponseManager;
+
     private List<GoodDealResponse> listGD = new ArrayList<>();
     private int mGoodPlanItemType;
-    @RootContext
-    protected Context context;
 
     public GoodPlanAdapter() {
 
@@ -113,7 +116,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
     public void onBindViewHolder(SimpleViewHolder viewHolder, int position) {
         GoodDealResponse goodDealResponse = listGD.get(position);
         Picasso.with(PampApp_.getInstance())
-                .load(RestConst.BASE_URL + "/" + goodDealResponse.contributor.avatar)
+                .load(RestConst.BASE_URL + "/" + goodDealResponse.owner.getAvatar())
                 .placeholder(R.drawable.ic_userpic)
                 .error(R.drawable.ic_userpic)
                 .transform(new RoundedTransformation(200, 0))
@@ -165,13 +168,16 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
             });
         }
 
-        viewHolder.rlRootLayout.setOnClickListener(view ->
-                ChatActivity_
-                        .intent(context)
-                        .fromWhere(mGoodPlanItemType)
-                        .goodDealResponse(goodDealResponse)
-                        .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .start());
+        viewHolder.rlRootLayout.setOnClickListener(view ->{
+                    mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
+                    ChatActivity_
+                            .intent(context)
+                            .fromWhere(mGoodPlanItemType)
+                            .goodDealResponse(goodDealResponse)
+                            .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .start();
+                }
+             );
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         mItemManger.bindView(viewHolder.itemView, position);
@@ -179,7 +185,8 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
     }
 
     private GoodDealRequest getGoodDealFromItem(GoodDealResponse _goodDealResponse) {
-        GoodDealRequest goodDealRequest = new GoodDealRequest.Builder()
+        return new GoodDealRequest.Builder()
+                .setID(_goodDealResponse.id)
                 .setProduct(_goodDealResponse.product)
                 .setDescription(_goodDealResponse.description)
                 .setPrice(_goodDealResponse.price)
@@ -190,7 +197,6 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
                 .setDeliveryStartDate(_goodDealResponse.deliveryStartDate)
                 .setDeliveryEndDate(_goodDealResponse.deliveryEndDate)
                 .build();
-        return goodDealRequest;
     }
 
     public void setList(@NonNull List<GoodDealResponse> list) {

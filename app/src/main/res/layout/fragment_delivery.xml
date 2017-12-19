@@ -142,7 +142,6 @@
                         android:layout_marginEnd="@dimen/margin_default"
                         android:layout_marginStart="60dp"
                         android:text="@string/text_description_delivery" />
-
                 </LinearLayout>
 
 

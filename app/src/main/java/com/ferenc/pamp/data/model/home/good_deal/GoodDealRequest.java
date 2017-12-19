@@ -12,6 +12,7 @@ import java.util.List;
 
 public class GoodDealRequest implements Parcelable {
 
+    private String id;
     private String product;
     private String description;
     private double price;
@@ -103,6 +104,14 @@ public class GoodDealRequest implements Parcelable {
         this.contacts = contacts;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public static class Builder {
 
         protected GoodDealRequest goodDealRequest;
@@ -155,6 +164,10 @@ public class GoodDealRequest implements Parcelable {
             goodDealRequest.deliveryEndDate = _deliveryEndDate;
             return this;
         }
+        public Builder setID(String _id) {
+            goodDealRequest.id = _id;
+            return this;
+        }
 
         public GoodDealRequest build() {
             return goodDealRequest;
@@ -169,6 +182,7 @@ public class GoodDealRequest implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeString(this.product);
         dest.writeString(this.description);
         dest.writeDouble(this.price);
@@ -185,6 +199,7 @@ public class GoodDealRequest implements Parcelable {
     }
 
     protected GoodDealRequest(Parcel in) {
+        this.id = in.readString();
         this.product = in.readString();
         this.description = in.readString();
         this.price = in.readDouble();

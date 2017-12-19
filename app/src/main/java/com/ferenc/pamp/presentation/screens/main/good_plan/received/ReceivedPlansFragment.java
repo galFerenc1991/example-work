@@ -117,7 +117,7 @@ public class ReceivedPlansFragment extends RefreshableFragment implements Receiv
     public void sharePlayStoreLincInSMS() {
         Intent it = new Intent(Intent.ACTION_SENDTO);
         it.setData(Uri.parse("smsto:"));
-        it.putExtra("sms_body",mShareMessage);
+        it.putExtra("sms_body", mShareMessage);
         startActivity(it);
     }
 

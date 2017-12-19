@@ -1,11 +1,15 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.received;
 
 
+import android.util.Log;
+
+import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by
@@ -60,9 +64,8 @@ public class ReceivedPlansPresenter implements ReceivedPlansContract.Presenter {
                         mView.addReceivedGoodPlanList(goodDealResponseListResponse.data);
                     }
 
-                }, throwable -> {
-                    mView.hideProgress();
-                }));
+                }, throwableConsumer)
+        );
     }
 
     @Override
@@ -82,6 +85,16 @@ public class ReceivedPlansPresenter implements ReceivedPlansContract.Presenter {
     public void sharePlayStoreLincInSMS() {
         mView.sharePlayStoreLincInSMS();
     }
+
+    private Consumer<Throwable> throwableConsumer = throwable -> {
+        throwable.printStackTrace();
+        mView.hideProgress();
+        if (throwable instanceof ConnectionLostException) {
+            mView.showErrorMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+        } else {
+            mView.showErrorMessage(Constants.MessageType.UNKNOWN);
+        }
+    };
 
     @Override
     public void unsubscribe() {

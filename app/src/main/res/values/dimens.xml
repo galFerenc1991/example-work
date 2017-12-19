@@ -46,6 +46,8 @@
     <dimen name="item_default_height">100dp</dimen>
     <dimen name="item_swipe_width">90dp</dimen>
     <dimen name="item_header_height">40dp</dimen>
+    <dimen name="item_title_settings">80dp</dimen>
+
 
 
     <!--Counts-->

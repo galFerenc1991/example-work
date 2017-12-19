@@ -11,6 +11,7 @@
     <color name="colorRed">#f44336</color>
     <color name="colorGrayLight">#f2f2f2</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorWhiteMaxTransparent">#64ffffff</color>
     <color name="colorReuseIndicator">#f900ca</color>
     <color name="colorRebroadcast">#2980b9</color>
     <color name="colorGreyTransparent">#e2f5ec</color>

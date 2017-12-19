@@ -4,11 +4,13 @@ import com.ferenc.pamp.data.api.Rest;
 import com.ferenc.pamp.data.api.RestConst;
 import com.ferenc.pamp.data.model.base.ListResponse;
 import com.ferenc.pamp.data.model.home.good_deal.ConnectGoodDealResponse;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.service.GoodDealService;
 import com.ferenc.pamp.data.service.UserService;
 import com.ferenc.pamp.presentation.screens.main.MainContract;
+import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerContract;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.ProposedPlansContract;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.ReceivedPlansContract;
 import com.ferenc.pamp.presentation.screens.main.propose.share.ShareContract;
@@ -29,7 +31,11 @@ import io.reactivex.Observable;
  * Ferenc on 2017.12.01..
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class GoodDealRepository extends NetworkRepository implements ShareContract.Model, ProposedPlansContract.Model, ReceivedPlansContract.Model, MainContract.Model {
+public class GoodDealRepository extends NetworkRepository implements ShareContract.Model
+        , ProposedPlansContract.Model
+        , ReceivedPlansContract.Model
+        , MainContract.Model
+        , MessengerContract.GoodDealModel {
 
     @Bean
     protected Rest rest;
@@ -59,17 +65,27 @@ public class GoodDealRepository extends NetworkRepository implements ShareContra
     }
 
     @Override
+    public Observable<GoodDealResponse> resendGoodDeal(GoodDealRequest request) {
+        return getNetworkObservable(goodDealService.resendGoodDeal(request.getId(), request));
+    }
+
+    @Override
     public Observable<ConnectGoodDealResponse> connectGoodDeal(String _id) {
         return getNetworkObservable(goodDealService.connectGoodDeal(_id));
     }
 
     @Override
     public Observable<ListResponse<GoodDealResponse>> getProposedGoodDeal(int _page) {
-        return getNetworkObservable(goodDealService.getGoodDeals(RestConst.PROPOSED_GOOD_DEAL_LIST_REQUEST_PARAMETER,  _page, RestConst.ITEMS_PER_PAGE));
+        return getNetworkObservable(goodDealService.getGoodDeals(RestConst.PROPOSED_GOOD_DEAL_LIST_REQUEST_PARAMETER, _page, RestConst.ITEMS_PER_PAGE));
     }
 
     @Override
     public Observable<ListResponse<GoodDealResponse>> getReceivedGoodDeal(int _page) {
         return getNetworkObservable(goodDealService.getGoodDeals(RestConst.RECEIVED_GOOD_DEAL_LIST_REQUEST_PARAMETER, _page, RestConst.ITEMS_PER_PAGE));
+    }
+
+    @Override
+    public Observable<GoodDealCancelResponse> cancelGoodDeal(String _id) {
+        return getNetworkObservable(goodDealService.cancelGoodDeal(_id));
     }
 }

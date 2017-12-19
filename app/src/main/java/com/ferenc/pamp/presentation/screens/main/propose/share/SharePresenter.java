@@ -10,6 +10,7 @@ import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.presentation.base.models.UserContact;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
+import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.FirebaseDynamicLinkGenerator;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealValidateManager;
@@ -37,13 +38,15 @@ public class SharePresenter implements ShareContract.Presenter {
     private CompositeDisposable mCompositeDisposable;
     private List<ContactDH> mPhoneContactList;
     private GoodDealManager mGoodDealManager;
+    private  boolean mIsReBroadcastFlow;
 
-    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager) {
+    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager,  boolean _isReBroadcastFlow) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mPhoneContactList = new ArrayList<>();
         this.mGoodDealManager = _goodDealManager;
+        this.mIsReBroadcastFlow = _isReBroadcastFlow;
 
         mView.setPresenter(this);
     }
@@ -127,23 +130,37 @@ public class SharePresenter implements ShareContract.Presenter {
 
     @Override
     public void share(List<ContactDH> contactDHList) {
-        List<String> selectedContacts = getSelectedContacts(contactDHList);
-        if (!selectedContacts.isEmpty()) {
-            if (GoodDealValidateManager.validate(mGoodDealManager.getGoodDeal())) {
-                mView.showProgressMain();
-                mCompositeDisposable.add(mModel.createGoodDeal(createRequestParameter(contactDHList))
-                        .subscribe(goodDealResponse -> {
-                            mView.hideProgress();
-                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList));
-                        }, throwable -> {
-                            mView.hideProgress();
-                        }));
+        if (!mIsReBroadcastFlow){
+            List<String> selectedContacts = getSelectedContacts(contactDHList);
+            if (!selectedContacts.isEmpty()) {
+                if (GoodDealValidateManager.validate(mGoodDealManager.getGoodDeal())) {
+                    mView.showProgressMain();
+                    mCompositeDisposable.add(mModel.createGoodDeal(createRequestParameter(contactDHList))
+                            .subscribe(goodDealResponse -> {
+                                mView.hideProgress();
+                                mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
+                            }, throwable -> {
+                                mView.hideProgress();
+                                mView.showErrorMessage(Constants.MessageType.ERROR_WHILE_SELECT_ADDRESS);
+                            }));
+                } else {
+                    mView.openVerificationErrorPopUP();
+                }
             } else {
-                mView.openVerificationErrorPopUP();
+                ToastManager.showToast("Please select contacts");
             }
         } else {
-            ToastManager.showToast("Please select contacts");
+            mView.showProgressMain();
+            mCompositeDisposable.add(mModel.resendGoodDeal(createRequestParameter(contactDHList))
+                    .subscribe(goodDealResponse -> {
+                        mView.hideProgress();
+                        mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
+                    }, throwable -> {
+                        mView.hideProgress();
+                        mView.showErrorMessage(Constants.MessageType.ERROR_WHILE_SELECT_ADDRESS);
+                    }));
         }
+
 
     }
 

@@ -16,9 +16,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ferenc.pamp.R;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
+import com.ferenc.pamp.presentation.custom.EndFlowActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.ChatActivity_;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -61,6 +64,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     }
 
     private ShareContract.Presenter mPresenter;
+    private GoodDealResponse mGoodDealResponse;
 
     @ViewById(R.id.rvContactList_FSGP)
     protected RecyclerView rvContactList;
@@ -83,7 +87,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     @AfterInject
     @Override
     public void initPresenter() {
-        new SharePresenter(this, mGoodDealRepository, mGoodDealManager);
+        new SharePresenter(this, mGoodDealRepository, mGoodDealManager, isReBroadcastFlow);
 
         mContactAdapter.setOnCardClickListener((view, position, viewType) ->
                 mPresenter.selectItem(mContactAdapter.getItem(position), position));
@@ -110,23 +114,32 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     }
 
     @Override
-    public void sendSmsWith(Uri _dynamicLink, List<String> _selectedContacts) {
+    public void sendSmsWith(Uri _dynamicLink
+            , List<String> _selectedContacts
+            , GoodDealResponse _goodDealResponse) {
         ArrayList<String> selectedContacts = new ArrayList<>(_selectedContacts);
+        mGoodDealResponse = _goodDealResponse;
 
-//
-//        String numbers = "" ;
-//        for (String contact : selectedContacts) {
-//            numbers = numbers +";" + contact;
-//        }
-        //            it.putStringArrayListExtra(ContactsContract.Intents.Insert.PHONE, selectedContacts);
-
-
-        Uri uri = Uri.parse("smsto: " + selectedContacts.get(0));
+        Uri uri = Uri.parse(Constants.KEY_SENDTO_SMS + selectedContacts);
         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-        it.putExtra("sms_body", "Je vous envoi bon plan ... á retrouver sur PAMP en téléchargeant I'appli  \n" + _dynamicLink.toString());
+        it.putExtra(Constants.KEY_SMS_BODY, R.string.msg_send_good_deal + _dynamicLink.toString());
         startActivity(it);
+        startActivityForResult(it, Constants.REQUEST_CODE_SEND_SMS_DONE);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CODE_SEND_SMS_DONE) {
+            EndFlowActivity_
+                    .intent(this)
+                    .mIsCreatedFlow(true)
+                    .fromWhere(Constants.ITEM_TYPE_REUSE)
+                    .mGoodDealResponse(mGoodDealResponse)
+                    .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .start();
+        }
+    }
 
     @Override
     public void setContactAdapterList(List<ContactDH> _list) {

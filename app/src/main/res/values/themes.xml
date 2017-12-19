@@ -27,5 +27,8 @@
         <item name="colorControlNormal">@color/textColorGreen</item>
     </style>
 
+    <style name="DialogTheme.Settings">
+        <item name="windowNoTitle">true</item>
+    </style>
 
 </resources>

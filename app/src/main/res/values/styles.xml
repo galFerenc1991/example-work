@@ -116,6 +116,13 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <style name="SettingsGoodPlanTextStyle">
+        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:textColorHint">@color/textColorGrayTransparent</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
     <style name="GoodPlanVerificationErrorTextStyle">
         <item name="android:textColor">@color/textColorBlack</item>
         <item name="android:textSize">@dimen/text_size_big</item>
@@ -139,6 +146,12 @@
 
     <style name="ValidateErrorDialogTextStyle">
         <item name="android:layout_margin">@dimen/margin_half</item>
+        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="CancelDialPopUpTextStyle">
         <item name="android:textColor">@color/textColorGray</item>
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:fontFamily">sans-serif</item>
@@ -186,6 +199,12 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="CancelButtonTextStyle">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:fontFamily">sans-serif_medium</item>
+        <item name="android:textColor">@color/textColorGreen</item>
     </style>
 
 </resources>

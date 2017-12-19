@@ -19,6 +19,8 @@ public interface SharedPrefManager {
 
     String getGoodDeal();
 
+    String getGoodDealResponse();
+
     @DefaultBoolean(false)
     boolean getIsViewedTutorial();
 

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.ferenc.pamp.data.model.common.Contributor;
+import com.ferenc.pamp.data.model.common.User;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -28,8 +29,9 @@ public class GoodDealResponse implements Parcelable {
     public boolean isResend;
     public int rank;
     public String unit;
-    public Contributor contributor;
-    public List<Contributor> recipients;
+    @SerializedName("contributor")
+    public User owner;
+    public List<User> recipients;
     public String state;
     @SerializedName("_id")
     public String id;
@@ -58,7 +60,7 @@ public class GoodDealResponse implements Parcelable {
         dest.writeByte(this.isResend ? (byte) 1 : (byte) 0);
         dest.writeInt(this.rank);
         dest.writeString(this.unit);
-        dest.writeParcelable(this.contributor, flags);
+        dest.writeParcelable(this.owner, flags);
         dest.writeTypedList(this.recipients);
         dest.writeString(this.state);
         dest.writeString(this.id);
@@ -78,8 +80,8 @@ public class GoodDealResponse implements Parcelable {
         this.isResend = in.readByte() != 0;
         this.rank = in.readInt();
         this.unit = in.readString();
-        this.contributor = in.readParcelable(Contributor.class.getClassLoader());
-        this.recipients = in.createTypedArrayList(Contributor.CREATOR);
+        this.owner = in.readParcelable(User.class.getClassLoader());
+        this.recipients = in.createTypedArrayList(User.CREATOR);
         this.state = in.readString();
         this.id = in.readString();
     }

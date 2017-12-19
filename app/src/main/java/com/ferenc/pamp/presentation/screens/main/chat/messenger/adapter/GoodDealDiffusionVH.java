@@ -60,7 +60,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
     @Override
     public void bindData(MessagesDH data) {
 
-        if (data.getGoodDealResponse().contributor.id.equals(data.getMyUser().getId())) {
+        if (data.getGoodDealResponse().owner.getId().equals(data.getMyUser().getId())) {
             Picasso.with(PampApp_.getInstance())
                     .load(data.getMyUser().getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
@@ -71,13 +71,13 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
             tvDealAuthorName.setText(data.getMyUser().getFirstName());
         } else {
             Picasso.with(PampApp_.getInstance())
-                    .load(data.getGoodDealResponse().contributor.getAvatar())
+                    .load(data.getGoodDealResponse().owner.getAvatar())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civInterlocutorAvatar);
             civInterlocutorAvatar.setVisibility(View.VISIBLE);
             cvDealBackground.setCardBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
-            tvDealAuthorName.setText(data.getGoodDealResponse().contributor.firstName);
+            tvDealAuthorName.setText(data.getGoodDealResponse().owner.getFirstName());
         }
 
 

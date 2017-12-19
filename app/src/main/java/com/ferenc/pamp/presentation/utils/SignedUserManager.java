@@ -36,7 +36,7 @@ public class SignedUserManager {
     public User getCurrentUser() {
         String userStr = prefManager.getUserProfile().get();
         return TextUtils.isEmpty(userStr)
-                ? null
+                ? new User()
                 : gson.fromJson(userStr, User.class);
     }
 

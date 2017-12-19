@@ -14,6 +14,8 @@ import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
+import retrofit2.http.Path;
 
 /**
  * Created by
@@ -35,7 +37,7 @@ public interface ShareContract {
 
         void updateItem(ContactDH item, int position);
 
-        void sendSmsWith(Uri _dynamicLink, List<String> _selectedContacts);
+        void sendSmsWith(Uri _dynamicLink, List<String> _selectedContacts, GoodDealResponse _goodDealResponse);
 
         void openVerificationErrorPopUP();
     }
@@ -50,5 +52,7 @@ public interface ShareContract {
         Observable<List<String>> getUsedUserContact();
 
         Observable<GoodDealResponse> createGoodDeal(GoodDealRequest request);
+
+        Observable<GoodDealResponse> resendGoodDeal(GoodDealRequest request);
     }
 }
