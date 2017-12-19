@@ -8,8 +8,8 @@
         android:id="@+id/llGoodDealDiffusionBlock_IMGDD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/margin_upper_medium"
-        android:paddingBottom="@dimen/margin_upper_medium"
+        android:paddingTop="@dimen/padding_upper_large"
+        android:paddingBottom="@dimen/padding_upper_large"
         android:orientation="horizontal"
         android:gravity="center_horizontal">
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             app:cardElevation="@dimen/margin_quart"
             android:layout_margin="@dimen/margin_upper_default"
-            android:padding="@dimen/margin_quart"
+            android:padding="@dimen/padding_quart"
             app:cardCornerRadius="0dp"
             app:cardBackgroundColor="@color/msgMyGoodDealDiffusionColor">
 
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="@dimen/margin_upper_medium">
+                android:padding="@dimen/padding_upper_large">
 
                 <TextView
                     android:id="@+id/tvDealAuthorName_IMGDD"

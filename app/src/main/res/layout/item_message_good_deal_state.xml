@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/padding_upper_large"
     android:paddingBottom="@dimen/padding_upper_large"
     android:paddingStart="@dimen/padding_upper_large"
-    android:paddingEnd="@dimen/margin_double_upper_medium"
+    android:paddingEnd="@dimen/padding_double_upper_medium"
     android:layout_marginStart="@dimen/margin_double_upper_medium"
     android:layout_marginTop="@dimen/margin_upper_medium"
     android:layout_marginBottom="@dimen/margin_upper_medium"

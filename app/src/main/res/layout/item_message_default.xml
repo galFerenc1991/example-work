@@ -18,7 +18,7 @@
             android:layout_width="@dimen/bottom_bar_height"
             android:layout_height="@dimen/bottom_bar_height"
             android:src="@drawable/ic_userpic"
-            android:layout_marginEnd="@dimen/padding_upper_medium"
+            android:layout_marginEnd="@dimen/margin_upper_medium"
             android:visibility="gone"/>
 
 
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             app:cardElevation="@dimen/margin_quart"
             android:layout_margin="@dimen/margin_upper_default"
-            android:padding="@dimen/margin_quart"
+            android:padding="@dimen/padding_quart"
             app:cardCornerRadius="0dp"
             app:cardBackgroundColor="@color/msgMyGoodDealDiffusionColor">
 
@@ -61,7 +61,7 @@
             android:layout_width="@dimen/bottom_bar_height"
             android:layout_height="@dimen/bottom_bar_height"
             android:src="@drawable/bg_circle_button"
-            android:layout_marginLeft="@dimen/padding_upper_medium"
+            android:layout_marginLeft="@dimen/margin_upper_medium"
             android:visibility="gone"/>
 
     </LinearLayout>

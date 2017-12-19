@@ -6,11 +6,11 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/padding_upper_large"
     android:paddingBottom="@dimen/padding_upper_large"
-    android:paddingStart="@dimen/margin_double_upper_medium"
+    android:paddingStart="@dimen/padding_double_upper_medium"
     android:paddingEnd="@dimen/padding_upper_large"
     android:layout_marginEnd="@dimen/margin_double_upper_medium"
-    android:layout_marginTop="@dimen/padding_upper_large"
-    android:layout_marginBottom="@dimen/padding_upper_large"
+    android:layout_marginTop="@dimen/margin_upper_medium"
+    android:layout_marginBottom="@dimen/margin_upper_medium"
     android:background="@drawable/bg_msg_product_ordering">
 
     <LinearLayout

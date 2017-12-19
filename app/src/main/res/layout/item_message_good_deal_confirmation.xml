@@ -7,9 +7,9 @@
     android:paddingTop="@dimen/padding_upper_medium"
     android:paddingBottom="@dimen/padding_upper_medium"
     android:paddingStart="@dimen/padding_upper_medium"
-    android:paddingEnd="@dimen/padding_upper_large"
+    android:paddingEnd="@dimen/padding_upper_medium"
     android:layout_marginTop="@dimen/margin_upper_medium"
-    android:layout_marginStart="@dimen/padding_upper_large"
+    android:layout_marginStart="@dimen/margin_upper_medium"
     android:layout_marginBottom="@dimen/margin_upper_medium"
     android:background="@drawable/bg_msg_good_deal_confirmation_green">
 
@@ -28,7 +28,7 @@
         android:textColor="@color/textColorBlack"
         android:layout_toEndOf="@+id/ivGoodDealConfirmationState_IMGDC"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/padding_upper_large" />
+        android:layout_marginStart="@dimen/margin_upper_medium" />
 
 
 
