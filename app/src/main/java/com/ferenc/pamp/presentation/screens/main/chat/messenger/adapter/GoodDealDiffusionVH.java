@@ -1,12 +1,16 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 
+
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
-import com.ferenc.pamp.data.api.RestConst;
+import com.ferenc.pamp.data.model.common.User;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.michenko.simpleadapter.OnCardClickListener;
 import com.michenko.simpleadapter.RecyclerVH;
 import com.squareup.picasso.Picasso;
@@ -37,18 +41,18 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
     private TextView tvDealLocation;
 
 
-    public GoodDealDiffusionVH(View itemView) {
+    GoodDealDiffusionVH(View itemView) {
         super(itemView);
-        civInterlocutorAvatar = (CircleImageView) itemView.findViewById(R.id.civInterlocutorAvatar_IMGDD);
-        civMyAvatar = (CircleImageView) itemView.findViewById(R.id.civMyAvatar_IMGDD);
-        cvDealBackground = (CardView) itemView.findViewById(R.id.cvDealBackground_IMGDD);
-        tvDealAuthorName = (TextView) itemView.findViewById(R.id.tvDealAuthorName_IMGDD);
-        tvDealDescription = (TextView) itemView.findViewById(R.id.tvDealDescription_IMGDD);
-        tvDealPriceDescription = (TextView) itemView.findViewById(R.id.tvDealPriceDescription_IMGDD);
-        tvDealAmountItems = (TextView) itemView.findViewById(R.id.tvDealAmountItems_IMGDD);
-        tvDealStartDate = (TextView) itemView.findViewById(R.id.tvDealStartDate_IMGDD);
-        tvDealEndDate = (TextView) itemView.findViewById(R.id.tvDealEndDate_IMGDD);
-        tvDealLocation = (TextView) itemView.findViewById(R.id.tvDealLocation_IMGDD);
+        civInterlocutorAvatar = itemView.findViewById(R.id.civInterlocutorAvatar_IMGDD);
+        civMyAvatar = itemView.findViewById(R.id.civMyAvatar_IMGDD);
+        cvDealBackground = itemView.findViewById(R.id.cvDealBackground_IMGDD);
+        tvDealAuthorName = itemView.findViewById(R.id.tvDealAuthorName_IMGDD);
+        tvDealDescription = itemView.findViewById(R.id.tvDealDescription_IMGDD);
+        tvDealPriceDescription = itemView.findViewById(R.id.tvDealPriceDescription_IMGDD);
+        tvDealAmountItems = itemView.findViewById(R.id.tvDealAmountItems_IMGDD);
+        tvDealStartDate = itemView.findViewById(R.id.tvDealStartDate_IMGDD);
+        tvDealEndDate = itemView.findViewById(R.id.tvDealEndDate_IMGDD);
+        tvDealLocation = itemView.findViewById(R.id.tvDealLocation_IMGDD);
 
     }
 
@@ -60,33 +64,40 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
     @Override
     public void bindData(MessagesDH data) {
 
-        if (data.getGoodDealResponse().contributor.id.equals(data.getMyUser().getId())) {
-            Picasso.with(PampApp_.getInstance())
-                    .load(data.getMyUser().getAvatarUrl())
+        GoodDealResponse goodDealResponse = data.getGoodDealResponse();
+        MessageResponse messageResponse = data.getMessageResponse();
+        Context context = data.getContext();
+        User user = data.getMyUser();
+        String deliveryStartDate = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryStartDate));
+        String deliveryEndDate = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryEndDate));
+
+        if (goodDealResponse.contributor.id.equals(user.getId())) {
+            Picasso.with(context)
+                    .load(user.getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civMyAvatar);
             civMyAvatar.setVisibility(View.VISIBLE);
-            cvDealBackground.setCardBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
-            tvDealAuthorName.setText(data.getMyUser().getFirstName());
+            cvDealBackground.setCardBackgroundColor(context.getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
+            tvDealAuthorName.setText(user.getFirstName());
         } else {
-            Picasso.with(PampApp_.getInstance())
-                    .load(data.getGoodDealResponse().contributor.getAvatar())
+            Picasso.with(context)
+                    .load(goodDealResponse.contributor.getAvatar())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civInterlocutorAvatar);
             civInterlocutorAvatar.setVisibility(View.VISIBLE);
-            cvDealBackground.setCardBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
-            tvDealAuthorName.setText(data.getGoodDealResponse().contributor.firstName);
+            cvDealBackground.setCardBackgroundColor(context.getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
+            tvDealAuthorName.setText(goodDealResponse.contributor.firstName);
         }
 
 
-        tvDealDescription.setText(data.getMessageResponse().text);
-        tvDealPriceDescription.setText(data.getGoodDealResponse().description);
-        tvDealAmountItems.setText(data.getGoodDealResponse().unit);
-        tvDealStartDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryStartDate)));
-        tvDealEndDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryEndDate)));
-        tvDealLocation.setText(data.getGoodDealResponse().deliveryAddress);
+        tvDealDescription.setText(messageResponse.text);
+        tvDealPriceDescription.setText(goodDealResponse.description);
+        tvDealAmountItems.setText(goodDealResponse.unit);
+        tvDealStartDate.setText(deliveryStartDate);
+        tvDealEndDate.setText(deliveryEndDate);
+        tvDealLocation.setText(goodDealResponse.deliveryAddress);
 
     }
 }

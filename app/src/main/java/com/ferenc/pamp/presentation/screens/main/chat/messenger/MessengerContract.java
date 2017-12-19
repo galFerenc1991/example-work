@@ -2,11 +2,11 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 
 import com.ferenc.pamp.data.model.base.ListResponse;
 import com.ferenc.pamp.data.model.message.MessageResponse;
-import com.ferenc.pamp.presentation.base.BaseModel;
 import com.ferenc.pamp.presentation.base.BaseView;
 import com.ferenc.pamp.presentation.base.content.ContentView;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
+import com.jakewharton.rxrelay2.Relay;
 
 import java.util.List;
 
@@ -37,15 +37,21 @@ public interface MessengerContract {
 
         void loadNextPage();
 
-        void sendMessage();
+        void sendMessage(String messageText);
 
         void addImage();
 
     }
 
 
-
-    interface Model extends BaseModel {
+    interface Model {
         Observable<ListResponse<MessageResponse>> getMessages(String _chatID, int _page);
+    }
+
+    interface SocketModel {
+
+        Observable<MessageResponse> getNewMessage();
+
+        Observable<Void> sendMessage(String _userToken, String _dealId, String _messageText);
     }
 }

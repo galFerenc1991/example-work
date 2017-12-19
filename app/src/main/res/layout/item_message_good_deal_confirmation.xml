@@ -4,19 +4,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="20dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
+    android:paddingTop="@dimen/padding_upper_medium"
+    android:paddingBottom="@dimen/padding_upper_medium"
+    android:paddingStart="@dimen/padding_upper_medium"
+    android:paddingEnd="@dimen/padding_upper_medium"
+    android:layout_marginTop="@dimen/margin_upper_medium"
+    android:layout_marginStart="@dimen/margin_upper_medium"
+    android:layout_marginBottom="@dimen/margin_upper_medium"
     android:background="@drawable/bg_msg_good_deal_confirmation_green">
 
     <ImageView
         android:id="@+id/ivGoodDealConfirmationState_IMGDC"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/icon_min_size"
+        android:layout_height="@dimen/icon_min_size"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_finger_up_msg" />
 
@@ -25,12 +25,10 @@
         android:id="@+id/tvStateConfirmationDescription_IMGDC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Someone confirm deal"
         android:textColor="@color/textColorBlack"
         android:layout_toEndOf="@+id/ivGoodDealConfirmationState_IMGDC"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
-        android:textSize="14sp" />
+        android:layout_marginStart="@dimen/margin_upper_medium" />
 
 
 
