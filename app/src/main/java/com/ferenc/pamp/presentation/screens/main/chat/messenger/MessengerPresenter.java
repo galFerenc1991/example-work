@@ -51,9 +51,9 @@ public class MessengerPresenter implements MessengerContract.Presenter {
             , MessengerContract.Model _messageRepository
             , MessengerContract.GoodDealModel _goodDealModel
             , SocketRepository _socketRepository
-            , SignedUserManager _signedUserManager, Context _context
-            , GoodDealResponse _goodDealResponse
-            , User _myUser) {
+            , SignedUserManager _signedUserManager
+            , Context _context
+            , GoodDealResponse _goodDealResponse) {
 
         this.mView = mView;
         this.mModel = _messageRepository;

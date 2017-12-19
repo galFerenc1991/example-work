@@ -107,7 +107,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void initPresenter() {
 
-        new MessengerPresenter(this, mChatRepository, mSocketRepository,mGoodDealRepository, goodDealResponse, signedUserManager, PampApp_.getInstance());
+        new MessengerPresenter(this, mChatRepository, mGoodDealRepository, mSocketRepository, signedUserManager, PampApp_.getInstance(), goodDealResponse);
     }
 
     @AfterViews
@@ -241,11 +241,5 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void addImage() {
         //TODO : init avatar manager(with CAMERA parameter);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mPresenter.unsubscribe();
     }
 }
