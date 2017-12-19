@@ -3,11 +3,18 @@ package com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_plac
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ferenc.pamp.R;
+import com.ferenc.pamp.domain.GoodDealRepository;
+import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_place.delivery_place_adapter.DeliveryPlaceAdapter;
+import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_place.delivery_place_adapter.DeliveryPlaceDH;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.PlayServiceUtils;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -24,6 +31,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -41,14 +49,27 @@ public class DeliveryPlaceActivity extends AppCompatActivity implements Delivery
     protected CardView cvSelectPlace;
     @ViewById(R.id.tvAddress_ADP)
     protected TextView tvAddress;
+    @ViewById(R.id.rvCountries_ADP)
+    protected RecyclerView rvCountries;
+    @ViewById(R.id.pbAddresses_ADP)
+    protected ProgressBar progressBar;
 
     @Bean
     protected PlayServiceUtils playServiceUtils;
 
+    @Bean
+    protected GoodDealRepository mGoodDealRepository;
+
+    @Bean
+    protected DeliveryPlaceAdapter mDeliveryPlaceAdapter;
+
     @AfterInject
     @Override
     public void initPresenter() {
-        new DeliveryPlacePresenter(this);
+        new DeliveryPlacePresenter(this, mGoodDealRepository);
+        mDeliveryPlaceAdapter.setOnCardClickListener((view, position, viewType) ->
+                mPresenter.selectItem(mDeliveryPlaceAdapter.getItem(position), position)
+        );
     }
 
     @Override
@@ -58,11 +79,16 @@ public class DeliveryPlaceActivity extends AppCompatActivity implements Delivery
 
     @AfterViews
     protected void initUI() {
+
+        rvCountries.setLayoutManager(new LinearLayoutManager(this));
+        rvCountries.setAdapter(mDeliveryPlaceAdapter);
+
         if (getIntent().getBooleanExtra(Constants.KEY_IS_REBROADCAST, false)){
             setTheme(R.style.ReBroadcastTheme);
             ivBack.setImageResource(R.drawable.ic_arrow_back_yellow);
             tvAddress.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_add_circle_yellow, 0, 0, 0);
         }
+
         RxView.clicks(ivBack)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedBack());
@@ -70,6 +96,8 @@ public class DeliveryPlaceActivity extends AppCompatActivity implements Delivery
         RxView.clicks(cvSelectPlace)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedSelectPlace());
+
+        mPresenter.subscribe();
     }
 
     @Override
@@ -111,6 +139,21 @@ public class DeliveryPlaceActivity extends AppCompatActivity implements Delivery
         intent.putExtra(Constants.KEY_PLACE_RESULT, _selectedPlace);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void setContactAdapterList(List<DeliveryPlaceDH> _list) {
+        mDeliveryPlaceAdapter.setListDH(_list);
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

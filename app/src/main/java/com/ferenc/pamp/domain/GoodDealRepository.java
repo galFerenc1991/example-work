@@ -11,6 +11,7 @@ import com.ferenc.pamp.data.service.UserService;
 import com.ferenc.pamp.presentation.screens.main.MainContract;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.ProposedPlansContract;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.ReceivedPlansContract;
+import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_place.DeliveryPlaceContract;
 import com.ferenc.pamp.presentation.screens.main.propose.share.ShareContract;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
@@ -29,7 +30,7 @@ import io.reactivex.Observable;
  * Ferenc on 2017.12.01..
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class GoodDealRepository extends NetworkRepository implements ShareContract.Model, ProposedPlansContract.Model, ReceivedPlansContract.Model, MainContract.Model {
+public class GoodDealRepository extends NetworkRepository implements ShareContract.Model, ProposedPlansContract.Model, ReceivedPlansContract.Model, MainContract.Model, DeliveryPlaceContract.Model {
 
     @Bean
     protected Rest rest;
@@ -51,6 +52,11 @@ public class GoodDealRepository extends NetworkRepository implements ShareContra
     @Override
     public Observable<List<String>> getUsedUserContact() {
         return userService.getSavedUserContact();
+    }
+
+    @Override
+    public Observable<List<String>> getUsedUserAddresses() {
+        return userService.getSavedUserAddresses();
     }
 
     @Override

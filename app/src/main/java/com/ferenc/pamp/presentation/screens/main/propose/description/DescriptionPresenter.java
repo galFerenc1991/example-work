@@ -59,7 +59,7 @@ public class DescriptionPresenter implements DescriptionContract.Presenter {
     public void savePrice(String _price) {
         mGoodDeal = mGoodDealManager.getGoodDeal();
         if (!_price.equals("")) {
-            mGoodDeal.setPrice(Integer.valueOf(_price));
+            mGoodDeal.setPrice(Double.valueOf(_price));
             mView.setPrice(String.valueOf(_price));
         } else {
             mGoodDeal.setPrice(0);

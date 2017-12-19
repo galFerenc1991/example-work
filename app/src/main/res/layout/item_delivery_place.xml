@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_bar_height"
+    android:layout_margin="@dimen/margin_quart"
+    android:elevation="3dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvAddress_IDP"
+            style="@style/DescriptionGoodPlanTextStyle"
+            android:text="Sobranetsca 3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/margin_default"
+            android:drawablePadding="@dimen/margin_double"
+            android:drawableStart="@drawable/ic_location" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+

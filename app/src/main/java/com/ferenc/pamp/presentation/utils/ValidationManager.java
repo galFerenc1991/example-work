@@ -78,6 +78,11 @@ public abstract class ValidationManager {
         return Integer.valueOf(_number) > 0 ? OK : INVALID;
     }
 
+    public static int validateDooble(String _number) {
+        if(TextUtils.isEmpty(_number)) return EMPTY;
+        return Double.valueOf(_number) > 0 ? OK : INVALID;
+    }
+
     public static int validateLongNumber(String _number) {
         if(TextUtils.isEmpty(_number)) return EMPTY;
         return Long.valueOf(_number) > 0 ? OK : INVALID;
