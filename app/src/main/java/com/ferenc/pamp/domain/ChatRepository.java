@@ -10,6 +10,7 @@ import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerContrac
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.json.JSONObject;
 
 import io.reactivex.Observable;
 

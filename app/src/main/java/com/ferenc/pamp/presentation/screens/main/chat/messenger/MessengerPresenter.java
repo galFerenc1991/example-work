@@ -1,13 +1,14 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
-import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.model.message.MessageResponse;
+import com.ferenc.pamp.domain.SocketRepository;
 import com.ferenc.pamp.presentation.utils.Constants;
-import com.ferenc.pamp.presentation.utils.SocketUtil;
+import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
     private MessengerContract.View mView;
     private MessengerContract.Model mModel;
+    private MessengerContract.SocketModel mSocketModel;
     private CompositeDisposable mCompositeDisposable;
 
     private int page;
@@ -34,19 +36,20 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     private boolean needRefresh;
     private GoodDealResponse mGoodDealResponse;
     private List<MessagesDH> mMessagesDH;
-    private User mUser;
-    private SocketUtil mSocketUtil;
+    private SignedUserManager mSignedUserManager;
     private Context mContext;
+    private SocketRepository mSocketRepository;
 
-    public MessengerPresenter(MessengerContract.View mView, MessengerContract.Model _messageRepository, GoodDealResponse _goodDealResponse, User _myUser, SocketUtil _socketUtil, Context _context) {
+    public MessengerPresenter(MessengerContract.View mView, MessengerContract.Model _messageRepository, SocketRepository _socketRepository, GoodDealResponse _goodDealResponse, SignedUserManager _signedUserManager, Context _context) {
         this.mView = mView;
         this.mModel = _messageRepository;
         this.mGoodDealResponse = _goodDealResponse;
         this.mCompositeDisposable = new CompositeDisposable();
         this.page = 1;
-        this.mUser = _myUser;
-        this.mSocketUtil = _socketUtil;
+        this.mSignedUserManager = _signedUserManager;
         this.mContext = _context;
+        this.mSocketRepository = _socketRepository;
+        this.mSocketModel = _socketRepository;
         needRefresh = true;
 
         mView.setPresenter(this);
@@ -55,23 +58,19 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     @Override
     public void subscribe() {
 
-        mSocketUtil.initSocket();
+        mSocketRepository.setDataToJoinRoom(mSignedUserManager.getCurrentUser().getToken(), mGoodDealResponse.id);
 
-        mSocketUtil.connectSocket();
-
-        mSocketUtil.changeConnectionObservable.subscribe(isConnected -> {
-            if (isConnected) {
-                mSocketUtil.joinRoom(mUser.getToken(), mGoodDealResponse.id);
-            }
-        });
-
-        mSocketUtil.onNewMessage
+        mCompositeDisposable.add(mSocketModel.getNewMessage()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onNewMessage -> {
-                    mMessagesDH.add(0, new MessagesDH(onNewMessage, mGoodDealResponse, mUser, mContext, typeDistributor(onNewMessage.code)));
+                .subscribe(messageResponse -> {
+
+                    mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
                     mView.addItem(mMessagesDH);
-                });
+
+                }, throwable -> {
+                    Log.d("MessengerPresenter", "Error while getting new message " + throwable.getMessage());
+                }));
 
         mView.showProgressMain();
         mCompositeDisposable.add(mModel.getMessages(mGoodDealResponse.id, page)
@@ -81,7 +80,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                     mMessagesDH = new ArrayList<>();
 
                     for (MessageResponse messageResponse : model.data) {
-                        mMessagesDH.add(new MessagesDH(messageResponse, mGoodDealResponse, mUser, mContext, typeDistributor(messageResponse.code)));
+                        mMessagesDH.add(new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
                     }
 
                     Collections.reverse(mMessagesDH);
@@ -97,7 +96,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     @Override
     public void unsubscribe() {
         mCompositeDisposable.clear();
-        mSocketUtil.socketDisconnect();
+
     }
 
     @Override
@@ -116,13 +115,21 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     }
 
     @Override
-    public void sendMessage(MessageResponse messageResponse) {
+    public void sendMessage(String messageText) {
 
-        mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mUser, mContext, Constants.DEFAULT_MSG_GROUP_TYPE));
+        if (!TextUtils.isEmpty(messageText)) {
+            MessageResponse messageResponse = new MessageResponse();
 
-        mSocketUtil.sendMessage(mUser.getToken(), mGoodDealResponse.id, messageResponse.text);
+            messageResponse.user = mSignedUserManager.getCurrentUser();
+            messageResponse.text = messageText;
 
-        mView.addItem(mMessagesDH);
+            mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, Constants.DEFAULT_MSG_GROUP_TYPE));
+
+            mCompositeDisposable.add(mSocketModel.sendMessage(mSignedUserManager.getCurrentUser().getToken(), mGoodDealResponse.id, messageText)
+                    .subscribe( aVoid -> {} ));
+
+            mView.addItem(mMessagesDH);
+        }
     }
 
     @Override

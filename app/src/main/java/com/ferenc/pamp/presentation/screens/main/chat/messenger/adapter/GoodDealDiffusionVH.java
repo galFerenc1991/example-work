@@ -1,12 +1,16 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
+import com.ferenc.pamp.data.model.common.User;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.michenko.simpleadapter.OnCardClickListener;
 import com.michenko.simpleadapter.RecyclerVH;
 import com.squareup.picasso.Picasso;
@@ -60,33 +64,38 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
     @Override
     public void bindData(MessagesDH data) {
 
-        if (data.getGoodDealResponse().contributor.id.equals(data.getMyUser().getId())) {
-            Picasso.with(data.getContext())
-                    .load(data.getMyUser().getAvatarUrl())
+        GoodDealResponse goodDealResponse = data.getGoodDealResponse();
+        MessageResponse messageResponse = data.getMessageResponse();
+        Context context = data.getContext();
+        User user = data.getMyUser();
+
+        if (goodDealResponse.contributor.id.equals(user.getId())) {
+            Picasso.with(context)
+                    .load(user.getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civMyAvatar);
             civMyAvatar.setVisibility(View.VISIBLE);
-            cvDealBackground.setCardBackgroundColor(data.getContext().getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
-            tvDealAuthorName.setText(data.getMyUser().getFirstName());
+            cvDealBackground.setCardBackgroundColor(context.getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
+            tvDealAuthorName.setText(user.getFirstName());
         } else {
-            Picasso.with(PampApp_.getInstance())
-                    .load(data.getGoodDealResponse().contributor.getAvatar())
+            Picasso.with(context)
+                    .load(goodDealResponse.contributor.getAvatar())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civInterlocutorAvatar);
             civInterlocutorAvatar.setVisibility(View.VISIBLE);
-            cvDealBackground.setCardBackgroundColor(data.getContext().getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
-            tvDealAuthorName.setText(data.getGoodDealResponse().contributor.firstName);
+            cvDealBackground.setCardBackgroundColor(context.getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
+            tvDealAuthorName.setText(goodDealResponse.contributor.firstName);
         }
 
 
-        tvDealDescription.setText(data.getMessageResponse().text);
-        tvDealPriceDescription.setText(data.getGoodDealResponse().description);
-        tvDealAmountItems.setText(data.getGoodDealResponse().unit);
-        tvDealStartDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryStartDate)));
-        tvDealEndDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(data.getGoodDealResponse().deliveryEndDate)));
-        tvDealLocation.setText(data.getGoodDealResponse().deliveryAddress);
+        tvDealDescription.setText(messageResponse.text);
+        tvDealPriceDescription.setText(goodDealResponse.description);
+        tvDealAmountItems.setText(goodDealResponse.unit);
+        tvDealStartDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryStartDate)));
+        tvDealEndDate.setText(new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryEndDate)));
+        tvDealLocation.setText(goodDealResponse.deliveryAddress);
 
     }
 }

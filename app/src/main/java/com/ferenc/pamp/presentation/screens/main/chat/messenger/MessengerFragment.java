@@ -9,9 +9,8 @@ import android.widget.RelativeLayout;
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
-import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.domain.ChatRepository;
-import com.ferenc.pamp.presentation.utils.SocketUtil;
+import com.ferenc.pamp.domain.SocketRepository;
 import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshableFragment;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
@@ -44,11 +43,10 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     protected ChatRepository mChatRepository;
 
     @Bean
-    protected SignedUserManager signedUserManager;
+    protected SocketRepository mSocketRepository;
 
     @Bean
-    protected SocketUtil socketUtil;
-
+    protected SignedUserManager signedUserManager;
 
     @FragmentArg
     protected GoodDealResponse goodDealResponse;
@@ -82,7 +80,8 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @AfterInject
     @Override
     public void initPresenter() {
-        new MessengerPresenter(this, mChatRepository, goodDealResponse, signedUserManager.getCurrentUser(), socketUtil, PampApp_.getInstance());
+
+        new MessengerPresenter(this, mChatRepository, mSocketRepository, goodDealResponse, signedUserManager, PampApp_.getInstance());
     }
 
     @AfterViews
@@ -121,7 +120,6 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void addItem(List<MessagesDH> _list) {
-//        mMessengerAdapter.addListDH(_list);
         mMessengerAdapter.insertItem(_list.get(0), 0);
         if (rvMessages != null) {
             rvMessages.scrollToPosition(0);
@@ -130,14 +128,8 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void sendMessage() {
-        if (!etInputText.getText().toString().trim().equals("")) {
-            MessageResponse messageResponse = new MessageResponse();
-
-            messageResponse.user = signedUserManager.getCurrentUser();
-            messageResponse.text = etInputText.getText().toString().trim();
-            mPresenter.sendMessage(messageResponse);
-            etInputText.setText("");
-        }
+        mPresenter.sendMessage(etInputText.getText().toString().trim());
+        etInputText.setText("");
     }
 
     @Override

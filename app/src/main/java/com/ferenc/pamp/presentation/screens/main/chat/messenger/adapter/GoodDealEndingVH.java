@@ -1,5 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,16 +33,17 @@ public class GoodDealEndingVH extends RecyclerVH<MessagesDH> {
     @Override
     public void bindData(MessagesDH data) {
 
+        Context context = data.getContext();
         switch (data.getMessageResponse().code) {
             case Constants.M10_GOOD_DEAL_CLOSING:
                 tvDealEndingState.setText(R.string.text_bon_plan_close);
-                tvDealEndingState.setTextColor(data.getContext().getResources().getColor(R.color.textColorBlack));
-                viewUnderline.setBackgroundColor(data.getContext().getResources().getColor(R.color.textColorBlack));
+                tvDealEndingState.setTextColor(context.getResources().getColor(R.color.textColorBlack));
+                viewUnderline.setBackgroundColor(context.getResources().getColor(R.color.textColorBlack));
                 break;
             case Constants.M8_GOOD_DEAL_CANCELLATION:
                 tvDealEndingState.setText(R.string.text_bon_plan_annule);
-                tvDealEndingState.setTextColor(data.getContext().getResources().getColor(R.color.colorRed));
-                viewUnderline.setBackgroundColor(data.getContext().getResources().getColor(R.color.colorRed));
+                tvDealEndingState.setTextColor(context.getResources().getColor(R.color.colorRed));
+                viewUnderline.setBackgroundColor(context.getResources().getColor(R.color.colorRed));
                 break;
         }
 
