@@ -224,6 +224,8 @@
     <string name="text_closing_date">Attention plus qu`i jour avant la clôture du bon plan:</string>
     <string name="text_delivery_date">Noubliez pas derecuperer votre bon plan</string>
     <string name="text_name_a_change">a change:</string>
+    <string name="type_a_message">Type a message..</string>
+    <string name="bon_plan">BON PLAN</string>
 
     <!--Settings Good Deal texts-->
     <string name="text_send_orders_list">Envoyer votre liste de commandes au producteur</string>

@@ -4,33 +4,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingStart="10dp"
-    android:paddingEnd="20dp"
-    android:layout_marginStart="20dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
+    android:paddingTop="@dimen/padding_upper_large"
+    android:paddingBottom="@dimen/padding_upper_large"
+    android:paddingStart="@dimen/padding_upper_large"
+    android:paddingEnd="@dimen/padding_double_upper_medium"
+    android:layout_marginStart="@dimen/margin_double_upper_medium"
+    android:layout_marginTop="@dimen/margin_upper_medium"
+    android:layout_marginBottom="@dimen/margin_upper_medium"
     android:background="@drawable/bg_msg_good_deal_state_yellow">
 
     <ImageView
         android:id="@+id/ivGoodDealState_IMGDS"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_cloud_off" />
+        android:layout_width="@dimen/icon_min_size"
+        android:layout_height="@dimen/icon_min_size"
+        android:layout_centerVertical="true" />
 
 
     <TextView
         android:id="@+id/tvStateDescription_IMGDS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Some changing in date in this deal"
         android:textColor="@color/textColorBlack"
         android:layout_toEndOf="@+id/ivGoodDealState_IMGDS"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
-        android:textSize="14sp" />
+        android:layout_marginStart="@dimen/margin_double_upper_medium" />
 
 
 

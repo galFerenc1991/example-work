@@ -78,7 +78,7 @@ public class User implements Parcelable {
         return id;
     }
 
-    public void setId(String id) {this.id = id;}
+
 
     public String getUpdatedTime() {
         return updatedTime;
@@ -118,5 +118,19 @@ public class User implements Parcelable {
 
     public String getType() {
         return type;
+    }
+
+    public void setId(String _id) {this.id = _id;}
+
+    public void setFirstName(String _firstName) {
+        this.firstName = _firstName;
+    }
+
+    public void setLastName(String _lastName) {
+        this.lastName = _lastName;
+    }
+
+    public void setAvatar(String _avatar) {
+        this.avatar = _avatar;
     }
 }

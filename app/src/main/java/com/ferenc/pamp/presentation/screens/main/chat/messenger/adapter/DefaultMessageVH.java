@@ -1,12 +1,15 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 
+
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ferenc.pamp.PampApp_;
+
 import com.ferenc.pamp.R;
-import com.ferenc.pamp.data.api.RestConst;
+
+import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.michenko.simpleadapter.OnCardClickListener;
 import com.michenko.simpleadapter.RecyclerVH;
@@ -30,11 +33,12 @@ public class DefaultMessageVH extends RecyclerVH<MessagesDH> {
 
     DefaultMessageVH(View itemView) {
         super(itemView);
-        civInterlocutorAvatar = (CircleImageView) itemView.findViewById(R.id.civInterlocutorAvatar_IMD);
-        civMyAvatar = (CircleImageView) itemView.findViewById(R.id.civMyAvatar_IMD);
-        tvMsgAuthorName = (TextView) itemView.findViewById(R.id.tvMsgAuthorName_IMD);
-        tvMsgText = (TextView) itemView.findViewById(R.id.tvMsgText_IMD);
-        cvMsgBackground = (CardView) itemView.findViewById(R.id.cvMsgBackground_IMD);
+        civInterlocutorAvatar   = itemView.findViewById(R.id.civInterlocutorAvatar_IMD);
+        civMyAvatar             = itemView.findViewById(R.id.civMyAvatar_IMD);
+        tvMsgAuthorName         = itemView.findViewById(R.id.tvMsgAuthorName_IMD);
+        tvMsgText               = itemView.findViewById(R.id.tvMsgText_IMD);
+        cvMsgBackground         = itemView.findViewById(R.id.cvMsgBackground_IMD);
+
     }
 
     @Override
@@ -45,26 +49,39 @@ public class DefaultMessageVH extends RecyclerVH<MessagesDH> {
 
     @Override
     public void bindData(MessagesDH data) {
-        if (data.getMessageResponse().user.getId().equals(data.getMyUser().getId())) {
-            Picasso.with(PampApp_.getInstance())
-                    .load(data.getMyUser().getAvatar())
+        MessageResponse messageResponse = data.getMessageResponse();
+        Context context = data.getContext();
+        User user = data.getMyUser();
+
+
+
+        if (messageResponse.user.getId().equals(user.getId())) {
+
+            Picasso.with(context)
+                    .load(user.getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civMyAvatar);
-            civMyAvatar.setVisibility(View.VISIBLE);
-            cvMsgBackground.setCardBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
-            tvMsgAuthorName.setText(data.getMyUser().getFirstName());
+
+            civMyAvatar             .setVisibility(View.VISIBLE);
+            civInterlocutorAvatar   .setVisibility(View.GONE);
+            cvMsgBackground         .setCardBackgroundColor(context.getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
+            tvMsgAuthorName         .setText(user.getFirstName());
+
         } else {
-            Picasso.with(PampApp_.getInstance())
-                    .load(data.getMessageResponse().user.getAvatar())
+
+            Picasso.with(context)
+                    .load(messageResponse.user.getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civInterlocutorAvatar);
-            civInterlocutorAvatar.setVisibility(View.VISIBLE);
-            cvMsgBackground.setCardBackgroundColor(PampApp_.getInstance().getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
-            tvMsgAuthorName.setText(data.getMessageResponse().user.getFirstName());
+
+            civInterlocutorAvatar   .setVisibility(View.VISIBLE);
+            civMyAvatar             .setVisibility(View.GONE);
+            cvMsgBackground         .setCardBackgroundColor(context.getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
+            tvMsgAuthorName         .setText(messageResponse.user.getFirstName());
 
         }
-        tvMsgText.setText(data.getMessageResponse().text);
+        tvMsgText.setText(messageResponse.text);
     }
 }

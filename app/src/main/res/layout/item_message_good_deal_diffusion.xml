@@ -8,26 +8,26 @@
         android:id="@+id/llGoodDealDiffusionBlock_IMGDD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="@dimen/padding_upper_large"
+        android:paddingBottom="@dimen/padding_upper_large"
         android:orientation="horizontal"
         android:gravity="center_horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civInterlocutorAvatar_IMGDD"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="@dimen/bottom_bar_height"
+            android:layout_height="@dimen/bottom_bar_height"
             android:src="@drawable/ic_userpic"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="@dimen/margin_upper_medium"
             android:visibility="gone"/>
 
         <android.support.v7.widget.CardView
             android:id="@+id/cvDealBackground_IMGDD"
-            android:layout_width="240dp"
+            android:layout_width="@dimen/default_message_width"
             android:layout_height="wrap_content"
-            app:cardElevation="5dp"
-            android:layout_margin="15dp"
-            android:padding="5dp"
+            app:cardElevation="@dimen/margin_quart"
+            android:layout_margin="@dimen/margin_upper_default"
+            android:padding="@dimen/padding_quart"
             app:cardCornerRadius="0dp"
             app:cardBackgroundColor="@color/msgMyGoodDealDiffusionColor">
 
@@ -35,67 +35,59 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="@dimen/padding_upper_large">
 
                 <TextView
                     android:id="@+id/tvDealAuthorName_IMGDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Android"
-                    android:textSize="14sp"
                     android:textColor="@color/textColorBlack"
-                    android:layout_marginBottom="5dp"/>
+                    android:layout_marginBottom="@dimen/margin_quart"/>
                 <TextView
                     android:id="@+id/tvDealDescription_IMGDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Je retourne ce week-end dans mon village dans la région bordelaise et je vous ai dégoter 2 vins de producteurs que je connais très bien ….. alors profitez en :-) Entre-Deux-Mer"
-                    android:textSize="14sp"
                     android:textColor="@color/textColorBlack"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="@dimen/margin_double_upper_medium"/>
                 <TextView
                     android:id="@+id/tvDealPriceDescription_IMGDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4,5 € la bouteille de 75 cl. "
                     android:textColor="@color/colorWhite"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="@dimen/margin_double_upper_medium"/>
                 <TextView
                     android:id="@+id/tvDealAmountItems_IMGDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Quantité max. : 200"
                     android:textColor="@color/colorWhite"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="@dimen/margin_double_upper_medium"/>
                 <TextView
                     android:text="Date de livraison :"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="14sp"/>
+                    android:textColor="@color/colorWhite" />
                 <TextView
                     android:id="@+id/tvDealStartDate_IMGDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/msgGoodDealDateLocationColor"
-                    android:textSize="14sp"
                     android:text="Lun. 29 mai de 10:00 à 13:00"/>
                 <TextView
                     android:id="@+id/tvDealEndDate_IMGDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/msgGoodDealDateLocationColor"
-                    android:textSize="14sp"
                     android:text="Lun. 31 mai de 20:00 à 22:00"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="@dimen/margin_double_upper_medium"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
-                    android:textSize="14sp"
                     android:text="Lieu de livraison : "/>
 
                 <TextView
@@ -103,8 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10, rue Paul Chenavard, 69001, Lyon"
-                    android:textColor="@color/msgGoodDealDateLocationColor"
-                    android:textSize="14sp"/>
+                    android:textColor="@color/msgGoodDealDateLocationColor" />
 
             </LinearLayout>
 
@@ -113,10 +104,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civMyAvatar_IMGDD"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="@dimen/bottom_bar_height"
+            android:layout_height="@dimen/bottom_bar_height"
             android:src="@drawable/ic_userpic"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/margin_upper_medium"
             android:visibility="gone"/>
 
     </LinearLayout>

@@ -1,36 +1,23 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.ferenc.pamp.R;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
-import com.ferenc.pamp.data.model.message.MessageResponse;
-import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactHeaderVH;
-import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactTypeHeaderVH;
-import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactVH;
+
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.michenko.simpleadapter.RecyclerAdapter;
 import com.michenko.simpleadapter.RecyclerVH;
 
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by shonliu on 12/13/17.
  */
 @EBean
 public class MessengerAdapter extends RecyclerAdapter<MessagesDH> {
-
-    @RootContext
-    protected Context context;
-
-    private List<MessageResponse> messageResponseList = new ArrayList<>();
 
     @NonNull
     @Override
@@ -89,7 +76,6 @@ public class MessengerAdapter extends RecyclerAdapter<MessagesDH> {
     public int getItemViewType(int position) {
         return getItem(position).getMsgGroupType();
     }
-
 
 
 }

@@ -23,7 +23,7 @@
                 android:layout_height="@dimen/bottom_bar_height"
                 app:srcCompat="@drawable/ic_arrow_back_green"
                 android:background="?attr/selectableItemBackground"
-                android:padding="15dp"/>
+                android:padding="@dimen/padding_iv_medium"/>
 
             <LinearLayout
                 android:id="@+id/llBonPlanParticipants_AC"
@@ -39,7 +39,7 @@
                     style="@style/AuthTitleStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="BON PLAN"
+                    android:text="@string/bon_plan"
                     android:textColor="@color/textColorBlack" />
 
                 <TextView
@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sasha, Vasia, Shoni, Feri, Ivan.."
-                    android:textSize="10sp"
+                    android:textSize="@dimen/text_size_tiny"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -57,8 +57,8 @@
                 android:id="@+id/ivShare_AC"
                 android:layout_width="@dimen/bottom_bar_height"
                 android:layout_height="@dimen/bottom_bar_height"
-                android:padding="15dp"
-                android:layout_alignParentRight="true"
+                android:padding="@dimen/padding_iv_medium"
+                android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_share_msg"
                 android:background="?attr/selectableItemBackground"
                 android:visibility="gone"/>
@@ -67,9 +67,9 @@
                 android:id="@+id/ivSettings_AC"
                 android:layout_width="@dimen/bottom_bar_height"
                 android:layout_height="@dimen/bottom_bar_height"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:background="?attr/selectableItemBackground"
-                android:padding="15dp"
+                android:padding="@dimen/padding_iv_medium"
                 android:src="@drawable/ic_settings"
                 android:visibility="gone" />
 

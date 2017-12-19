@@ -4,17 +4,25 @@
     <dimen name="padding_triple">48dp</dimen>
     <dimen name="padding_double">32dp</dimen>
     <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_double_upper_medium">20dp</dimen>
+    <dimen name="padding_upper_large">10dp</dimen>
     <dimen name="padding_default">16dp</dimen>
+    <dimen name="padding_iv_medium">15dp</dimen>
     <dimen name="padding_medium">14dp</dimen>
+    <dimen name="padding_upper_medium">10dp</dimen>
     <dimen name="padding_half">8dp</dimen>
     <dimen name="padding_quart">4dp</dimen>
+
 
     <dimen name="margin_big">60dp</dimen>
     <dimen name="margin_triple">48dp</dimen>
     <dimen name="margin_double">32dp</dimen>
     <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_double_upper_medium">20dp</dimen>
     <dimen name="margin_default">16dp</dimen>
+    <dimen name="margin_upper_default">15dp</dimen>
     <dimen name="margin_medium">12dp</dimen>
+    <dimen name="margin_upper_medium">10dp</dimen>
     <dimen name="margin_half">8dp</dimen>
     <dimen name="margin_quart">4dp</dimen>
 
@@ -23,6 +31,7 @@
     <dimen name="ok_button_height">34dp</dimen>
 
     <!--Typography-->
+    <dimen name="text_size_tiny">10sp</dimen>
     <dimen name="text_size_very_small">12sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
     <dimen name="text_size_default">16sp</dimen>
@@ -52,6 +61,10 @@
 
     <!--Counts-->
     <dimen name="max_line_count">2</dimen>
+
+    <dimen name="default_message_width">240dp</dimen>
+    <dimen name="view_width">3dp</dimen>
+    <dimen name="shadow_height">2dp</dimen>
 
 
 </resources>

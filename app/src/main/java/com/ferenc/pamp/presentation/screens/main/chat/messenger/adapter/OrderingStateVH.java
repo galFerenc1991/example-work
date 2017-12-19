@@ -1,14 +1,14 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 
-import android.media.Image;
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ferenc.pamp.PampApp;
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
+import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.michenko.simpleadapter.OnCardClickListener;
 import com.michenko.simpleadapter.RecyclerVH;
@@ -26,10 +26,10 @@ public class OrderingStateVH extends RecyclerVH<MessagesDH> {
 
     public OrderingStateVH(View itemView) {
         super(itemView);
-        tvOrderOwnerName = (TextView) itemView.findViewById(R.id.tvOrderOwnerName_IMOS);
-        tvPriceDescription = (TextView) itemView.findViewById(R.id.tvPriceDescription_IMOS);
-        ivOrderState = (ImageView) itemView.findViewById(R.id. ivOrderState_IMOS);
-        rlBackground = (RelativeLayout) itemView.findViewById(R.id.rlBackground_IMOS);
+        tvOrderOwnerName = itemView.findViewById(R.id.tvOrderOwnerName_IMOS);
+        tvPriceDescription = itemView.findViewById(R.id.tvPriceDescription_IMOS);
+        ivOrderState = itemView.findViewById(R.id.ivOrderState_IMOS);
+        rlBackground = itemView.findViewById(R.id.rlBackground_IMOS);
     }
 
     @Override
@@ -39,22 +39,26 @@ public class OrderingStateVH extends RecyclerVH<MessagesDH> {
 
     @Override
     public void bindData(MessagesDH data) {
+
+        Context context = data.getContext();
+        MessageResponse messageResponse = data.getMessageResponse();
+
         switch (data.getMessageResponse().code) {
             case Constants.M2_PRODUCT_ORDERING:
-                ivOrderState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_check_msg));
-                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_product_ordering));
-                tvOrderOwnerName.setText(data.getMessageResponse().user != null ? data.getMessageResponse().user.getFirstName() : "user == null");
+                ivOrderState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_msg));
+                rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_product_ordering));
+                tvOrderOwnerName.setText(messageResponse.user != null ? messageResponse.user.getFirstName() : "user == null");
 
                 break;
             case Constants.M3_ORDER_CHANGING:
-                ivOrderState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_check_msg));
-                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_product_ordering));
-                tvOrderOwnerName.setText(data.getMessageResponse().user != null ? data.getMessageResponse().user.getFirstName() : "user == null" + " " + PampApp_.getInstance().getString(R.string.text_name_a_change));
+                ivOrderState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_msg));
+                rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_product_ordering));
+                tvOrderOwnerName.setText(messageResponse.user != null ? messageResponse.user.getFirstName() : "user == null" + " " + PampApp_.getInstance().getString(R.string.text_name_a_change));
                 break;
             case Constants.M4_ORDER_CANCELLATION:
-                ivOrderState.setImageDrawable(PampApp_.getInstance().getResources().getDrawable(R.drawable.ic_close_msg));
-                rlBackground.setBackground(PampApp_.getInstance().getResources().getDrawable(R.drawable.bg_msg_cancel_ordering));
-                tvOrderOwnerName.setText(data.getMessageResponse().user != null ? data.getMessageResponse().user.getFirstName() : "user == null");
+                ivOrderState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_close_msg));
+                rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_cancel_ordering));
+                tvOrderOwnerName.setText(messageResponse.user != null ? messageResponse.user.getFirstName() : "user == null");
                 break;
         }
         tvPriceDescription.setText(data.getGoodDealResponse().unit);
