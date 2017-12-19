@@ -69,7 +69,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onNewMessage -> {
-                    mMessagesDH.add(0, new MessagesDH(onNewMessage, mGoodDealResponse, mUser, mContext, Constants.DEFAULT_MSG_GROUP_TYPE));
+                    mMessagesDH.add(0, new MessagesDH(onNewMessage, mGoodDealResponse, mUser, mContext, typeDistributor(onNewMessage.code)));
                     mView.addItem(mMessagesDH);
                 });
 
@@ -97,6 +97,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     @Override
     public void unsubscribe() {
         mCompositeDisposable.clear();
+        mSocketUtil.socketDisconnect();
     }
 
     @Override

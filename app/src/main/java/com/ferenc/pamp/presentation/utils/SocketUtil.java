@@ -44,6 +44,7 @@ public class SocketUtil {
     private String valCreatedAt = "createdAt";
     private String valToken = "token";
     private String valDealID = "dealId";
+    private String valCode = "code";
 
 
     public void initSocket() {
@@ -60,7 +61,7 @@ public class SocketUtil {
         mSocket.on(Socket.EVENT_CONNECT, args -> {
             Log.d(TAG, "Connected");
             changeConnectionObservable.accept(mSocket.connected());
-        }).on(eventNewMessage, args -> {
+        }).on(Socket.EVENT_MESSAGE, args -> {
             JSONObject data = (JSONObject) args[0];
 
             try {
@@ -75,6 +76,7 @@ public class SocketUtil {
                 user.setLastName(data.getJSONObject(valUser).getString(valLastName));
                 user.setAvatar(data.getJSONObject(valUser).getString(valAvatar));
 
+                messageResponse.code = data.has(valCode) ? data.getString(valCode) : null;
                 messageResponse.user = user;
                 messageResponse._id = data.getString(valId);
                 messageResponse.type = data.getString(valType);
@@ -82,7 +84,7 @@ public class SocketUtil {
                 messageResponse.createdAt = data.getLong(valCreatedAt);
 
 
-                Log.d(TAG, "new message:" + data.toString());
+                Log.d(TAG, "New message:" + data.toString());
 
                 onNewMessage.accept(messageResponse);
 
@@ -102,9 +104,9 @@ public class SocketUtil {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d(TAG, "Emitting: " + obj.toString());
         mSocket.emit(emitJoinRoom, obj);
-        Log.d(TAG, "Joined to room");
+        Log.d(TAG, "Emitting: join to room " + obj.toString());
+
     }
 
     public void sendMessage(String _userToken, String dealId, String _messageText) {
@@ -122,14 +124,15 @@ public class SocketUtil {
             e.printStackTrace();
         }
 
-        Log.d(TAG, "emitting: " + obj.toString());
+        Log.d(TAG, "Emitting: send message" + obj.toString());
 
-        mSocket.emit(emitNewMessage, obj);
+        mSocket.emit(Socket.EVENT_MESSAGE, obj);
     }
 
     public void socketDisconnect() {
         if (mSocket != null) {
             mSocket.disconnect();
+            Log.d(TAG, "Disconnected" );
         }
     }
 

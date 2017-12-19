@@ -15,7 +15,7 @@
     <View
         android:id="@+id/shadow"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/max_line_count"
+        android:layout_height="@dimen/shadow_height"
         android:background="@drawable/shadow_reverted"
         android:layout_above="@+id/rlMsgInputBlock_FChM"/>
 

@@ -17,6 +17,7 @@
     <dimen name="margin_triple">48dp</dimen>
     <dimen name="margin_double">32dp</dimen>
     <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_double_upper_medium">20dp</dimen>
     <dimen name="margin_default">16dp</dimen>
     <dimen name="margin_upper_default">15dp</dimen>
     <dimen name="margin_medium">12dp</dimen>
@@ -55,7 +56,10 @@
 
     <!--Counts-->
     <dimen name="max_line_count">2</dimen>
+
     <dimen name="default_message_width">240dp</dimen>
+    <dimen name="view_width">3dp</dimen>
+    <dimen name="shadow_height">2dp</dimen>
 
 
 </resources>

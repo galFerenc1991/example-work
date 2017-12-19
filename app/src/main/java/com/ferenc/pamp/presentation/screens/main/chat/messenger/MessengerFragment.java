@@ -148,6 +148,6 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void onDestroy() {
         super.onDestroy();
-        socketUtil.socketDisconnect();
+        mPresenter.unsubscribe();
     }
 }

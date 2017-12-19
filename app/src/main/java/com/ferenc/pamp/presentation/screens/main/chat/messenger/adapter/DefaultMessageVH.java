@@ -30,11 +30,11 @@ public class DefaultMessageVH extends RecyclerVH<MessagesDH> {
 
     DefaultMessageVH(View itemView) {
         super(itemView);
-        civInterlocutorAvatar = itemView.findViewById(R.id.civInterlocutorAvatar_IMD);
-        civMyAvatar = itemView.findViewById(R.id.civMyAvatar_IMD);
-        tvMsgAuthorName = itemView.findViewById(R.id.tvMsgAuthorName_IMD);
-        tvMsgText = itemView.findViewById(R.id.tvMsgText_IMD);
-        cvMsgBackground = itemView.findViewById(R.id.cvMsgBackground_IMD);
+        civInterlocutorAvatar   = itemView.findViewById(R.id.civInterlocutorAvatar_IMD);
+        civMyAvatar             = itemView.findViewById(R.id.civMyAvatar_IMD);
+        tvMsgAuthorName         = itemView.findViewById(R.id.tvMsgAuthorName_IMD);
+        tvMsgText               = itemView.findViewById(R.id.tvMsgText_IMD);
+        cvMsgBackground         = itemView.findViewById(R.id.cvMsgBackground_IMD);
 
     }
 
@@ -47,25 +47,30 @@ public class DefaultMessageVH extends RecyclerVH<MessagesDH> {
     @Override
     public void bindData(MessagesDH data) {
         if (data.getMessageResponse().user.getId().equals(data.getMyUser().getId())) {
+
             Picasso.with(data.getContext())
                     .load(data.getMyUser().getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civMyAvatar);
-            civMyAvatar.setVisibility(View.VISIBLE);
-            civInterlocutorAvatar.setVisibility(View.GONE);
-            cvMsgBackground.setCardBackgroundColor(data.getContext().getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
-            tvMsgAuthorName.setText(data.getMyUser().getFirstName());
+
+            civMyAvatar             .setVisibility(View.VISIBLE);
+            civInterlocutorAvatar   .setVisibility(View.GONE);
+            cvMsgBackground         .setCardBackgroundColor(data.getContext().getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
+            tvMsgAuthorName         .setText(data.getMyUser().getFirstName());
+
         } else {
+
             Picasso.with(data.getContext())
                     .load(data.getMessageResponse().user.getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civInterlocutorAvatar);
-            civInterlocutorAvatar.setVisibility(View.VISIBLE);
-            civMyAvatar.setVisibility(View.GONE);
-            cvMsgBackground.setCardBackgroundColor(data.getContext().getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
-            tvMsgAuthorName.setText(data.getMessageResponse().user.getFirstName());
+
+            civInterlocutorAvatar   .setVisibility(View.VISIBLE);
+            civMyAvatar             .setVisibility(View.GONE);
+            cvMsgBackground         .setCardBackgroundColor(data.getContext().getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
+            tvMsgAuthorName         .setText(data.getMessageResponse().user.getFirstName());
 
         }
         tvMsgText.setText(data.getMessageResponse().text);

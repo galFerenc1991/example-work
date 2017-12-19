@@ -24,9 +24,9 @@ public class GoodDealConfirmationVH extends RecyclerVH<MessagesDH> {
 
     GoodDealConfirmationVH(View itemView) {
         super(itemView);
-        rlBackground = itemView.findViewById(R.id.rlBackground_IMGDC);
-        ivGoodDealConfirmationState = itemView.findViewById(R.id.ivGoodDealConfirmationState_IMGDC);
-        tvStateConfirmationDescription = itemView.findViewById(R.id.tvStateConfirmationDescription_IMGDC);
+        rlBackground                    = itemView.findViewById(R.id.rlBackground_IMGDC);
+        ivGoodDealConfirmationState     = itemView.findViewById(R.id.ivGoodDealConfirmationState_IMGDC);
+        tvStateConfirmationDescription  = itemView.findViewById(R.id.tvStateConfirmationDescription_IMGDC);
     }
 
     @Override
