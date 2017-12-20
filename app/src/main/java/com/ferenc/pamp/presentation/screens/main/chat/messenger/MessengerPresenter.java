@@ -221,6 +221,11 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     }
 
     @Override
+    public void clickedCreateOrder() {
+
+    }
+
+    @Override
     public void unsubscribe() {
         mCompositeDisposable.clear();
     }

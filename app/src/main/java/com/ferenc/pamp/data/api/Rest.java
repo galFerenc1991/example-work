@@ -9,6 +9,7 @@ import com.ferenc.pamp.data.api.exceptions.TimeoutException;
 import com.ferenc.pamp.data.service.AuthService;
 import com.ferenc.pamp.data.service.ChatService;
 import com.ferenc.pamp.data.service.GoodDealService;
+import com.ferenc.pamp.data.service.OrderService;
 import com.ferenc.pamp.data.service.UserService;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.google.gson.Gson;
@@ -112,5 +113,9 @@ public class Rest {
 
     public ChatService getChatService() {
         return retrofit.create(ChatService.class);
+    }
+
+    public OrderService getOrderService() {
+        return retrofit.create(OrderService.class);
     }
 }

@@ -3,6 +3,7 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 import com.ferenc.pamp.data.model.base.ListResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
+import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.presentation.base.BaseModel;
 import com.ferenc.pamp.presentation.base.BaseView;
@@ -42,6 +43,8 @@ public interface MessengerContract {
         void openCloseGoodDealPopUp();
 
         void openEndFlowScreen();
+
+        void openCreateOrderPopUp();
     }
 
     interface Presenter extends RefreshablePresenter {
@@ -62,6 +65,8 @@ public interface MessengerContract {
         void setChangedCloseDate(Calendar _calendar);
 
         void changeDeliveryDateAction();
+
+        void clickedCreateOrder();
     }
 
     interface Model {
@@ -76,5 +81,9 @@ public interface MessengerContract {
     }
     interface GoodDealModel extends BaseModel {
         Observable<GoodDealCancelResponse> cancelGoodDeal(String _id);
+    }
+
+    interface OrderModel {
+        Observable<Order> getMyOrder(String _id);
     }
 }

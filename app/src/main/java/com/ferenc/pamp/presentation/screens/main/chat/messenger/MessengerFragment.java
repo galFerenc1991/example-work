@@ -155,6 +155,11 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     }
 
     @Override
+    public void openCreateOrderPopUp() {
+
+    }
+
+    @Override
     public void openCloseDatePicker(Calendar _calendar, long _startDeliveryDate) {
         Locale locale = getResources().getConfiguration().locale;
         Locale.setDefault(Locale.FRANCE);
