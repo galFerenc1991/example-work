@@ -65,7 +65,6 @@ public class EndFlowActivity extends AppCompatActivity {
         ChatActivity_
                 .intent(this)
                 .fromWhere(fromWhere)
-                .goodDealResponse(mGoodDealResponse)
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
         finish();

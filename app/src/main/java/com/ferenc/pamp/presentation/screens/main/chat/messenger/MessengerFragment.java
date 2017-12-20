@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.domain.ChatRepository;
 import com.ferenc.pamp.domain.SocketRepository;
 import com.ferenc.pamp.domain.GoodDealRepository;
@@ -28,6 +27,8 @@ import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.Messenge
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_date.DeliveryDateActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.DateManager;
+
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -46,8 +47,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.CONNECTIVITY_SERVICE;
-import static com.ferenc.pamp.presentation.utils.Constants.REQUEST_CODE_SETTINGS_ACTIVITY;
+
 
 /**
  * Created by shonliu on 12/12/17.
@@ -65,13 +65,14 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     protected GoodDealRepository mGoodDealRepository;
 
     @Bean
+    protected GoodDealResponseManager mGoodDealResponseManager;
+
+    @Bean
     protected SocketRepository mSocketRepository;
 
     @Bean
     protected SignedUserManager signedUserManager;
 
-    @FragmentArg
-    protected GoodDealResponse goodDealResponse;
 
     private MessengerContract.Presenter mPresenter;
 
@@ -109,16 +110,22 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @AfterInject
     @Override
     public void initPresenter() {
-
-        new MessengerPresenter(this, mChatRepository, mGoodDealRepository, mSocketRepository, signedUserManager, PampApp_.getInstance(), goodDealResponse);
+        new MessengerPresenter(this, mChatRepository, mGoodDealRepository, mSocketRepository, signedUserManager, PampApp_.getInstance(), mGoodDealResponseManager);
     }
 
     @AfterViews
     protected void initUI() {
+
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setReverseLayout(true);
+        mScrollListener = new EndlessScrollListener(llm, () -> {
+            if (isRefreshing()) return false;
+            mPresenter.loadNextPage();
+            return true;
+        });
         rvMessages.setLayoutManager(llm);
         rvMessages.setAdapter(mMessengerAdapter);
+        rvMessages.addOnScrollListener(mScrollListener);
         mPresenter.subscribe();
 
         RxView.clicks(btnOrder)
@@ -215,7 +222,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
                 .intent(this)
                 .mIsCreatedFlow(false)
                 .fromWhere(Constants.ITEM_TYPE_REUSE)
-                .mGoodDealResponse(goodDealResponse)
+                .mGoodDealResponse(mGoodDealResponseManager.getGoodDealResponse())
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
     }
@@ -233,7 +240,13 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void setMessagesList(List<MessagesDH> _list) {
+        mScrollListener.reset();
         mMessengerAdapter.setListDH(_list);
+    }
+
+    @Override
+    public void addMessagesList(List<MessagesDH> _list) {
+        mMessengerAdapter.addListDH(_list);
     }
 
     @Override
@@ -254,4 +267,10 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     public void addImage() {
         //TODO : init avatar manager(with CAMERA parameter);
     }
+
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        mPresenter.unsubscribe();
+//    }
 }

@@ -3,14 +3,16 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
-import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.domain.SocketRepository;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.GoodDealManager;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
@@ -38,14 +40,12 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     private MessengerContract.GoodDealModel mGoodDealModel;
     private CompositeDisposable mCompositeDisposable;
 
-    private int page;
-    private int totalPages = Integer.MAX_VALUE;
-    private boolean needRefresh;
+    private int mPage;
+    private int mTotalPages = Integer.MAX_VALUE;
     private GoodDealResponse mGoodDealResponse;
     private List<MessagesDH> mMessagesDH;
     private SignedUserManager mSignedUserManager;
     private Context mContext;
-    private SocketRepository mSocketRepository;
 
     public MessengerPresenter(MessengerContract.View mView
             , MessengerContract.Model _messageRepository
@@ -53,19 +53,17 @@ public class MessengerPresenter implements MessengerContract.Presenter {
             , SocketRepository _socketRepository
             , SignedUserManager _signedUserManager
             , Context _context
-            , GoodDealResponse _goodDealResponse) {
+            , GoodDealResponseManager _goodDealResponseManager) {
 
         this.mView = mView;
         this.mModel = _messageRepository;
         this.mGoodDealModel = _goodDealModel;
-        this.mGoodDealResponse = _goodDealResponse;
         this.mCompositeDisposable = new CompositeDisposable();
-        this.page = 1;
+        this.mPage = 1;
         this.mSignedUserManager = _signedUserManager;
         this.mContext = _context;
-        this.mSocketRepository = _socketRepository;
         this.mSocketModel = _socketRepository;
-        needRefresh = true;
+        this.mGoodDealResponse = _goodDealResponseManager.getGoodDealResponse();
 
         mView.setPresenter(this);
     }
@@ -73,13 +71,14 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     @Override
     public void subscribe() {
 
-        mSocketRepository.setDataToJoinRoom(mSignedUserManager.getCurrentUser().getToken(), mGoodDealResponse.id);
+        mCompositeDisposable.add(mSocketModel.connectSocket(mSignedUserManager.getCurrentUser().getToken(), mGoodDealResponse.id)
+                .subscribe( aVoid -> {} ));
 
         mCompositeDisposable.add(mSocketModel.getNewMessage()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(messageResponse -> {
-
+                    Log.d("SocketIO", "New message is here: " + messageResponse.text);
                     mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
                     mView.addItem(mMessagesDH);
 
@@ -87,8 +86,13 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                     Log.d("MessengerPresenter", "Error while getting new message " + throwable.getMessage());
                 }));
 
+        loadData(mPage,false);
+
+    }
+
+    private void loadData(int _page, boolean isLoadMoreList) {
         mView.showProgressMain();
-        mCompositeDisposable.add(mModel.getMessages(mGoodDealResponse.id, page)
+        mCompositeDisposable.add(mModel.getMessages(mGoodDealResponse.id, _page)
                 .subscribe(model -> {
                     mView.hideProgress();
                     Log.d("MessengerPresenter", "getMessages Successfully");
@@ -100,7 +104,13 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
                     Collections.reverse(mMessagesDH);
 
-                    mView.setMessagesList(mMessagesDH);
+                    if (!isLoadMoreList)
+                        mView.setMessagesList(mMessagesDH);
+                    else
+                        mView.addMessagesList(mMessagesDH);
+
+                    mTotalPages = model.meta.pages;
+                    mPage++;
 
                 }, throwable -> {
                     mView.hideProgress();
@@ -120,7 +130,9 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
     @Override
     public void loadNextPage() {
-
+        if (mPage - 1 != mTotalPages) {
+            loadData(mPage, true);
+        }
     }
 
     @Override
@@ -227,6 +239,9 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
     @Override
     public void unsubscribe() {
+        mCompositeDisposable.add(mSocketModel.disconnectSocket()
+                .subscribe( aVoid -> {} ));
+
         mCompositeDisposable.clear();
     }
 }
