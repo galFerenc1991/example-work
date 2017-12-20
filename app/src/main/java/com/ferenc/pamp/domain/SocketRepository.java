@@ -10,7 +10,6 @@ import com.jakewharton.rxrelay2.PublishRelay;
 import com.jakewharton.rxrelay2.Relay;
 
 import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EBean;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,9 +29,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
     private Socket mSocket;
 
     private String TAG = "SocketIO";
-
-    private String eventNewMessage = "message";
-    private String emitNewMessage = "message";
+    
     private String emitJoinRoom = "join";
 
     private String valContent = "content";
@@ -153,8 +150,6 @@ public class SocketRepository implements MessengerContract.SocketModel {
             mSocket.disconnect();
         }
     }
-
-    public Relay<Boolean> changeConnectionObservable = PublishRelay.create();
 
     public Relay<MessageResponse> getNewMessage = PublishRelay.create();
 

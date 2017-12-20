@@ -13,6 +13,7 @@ import com.ferenc.pamp.presentation.screens.main.MainContract;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerContract;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.ProposedPlansContract;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.ReceivedPlansContract;
+import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_place.DeliveryPlaceContract;
 import com.ferenc.pamp.presentation.screens.main.propose.share.ShareContract;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
@@ -35,7 +36,8 @@ public class GoodDealRepository extends NetworkRepository implements ShareContra
         , ProposedPlansContract.Model
         , ReceivedPlansContract.Model
         , MainContract.Model
-        , MessengerContract.GoodDealModel {
+        , MessengerContract.GoodDealModel
+        , DeliveryPlaceContract.Model {
 
     @Bean
     protected Rest rest;
@@ -57,6 +59,11 @@ public class GoodDealRepository extends NetworkRepository implements ShareContra
     @Override
     public Observable<List<String>> getUsedUserContact() {
         return userService.getSavedUserContact();
+    }
+
+    @Override
+    public Observable<List<String>> getUsedUserAddresses() {
+        return userService.getSavedUserAddresses();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.ferenc.pamp.data.service;
 
-import com.ferenc.pamp.data.model.auth.CountryList;
 import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.model.common.UserUpdateRequest;
 
@@ -20,6 +19,9 @@ public interface UserService {
 
     @GET("/user/personal/contacts")
     Observable<List<String>> getSavedUserContact();
+
+    @GET("/user/personal/addresses")
+    Observable<List<String>> getSavedUserAddresses();
 
     @GET("/user")
     Observable<User> getUser();
