@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.domain.ChatRepository;
 import com.ferenc.pamp.domain.SocketRepository;
 import com.ferenc.pamp.domain.GoodDealRepository;
@@ -28,7 +27,7 @@ import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.Messenge
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_date.DeliveryDateActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.DateManager;
-import com.ferenc.pamp.presentation.utils.GoodDealManager;
+
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -48,8 +47,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.CONNECTIVITY_SERVICE;
-import static com.ferenc.pamp.presentation.utils.Constants.REQUEST_CODE_SETTINGS_ACTIVITY;
+
 
 /**
  * Created by shonliu on 12/12/17.
