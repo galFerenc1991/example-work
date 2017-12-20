@@ -43,6 +43,7 @@
     <string name="button_re_use">Réutiliser</string>
     <string name="button_next">suivant</string>
     <string name="button_share">Diffuser</string>
+    <string name="button_order">COMMANDER</string>
     <string name="button_save">Économiser</string>
     <string name="button_cancel_deal">Oui, j’annule</string>
     <string name="button_not_cancel_deal">Finalement, non</string>

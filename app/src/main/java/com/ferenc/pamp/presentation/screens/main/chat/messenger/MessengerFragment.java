@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -87,6 +88,8 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @ViewById(R.id.rlSendMsg_FChM)
     protected RelativeLayout rlSendMsg;
+    @ViewById(R.id.btnOrder_FCM)
+    protected Button btnOrder;
 
     @StringRes(R.string.button_cancel_deal)
     protected String mCancelDeal;
@@ -117,6 +120,10 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         rvMessages.setLayoutManager(llm);
         rvMessages.setAdapter(mMessengerAdapter);
         mPresenter.subscribe();
+
+        RxView.clicks(btnOrder)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> {});
 
         RxView.clicks(ivAddImg)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
