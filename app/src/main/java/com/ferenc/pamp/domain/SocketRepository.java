@@ -31,6 +31,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
     private String TAG = "SocketIO";
     
     private String emitJoinRoom = "join";
+    private String emitLeaveRoom = "leave";
 
     private String valContent = "content";
     private String valUser = "user";
@@ -44,14 +45,6 @@ public class SocketRepository implements MessengerContract.SocketModel {
     private String valToken = "token";
     private String valDealID = "dealId";
     private String valCode = "code";
-    private String mUserToken;
-    private String mRoomID;
-
-
-    public void setDataToJoinRoom(String _userToken, String _roomID) {
-        mUserToken = _userToken;
-        mRoomID = _roomID;
-    }
 
     @AfterInject
     protected void initSocket() {
@@ -61,15 +54,16 @@ public class SocketRepository implements MessengerContract.SocketModel {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        connectSocket();
+
     }
 
+    @Override
+    public Observable<Void> connectSocket(String _userToken, String _roomID) {
 
-    private void connectSocket() {
         mSocket.connect();
         mSocket.on(Socket.EVENT_CONNECT, args -> {
             Log.d(TAG, "Connected");
-            joinRoom(mUserToken,mRoomID);
+            joinRoom(_userToken,_roomID);
         }).on(Socket.EVENT_MESSAGE, args -> {
             JSONObject data = (JSONObject) args[0];
 
@@ -100,11 +94,13 @@ public class SocketRepository implements MessengerContract.SocketModel {
                 e.printStackTrace();
             }
         });
-    }
 
+        return connectSocketVoidRelay;
+    }
 
     @Override
     public Observable<MessageResponse> getNewMessage() {
+
         return getNewMessage;
     }
 
@@ -127,7 +123,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
 
         mSocket.emit(Socket.EVENT_MESSAGE, obj);
 
-        return sendMessage;
+        return voidRelay;
     }
 
 
@@ -145,13 +141,24 @@ public class SocketRepository implements MessengerContract.SocketModel {
 
     }
 
-    public void disconnectSocket() {
+
+
+    @Override
+    public Observable<Void> disconnectSocket() {
         if (mSocket !=null) {
+            mSocket.emit(emitLeaveRoom);
             mSocket.disconnect();
+            Log.d(TAG, "Emitting: leave room");
+            Log.d(TAG, "Disconnect");
         }
+        return voidRelay;
     }
 
     public Relay<MessageResponse> getNewMessage = PublishRelay.create();
 
-    public Relay<Void> sendMessage = PublishRelay.create();
+    public Relay<Void> voidRelay = PublishRelay.create();
+
+    public Relay<Void> connectSocketVoidRelay = PublishRelay.create();
+
+
 }

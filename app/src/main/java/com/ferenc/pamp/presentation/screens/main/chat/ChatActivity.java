@@ -16,6 +16,7 @@ import com.ferenc.pamp.presentation.custom.SettingsActivity_;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.re_diffuser.ReDiffuserActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
 
@@ -43,9 +44,6 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     @Extra
     protected int fromWhere;
 
-    @Extra
-    protected GoodDealResponse goodDealResponse;
-
     @ViewById(R.id.ivBack_AC)
     protected ImageView ivBack;
 
@@ -64,6 +62,9 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     @Bean
     protected GoodDealManager mGoodDealManager;
 
+    @Bean
+    protected GoodDealResponseManager mGoodDealResponseManager;
+
 
     @AfterViews
     protected void initFragment() {
@@ -79,7 +80,7 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
             default:
                 throw new RuntimeException("ChatActivity :: initFragment [Can find fromWhere]");
         }
-        replaceFragment(ChatFragment_.builder().fromWhere(fromWhere).goodDealResponse(goodDealResponse).build());
+        replaceFragment(ChatFragment_.builder().fromWhere(fromWhere).build());
     }
 
     private void initClickListeners() {
@@ -103,7 +104,7 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     @AfterInject
     @Override
     public void initPresenter() {
-        new ChatPresenter(this, mGoodDealManager, goodDealResponse);
+        new ChatPresenter(this, mGoodDealManager, mGoodDealResponseManager);
     }
 
     @Override

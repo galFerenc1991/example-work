@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.screens.splash;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.widget.Toast;
 
 import com.ferenc.pamp.R;
