@@ -29,6 +29,8 @@ public interface MessengerContract {
 
         void setMessagesList(List<MessagesDH> _list);
 
+        void addMessagesList(List<MessagesDH> _list);
+
         void addItem(List<MessagesDH> _list);
 
         void sendMessage();
@@ -70,9 +72,13 @@ public interface MessengerContract {
 
     interface SocketModel {
 
+        Observable<Void> connectSocket(String _userToken, String _dealId);
+
         Observable<MessageResponse> getNewMessage();
 
         Observable<Void> sendMessage(String _userToken, String _dealId, String _messageText);
+
+        Observable<Void> disconnectSocket();
     }
     interface GoodDealModel extends BaseModel {
         Observable<GoodDealCancelResponse> cancelGoodDeal(String _id);

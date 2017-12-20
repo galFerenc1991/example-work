@@ -34,6 +34,6 @@ public class ChatRepository extends NetworkRepository implements MessengerContra
 
     @Override
     public Observable<ListResponse<MessageResponse>> getMessages(String _chatID, int _page) {
-        return getNetworkObservable(chatService.getMessages(_chatID, _page, RestConst.ITEMS_PER_PAGE));
+        return getNetworkObservable(chatService.getMessages(_chatID, _page, 10));
     }
 }

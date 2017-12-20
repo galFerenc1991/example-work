@@ -13,8 +13,10 @@ import com.ferenc.pamp.presentation.base.tabs.TabPagerAdapter;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerFragment_;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.OrderFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
@@ -26,15 +28,11 @@ import org.androidannotations.annotations.res.StringRes;
 @EFragment
 public class ChatFragment extends ContentTabsFragment {
 
-
     @StringRes(R.string.title_messenger)
     protected String titleMessenger;
 
     @StringRes(R.string.title_orders)
     protected String titleOrders;
-
-    @FragmentArg
-    protected GoodDealResponse goodDealResponse;
 
     @FragmentArg
     protected int fromWhere;
@@ -47,10 +45,10 @@ public class ChatFragment extends ContentTabsFragment {
     public void addFragmentsToAdapter(TabPagerAdapter adapter) {
         switch (fromWhere) {
             case Constants.ITEM_TYPE_RE_BROADCAST:
-                adapter.addFragment(MessengerFragment_.builder().goodDealResponse(goodDealResponse).build(), titleMessenger);
+                adapter.addFragment(MessengerFragment_.builder().build(), titleMessenger);
                 break;
             case Constants.ITEM_TYPE_REUSE:
-                adapter.addFragment(MessengerFragment_.builder().goodDealResponse(goodDealResponse).build(), titleMessenger);
+                adapter.addFragment(MessengerFragment_.builder().build(), titleMessenger);
                 adapter.addFragment(OrderFragment_.builder().build(), titleOrders);
                 break;
             default:

@@ -28,6 +28,8 @@ import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.Messenge
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_date.DeliveryDateActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.DateManager;
+import com.ferenc.pamp.presentation.utils.GoodDealManager;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -65,13 +67,14 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     protected GoodDealRepository mGoodDealRepository;
 
     @Bean
+    protected GoodDealResponseManager mGoodDealResponseManager;
+
+    @Bean
     protected SocketRepository mSocketRepository;
 
     @Bean
     protected SignedUserManager signedUserManager;
 
-    @FragmentArg
-    protected GoodDealResponse goodDealResponse;
 
     private MessengerContract.Presenter mPresenter;
 
@@ -109,16 +112,22 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @AfterInject
     @Override
     public void initPresenter() {
-
-        new MessengerPresenter(this, mChatRepository, mGoodDealRepository, mSocketRepository, signedUserManager, PampApp_.getInstance(), goodDealResponse);
+        new MessengerPresenter(this, mChatRepository, mGoodDealRepository, mSocketRepository, signedUserManager, PampApp_.getInstance(), mGoodDealResponseManager);
     }
 
     @AfterViews
     protected void initUI() {
+
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setReverseLayout(true);
+        mScrollListener = new EndlessScrollListener(llm, () -> {
+            if (isRefreshing()) return false;
+            mPresenter.loadNextPage();
+            return true;
+        });
         rvMessages.setLayoutManager(llm);
         rvMessages.setAdapter(mMessengerAdapter);
+        rvMessages.addOnScrollListener(mScrollListener);
         mPresenter.subscribe();
 
         RxView.clicks(btnOrder)
@@ -210,7 +219,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
                 .intent(this)
                 .mIsCreatedFlow(false)
                 .fromWhere(Constants.ITEM_TYPE_REUSE)
-                .mGoodDealResponse(goodDealResponse)
+                .mGoodDealResponse(mGoodDealResponseManager.getGoodDealResponse())
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
     }
@@ -228,7 +237,13 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void setMessagesList(List<MessagesDH> _list) {
+        mScrollListener.reset();
         mMessengerAdapter.setListDH(_list);
+    }
+
+    @Override
+    public void addMessagesList(List<MessagesDH> _list) {
+        mMessengerAdapter.addListDH(_list);
     }
 
     @Override
@@ -249,4 +264,10 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     public void addImage() {
         //TODO : init avatar manager(with CAMERA parameter);
     }
+
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        mPresenter.unsubscribe();
+//    }
 }

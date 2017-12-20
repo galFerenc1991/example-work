@@ -3,6 +3,7 @@ package com.ferenc.pamp.presentation.screens.main.chat;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -18,10 +19,10 @@ public class ChatPresenter implements ChatContract.Presenter {
     private GoodDealResponse mGoodDealResponse;
     private CompositeDisposable mCompositeDisposable;
 
-    public ChatPresenter(ChatContract.View _view, GoodDealManager _goodDealManager, GoodDealResponse _goodDealResponse) {
+    public ChatPresenter(ChatContract.View _view, GoodDealManager _goodDealManager, GoodDealResponseManager _goodDealResponseManager) {
         this.mView = _view;
         this.mGoodDealManager = _goodDealManager;
-        this.mGoodDealResponse = _goodDealResponse;
+        this.mGoodDealResponse = _goodDealResponseManager.getGoodDealResponse();
         this.mCompositeDisposable = new CompositeDisposable();
 
         mView.setPresenter(this);
