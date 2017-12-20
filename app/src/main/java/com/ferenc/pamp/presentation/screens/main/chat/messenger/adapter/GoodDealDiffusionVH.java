@@ -2,9 +2,12 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
