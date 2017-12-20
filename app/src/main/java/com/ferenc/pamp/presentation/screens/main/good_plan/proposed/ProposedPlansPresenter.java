@@ -1,8 +1,10 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.proposed;
 
+import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.presentation.utils.Constants;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by
@@ -57,9 +59,8 @@ public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
                         mView.addProposedGoodPlanList(goodDealResponseListResponse.data);
                     }
 
-                }, throwable -> {
-                    mView.hideProgress();
-                }));
+                }, throwableConsumer)
+        );
     }
 
     @Override
@@ -74,6 +75,16 @@ public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
     public void onRefresh() {
         loadData(1);
     }
+
+    private Consumer<Throwable> throwableConsumer = throwable -> {
+        throwable.printStackTrace();
+        mView.hideProgress();
+        if (throwable instanceof ConnectionLostException) {
+            mView.showErrorMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+        } else {
+            mView.showErrorMessage(Constants.MessageType.UNKNOWN);
+        }
+    };
 
     @Override
     public void unsubscribe() {

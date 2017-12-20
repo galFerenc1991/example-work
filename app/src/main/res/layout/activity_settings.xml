@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvTitle_AS"
+        style="@style/DeliveryTitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_title_settings"
+        android:background="@color/textColorGreen"
+        android:gravity="center"
+        android:padding="@dimen/margin_half"
+        android:text="@string/title_settings" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle_AS"
+        android:layout_margin="@dimen/margin_default"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/rlSendOrders_AS"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvSendOrders_AS"
+                style="@style/DescriptionGoodPlanTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/margin_large"
+                android:drawableStart="@drawable/ic_send_mail"
+                android:text="@string/text_send_orders_list" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlCloseDate_AS"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height">
+
+            <TextView
+                android:id="@+id/tvCloseDate_AS"
+                style="@style/DescriptionGoodPlanTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/margin_large"
+                android:drawableStart="@drawable/ic_hourglass"
+                android:text="@string/text_change_close_date" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlDeliveryDate_AS"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:layout_below="@+id/rlCloseDate_AS"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDeliveryDate_AS"
+                style="@style/DescriptionGoodPlanTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/margin_large"
+                android:drawableStart="@drawable/ic_calendar"
+                android:text="@string/text_change_delivery_date" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlCancelGoodDeal_AS"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:layout_below="@+id/rlDeliveryDate_AS"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCancelGoodDeal_AS"
+                style="@style/DescriptionGoodPlanTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/margin_large"
+                android:drawableStart="@drawable/ic_close_ic"
+                android:text="@string/text_cancel_good_deal" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvCancel_AS"
+            style="@style/CancelButtonTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/margin_default"
+            android:text="@string/button_cancel" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.chat;
 
-import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -66,6 +67,15 @@ public class ChatFragment extends ContentTabsFragment {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (getChildFragmentManager().getFragments() == null)
+            return;
+
+        for (Fragment fragment : getChildFragmentManager().getFragments()) {
+            fragment.onActivityResult(Constants.REQUEST_CODE_SETTINGS_ACTIVITY, resultCode, data);
+        }
+    }
 
     @Override
     protected int getLayoutRes() {

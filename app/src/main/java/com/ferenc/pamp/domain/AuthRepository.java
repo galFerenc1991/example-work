@@ -62,6 +62,7 @@ public class AuthRepository extends NetworkRepository implements CreatePasswordC
                             .getAccessToken()
                             .put("Bearer " + user.getToken())
                             .apply();
+                    mSignedUserManager.saveUser(user);
                     Log.d("Token", "Writed token: " + mSharedPrefManager.getAccessToken().get());
                     return Observable.just(user);
                 });
@@ -75,6 +76,7 @@ public class AuthRepository extends NetworkRepository implements CreatePasswordC
                             .getAccessToken()
                             .put("Bearer " + user.getToken())
                             .apply();
+                    mSignedUserManager.saveUser(user);
                     Log.d("Token", "Writed token: " + mSharedPrefManager.getAccessToken().get());
                     return Observable.just(user);
                 });
@@ -88,6 +90,7 @@ public class AuthRepository extends NetworkRepository implements CreatePasswordC
                             .getAccessToken()
                             .put("Bearer " + user.getToken())
                             .apply();
+                    mSignedUserManager.saveUser(user);
                     Log.d("Token", "Writed token: " + mSharedPrefManager.getAccessToken().get());
                     return Observable.just(user);
                 });
@@ -101,6 +104,7 @@ public class AuthRepository extends NetworkRepository implements CreatePasswordC
                             .getAccessToken()
                             .put("Bearer " + user.getToken())
                             .apply();
+                    mSignedUserManager.saveUser(user);
                     Log.d("Token", "Writed token: " + mSharedPrefManager.getAccessToken().get());
                     return Observable.just(user);
                 });
@@ -114,6 +118,7 @@ public class AuthRepository extends NetworkRepository implements CreatePasswordC
                             .getAccessToken()
                             .put("Bearer " + user.getToken())
                             .apply();
+                    mSignedUserManager.saveUser(user);
                     Log.d("Token", "Writed token: " + mSharedPrefManager.getAccessToken().get());
                     return Observable.just(user);
                 });

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/padding_default"
+    android:paddingStart="@dimen/padding_default"
+    android:paddingEnd="@dimen/padding_default">
+
+    <TextView
+        style="@style/CancelDialPopUpTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel_good_deal_pop_up_text"/>
+</LinearLayout>

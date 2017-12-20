@@ -28,11 +28,14 @@ public abstract class Constants {
     public static final int REQUEST_CODE_INPUT_ACTIVITY_DESCRIPTION_FROM_RE_BROADCAST_FLOW = 11;
     public static final int REQUEST_CODE_GET_IMAGE = 301;
     public static final int REQUEST_CODE_CROP_IMAGE = 302;
+    public static final int REQUEST_CODE_SETTINGS_ACTIVITY = 16;
+
 
     /*PERMISSIONS REQUEST CODES*/
     public static final int REQUEST_CODE_REED_CONTACTS = 12;
     public static final int REQUEST_CODE_SEND_SMS = 13;
     public static final int REQUEST_CODE_CAMERA = 14;
+    public static final int REQUEST_CODE_SEND_SMS_DONE = 15;
 
     /*KEYS*/
     public static final String KEY_COUNTRY = "country";
@@ -42,7 +45,23 @@ public abstract class Constants {
     public static final String KEY_END_DATE_RESULT = "endDate";
     public static final String KEY_PLACE_RESULT = "place";
     public static final String KEY_IS_REBROADCAST = "rebroadcast";
+    public static final String KEY_SENDTO_SMS = "smsto: ";
+    public static final String KEY_SMS_BODY = "sms_body";
 
+    /*GOOD DEAL STATES*/
+    public static final String STATE_CANCELED = "canceled";
+    public static final String STATE_CLOSED = "closed";
+    public static final String STATE_PROGRESS = "progress";
+    public static final String STATE_CONFIRM = "confirm";
+
+
+    /*ACTION KEYS*/
+    public static final String KEY_SETTINGS = "settings";
+    public static final String KEY_SEND_ORDERS = "sendOrders";
+    public static final String KEY_CHANGE_CLOSE_DATE = "closeDate";
+    public static final String KEY_CHANGE_DELIVERY_DATE = "deliveryDate";
+    public static final String KEY_CANCEL_GOOD_DEAL = "cancelGoodDeal";
+//    public static final String KEY_CANCEL = "startDate";
 
     /*GOOD_PLANS_ITEM_TYPE*/
     public static final int ITEM_TYPE_RE_BROADCAST = 0;
@@ -52,34 +71,33 @@ public abstract class Constants {
     public static final String GOOGLE_CLIENT_ID = "392469561251-kl0irng19cc3ne0vurejkb6fanu1tv3j.apps.googleusercontent.com";
 
     /*MESSAGES CODES*/
-    public static final String M1_GOOD_DEAL_DIFFUSION                   = "M1";
+    public static final String M1_GOOD_DEAL_DIFFUSION = "M1";
 
-    public static final String M2_PRODUCT_ORDERING                      = "M2";
-    public static final String M3_ORDER_CHANGING                        = "M3";
-    public static final String M4_ORDER_CANCELLATION                    = "M4";
+    public static final String M2_PRODUCT_ORDERING = "M2";
+    public static final String M3_ORDER_CHANGING = "M3";
+    public static final String M4_ORDER_CANCELLATION = "M4";
 
-    public static final String M5_GOOD_DEAL_DELIVERY_DATE_CHANGED       = "M5";
-    public static final String M6_GOOD_DEAL_CLOSING_DATE_CHANGED        = "M6";
-    public static final String M9_CLOSING_DATE                          = "M9";
-    public static final String M12_DELIVERY_DATE                        = "M12";
+    public static final String M5_GOOD_DEAL_DELIVERY_DATE_CHANGED = "M5";
+    public static final String M6_GOOD_DEAL_CLOSING_DATE_CHANGED = "M6";
+    public static final String M9_CLOSING_DATE = "M9";
+    public static final String M12_DELIVERY_DATE = "M12";
 
-    public static final String M8_GOOD_DEAL_CANCELLATION                = "M8";
-    public static final String M10_GOOD_DEAL_CLOSING                    = "M10";
+    public static final String M8_GOOD_DEAL_CANCELLATION = "M8";
+    public static final String M10_GOOD_DEAL_CLOSING = "M10";
 
-    public static final String M11_1_GOOD_DEAL_CONFIRMATION             = "M11_1";
-    public static final String M11_2_GOOD_DEAL_CONFIRMATION_REJECTED    = "M11_2";
-    public static final String M11_3_GOOD_DEAL_CONFIRMATION_APPLYED     = "M11_3";
+    public static final String M11_1_GOOD_DEAL_CONFIRMATION = "M11_1";
+    public static final String M11_2_GOOD_DEAL_CONFIRMATION_REJECTED = "M11_2";
+    public static final String M11_3_GOOD_DEAL_CONFIRMATION_APPLYED = "M11_3";
 
-    public static final int DEFAULT_MSG_GROUP_TYPE              = 0;
-    public static final int M1_MSG_GROUP_TYPE                   = 1;
-    public static final int M2_M3_M4_MSG_GROUP_TYPE             = 2;
-    public static final int M5_M6_M9_M12_MSG_GROUP_TYPE         = 3;
-    public static final int M8_M10_MSG_GROUP_TYPE               = 4;
-    public static final int M11_1_M11_2_M11_3_MSG_GROUP_TYPE    = 5;
+    public static final int DEFAULT_MSG_GROUP_TYPE = 0;
+    public static final int M1_MSG_GROUP_TYPE = 1;
+    public static final int M2_M3_M4_MSG_GROUP_TYPE = 2;
+    public static final int M5_M6_M9_M12_MSG_GROUP_TYPE = 3;
+    public static final int M8_M10_MSG_GROUP_TYPE = 4;
+    public static final int M11_1_M11_2_M11_3_MSG_GROUP_TYPE = 5;
 
 
-
-    public enum MessageType {
+    public enum MessageType{
         CONNECTION_PROBLEMS(R.string.err_msg_connection_problem, true),
         USER_NOT_REGISTERED(R.string.err_msg_user_not_registered, true),
         BAD_CREDENTIALS(R.string.err_msg_bad_credentials, true),

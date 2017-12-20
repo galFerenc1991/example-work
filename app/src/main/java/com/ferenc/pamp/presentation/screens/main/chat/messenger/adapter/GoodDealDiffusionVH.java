@@ -74,7 +74,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         String deliveryStartDate = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryStartDate));
         String deliveryEndDate = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryEndDate));
 
-        if (goodDealResponse.contributor.id.equals(user.getId())) {
+        if (goodDealResponse.owner.getId().equals(user.getId())) {
             Picasso.with(context)
                     .load(user.getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
@@ -85,13 +85,13 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
             tvDealAuthorName.setText(user.getFirstName());
         } else {
             Picasso.with(context)
-                    .load(goodDealResponse.contributor.getAvatar())
+                    .load(goodDealResponse.owner.getAvatarUrl())
                     .placeholder(R.drawable.ic_userpic)
                     .error(R.drawable.ic_userpic)
                     .into(civInterlocutorAvatar);
             civInterlocutorAvatar.setVisibility(View.VISIBLE);
             cvDealBackground.setCardBackgroundColor(context.getResources().getColor(R.color.msgGoodDealDiffusionColorOther));
-            tvDealAuthorName.setText(goodDealResponse.contributor.firstName);
+            tvDealAuthorName.setText(goodDealResponse.owner.getFirstName());
         }
 
 

@@ -4,19 +4,25 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.ferenc.pamp.R;
+import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
+import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.domain.SocketRepository;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -29,6 +35,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     private MessengerContract.View mView;
     private MessengerContract.Model mModel;
     private MessengerContract.SocketModel mSocketModel;
+    private MessengerContract.GoodDealModel mGoodDealModel;
     private CompositeDisposable mCompositeDisposable;
 
     private int page;
@@ -40,9 +47,17 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     private Context mContext;
     private SocketRepository mSocketRepository;
 
-    public MessengerPresenter(MessengerContract.View mView, MessengerContract.Model _messageRepository, SocketRepository _socketRepository, GoodDealResponse _goodDealResponse, SignedUserManager _signedUserManager, Context _context) {
+    public MessengerPresenter(MessengerContract.View mView
+            , MessengerContract.Model _messageRepository
+            , MessengerContract.GoodDealModel _goodDealModel
+            , SocketRepository _socketRepository
+            , SignedUserManager _signedUserManager
+            , Context _context
+            , GoodDealResponse _goodDealResponse) {
+
         this.mView = mView;
         this.mModel = _messageRepository;
+        this.mGoodDealModel = _goodDealModel;
         this.mGoodDealResponse = _goodDealResponse;
         this.mCompositeDisposable = new CompositeDisposable();
         this.page = 1;
@@ -94,14 +109,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     }
 
     @Override
-    public void unsubscribe() {
-        mCompositeDisposable.clear();
-
-    }
-
-    @Override
     public void onRefresh() {
-
+        mView.hideProgress();
     }
 
     @Override
@@ -112,6 +121,51 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     @Override
     public void loadNextPage() {
 
+    }
+
+    @Override
+    public void cancelDealAction() {
+        mView.openCloseGoodDealPopUp();
+
+    }
+
+    @Override
+    public void cancelDeal() {
+        mView.showProgressMain();
+        mCompositeDisposable.add(mGoodDealModel.cancelGoodDeal(mGoodDealResponse.id)
+                .subscribe(goodDealCancelResponse -> {
+                    mView.showProgressMain();
+                    mView.openEndFlowScreen();
+                }, throwableConsumer));
+    }
+
+    private Consumer<Throwable> throwableConsumer = throwable -> {
+        throwable.printStackTrace();
+        mView.hideProgress();
+        if (throwable instanceof ConnectionLostException) {
+            ToastManager.showToast(R.string.err_msg_connection_problem);
+//            mView.showErrorMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+        } else {
+            ToastManager.showToast(R.string.err_msg_something_goes_wrong);
+//            mView.showErrorMessage(Constants.MessageType.UNKNOWN);
+        }
+    };
+
+    @Override
+    public void changeCloseDateAction() {
+        Calendar date = Calendar.getInstance();
+        date.setTimeInMillis(mGoodDealResponse.closingDate);
+        mView.openCloseDatePicker(date, mGoodDealResponse.deliveryStartDate);
+    }
+
+    @Override
+    public void setChangedCloseDate(Calendar _changedCloseDate) {
+        /// do request
+    }
+
+    @Override
+    public void changeDeliveryDateAction() {
+        mView.openDeliveryDateScreen();
     }
 
     @Override
@@ -164,5 +218,10 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         } else {
             return Constants.DEFAULT_MSG_GROUP_TYPE;
         }
+    }
+
+    @Override
+    public void unsubscribe() {
+        mCompositeDisposable.clear();
     }
 }

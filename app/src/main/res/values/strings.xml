@@ -23,9 +23,9 @@
     <string name="title_messenger">Messagerie</string>
     <string name="title_orders">Commandes</string>
     <string name="title_edit_profile">Vos informations de profil</string>
-
-
-
+    <string name="title_good_deal_created">Bon plan envoyé</string>
+    <string name="title_good_deal_canceled">Votre bon plan a été annulé</string>
+    <string name="title_settings">Vous pouvez gérer automatiquement certains paramètres de votre bon plan :</string>
 
     <!--Buttons-->
     <string name="button_sign_in">S\'inscrire</string>
@@ -43,7 +43,10 @@
     <string name="button_re_use">Réutiliser</string>
     <string name="button_next">suivant</string>
     <string name="button_share">Diffuser</string>
+    <string name="button_order">COMMANDER</string>
     <string name="button_save">Économiser</string>
+    <string name="button_cancel_deal">Oui, j’annule</string>
+    <string name="button_not_cancel_deal">Finalement, non</string>
 
 
     <!--Hints-->
@@ -113,6 +116,9 @@
     <string name="msg_empty_received_good_plans">Partager l’appli \npour + de \nbons plans !</string>
     <string name="msg_empty_proposed_good_plans">Proposer votre \npremier bon plan… \nC’est tellement bon !</string>
     <string name="msg_share">Je vous recommande \ncet appli: PAMP ... nous \npourrons partager \nfacilement tous nos \nbons plans de petits \nproducteurs.\nHttps//:AppStore.pamp .com</string>
+    <string name="msg_send_good_deal">Je vous envoi bon plan ... á retrouver sur PAMP en téléchargeant I'appli
+</string>
+
 
     <!--Menu-->
     <string name="menu_share">Share</string>
@@ -222,5 +228,14 @@
     <string name="type_a_message">Type a message..</string>
     <string name="bon_plan">BON PLAN</string>
 
+    <!--Settings Good Deal texts-->
+    <string name="text_send_orders_list">Envoyer votre liste de commandes au producteur</string>
+    <string name="text_change_close_date">Modifier la date de clôture du bon plan</string>
+    <string name="text_change_delivery_date">Modifier la date de livraison</string>
+    <string name="text_cancel_good_deal">Annuler votre bon plan</string>
+
+    <!--Cancel Good Deal PopUP-->
+    <string name="cancel_good_deal_pop_up_title">Vous voulez annuler votre bon plan ?</string>
+    <string name="cancel_good_deal_pop_up_text">Un message sera envoyé à votre liste de diffusion… \nAucune commande ne pourra être passé, mais vous pourrez communiquer avec vos proches via la messagerie</string>
 
 </resources>

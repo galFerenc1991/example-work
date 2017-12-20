@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_green">
+
+    <ImageView
+        android:id="@+id/ivClose_AEF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_half"
+        android:src="@drawable/ic_clear"
+        android:background="@drawable/bg_close_button"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/ivSuccess_AEF"
+        android:layout_width="@dimen/profile_image_default_size"
+        android:layout_height="@dimen/profile_image_default_size"
+        android:src="@drawable/ic_check_green"
+        android:layout_centerInParent="true" />
+
+    <TextView
+        android:id="@+id/tvEndFlowMassage_AEF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivSuccess_AEF"
+        android:layout_centerHorizontal="true"
+        android:text="@string/title_good_deal_created" />
+</RelativeLayout>

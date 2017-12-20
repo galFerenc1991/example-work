@@ -1,16 +1,21 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 
 import com.ferenc.pamp.data.model.base.ListResponse;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
 import com.ferenc.pamp.data.model.message.MessageResponse;
+import com.ferenc.pamp.presentation.base.BaseModel;
 import com.ferenc.pamp.presentation.base.BaseView;
 import com.ferenc.pamp.presentation.base.content.ContentView;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
 import com.jakewharton.rxrelay2.Relay;
 
+import java.util.Calendar;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Path;
 
 /**
  * Created by shonliu on 12/12/17.
@@ -30,6 +35,13 @@ public interface MessengerContract {
 
         void addImage();
 
+        void openCloseDatePicker(Calendar _calendar, long _startDeliveryDate);
+
+        void openDeliveryDateScreen();
+
+        void openCloseGoodDealPopUp();
+
+        void openEndFlowScreen();
     }
 
     interface Presenter extends RefreshablePresenter {
@@ -41,8 +53,16 @@ public interface MessengerContract {
 
         void addImage();
 
-    }
+        void cancelDealAction();
 
+        void cancelDeal();
+
+        void changeCloseDateAction();
+
+        void setChangedCloseDate(Calendar _calendar);
+
+        void changeDeliveryDateAction();
+    }
 
     interface Model {
         Observable<ListResponse<MessageResponse>> getMessages(String _chatID, int _page);
@@ -53,5 +73,8 @@ public interface MessengerContract {
         Observable<MessageResponse> getNewMessage();
 
         Observable<Void> sendMessage(String _userToken, String _dealId, String _messageText);
+    }
+    interface GoodDealModel extends BaseModel {
+        Observable<GoodDealCancelResponse> cancelGoodDeal(String _id);
     }
 }
