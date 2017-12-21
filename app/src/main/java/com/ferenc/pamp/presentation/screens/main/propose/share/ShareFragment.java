@@ -5,12 +5,10 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,10 +19,10 @@ import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
 import com.ferenc.pamp.presentation.custom.EndFlowActivity_;
-import com.ferenc.pamp.presentation.screens.main.chat.ChatActivity_;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.ContactManager;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -80,6 +78,8 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     protected ContactAdapter mContactAdapter;
     @Bean
     protected GoodDealManager mGoodDealManager;
+    @Bean
+    protected ContactManager mContactManager;
 
     @FragmentArg
     protected boolean isReBroadcastFlow;
@@ -87,7 +87,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     @AfterInject
     @Override
     public void initPresenter() {
-        new SharePresenter(this, mGoodDealRepository, mGoodDealManager, isReBroadcastFlow);
+        new SharePresenter(this, mGoodDealRepository, mGoodDealManager, isReBroadcastFlow, mContactManager);
 
         mContactAdapter.setOnCardClickListener((view, position, viewType) ->
                 mPresenter.selectItem(mContactAdapter.getItem(position), position));

@@ -70,19 +70,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite" />
-                <TextView
-                    android:id="@+id/tvDealStartDate_IMGDD"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/llCreateEvent_IMGDD"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/msgGoodDealDateLocationColor"
-                    android:text="Lun. 29 mai de 10:00 à 13:00"/>
-                <TextView
-                    android:id="@+id/tvDealEndDate_IMGDD"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/msgGoodDealDateLocationColor"
-                    android:text="Lun. 31 mai de 20:00 à 22:00"
-                    android:layout_marginBottom="@dimen/margin_double_upper_medium"/>
+                    android:orientation="vertical"
+                    android:background="?attr/selectableItemBackground"
+                    android:layout_marginBottom="@dimen/margin_double_upper_medium">
+                    <TextView
+                        android:id="@+id/tvDealStartDate_IMGDD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/msgGoodDealDateLocationColor"
+                        android:text="Lun. 29 mai de 10:00 à 13:00"/>
+                    <TextView
+                        android:id="@+id/tvDealEndDate_IMGDD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/msgGoodDealDateLocationColor"
+                        android:text="Lun. 31 mai de 20:00 à 22:00" />
+                </LinearLayout>
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -95,6 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10, rue Paul Chenavard, 69001, Lyon"
+                    android:background="?attr/selectableItemBackground"
                     android:textColor="@color/msgGoodDealDateLocationColor" />
 
             </LinearLayout>

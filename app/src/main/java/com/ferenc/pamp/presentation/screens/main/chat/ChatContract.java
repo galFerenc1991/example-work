@@ -16,7 +16,9 @@ public interface ChatContract {
 
         void openSettingsDialog();
 
-        void ShowParticipants();
+        void showParticipants();
+
+        void setParticipants(String participants);
     }
 
     interface Presenter extends BasePresenter {
@@ -24,7 +26,10 @@ public interface ChatContract {
 
         void clickedSettings();
 
+        void setParticipants();
+
         void clickedParticipants();
+
     }
 
     interface Model extends BaseModel {
