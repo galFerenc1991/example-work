@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.ferenc.pamp.R;
+import com.ferenc.pamp.presentation.screens.main.chat.participants.participants_list.ParticipantsListFragment_;
+import com.ferenc.pamp.presentation.screens.main.propose.share.ShareFragment_;
 import com.ferenc.pamp.presentation.utils.ToolbarManager;
 
 import org.androidannotations.annotations.AfterViews;
@@ -69,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 3) {
             super.onBackPressed();
         } else {
             if (doubleBackToExitPressedOnce) {

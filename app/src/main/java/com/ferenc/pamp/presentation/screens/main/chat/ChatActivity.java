@@ -14,6 +14,7 @@ import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.custom.SettingsActivity;
 import com.ferenc.pamp.presentation.custom.SettingsActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.participants.ParticipantsActivity_;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.re_diffuser.ReDiffuserActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
@@ -138,7 +139,7 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
 
     @Override
     public void showParticipants() {
-
+        ParticipantsActivity_.intent(this).fromWhere(fromWhere).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
     }
 
     @Override

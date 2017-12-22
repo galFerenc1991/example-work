@@ -71,7 +71,7 @@ public class ChatPresenter implements ChatContract.Presenter {
 
     @Override
     public void clickedParticipants() {
-
+        mView.showParticipants();
     }
 
 
