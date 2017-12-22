@@ -29,6 +29,22 @@ public class ContactManager {
     @RootContext
     Context context;
 
+    public List<ContactDH> getContactsDH() {
+        List<ContactDH> contactDHList = new ArrayList<>();
+        String header = " ";
+        contactDHList.add(new ContactDH("VOS CONTACTS", ContactAdapter.TYPE_CONTACT_HEADER));
+
+        for (UserContact contact : getSortedContactList()) {
+            String contactName = contact.getName();
+            if (!contactName.startsWith(header)) {
+                header = String.valueOf(contactName.charAt(0));
+                contactDHList.add(new ContactDH(header, ContactAdapter.TYPE_HEADER));
+            }
+            contactDHList.add(new ContactDH(contact, ContactAdapter.TYPE_ITEM));
+        }
+        return contactDHList;
+    }
+
     public ArrayList<UserContact> getContactList() {
         ArrayList<UserContact> _phoneContactList = new ArrayList<>();
         ContentResolver cr = context.getContentResolver();
@@ -69,7 +85,7 @@ public class ContactManager {
         return deleteAllDuplicateContacts(_phoneContactList);
     }
 
-    public ArrayList<UserContact> getSortedContactList() {
+    private ArrayList<UserContact> getSortedContactList() {
         ArrayList<UserContact> _phoneContactList = new ArrayList<>();
         ContentResolver cr = context.getContentResolver();
         Cursor cur = cr.query(
@@ -114,29 +130,6 @@ public class ContactManager {
         });
         set.addAll(_phoneContactList);
         return new ArrayList<>(set);
-    }
-
-    public ArrayList<UserContact> sortContactArray(ArrayList<UserContact> _userContacts) {
-
-        Collections.sort(_userContacts, (o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
-
-        return _userContacts;
-    }
-
-    public List<ContactDH> getContactsDH() {
-        List<ContactDH> contactDHList = new ArrayList<>();
-        String header = " ";
-        contactDHList.add(new ContactDH("VOS CONTACTS", ContactAdapter.TYPE_CONTACT_HEADER));
-
-        for (UserContact contact : getSortedContactList()) {
-            String contactName = contact.getName();
-            if (!contactName.startsWith(header)) {
-                header = String.valueOf(contactName.charAt(0));
-                contactDHList.add(new ContactDH(header, ContactAdapter.TYPE_HEADER));
-            }
-            contactDHList.add(new ContactDH(contact, ContactAdapter.TYPE_ITEM));
-        }
-        return contactDHList;
     }
 
 }

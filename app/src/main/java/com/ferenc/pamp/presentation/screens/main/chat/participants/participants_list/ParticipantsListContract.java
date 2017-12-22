@@ -2,7 +2,6 @@ package com.ferenc.pamp.presentation.screens.main.chat.participants.participants
 
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.BaseView;
-import com.ferenc.pamp.presentation.base.content.ContentView;
 import com.ferenc.pamp.presentation.screens.main.chat.participants.participants_adapter.ParticipantsDH;
 
 import java.util.List;
