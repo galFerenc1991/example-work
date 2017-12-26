@@ -22,6 +22,7 @@ import com.ferenc.pamp.data.api.RestConst;
 import com.ferenc.pamp.domain.UserRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker.CountryPickerActivity_;
+import com.ferenc.pamp.presentation.screens.main.profile.UserRelay;
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_place.DeliveryPlaceActivity_;
 import com.ferenc.pamp.presentation.utils.AvatarManager;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -122,11 +123,13 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     protected UserRepository mUserRepository;
     @Bean
     protected AvatarManager avatarManager;
+    @Bean
+    protected UserRelay mUserRelay;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new EditProfilePresenter(this, mUserRepository, mUserManager);
+        new EditProfilePresenter(this, mUserRepository, mUserManager, mUserRelay);
         avatarManager.attach(this);
     }
 
@@ -324,6 +327,11 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
 
     @Override
     public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    public void finishActivity() {
         finish();
     }
 }

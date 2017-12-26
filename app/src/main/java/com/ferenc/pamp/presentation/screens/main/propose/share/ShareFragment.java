@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -120,7 +121,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
         ArrayList<String> selectedContacts = new ArrayList<>(_selectedContacts);
         mGoodDealResponse = _goodDealResponse;
 
-        Uri uri = Uri.parse(Constants.KEY_SENDTO_SMS + selectedContacts);
+        Uri uri = Uri.parse(Constants.KEY_SENDTO_SMS + TextUtils.join(", ", selectedContacts));
         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
         it.putExtra(Constants.KEY_SMS_BODY, R.string.msg_send_good_deal + _dynamicLink.toString());
         startActivity(it);

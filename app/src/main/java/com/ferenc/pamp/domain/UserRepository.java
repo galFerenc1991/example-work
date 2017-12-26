@@ -2,15 +2,12 @@ package com.ferenc.pamp.domain;
 
 import com.ferenc.pamp.data.api.Rest;
 import com.ferenc.pamp.data.model.common.User;
-import com.ferenc.pamp.data.model.common.UserUpdateRequest;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
-import com.ferenc.pamp.data.service.AuthService;
+
+
 import com.ferenc.pamp.data.service.UserService;
 import com.ferenc.pamp.presentation.screens.main.profile.ProfileContract;
-import com.ferenc.pamp.presentation.screens.main.profile.ProfileFragment;
+
 import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.EditProfileContract;
-import com.ferenc.pamp.presentation.screens.main.propose.share.ShareContract;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 
@@ -19,10 +16,11 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by
@@ -56,8 +54,8 @@ public class UserRepository extends NetworkRepository implements ProfileContract
     }
 
     @Override
-    public Observable<User> updateUser(UserUpdateRequest _user) {
-        return getNetworkObservable(userService.updateUser(_user).flatMap(user -> {
+    public Observable<User> updateUser(Map<String, RequestBody> userBody, MultipartBody.Part avatar) {
+        return getNetworkObservable(userService.updateUser(userBody, avatar).flatMap(user -> {
             mSignedUserManager.saveUser(user);
             return Observable.just(user);
         }));

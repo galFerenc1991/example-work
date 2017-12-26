@@ -65,6 +65,7 @@
         android:text="@string/button_ajouter"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:visibility="gone"/>
 
 </RelativeLayout>
