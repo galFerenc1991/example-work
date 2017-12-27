@@ -169,6 +169,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
         }
 
         viewHolder.rlRootLayout.setOnClickListener(view ->{
+                    mGoodDealManager.saveGoodDeal(getGoodDealFromItem(goodDealResponse));
                     mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                     ChatActivity_
                             .intent(context)

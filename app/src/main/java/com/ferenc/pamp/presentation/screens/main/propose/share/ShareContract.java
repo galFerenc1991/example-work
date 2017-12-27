@@ -8,14 +8,11 @@ import com.ferenc.pamp.presentation.base.BaseModel;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.BaseView;
 import com.ferenc.pamp.presentation.base.content.ContentView;
-import com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker.adapter.CountryDH;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import retrofit2.http.Body;
-import retrofit2.http.Path;
 
 /**
  * Created by

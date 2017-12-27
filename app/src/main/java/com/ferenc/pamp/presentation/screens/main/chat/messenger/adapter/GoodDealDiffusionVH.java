@@ -4,8 +4,10 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.michenko.simpleadapter.RecyclerVH;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -43,6 +46,8 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
     private TextView tvDealEndDate;
     private TextView tvDealLocation;
 
+    private LinearLayout llCreateEvent;
+
 
     GoodDealDiffusionVH(View itemView) {
         super(itemView);
@@ -56,6 +61,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         tvDealStartDate = itemView.findViewById(R.id.tvDealStartDate_IMGDD);
         tvDealEndDate = itemView.findViewById(R.id.tvDealEndDate_IMGDD);
         tvDealLocation = itemView.findViewById(R.id.tvDealLocation_IMGDD);
+        llCreateEvent = itemView.findViewById(R.id.llCreateEvent_IMGDD);
 
     }
 
@@ -101,6 +107,38 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         tvDealStartDate.setText(deliveryStartDate);
         tvDealEndDate.setText(deliveryEndDate);
         tvDealLocation.setText(goodDealResponse.deliveryAddress);
+
+        llCreateEvent.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_INSERT);
+            intent.setType("vnd.android.cursor.item/event");
+
+            long startTime = goodDealResponse.deliveryStartDate;
+            long endTime = goodDealResponse.deliveryEndDate;
+
+            intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime);
+            intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime);
+            intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+
+            intent.putExtra(CalendarContract.Events.TITLE, "BON PLAN");
+            intent.putExtra(CalendarContract.Events.DESCRIPTION, "Bon Plan delivery date");
+            intent.putExtra(CalendarContract.Events.EVENT_LOCATION, goodDealResponse.deliveryAddress);
+//            intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
+
+            context.startActivity(intent);
+        });
+
+        tvDealLocation.setOnClickListener(v -> {
+//            Uri gmmIntentUri = Uri.parse("google.navigation:q=" + Uri.encode(goodDealResponse.deliveryAddress)); if we needed to navigate user to place XD
+            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(goodDealResponse.deliveryAddress));
+
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
+                context.startActivity(mapIntent);
+            }
+        });
+
+
 
     }
 }

@@ -46,7 +46,6 @@ public class EndlessScrollListener extends RecyclerView.OnScrollListener {
         if (!loading && needLoading()) {
             loading = listener.onLoadMore();
         }
-
     }
 
     private boolean needLoading() {

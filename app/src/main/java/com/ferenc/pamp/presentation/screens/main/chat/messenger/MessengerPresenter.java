@@ -91,7 +91,11 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     }
 
     private void loadData(int _page, boolean isLoadMoreList) {
-        mView.showProgressMain();
+        if (!isLoadMoreList) {
+            mView.showProgressMain();
+        } else {
+            mView.showProgressPagination();
+        }
         mCompositeDisposable.add(mModel.getMessages(mGoodDealResponse.id, _page)
                 .subscribe(model -> {
                     mView.hideProgress();
@@ -195,6 +199,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                     .subscribe( aVoid -> {} ));
 
             mView.addItem(mMessagesDH);
+
+            mView.clearInputText();
         }
     }
 

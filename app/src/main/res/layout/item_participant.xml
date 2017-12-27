@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_bar_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="0dp"
+    android:layout_marginTop="@dimen/margin_quart"
+    android:layout_marginBottom="@dimen/margin_quart"
+    app:cardBackgroundColor="@color/msgMyGoodDealDiffusionColor">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civParticipantAvatar_IP"
+            android:layout_width="@dimen/ok_button_height"
+            android:layout_height="@dimen/ok_button_height"
+            android:src="@drawable/ic_userpic"
+            android:layout_marginStart="@dimen/margin_double_upper_medium"/>
+
+        <TextView
+            android:id="@+id/tvParticipantName_IP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ContactNameTextStyle"
+            android:layout_marginStart="@dimen/margin_double_upper_medium"
+            android:text="Android"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

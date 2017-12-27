@@ -8,14 +8,12 @@ import android.widget.TextView;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
-import com.ferenc.pamp.data.api.RestConst;
 import com.ferenc.pamp.domain.AuthRepository;
 import com.ferenc.pamp.domain.UserRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
 import com.ferenc.pamp.presentation.screens.auth.AuthActivity_;
 import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.EditProfileActivity_;
-import com.ferenc.pamp.presentation.utils.AvatarManager;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.RoundedTransformation;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
@@ -78,6 +76,8 @@ public class ProfileFragment extends ContentFragment implements ProfileContract.
     protected UserRepository mUserRepository;
     @Bean
     protected SignedUserManager mUserManager;
+    @Bean
+    protected UserRelay mUserRelay;
 
     @StringRes(R.string.msg_share)
     protected String mShareMessage;
@@ -85,11 +85,12 @@ public class ProfileFragment extends ContentFragment implements ProfileContract.
     @AfterInject
     @Override
     public void initPresenter() {
-        new ProfilePresenter(this, mAuthRepository, mUserRepository, mUserManager);
+        new ProfilePresenter(this, mAuthRepository, mUserRepository, mUserManager, mUserRelay);
     }
 
     @AfterViews
     protected void initUI() {
+
         RxView.clicks(rlLogOut)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedLogOut());
@@ -112,7 +113,7 @@ public class ProfileFragment extends ContentFragment implements ProfileContract.
     @Override
     public void setUserProfilePictureAndName(String _avatarUrl, String _name) {
         Picasso.with(PampApp_.getInstance())
-                .load(RestConst.BASE_URL + "/" + _avatarUrl)
+                .load(_avatarUrl)
                 .placeholder(R.drawable.ic_userpic)
                 .error(R.drawable.ic_userpic)
                 .transform(new RoundedTransformation(200, 0))

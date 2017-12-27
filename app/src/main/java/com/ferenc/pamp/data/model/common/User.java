@@ -104,6 +104,10 @@ public class User implements Parcelable {
         return firstName;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     public String getToken() {
         return token;
     }
