@@ -72,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 3) {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             super.onBackPressed();
         } else {
             if (doubleBackToExitPressedOnce) {

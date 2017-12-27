@@ -117,7 +117,6 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
                 getUpdatedBody(_firstName, _lastName, _country),
                 getUpdatedAvatar(mAvatarFile))
                 .subscribe(user -> {
-                    mUserManager.saveUser(user);
                     mUserRelay.userRelay.accept(user);
                     mView.finishActivity();
                 }, throwable -> ToastManager.showToast(throwable.getMessage()))
