@@ -59,6 +59,8 @@ public class SocketRepository implements MessengerContract.SocketModel {
 
     @Override
     public Observable<Void> connectSocket(String _userToken, String _roomID) {
+        if (mSocket.connected())
+            return connectSocketVoidRelay;
 
         mSocket.connect();
         mSocket.on(Socket.EVENT_CONNECT, args -> {
@@ -147,6 +149,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
     public Observable<Void> disconnectSocket() {
         if (mSocket !=null) {
             mSocket.emit(emitLeaveRoom);
+            mSocket.off(Socket.EVENT_CONNECT);
             mSocket.disconnect();
             Log.d(TAG, "Emitting: leave room");
             Log.d(TAG, "Disconnect");

@@ -7,6 +7,7 @@ import com.ferenc.pamp.PampApp;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.api.exceptions.TimeoutException;
 import com.ferenc.pamp.data.service.AuthService;
+import com.ferenc.pamp.data.service.CardService;
 import com.ferenc.pamp.data.service.ChatService;
 import com.ferenc.pamp.data.service.GoodDealService;
 import com.ferenc.pamp.data.service.OrderService;
@@ -107,7 +108,7 @@ public class Rest {
         return retrofit.create(UserService.class);
     }
 
-    public GoodDealService getGoodDealService(){
+    public GoodDealService getGoodDealService() {
         return retrofit.create(GoodDealService.class);
     }
 
@@ -118,4 +119,9 @@ public class Rest {
     public OrderService getOrderService() {
         return retrofit.create(OrderService.class);
     }
+
+    public CardService getCardService() {
+        return retrofit.create(CardService.class);
+    }
+
 }

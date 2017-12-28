@@ -27,6 +27,7 @@ public class GoodDealResponse implements Parcelable {
     public String title;
     public Long createdAt;
     public boolean isResend;
+    public boolean hasOrders;
     public int rank;
     public String unit;
     @SerializedName("contributor")

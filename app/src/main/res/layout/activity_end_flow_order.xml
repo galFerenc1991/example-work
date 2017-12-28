@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_green">
+
+    <ImageView
+        android:id="@+id/ivClose_AEFO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/margin_half"
+        android:background="@drawable/bg_close_button"
+        android:src="@drawable/ic_clear" />
+
+    <ImageView
+        android:id="@+id/ivSuccess_AEFO"
+        android:layout_width="@dimen/profile_image_default_size"
+        android:layout_height="@dimen/profile_image_default_size"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_check_green" />
+
+    <TextView
+        android:id="@+id/tvEndFlowMassage_AEFO"
+        style="@style/AuthTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/ivSuccess_AEFO"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="@dimen/margin_big"
+        android:layout_marginStart="@dimen/margin_big"
+        android:text="@string/title_order_created" />
+
+    <TextView
+        android:id="@+id/tvEndFlowSubtitle_AEFO"
+        style="@style/AuthEditTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvEndFlowMassage_AEFO"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_triple"
+        android:layout_marginStart="@dimen/margin_triple"
+        android:layout_marginTop="@dimen/margin_default"
+        android:gravity="center_horizontal"
+        android:text="@string/title_order_created_subtitle" />
+
+    <TextView
+        android:id="@+id/tvEndFlowTitle_AEFO"
+        style="@style/LoginForgotPasswordStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvEndFlowSubtitle_AEFO"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="@dimen/margin_triple"
+        android:layout_marginStart="@dimen/margin_triple"
+        android:gravity="center_horizontal"
+        android:text="@string/title_order_created_text" />
+</RelativeLayout>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_double"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/AuthEditTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/title_select_payment_information" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="71dp">
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlCardNumber_FAC"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height">
+
+            <TextView
+                android:id="@+id/tvCardNumber_FAC"
+                style="@style/DescriptionGoodPlanTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/margin_double"
+                android:ellipsize="end"
+                android:hint="@string/hint_bank_card_number"
+                android:maxLines="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_edit" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/textColorGray" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlExpirationDate_FAC"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height">
+
+            <TextView
+                android:id="@+id/tvExpirationDate_FAC"
+                style="@style/DescriptionGoodPlanTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/margin_double"
+                android:ellipsize="end"
+                android:hint="@string/hint_bank_card_expiration_date"
+                android:maxLines="2" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_edit" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/textColorGray" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlCardCVV_FAC"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height">
+
+            <TextView
+                android:id="@+id/tvCardCVV_FAC"
+                style="@style/DescriptionGoodPlanTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/margin_double"
+                android:ellipsize="end"
+                android:hint="@string/hint_bank_cvv"
+                android:maxLines="2" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_edit" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/textColorGray" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_triple"
+            android:layout_marginStart="@dimen/margin_triple"
+            android:layout_marginTop="@dimen/margin_double"
+            android:gravity="center_horizontal"
+            android:text="Vos informations de paiement sont sauvegardées en toute sécurité"
+            android:textSize="10dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnValidate_FAC"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/ok_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:background="@drawable/bg_confirm_button"
+        android:paddingEnd="@dimen/padding_double"
+        android:paddingStart="@dimen/padding_double"
+        android:text="@string/button_confirm" />
+
+</RelativeLayout>

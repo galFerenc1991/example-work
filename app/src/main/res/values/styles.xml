@@ -78,6 +78,7 @@
     <style name="AuthEditTextStyle">
         <item name="android:textColor">@color/textColorGray</item>
         <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="SignUpTextStyle">
@@ -179,6 +180,24 @@
         <item name="android:textColor">@color/textColorBlack</item>
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="CreateOrderPopUpProductNameTextStyle">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="CreateOrderPopUpProductDescriptionTextStyle">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_size_big</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="CreateOrderQuantityTextStyle">
+        <item name="android:textColor">@color/textColorBlack</item>
+        <item name="android:textSize">@dimen/text_size_very_big</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="toolbar_theme" parent="@style/ThemeOverlay.AppCompat.ActionBar">

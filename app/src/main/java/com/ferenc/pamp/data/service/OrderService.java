@@ -1,9 +1,15 @@
 package com.ferenc.pamp.data.service;
 
+import com.ferenc.pamp.data.model.home.orders.MessageOrderResponse;
 import com.ferenc.pamp.data.model.home.orders.Order;
+import com.ferenc.pamp.data.model.home.orders.OrderRequest;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -15,4 +21,13 @@ public interface OrderService {
 
     @GET("/deal/{id}/order")
     Observable<Order> getMyOrder(@Path("id") String _id);
+
+    @POST("/order")
+    Observable<Order> createOrder(@Body OrderRequest _orderRequest);
+
+    @DELETE("/order/{id}")
+    Observable<MessageOrderResponse> deleteOrder(@Path("id") String _id);
+
+    @PUT("/order/{id}")
+    Observable<MessageOrderResponse> updateOrder(@Path("id") String _id, @Body OrderRequest _orderRequest);
 }
