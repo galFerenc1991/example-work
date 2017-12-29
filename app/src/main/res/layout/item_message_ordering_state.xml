@@ -20,7 +20,6 @@
         android:id="@+id/linearLayout2">
         <TextView
             android:id="@+id/tvOrderOwnerName_IMOS"
-            android:text="Android:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/textColorBlack"
@@ -29,7 +28,6 @@
             android:id="@+id/tvPriceDescription_IMOS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="14 / bottle de 75cl"
             android:textColor="@color/textColorBlack"/>
     </LinearLayout>
 

@@ -89,5 +89,6 @@ public class ChatPresenter implements ChatContract.Presenter {
         mGoodDealManager.clearGoodDeal();
         mGoodDealResponseManager.clearGoodDealResponse();
         mCompositeDisposable.clear();
+
     }
 }

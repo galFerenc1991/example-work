@@ -38,16 +38,18 @@ public class SharePresenter implements ShareContract.Presenter {
     private CompositeDisposable mCompositeDisposable;
     private List<ContactDH> mPhoneContactList;
     private GoodDealManager mGoodDealManager;
-    private  boolean mIsReBroadcastFlow;
+    private boolean mIsReBroadcastFlow;
+    private boolean mIsUpdateGoodDeal;
     private ContactManager mContactManager;
 
-    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager,  boolean _isReBroadcastFlow, ContactManager _contactManager) {
+    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager,  boolean _isReBroadcastFlow, boolean _isUpdateGoodDeal, ContactManager _contactManager) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mPhoneContactList = new ArrayList<>();
         this.mGoodDealManager = _goodDealManager;
         this.mIsReBroadcastFlow = _isReBroadcastFlow;
+        this.mIsUpdateGoodDeal = _isUpdateGoodDeal;
         this.mContactManager = _contactManager;
 
         mView.setPresenter(this);
@@ -126,8 +128,11 @@ public class SharePresenter implements ShareContract.Presenter {
             List<String> selectedContacts = getSelectedContacts(contactDHList);
             if (!selectedContacts.isEmpty()) {
                 if (GoodDealValidateManager.validate(mGoodDealManager.getGoodDeal())) {
+
                     mView.showProgressMain();
-                    mCompositeDisposable.add(mModel.createGoodDeal(createRequestParameter(contactDHList))
+                    mCompositeDisposable.add((mIsUpdateGoodDeal
+                            ? mModel.updateGoodDeal(mGoodDealManager.getGoodDeal().getId(), createRequestParameter(contactDHList))
+                            : mModel.createGoodDeal(createRequestParameter(contactDHList)))
                             .subscribe(goodDealResponse -> {
                                 mView.hideProgress();
                                 mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);

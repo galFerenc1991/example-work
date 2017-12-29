@@ -85,10 +85,13 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     @FragmentArg
     protected boolean isReBroadcastFlow;
 
+    @FragmentArg
+    protected boolean isUpdateGoodDeal;
+
     @AfterInject
     @Override
     public void initPresenter() {
-        new SharePresenter(this, mGoodDealRepository, mGoodDealManager, isReBroadcastFlow, mContactManager);
+        new SharePresenter(this, mGoodDealRepository, mGoodDealManager, isReBroadcastFlow, isUpdateGoodDeal, mContactManager);
 
         mContactAdapter.setOnCardClickListener((view, position, viewType) ->
                 mPresenter.selectItem(mContactAdapter.getItem(position), position));

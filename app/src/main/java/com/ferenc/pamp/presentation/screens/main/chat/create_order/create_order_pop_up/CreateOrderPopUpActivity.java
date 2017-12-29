@@ -20,6 +20,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.concurrent.TimeUnit;
@@ -56,6 +57,11 @@ public class CreateOrderPopUpActivity extends AppCompatActivity implements Creat
     protected TextView tvTotalPrice;
     @ViewById(R.id.tvDeleteOrder_ACOPU)
     protected TextView tvDeleteOrder;
+
+    @Extra
+    protected boolean isSendOrderListFlow;
+    @Extra
+    protected int mSendOrderListQuantity;
 
     @Bean
     protected GoodDealResponseManager mGoodDealResponseManager;
@@ -137,7 +143,7 @@ public class CreateOrderPopUpActivity extends AppCompatActivity implements Creat
     @AfterInject
     @Override
     public void initPresenter() {
-        new CreateOrderPopUpPresenter(this, mGoodDealResponseManager, mOrderRepository);
+        new CreateOrderPopUpPresenter(this, mGoodDealResponseManager, mOrderRepository, isSendOrderListFlow, mSendOrderListQuantity);
     }
 
     @Override

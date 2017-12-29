@@ -3,6 +3,7 @@ package com.ferenc.pamp.data.service;
 import com.ferenc.pamp.data.model.home.orders.MessageOrderResponse;
 import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.home.orders.OrderRequest;
+import com.ferenc.pamp.data.model.home.orders.Producer;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -30,4 +31,13 @@ public interface OrderService {
 
     @PUT("/order/{id}")
     Observable<MessageOrderResponse> updateOrder(@Path("id") String _id, @Body OrderRequest _orderRequest);
+
+    @POST("/producer")
+    Observable<Producer> createProducer(@Body Producer _producer);
+
+//    @GET("/producer")
+//    Observable<ListResponse<Producer>> getProducer(@Query("page") int page, @Query("limit") int limit);
+
+    @POST("/producer/{id}")
+    Observable<Object> sendPurchase(@Path("id") String _producerID, @Body OrderRequest _localOrder);
 }

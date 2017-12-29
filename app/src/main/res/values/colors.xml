@@ -25,6 +25,7 @@
     <color name="colorBackgroundGrey">#777777</color>
     <color name="colorUnselectedPageIndicator">#b7b692</color>
     <color name="colorSelectedPageIndicator">#333333</color>
+    <color name="colorBackgroundSendOrderListLine">#95989A</color>
 
 
     <!--Text color-->
@@ -34,6 +35,7 @@
     <color name="textColorGreenTransparent">#6434c47c</color>
     <color name="textColorBlack">#000000</color>
     <color name="textColorGrayTransparent">#80333333</color>
+    <color name="textColorGraySendOrderList">#7B7C7C</color>
 
 
 

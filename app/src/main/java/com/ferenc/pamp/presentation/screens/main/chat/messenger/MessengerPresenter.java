@@ -281,6 +281,11 @@ public class MessengerPresenter implements MessengerContract.Presenter {
             mView.openCreateOrderFlow(_quantity);
     }
 
+    @Override
+    public void sendOrders() {
+        mView.openSendOrderListFlow();
+    }
+
     private void disconnectSocket() {
         mSocketModel.disconnectSocket()
                 .subscribe();

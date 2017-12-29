@@ -24,12 +24,16 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
     private int mQuantity;
     private Order mOrder;
     private boolean mHasOrder;
+    private boolean mIsSendOrderListFlow;
     private GoodDealResponse mGoodDealResponse;
+    private int mSendOrderListQuantity;
 
 
     public CreateOrderPopUpPresenter(CreateOrderPopUpContract.View _view,
                                      GoodDealResponseManager _goodDealResponseManager,
-                                     CreateOrderPopUpContract.OrderModel _orderModel) {
+                                     CreateOrderPopUpContract.OrderModel _orderModel,
+                                     boolean _isSendOrderListFlow,
+                                     int _sendOrderListQuantity) {
         this.mView = _view;
         this.mOrderModel = _orderModel;
         this.mGoodDealResponseManager = _goodDealResponseManager;
@@ -37,7 +41,8 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
         this.mQuantity = 0;
         this.mGoodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
         this.mHasOrder = mGoodDealResponse.hasOrders;
-
+        this.mIsSendOrderListFlow = _isSendOrderListFlow;
+        this.mSendOrderListQuantity = _sendOrderListQuantity;
         mView.setPresenter(this);
     }
 
@@ -46,14 +51,24 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
         mView.showProductName(mGoodDealResponse.product);
         mView.showPriceDescription(mGoodDealResponse.unit);
         mView.showPrice(String.valueOf(mGoodDealResponse.price) + " €");
-        if (mHasOrder) {
-            mView.showProgress();
-            mCompositeDisposable.add(mOrderModel.getMyOrder(mGoodDealResponse.id)
-                    .subscribe(order -> {
-                        mView.hideProgress(false);
-                        setOrder(order);
-                    }, throwableConsumer));
+        if (!mIsSendOrderListFlow) {
+            if (mHasOrder) {
+                mView.showProgress();
+                mCompositeDisposable.add(mOrderModel.getMyOrder(mGoodDealResponse.id)
+                        .subscribe(order -> {
+                            mView.hideProgress(false);
+                            setOrder(order);
+                        }, throwableConsumer));
+            }
+        } else {
+            setLocalOrder(mSendOrderListQuantity);
         }
+    }
+
+    private void setLocalOrder(int _quantity) {
+        mQuantity = _quantity;
+        mView.showQuantity(String.valueOf(_quantity));
+        mView.showTotal(String.valueOf(mGoodDealResponse.price * _quantity) + " €");
     }
 
     private void setOrder(Order _order) {
@@ -81,12 +96,16 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
 
     @Override
     public void clickedOk() {
-        if (mHasOrder) {
-            if (mQuantity != 0) updateOrder();
-            else deleteOrder();
+        if (!mIsSendOrderListFlow) {
+            if (mHasOrder) {
+                if (mQuantity != 0) updateOrder();
+                else deleteOrder();
+            } else {
+                if (mQuantity != 0) createOrder();
+                else ToastManager.showToast("Quantity not have be null");
+            }
         } else {
-            if (mQuantity != 0) createOrder();
-            else ToastManager.showToast("Quantity not have be null");
+            mView.closeActivityForResult(mQuantity);
         }
     }
 

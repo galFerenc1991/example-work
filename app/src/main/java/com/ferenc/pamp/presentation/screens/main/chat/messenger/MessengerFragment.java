@@ -27,6 +27,7 @@ import com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.PaymentActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessengerAdapter;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.SendOrderListActivity_;
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_date.DeliveryDateActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.DateManager;
@@ -166,7 +167,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         if (resultCode == RESULT_OK) {
             switch (data.getStringExtra(Constants.KEY_SETTINGS)) {
                 case Constants.KEY_SEND_ORDERS:
-//                    mPresenter.sendOrders();
+                    mPresenter.sendOrders();
                 case Constants.KEY_CHANGE_CLOSE_DATE:
                     mPresenter.changeCloseDateAction();
                     break;
@@ -182,7 +183,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void openCreateOrderPopUp() {
-        CreateOrderPopUpActivity_.intent(this)
+        CreateOrderPopUpActivity_.intent(this).isSendOrderListFlow(false)
                 .startForResult(Constants.REQUEST_CODE_CREATE_ORDER_POP_UP_ACTIVITY);
     }
 
@@ -204,6 +205,14 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     public void openCreateOrderFlow(int _quantity) {
         PaymentActivity_.intent(this).extra(Constants.KEY_PRODUCT_QUANTITY, _quantity)
                 .startForResult(Constants.REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY);
+    }
+
+    @Override
+    public void openSendOrderListFlow() {
+        SendOrderListActivity_
+                .intent(this)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .start();
     }
 
     @OnActivityResult(Constants.REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY)
@@ -307,7 +316,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void addImage() {
-        //TODO : init avatar manager(with CAMERA parameter);
+
     }
 
     @Override

@@ -94,7 +94,7 @@ public class ParticipantsActivity extends BaseActivity {
     private void replaceShareFragment() {
         setToolbarTitle(mTitleAddParticipants);
         btnAjouter.setVisibility(View.GONE);
-        replaceFragment(ShareFragment_.builder().isReBroadcastFlow(false).build());
+        replaceFragment(ShareFragment_.builder().isReBroadcastFlow(false).isUpdateGoodDeal(true).build());
     }
 
     private void replaceParticipantsFragment(int fromWhere) {

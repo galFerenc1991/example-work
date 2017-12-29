@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_ASOL"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_double_upper_medium">
+
+            <TextView
+                android:layout_width="@dimen/default_producer_text_width"
+                android:layout_height="wrap_content"
+                android:text="@string/send_order_list_header_text"
+                android:textColor="@color/textColorGreen"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/text_size_default"/>
+
+            <TextView
+                android:layout_width="@dimen/default_producer_text_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_37"
+                android:layout_marginBottom="@dimen/margin_double"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/textColorGraySendOrderList"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/send_order_list_commander_header_text"
+                />
+
+            <Button
+                android:id="@+id/btnCommander_ASOL"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/confirm_button_height"
+                android:background="@drawable/bg_confirm_button"
+                android:paddingEnd="@dimen/padding_double"
+                android:paddingStart="@dimen/padding_double"
+                android:text="@string/button_order"
+                android:textAllCaps="false"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/tvBonPlanInfo_ASOL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entre-Deux-Mer : 6 / bouteille de 75 cl."
+                android:drawableLeft="@drawable/ic_check_green"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textColorGreen"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/text_size_default"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="@dimen/default_producer_text_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_double"
+                android:layout_marginBottom="@dimen/margin_double"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/textColorGraySendOrderList"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/send_order_list_commander_footer_text"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBackgroundSendOrderListLine"/>
+
+            <TextView
+                android:layout_width="@dimen/default_producer_text_width_smaller"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_default"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/textColorGraySendOrderList"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/send_order_list_producer_header_text"/>
+
+
+            <TextView
+                android:id="@+id/tvProducer_ASOL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/colorBackgroundSendOrderListLine"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:drawablePadding="@dimen/padding_upper_large"
+                android:text="@string/send_order_list_producer"
+                android:drawableLeft="@drawable/ic_producer"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

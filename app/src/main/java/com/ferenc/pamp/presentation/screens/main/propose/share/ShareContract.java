@@ -51,5 +51,7 @@ public interface ShareContract {
         Observable<GoodDealResponse> createGoodDeal(GoodDealRequest request);
 
         Observable<GoodDealResponse> resendGoodDeal(GoodDealRequest request);
+
+        Observable<GoodDealResponse> updateGoodDeal(String id, GoodDealRequest request);
     }
 }
