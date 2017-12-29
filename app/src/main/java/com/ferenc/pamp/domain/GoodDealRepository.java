@@ -15,6 +15,8 @@ import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.ProposedPlan
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.ReceivedPlansContract;
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_place.DeliveryPlaceContract;
 import com.ferenc.pamp.presentation.screens.main.propose.share.ShareContract;
+import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 
@@ -44,8 +46,12 @@ public class GoodDealRepository extends NetworkRepository implements ShareContra
     @Bean
     protected SignedUserManager mSignedUserManager;
 
+    @Bean
+    protected GoodDealResponseManager mGoodDealResponseManager;
+
     @Pref
     protected SharedPrefManager_ mSharedPrefManager;
+
 
     private GoodDealService goodDealService;
     private UserService userService;
@@ -93,6 +99,12 @@ public class GoodDealRepository extends NetworkRepository implements ShareContra
 
     @Override
     public Observable<GoodDealCancelResponse> cancelGoodDeal(String _id) {
-        return getNetworkObservable(goodDealService.cancelGoodDeal(_id));
+        return getNetworkObservable(goodDealService.cancelGoodDeal(_id)
+                .flatMap(goodDealCancelResponse -> {
+                    GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
+                    goodDealResponse.state = Constants.STATE_CANCELED;
+                    mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
+                    return Observable.just(goodDealCancelResponse);
+                }));
     }
 }

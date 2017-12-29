@@ -23,7 +23,7 @@ import io.reactivex.Observable;
  */
 
 @EBean(scope = EBean.Scope.Singleton)
-public class CardRepository extends NetworkRepository implements AddCardContract.CreateCardModel {
+public class CardRepository extends NetworkRepository {
 
     @Bean
     protected Rest rest;
@@ -32,27 +32,14 @@ public class CardRepository extends NetworkRepository implements AddCardContract
     protected GoodDealResponseManager mGoodDealResponseManager;
 
     private CardService cardService;
-    private OrderService orderService;
 
     @AfterInject
     protected void initService() {
         cardService = rest.getCardService();
-        orderService = rest.getOrderService();
     }
 
-    @Override
-    public Observable<Card> createCard(TokenRequest _tokenRequest, OrderRequest _orderRequest) {
-        return getNetworkObservable(cardService.createCard(_tokenRequest)
-                .flatMap(card -> {
-                    orderService.createOrder(_orderRequest)
-                            .subscribe(order -> {
-                                GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
-                                goodDealResponse.hasOrders = true;
-                                mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
-                            }, throwable -> {
-                                ToastManager.showToast("RecreateOrder errror");
-                            });
-                    return Observable.just(card);
-                }));
-    }
+//    @Override
+//    public Observable<Card> createCard(TokenRequest _tokenRequest) {
+//        return getNetworkObservable(cardService.createCard(_tokenRequest));
+//    }
 }

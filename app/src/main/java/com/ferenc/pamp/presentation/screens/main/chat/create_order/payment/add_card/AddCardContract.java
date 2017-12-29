@@ -33,7 +33,7 @@ public interface AddCardContract {
 
         void setCVV(String _cvv);
 
-        void openSetNewCardScreen(String _cardType, String _last4);
+        void openSetNewCardScreen(String _cardType, String _last4, String _token, int _quantity);
 
         void getTokenWithStripe(BankCard _bankCard);
     }
@@ -53,16 +53,8 @@ public interface AddCardContract {
 
         void clickedValidate();
 
-        void createOrder(String _token);
+        void createCard(String _token, String _brand, String _last4);
 
-    }
-
-    interface CreateOrderModel extends BaseModel {
-        Observable<Order> createOrder(OrderRequest _orderRequest);
-    }
-
-    interface CreateCardModel extends BaseModel {
-        Observable<Card> createCard(TokenRequest _tokenRequest, OrderRequest _orderRequest);
     }
 
 }

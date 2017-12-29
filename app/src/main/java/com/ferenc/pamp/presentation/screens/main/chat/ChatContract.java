@@ -19,6 +19,8 @@ public interface ChatContract {
         void showParticipants();
 
         void setParticipants(String participants);
+
+        void hideSettings();
     }
 
     interface Presenter extends BasePresenter {

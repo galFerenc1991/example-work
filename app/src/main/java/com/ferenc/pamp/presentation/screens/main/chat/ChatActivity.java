@@ -106,6 +106,11 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
                 .subscribe(o -> mPresenter.clickedParticipants());
     }
 
+    @Override
+    public void hideSettings() {
+        ivSettings.setVisibility(View.INVISIBLE);
+    }
+
     @AfterInject
     @Override
     public void initPresenter() {

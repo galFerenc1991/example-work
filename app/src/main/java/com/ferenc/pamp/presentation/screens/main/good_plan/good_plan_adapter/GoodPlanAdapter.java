@@ -77,6 +77,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
             });
         }
     }
+
     @RootContext
     protected Context context;
     @Bean
@@ -150,10 +151,11 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
             viewHolder.tvPlanStatus.setVisibility(View.GONE);
             viewHolder.tvTimeBeforeClosing.setVisibility(View.VISIBLE);
             viewHolder.tvTimeBeforeClosing.setText(goodDealResponse.state);
-        } else {
+        } else if (goodDealResponse.state.equals(Constants.STATE_CANCELED)) {
             viewHolder.tvPlanStatus.setVisibility(View.VISIBLE);
             viewHolder.tvTimeBeforeClosing.setVisibility(View.GONE);
             viewHolder.tvPlanStatus.setText(goodDealResponse.state);
+            viewHolder.tvPlanStatus.setTextColor(context.getResources().getColor(R.color.textColorRed));
         }
 
         if (mGoodPlanItemType == Constants.ITEM_TYPE_RE_BROADCAST) {
@@ -168,7 +170,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
             });
         }
 
-        viewHolder.rlRootLayout.setOnClickListener(view ->{
+        viewHolder.rlRootLayout.setOnClickListener(view -> {
                     mGoodDealManager.saveGoodDeal(getGoodDealFromItem(goodDealResponse));
                     mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                     ChatActivity_
@@ -177,7 +179,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
                             .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .start();
                 }
-             );
+        );
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         mItemManger.bindView(viewHolder.itemView, position);
