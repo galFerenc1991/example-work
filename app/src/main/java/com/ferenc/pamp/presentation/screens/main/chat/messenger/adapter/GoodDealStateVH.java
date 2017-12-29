@@ -41,8 +41,9 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
 
         Context context = data.getContext();
         MessageResponse messageResponse = data.getMessageResponse();
-        String deliveryStartDate = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryStartDate));
-
+        String deliveryStartDate = messageResponse.description != null
+                ? new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryStartDate))
+                : "";
         switch (messageResponse.code) {
             case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_date_msg));

@@ -78,7 +78,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".presentation.custom.EndFlowActivity_"
+            android:name=".presentation.custom.end_flow_screen.EndFlowActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".presentation.custom.end_flow_screen.EndFlowOrderActivity_"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait" />
 
@@ -112,6 +117,11 @@
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/DialogTheme.Settings" />
+        <activity
+            android:name=".presentation.screens.main.chat.create_order.create_order_pop_up.CreateOrderPopUpActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogTheme.Settings" />
 
         <activity
             android:name=".presentation.screens.main.chat.ChatActivity_"
@@ -125,6 +135,32 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
+        <activity
+            android:name=".presentation.screens.main.chat.create_order.payment.PaymentActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".presentation.custom.bank_card_inputs.BankCardNumberInputActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/InputTheme"
+            android:windowSoftInputMode="stateVisible" />
+
+        <activity
+            android:name=".presentation.custom.bank_card_inputs.BankCardExpirationInputActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/InputTheme"
+            android:windowSoftInputMode="stateVisible" />
+
+        <activity
+            android:name=".presentation.custom.bank_card_inputs.BankCardCVVInputActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/InputTheme"
+            android:windowSoftInputMode="stateVisible" />
 
         <activity
             android:name="com.facebook.FacebookActivity"

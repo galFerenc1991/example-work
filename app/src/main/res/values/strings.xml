@@ -28,6 +28,8 @@
     <string name="title_settings">Vous pouvez gérer automatiquement certains paramètres de votre bon plan :</string>
     <string name="title_participants_list">Les participants au bon plan</string>
     <string name="title_add_participants">Ajouter Des Destinataries</string>
+    <string name="title_payment">Paiement</string>
+    <string name="title_select_payment_information">Saisissez vos informations de paiement</string>
 
     <!--Buttons-->
     <string name="button_sign_in">S\'inscrire</string>
@@ -46,9 +48,11 @@
     <string name="button_next">suivant</string>
     <string name="button_share">Diffuser</string>
     <string name="button_order">COMMANDER</string>
+    <string name="button_change_order">MODIFIER VOTRE COMMANDE</string>
     <string name="button_save">Économiser</string>
     <string name="button_cancel_deal">Oui, j’annule</string>
     <string name="button_not_cancel_deal">Finalement, non</string>
+    <string name="button_add_payment">Ajouter un moyen de paiement</string>
 
 
     <!--Hints-->
@@ -74,6 +78,9 @@
     <string name="hint_good_plan_delivery_begin_date">Début</string>
     <string name="hint_good_plan_delivery_finish_date">Fin</string>
     <string name="hint_good_plan_delivery_select_place">Entrer un nouveau lieu de livraison</string>
+    <string name="hint_bank_card_number">Numéro de carte</string>
+    <string name="hint_bank_card_expiration_date">"Date d'expiration"</string>
+    <string name="hint_bank_cvv">CVV</string>
 
 
     <!--Error messages-->
@@ -172,7 +179,13 @@
         <item>SUN</item>
     </string-array>
 
-    <!--Texts-->
+    <!--End flow Texts-->
+    <string name="title_order_created">Vorte commande est validée</string>
+    <string name="title_order_created_subtitle">Vorte commandesera débité uniquement á la confirmation définitive.</string>
+    <string name="title_order_created_text">Retrouvez á tous moment vorte rácapitulatif de comande dans vorte " compte"</string>
+    <string name="title_order_canceled">Votre commande a été annulée</string>
+    <string name="title_order_canceled_subtitle">Votre compte ne sera pas débité</string>
+
 
     <!--Splash texts-->
     <string name="text_splash_title">Bienvenue sur</string>
@@ -241,4 +254,9 @@
     <string name="cancel_good_deal_pop_up_text">Un message sera envoyé à votre liste de diffusion… \nAucune commande ne pourra être passé, mais vous pourrez communiquer avec vos proches via la messagerie</string>
     <string name="button_ajouter">AJOUTER</string>
 
+
+    <!--BBankCardCard Input texts-->
+    <string name="text_card_number">Numéro de carte</string>
+    <string name="text_expiration_date">Date d’expiration</string>
+    <string name="text_cvv">CVV</string>
 </resources>

@@ -31,6 +31,7 @@
     <dimen name="ok_button_height">34dp</dimen>
 
     <!--Typography-->
+    <dimen name="text_size_very_big">30sp</dimen>
     <dimen name="text_size_tiny">10sp</dimen>
     <dimen name="text_size_very_small">12sp</dimen>
     <dimen name="text_size_small">14sp</dimen>

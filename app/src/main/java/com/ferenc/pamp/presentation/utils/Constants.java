@@ -13,6 +13,8 @@ import com.ferenc.pamp.R;
 public abstract class Constants {
 
     public static final int CLICK_DELAY = 600;
+    public static final int CLICK_DELAY_SMALL = 50;
+
 
     /*MULTIPART REQUEST CODES*/
     public static final String MEDIA_TYPE_IMG = "image/jpeg";
@@ -38,6 +40,11 @@ public abstract class Constants {
     public static final int REQUEST_CODE_GET_IMAGE = 301;
     public static final int REQUEST_CODE_CROP_IMAGE = 302;
     public static final int REQUEST_CODE_SETTINGS_ACTIVITY = 16;
+    public static final int REQUEST_CODE_CREATE_ORDER_POP_UP_ACTIVITY = 17;
+    public static final int REQUEST_CODE_ACTIVITY_CARD_NUMBER = 18;
+    public static final int REQUEST_CODE_ACTIVITY_EXPIRATION = 19;
+    public static final int REQUEST_CODE_ACTIVITY_CARD_CVV = 20;
+    public static final int REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY = 21;
 
 
     /*PERMISSIONS REQUEST CODES*/
@@ -56,6 +63,7 @@ public abstract class Constants {
     public static final String KEY_IS_REBROADCAST = "rebroadcast";
     public static final String KEY_SENDTO_SMS = "smsto: ";
     public static final String KEY_SMS_BODY = "sms_body";
+    public static final String KEY_PRODUCT_QUANTITY = "quantity";
 
     /*GOOD DEAL STATES*/
     public static final String STATE_CANCELED = "canceled";
