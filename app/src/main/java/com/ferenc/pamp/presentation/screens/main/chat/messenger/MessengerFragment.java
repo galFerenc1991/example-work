@@ -183,7 +183,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void openCreateOrderPopUp() {
-        CreateOrderPopUpActivity_.intent(this)
+        CreateOrderPopUpActivity_.intent(this).isSendOrderListFlow(false)
                 .startForResult(Constants.REQUEST_CODE_CREATE_ORDER_POP_UP_ACTIVITY);
     }
 
@@ -309,6 +309,10 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void addImage() {
         //TODO : init avatar manager(with CAMERA parameter);
+        SendOrderListActivity_
+                .intent(this)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .start();
     }
 
 //    @Override

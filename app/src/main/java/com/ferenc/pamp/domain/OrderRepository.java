@@ -1,6 +1,7 @@
 package com.ferenc.pamp.domain;
 
 import com.ferenc.pamp.data.api.Rest;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.model.home.orders.MessageOrderResponse;
 import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.home.orders.OrderRequest;

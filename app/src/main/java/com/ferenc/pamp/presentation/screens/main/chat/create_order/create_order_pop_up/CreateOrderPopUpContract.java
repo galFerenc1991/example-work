@@ -47,6 +47,8 @@ public interface CreateOrderPopUpContract {
     interface OrderModel {
         Observable<Order> getMyOrder(String _id);
 
+        Observable<Order> createOrder(OrderRequest _orderRequest);
+
         Observable<MessageOrderResponse> deleteOrder(String _orderId);
 
         Observable<MessageOrderResponse> updateOrder(String _orderId, OrderRequest _orderRequest);

@@ -61,7 +61,8 @@
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/textColorGreen"
                 android:fontFamily="sans-serif-medium"
-                android:textSize="@dimen/text_size_default"/>
+                android:textSize="@dimen/text_size_default"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="@dimen/default_producer_text_width"
