@@ -26,7 +26,6 @@ public class ChatPresenter implements ChatContract.Presenter {
     private GoodDealResponse mGoodDealResponse;
     private GoodDealResponseManager mGoodDealResponseManager;
     private CompositeDisposable mCompositeDisposable;
-    private GoodDealResponseManager mGoodDealResponseManager;
 
     public ChatPresenter(ChatContract.View _view, GoodDealManager _goodDealManager, GoodDealResponseManager _goodDealResponseManager) {
         this.mView = _view;

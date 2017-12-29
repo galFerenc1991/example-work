@@ -167,7 +167,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         if (resultCode == RESULT_OK) {
             switch (data.getStringExtra(Constants.KEY_SETTINGS)) {
                 case Constants.KEY_SEND_ORDERS:
-//                    mPresenter.sendOrders();
+                    mPresenter.sendOrders();
                 case Constants.KEY_CHANGE_CLOSE_DATE:
                     mPresenter.changeCloseDateAction();
                     break;
@@ -205,6 +205,14 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     public void openCreateOrderFlow(int _quantity) {
         PaymentActivity_.intent(this).extra(Constants.KEY_PRODUCT_QUANTITY, _quantity)
                 .startForResult(Constants.REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY);
+    }
+
+    @Override
+    public void openSendOrderListFlow() {
+        SendOrderListActivity_
+                .intent(this)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .start();
     }
 
     @OnActivityResult(Constants.REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY)
@@ -308,11 +316,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void addImage() {
-        //TODO : init avatar manager(with CAMERA parameter);
-        SendOrderListActivity_
-                .intent(this)
-                .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .start();
+
     }
 
     @Override

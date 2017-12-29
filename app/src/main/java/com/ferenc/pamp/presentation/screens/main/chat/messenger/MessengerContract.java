@@ -53,6 +53,8 @@ public interface MessengerContract {
         void openDeleteOrderScreen();
 
         void openCreateOrderFlow(int _quantity);
+
+        void openSendOrderListFlow();
     }
 
     interface Presenter extends RefreshablePresenter {
@@ -79,6 +81,8 @@ public interface MessengerContract {
         void clickedCreateOrder();
 
         void resultQuantity(int _quantity);
+
+        void sendOrders();
     }
 
     interface Model {
