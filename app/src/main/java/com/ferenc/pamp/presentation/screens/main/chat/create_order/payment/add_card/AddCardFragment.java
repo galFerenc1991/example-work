@@ -75,18 +75,13 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
     @ViewById(R.id.btnValidate_FAC)
     protected Button btnValidate;
 
-    @Bean
-    protected GoodDealResponseManager mGoodDealResponseManager;
-    @Bean
-    protected CardRepository mCardRepository;
-
     @FragmentArg
     protected int mQuantity;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new AddCardPresenter(this, mCardRepository, mGoodDealResponseManager, mQuantity);
+        new AddCardPresenter(this, mQuantity);
     }
 
     @AfterViews
@@ -163,9 +158,13 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
     }
 
     @Override
-    public void openSetNewCardScreen(String _cardType, String _last4) {
-        mActivity.replaceFragment(SaveCardFragment_.builder().mCardType(_cardType).mLast4(_last4).build());
-
+    public void openSetNewCardScreen(String _cardType, String _last4, String _token, int _quantity) {
+        mActivity.replaceFragment(SaveCardFragment_.builder()
+                .mCardType(_cardType)
+                .mLast4(_last4)
+                .mQuantity(_quantity)
+                .mStripeToken(_token)
+                .build());
     }
 
     @Override
@@ -183,8 +182,14 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
             @Override
             public void onSuccess(Token token) {
                 hideProgress();
-                mPresenter.createOrder(token.getId());
+                mPresenter.createCard(token.getId(), token.getCard().getBrand(), token.getCard().getLast4());
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.unsubscribe();
     }
 }

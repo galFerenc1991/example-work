@@ -8,7 +8,10 @@ import com.ferenc.pamp.data.model.home.orders.OrderRequest;
 import com.ferenc.pamp.data.service.OrderService;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_pop_up.CreateOrderPopUpContract;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.add_card.AddCardContract;
+import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.save_card.SaveCardContract;
+import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.select_card.SelectCardContract;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerContract;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
@@ -22,10 +25,13 @@ import io.reactivex.Observable;
  */
 
 @EBean(scope = EBean.Scope.Singleton)
-public class OrderRepository extends NetworkRepository implements CreateOrderPopUpContract.OrderModel, AddCardContract.CreateOrderModel {
+public class OrderRepository extends NetworkRepository implements CreateOrderPopUpContract.OrderModel, SaveCardContract.Model, SelectCardContract.CreateOrderModel {
 
     @Bean
     protected Rest rest;
+
+    @Bean
+    protected GoodDealResponseManager mGoodDealResponseManager;
 
     private OrderService orderService;
 
@@ -41,7 +47,13 @@ public class OrderRepository extends NetworkRepository implements CreateOrderPop
 
     @Override
     public Observable<Order> createOrder(OrderRequest _orderRequest) {
-        return getNetworkObservable(orderService.createOrder(_orderRequest));
+        return getNetworkObservable(orderService.createOrder(_orderRequest)
+                .flatMap(order -> {
+                    GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
+                    goodDealResponse.hasOrders = true;
+                    mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
+                    return Observable.just(order);
+                }));
     }
 
     @Override

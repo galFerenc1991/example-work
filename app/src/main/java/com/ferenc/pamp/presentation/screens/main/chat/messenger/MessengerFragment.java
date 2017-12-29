@@ -315,9 +315,9 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
                 .start();
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        mPresenter.unsubscribe();
-//    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.unsubscribe();
+    }
 }

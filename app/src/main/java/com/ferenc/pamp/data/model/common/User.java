@@ -24,60 +24,15 @@ public class User implements Parcelable {
     private String firstName;
     private String token;
     private String avatar;
-    private String type;
+    private Card card;
 
     public User() {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.updatedTime);
-        dest.writeString(this.createdTime);
-        dest.writeString(this.email);
-        dest.writeString(this.country);
-        dest.writeString(this.lastName);
-        dest.writeString(this.firstName);
-        dest.writeString(this.token);
-        dest.writeString(this.avatar);
-        dest.writeString(this.type);
-    }
-
-    protected User(Parcel in) {
-        this.id = in.readString();
-        this.updatedTime = in.readString();
-        this.createdTime = in.readString();
-        this.email = in.readString();
-        this.country = in.readString();
-        this.lastName = in.readString();
-        this.firstName = in.readString();
-        this.token = in.readString();
-        this.avatar = in.readString();
-        this.type = in.readString();
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel source) {
-            return new User(source);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
-
     public String getId() {
         return id;
     }
-
 
 
     public String getUpdatedTime() {
@@ -120,11 +75,17 @@ public class User implements Parcelable {
         return RestConst.BASE_URL + "/" + avatar;
     }
 
-    public String getType() {
-        return type;
+    public Card getCard() {
+        return card;
     }
 
-    public void setId(String _id) {this.id = _id;}
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
+    public void setId(String _id) {
+        this.id = _id;
+    }
 
     public void setFirstName(String _firstName) {
         this.firstName = _firstName;
@@ -137,4 +98,48 @@ public class User implements Parcelable {
     public void setAvatar(String _avatar) {
         this.avatar = _avatar;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.updatedTime);
+        dest.writeString(this.createdTime);
+        dest.writeString(this.email);
+        dest.writeString(this.country);
+        dest.writeString(this.lastName);
+        dest.writeString(this.firstName);
+        dest.writeString(this.token);
+        dest.writeString(this.avatar);
+        dest.writeParcelable(this.card, flags);
+    }
+
+    protected User(Parcel in) {
+        this.id = in.readString();
+        this.updatedTime = in.readString();
+        this.createdTime = in.readString();
+        this.email = in.readString();
+        this.country = in.readString();
+        this.lastName = in.readString();
+        this.firstName = in.readString();
+        this.token = in.readString();
+        this.avatar = in.readString();
+        this.card = in.readParcelable(Card.class.getClassLoader());
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

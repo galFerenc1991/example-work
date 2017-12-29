@@ -8,10 +8,12 @@ import android.os.Parcelable;
  * Ferenc on 2017.12.22..
  */
 
-public class OrderRequest implements Parcelable{
+public class OrderRequest implements Parcelable {
 
     private String dealId;
     private int quantity;
+    private boolean cardSave;
+    private String cardToken;
 
     public static class Builder {
 
@@ -31,6 +33,16 @@ public class OrderRequest implements Parcelable{
             return this;
         }
 
+        public Builder setCardSave(boolean _cardSave) {
+            orderRequest.cardSave = _cardSave;
+            return this;
+        }
+
+        public Builder setCardToken(String _cardToken) {
+            orderRequest.cardToken = _cardToken;
+            return this;
+        }
+
         public OrderRequest build() {
             return orderRequest;
         }
@@ -47,6 +59,8 @@ public class OrderRequest implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.dealId);
         dest.writeInt(this.quantity);
+        dest.writeByte(this.cardSave ? (byte) 1 : (byte) 0);
+        dest.writeString(this.cardToken);
     }
 
     public OrderRequest() {
@@ -55,6 +69,8 @@ public class OrderRequest implements Parcelable{
     protected OrderRequest(Parcel in) {
         this.dealId = in.readString();
         this.quantity = in.readInt();
+        this.cardSave = in.readByte() != 0;
+        this.cardToken = in.readString();
     }
 
     public static final Creator<OrderRequest> CREATOR = new Creator<OrderRequest>() {

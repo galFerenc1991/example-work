@@ -69,7 +69,7 @@ public abstract class Constants {
     public static final String STATE_CANCELED = "canceled";
     public static final String STATE_CLOSED = "closed";
     public static final String STATE_PROGRESS = "progress";
-    public static final String STATE_CONFIRM = "confirm";
+    public static final String STATE_CONFIRM = "confirmed";
 
 
     /*ACTION KEYS*/

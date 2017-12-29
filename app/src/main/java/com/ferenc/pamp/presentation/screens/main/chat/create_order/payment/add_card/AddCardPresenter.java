@@ -19,9 +19,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class AddCardPresenter implements AddCardContract.Presenter {
 
     private AddCardContract.View mView;
-    private AddCardContract.CreateCardModel mCreateCardModel;
     private CompositeDisposable mCompositeDisposable;
-    private GoodDealResponseManager mGoodDealResponseManager;
     private String mCardNumber;
     private String mCardExpirationDate;
     private int mCardExpMonth;
@@ -29,10 +27,8 @@ public class AddCardPresenter implements AddCardContract.Presenter {
     private String mCardCVV;
     private int mQuantity;
 
-    public AddCardPresenter(AddCardContract.View _view, AddCardContract.CreateCardModel _model, GoodDealResponseManager _goodDealResponseManager, int _quantity) {
+    public AddCardPresenter(AddCardContract.View _view, int _quantity) {
         this.mView = _view;
-        this.mCreateCardModel = _model;
-        this.mGoodDealResponseManager = _goodDealResponseManager;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mQuantity = _quantity;
 
@@ -95,25 +91,13 @@ public class AddCardPresenter implements AddCardContract.Presenter {
     }
 
     @Override
-    public void createOrder(String _token) {
-        mView.showProgressMain();
-        mCompositeDisposable.add(mCreateCardModel.createCard(new TokenRequest(_token), new OrderRequest.Builder()
-                .setDealId(mGoodDealResponseManager.getGoodDealResponse().id)
-                .setQuantity(mQuantity)
-                .build())
-                .subscribe(card -> {
-                    mView.hideProgress();
-                    GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
-                    goodDealResponse.hasOrders = true;
-                    mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
-                    mView.openSetNewCardScreen(card.getBrand(), "****" + card.getLast4());
-                }, throwable -> {
-                    ToastManager.showToast("Error ");
-                }));
+    public void createCard(String _token, String _brand, String _last4) {
+        mView.openSetNewCardScreen(_brand, "****" + _last4, _token, mQuantity);
+
     }
 
     @Override
     public void unsubscribe() {
-
+        mCompositeDisposable.clear();
     }
 }
