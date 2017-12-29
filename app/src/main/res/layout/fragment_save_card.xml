@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_double"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/AuthEditTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/title_select_payment_information" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_triple"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tvCardNumber_FSC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_triple"
+                android:drawablePadding="@dimen/margin_default"
+                android:drawableStart="@drawable/ic_visa"
+                android:text="card"
+                android:textColor="@color/textColorGray"
+                android:textSize="@dimen/text_size_big" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/switchSaveCard_FSC"
+                    android:text="Enrtegister vorte moyen de paiement pour les prochaines fois"
+                    android:textColor="@color/textColorGray"
+                    android:textSize="@dimen/text_size_small" />
+
+                <Switch
+                    android:id="@+id/switchSaveCard_FSC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="@dimen/padding_double" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_triple"
+            android:layout_marginStart="@dimen/margin_triple"
+            android:layout_marginTop="@dimen/margin_triple"
+            android:gravity="center_horizontal"
+            android:text="Vos informations de paiement sont sauvegardées en toute sécurité"
+            android:textSize="10dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnValidate_FSC"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/ok_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:background="@drawable/bg_confirm_button"
+        android:paddingEnd="@dimen/padding_double"
+        android:paddingStart="@dimen/padding_double"
+        android:text="@string/button_confirm" />
+
+</RelativeLayout>

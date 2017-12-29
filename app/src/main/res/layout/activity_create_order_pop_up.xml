@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvProductName_ACOPU"
+            style="@style/CreateOrderPopUpProductNameTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Entre-Delux-Mer" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/CreateOrderPopUpProductDescriptionTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="L’unité :" />
+
+            <TextView
+                android:id="@+id/tvPriceDescription_ACOPU"
+                style="@style/CreateOrderPopUpProductDescriptionTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_default_height">
+
+            <ImageView
+                android:id="@+id/ivRemoveQuantity_ACOPU"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/margin_default"
+                android:layout_toStartOf="@+id/tvQuantity_ACOPU"
+                android:padding="@dimen/margin_quart"
+                android:src="@drawable/ic_remove_circle_green" />
+
+            <TextView
+                android:id="@+id/tvQuantity_ACOPU"
+                style="@style/CreateOrderQuantityTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="0" />
+
+            <ImageView
+                android:id="@+id/ivAddQuantity_ACOPU"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/margin_default"
+                android:layout_toEndOf="@+id/tvQuantity_ACOPU"
+                android:padding="@dimen/margin_quart"
+                android:src="@drawable/ic_add_circle_green" />
+
+            <TextView
+                android:id="@+id/tvDeleteOrder_ACOPU"
+                style="@style/ErrorAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_default"
+                android:text="En cliquant sur OK, vorte commande sera annulée"
+                android:textColor="@color/textColorRed"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/CancelDialPopUpTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prix TTC :"/>
+
+            <TextView
+                android:id="@+id/tvPrice_ACOPU"
+                style="@style/CancelDialPopUpTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_half"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/CancelDialPopUpTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/CancelDialPopUpTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Frais PAMP (4,25% + 0,75€) : 3,78 € " />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/CreateOrderPopUpProductNameTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TOTAL :" />
+
+            <TextView
+                android:id="@+id/tvTotalPrice_ACOPU"
+                style="@style/CreateOrderPopUpProductNameTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_default_height">
+
+            <Button
+                android:id="@+id/btnOk_ACOPU"
+                style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/margin_half"
+                android:text="@string/button_ok" />
+
+            <Button
+                android:id="@+id/btnCancel_ACOPU"
+                style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/btnOk_ACOPU"
+                android:layout_toStartOf="@id/btnOk_ACOPU"
+                android:text="@string/button_cancel" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlProgress_ACOPU"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/colorWhite"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

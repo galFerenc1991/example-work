@@ -3,15 +3,14 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.domain.SocketRepository;
 import com.ferenc.pamp.presentation.utils.Constants;
-import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
@@ -26,6 +25,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 
 /**
@@ -39,6 +39,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     private MessengerContract.SocketModel mSocketModel;
     private MessengerContract.GoodDealModel mGoodDealModel;
     private CompositeDisposable mCompositeDisposable;
+    private GoodDealResponseManager mGoodDealResponseManager;
 
     private int mPage;
     private int mTotalPages = Integer.MAX_VALUE;
@@ -64,16 +65,42 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         this.mContext = _context;
         this.mSocketModel = _socketRepository;
         this.mGoodDealResponse = _goodDealResponseManager.getGoodDealResponse();
+        this.mGoodDealResponseManager = _goodDealResponseManager;
 
         mView.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
+        initCreateOrderButton();
+        connectSocket();
+        getMessage();
 
-        mCompositeDisposable.add(mSocketModel.connectSocket(mSignedUserManager.getCurrentUser().getToken(), mGoodDealResponse.id)
-                .subscribe( aVoid -> {} ));
+        loadData(mPage, false);
+    }
 
+    @Override
+    public void initCreateOrderButton() {
+        GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
+        if (!goodDealResponse.owner.getId().equals(mSignedUserManager.getCurrentUser().getId())
+                && goodDealResponse.state.equals(Constants.STATE_PROGRESS)) {
+            if (goodDealResponse.hasOrders) {
+                mView.initCreateOrderButton(true);
+            } else mView.initCreateOrderButton(false);
+        }
+    }
+
+    private void connectSocket() {
+        mCompositeDisposable.add(
+                mSocketModel
+                        .connectSocket(
+                                mSignedUserManager.getCurrentUser().getToken(),
+                                mGoodDealResponse.id)
+                        .subscribe()
+        );
+    }
+
+    private void getMessage() {
         mCompositeDisposable.add(mSocketModel.getNewMessage()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -81,13 +108,9 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                     Log.d("SocketIO", "New message is here: " + messageResponse.text);
                     mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
                     mView.addItem(mMessagesDH);
-
                 }, throwable -> {
                     Log.d("MessengerPresenter", "Error while getting new message " + throwable.getMessage());
                 }));
-
-        loadData(mPage,false);
-
     }
 
     private void loadData(int _page, boolean isLoadMoreList) {
@@ -161,6 +184,12 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         if (throwable instanceof ConnectionLostException) {
             ToastManager.showToast(R.string.err_msg_connection_problem);
 //            mView.showErrorMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+        } else if (throwable instanceof HttpException) {
+            HttpException e = (HttpException) throwable;
+            switch (e.code()) {
+                case 204:
+//                    mView.hideCreateOrderProgress(false);
+            }
         } else {
             ToastManager.showToast(R.string.err_msg_something_goes_wrong);
 //            mView.showErrorMessage(Constants.MessageType.UNKNOWN);
@@ -196,7 +225,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
             mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, Constants.DEFAULT_MSG_GROUP_TYPE));
 
             mCompositeDisposable.add(mSocketModel.sendMessage(mSignedUserManager.getCurrentUser().getToken(), mGoodDealResponse.id, messageText)
-                    .subscribe( aVoid -> {} ));
+                    .subscribe(aVoid -> {
+                    }));
 
             mView.addItem(mMessagesDH);
 
@@ -239,10 +269,25 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     }
 
     @Override
-    public void unsubscribe() {
-        mCompositeDisposable.add(mSocketModel.disconnectSocket()
-                .subscribe( aVoid -> {} ));
+    public void clickedCreateOrder() {
+        mView.openCreateOrderPopUp();
+    }
 
+    @Override
+    public void resultQuantity(int _quantity) {
+        if (_quantity == 0) mView.openDeleteOrderScreen();
+        else if (!mGoodDealResponseManager.getGoodDealResponse().hasOrders)
+            mView.openCreateOrderFlow(_quantity);
+    }
+
+    private void disconnectSocket() {
+        mSocketModel.disconnectSocket()
+                .subscribe();
+    }
+
+    @Override
+    public void unsubscribe() {
+        disconnectSocket();
         mCompositeDisposable.clear();
     }
 }

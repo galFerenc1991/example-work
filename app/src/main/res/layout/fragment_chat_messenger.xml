@@ -4,35 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <!--tools:listitem="@layout/item_message_default"-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvMessages_FChM"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <View
         android:id="@+id/shadow"
         android:layout_width="match_parent"
         android:layout_height="@dimen/shadow_height"
-        android:layout_above="@+id/rlMsgInputBlock_FChM"
         android:background="@drawable/shadow_reverted" />
 
-    <Button
-        android:id="@+id/btnOrder_FCM"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/confirm_button_height"
-        android:layout_marginBottom="@dimen/margin_half"
-        android:layout_marginTop="@dimen/margin_half"
-        android:background="@drawable/bg_confirm_button"
-        android:paddingEnd="@dimen/padding_double"
-        android:paddingStart="@dimen/padding_double"
-        android:text="@string/button_order"
-        android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btnOrder_FCM"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/confirm_button_height"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:layout_marginTop="@dimen/margin_half"
+            android:visibility="gone"
+            android:background="@drawable/bg_confirm_button"
+            android:paddingEnd="@dimen/padding_double"
+            android:paddingStart="@dimen/padding_double"
+            android:textAllCaps="false" />
 
     <RelativeLayout
         android:id="@+id/rlMsgInputBlock_FChM"
@@ -84,7 +84,5 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
-
 
 </LinearLayout>

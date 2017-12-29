@@ -21,7 +21,10 @@ import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshableFragment;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
-import com.ferenc.pamp.presentation.custom.EndFlowActivity_;
+import com.ferenc.pamp.presentation.custom.end_flow_screen.EndFlowActivity_;
+import com.ferenc.pamp.presentation.custom.end_flow_screen.EndFlowOrderActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_pop_up.CreateOrderPopUpActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.PaymentActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessengerAdapter;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.SendOrderListActivity_;
@@ -37,7 +40,6 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
@@ -55,29 +57,37 @@ import static android.app.Activity.RESULT_OK;
  */
 @EFragment
 public class MessengerFragment extends RefreshableFragment implements MessengerContract.View {
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_chat_messenger;
+    }
 
-    @Bean
-    protected MessengerAdapter mMessengerAdapter;
+    @Override
+    protected RefreshablePresenter getPresenter() {
+        return mPresenter;
+    }
 
-    @Bean
-    protected ChatRepository mChatRepository;
-
-    @Bean
-    protected GoodDealRepository mGoodDealRepository;
-
-    @Bean
-    protected GoodDealResponseManager mGoodDealResponseManager;
-
-    @Bean
-    protected SocketRepository mSocketRepository;
-
-    @Bean
-    protected SignedUserManager signedUserManager;
-
+    @Override
+    public void setPresenter(MessengerContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
 
     private MessengerContract.Presenter mPresenter;
 
     protected EndlessScrollListener mScrollListener;
+
+    @Bean
+    protected MessengerAdapter mMessengerAdapter;
+    @Bean
+    protected ChatRepository mChatRepository;
+    @Bean
+    protected GoodDealRepository mGoodDealRepository;
+    @Bean
+    protected GoodDealResponseManager mGoodDealResponseManager;
+    @Bean
+    protected SocketRepository mSocketRepository;
+    @Bean
+    protected SignedUserManager signedUserManager;
 
     @ViewById(R.id.rvMessages_FChM)
     protected RecyclerView rvMessages;
@@ -97,21 +107,19 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     protected String mCancelDeal;
     @StringRes(R.string.button_not_cancel_deal)
     protected String mNotCancelDeal;
+    @StringRes(R.string.button_order)
+    protected String mButtonOrderText;
+    @StringRes(R.string.button_change_order)
+    protected String mButtonChangeOrderText;
 
-    @Override
-    protected int getLayoutRes() {
-        return R.layout.fragment_chat_messenger;
-    }
-
-    @Override
-    protected RefreshablePresenter getPresenter() {
-        return mPresenter;
-    }
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new MessengerPresenter(this, mChatRepository, mGoodDealRepository, mSocketRepository, signedUserManager, PampApp_.getInstance(), mGoodDealResponseManager);
+        new MessengerPresenter(this,
+                mChatRepository, mGoodDealRepository,
+                mSocketRepository, signedUserManager,
+                PampApp_.getInstance(), mGoodDealResponseManager);
     }
 
     @AfterViews
@@ -132,7 +140,9 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
         RxView.clicks(btnOrder)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> { SendOrderListActivity_.intent(getContext()).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start(); });
+                .subscribe(o -> {
+                    mPresenter.clickedCreateOrder();
+                });
 
         RxView.clicks(ivAddImg)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
@@ -142,6 +152,14 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.sendMessage(etInputText.getText().toString().trim()));
 
+    }
+
+    @Override
+    public void initCreateOrderButton(boolean _isHaveOrder) {
+        btnOrder.setVisibility(View.VISIBLE);
+        if (_isHaveOrder) {
+            btnOrder.setText(mButtonChangeOrderText);
+        } else btnOrder.setText(mButtonOrderText);
     }
 
     @OnActivityResult(Constants.REQUEST_CODE_SETTINGS_ACTIVITY)
@@ -160,6 +178,41 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
                     mPresenter.cancelDealAction();
                     break;
             }
+        }
+    }
+
+    @Override
+    public void openCreateOrderPopUp() {
+        CreateOrderPopUpActivity_.intent(this)
+                .startForResult(Constants.REQUEST_CODE_CREATE_ORDER_POP_UP_ACTIVITY);
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_CREATE_ORDER_POP_UP_ACTIVITY)
+    protected void createOrderResult(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            mPresenter.initCreateOrderButton();
+            mPresenter.resultQuantity(data.getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1));
+        }
+    }
+
+    @Override
+    public void openDeleteOrderScreen() {
+        EndFlowOrderActivity_.intent(this).mIsCreatedFlow(false).start();
+//        mActivity.replaceFragment(EndFlowFragment_.builder().mIsCreatedFlow(false).build());
+    }
+
+    @Override
+    public void openCreateOrderFlow(int _quantity) {
+        PaymentActivity_.intent(this).extra(Constants.KEY_PRODUCT_QUANTITY, _quantity)
+                .startForResult(Constants.REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY);
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY)
+    protected void createOrderFlowResult(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            mPresenter.initCreateOrderButton();
+            EndFlowOrderActivity_.intent(this).mIsCreatedFlow(true).start();
+//            mPresenter.resultQuantity(data.getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1));
         }
     }
 
@@ -223,12 +276,6 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
     }
-
-    @Override
-    public void setPresenter(MessengerContract.Presenter presenter) {
-        mPresenter = presenter;
-    }
-
 
     @Override
     public void openMessengerFragment() {

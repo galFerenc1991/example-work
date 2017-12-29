@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorWhite"
+        android:minHeight="@dimen/item_default_height">
+
+        <TextView
+            android:id="@+id/tvInputTitle_ABCII"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_default"
+            android:text="@string/text_card_number" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvInputTitle_ABCII"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etFirst_ABCII"
+                style="@style/CreateOrderPopUpProductNameTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_weight="1"
+                android:drawableBottom="@drawable/bg_et_bottom_line"
+                android:focusable="true"
+                android:imeOptions="flagNavigateNext"
+                android:inputType="number"
+                android:maxLength="4"
+                android:paddingBottom="@dimen/margin_default"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/etSecond_ABCII"
+                style="@style/CreateOrderPopUpProductNameTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_weight="1"
+                android:drawableBottom="@drawable/bg_et_bottom_line"
+                android:imeOptions="flagNavigateNext"
+                android:inputType="number"
+                android:maxLength="4"
+                android:paddingBottom="@dimen/margin_default"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/etThird_ABCII"
+                style="@style/CreateOrderPopUpProductNameTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_weight="1"
+                android:drawableBottom="@drawable/bg_et_bottom_line"
+                android:imeOptions="flagNavigateNext"
+                android:inputType="number"
+                android:maxLength="4"
+                android:paddingBottom="@dimen/margin_default"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/etFourth_ABCII"
+                style="@style/CreateOrderPopUpProductNameTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_weight="1"
+                android:drawableBottom="@drawable/bg_et_bottom_line"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="4"
+                android:paddingBottom="@dimen/margin_default"
+                android:singleLine="true" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
