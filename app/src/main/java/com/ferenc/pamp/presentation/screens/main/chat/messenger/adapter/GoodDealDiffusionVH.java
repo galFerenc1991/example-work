@@ -124,6 +124,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
             intent.putExtra(CalendarContract.Events.EVENT_LOCATION, goodDealResponse.deliveryAddress);
 //            intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
 
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
 
@@ -133,6 +134,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
 
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
+            mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
                 context.startActivity(mapIntent);
             }

@@ -23,12 +23,14 @@ public class ChatPresenter implements ChatContract.Presenter {
     private GoodDealManager mGoodDealManager;
     private GoodDealResponse mGoodDealResponse;
     private CompositeDisposable mCompositeDisposable;
+    private GoodDealResponseManager mGoodDealResponseManager;
 
     public ChatPresenter(ChatContract.View _view, GoodDealManager _goodDealManager, GoodDealResponseManager _goodDealResponseManager) {
         this.mView = _view;
         this.mGoodDealManager = _goodDealManager;
         this.mGoodDealResponse = _goodDealResponseManager.getGoodDealResponse();
         this.mCompositeDisposable = new CompositeDisposable();
+        this.mGoodDealResponseManager = _goodDealResponseManager;
 
         mView.setPresenter(this);
     }
@@ -77,6 +79,9 @@ public class ChatPresenter implements ChatContract.Presenter {
 
     @Override
     public void unsubscribe() {
+        mGoodDealManager.clearGoodDeal();
+        mGoodDealResponseManager.clearGoodDealResponse();
         mCompositeDisposable.clear();
+
     }
 }

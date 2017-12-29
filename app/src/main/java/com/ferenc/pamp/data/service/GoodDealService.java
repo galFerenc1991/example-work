@@ -38,4 +38,7 @@ public interface GoodDealService {
 
     @POST("/deal/{id}/resend")
     Observable<GoodDealResponse> resendGoodDeal(@Path("id") String _id, @Body GoodDealRequest request);
+
+    @PUT("/deal/{id}")
+    Observable<GoodDealResponse> updateGoodDeal(@Path("id") String _id, @Body GoodDealRequest request);
 }

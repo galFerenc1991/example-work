@@ -24,6 +24,7 @@ import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.custom.EndFlowActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessengerAdapter;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.SendOrderListActivity_;
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_date.DeliveryDateActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.DateManager;
@@ -131,7 +132,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
         RxView.clicks(btnOrder)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> {});
+                .subscribe(o -> { SendOrderListActivity_.intent(getContext()).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start(); });
 
         RxView.clicks(ivAddImg)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)

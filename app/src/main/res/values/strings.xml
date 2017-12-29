@@ -28,6 +28,7 @@
     <string name="title_settings">Vous pouvez gérer automatiquement certains paramètres de votre bon plan :</string>
     <string name="title_participants_list">Les participants au bon plan</string>
     <string name="title_add_participants">Ajouter Des Destinataries</string>
+    <string name="title_send_order_list">Envoyer Votre Liste de Commande au Producteur</string>
 
     <!--Buttons-->
     <string name="button_sign_in">S\'inscrire</string>
@@ -224,7 +225,7 @@
 
     <string name="text_change_date">Changement date de livraison:</string>
     <string name="text_change_closing_date">Changement date de clôture du bon plan:</string>
-    <string name="text_closing_date">Attention plus qu`i jour avant la clôture du bon plan:</string>
+    <string name="text_closing_date">Attention plus qu`i jour avant la clôture du bon plan</string>
     <string name="text_delivery_date">Noubliez pas derecuperer votre bon plan</string>
     <string name="text_name_a_change">a change:</string>
     <string name="type_a_message">Type a message..</string>
@@ -240,5 +241,10 @@
     <string name="cancel_good_deal_pop_up_title">Vous voulez annuler votre bon plan ?</string>
     <string name="cancel_good_deal_pop_up_text">Un message sera envoyé à votre liste de diffusion… \nAucune commande ne pourra être passé, mais vous pourrez communiquer avec vos proches via la messagerie</string>
     <string name="button_ajouter">AJOUTER</string>
+    <string name="send_order_list_header_text"><![CDATA[Utilisez cette fonctionalité qui vous permet de : \n\n > lui envoyer directement la commande et gagner du temps \n\n> gérer votre bon plan à distance et se faire livrer]]></string>
+    <string name="send_order_list_commander_header_text">N’oubliez pas d’inscrire aussi votre propre commande :</string>
+    <string name="send_order_list_commander_footer_text">Votre commande sera enregistrée à la liste des commandes mais aucune transaction ne sera effectuée</string>
+    <string name="send_order_list_producer_header_text">Enregistrez les coordonnées de votre producteur :</string>
+    <string name="send_order_list_producer">Producteur</string>
 
 </resources>

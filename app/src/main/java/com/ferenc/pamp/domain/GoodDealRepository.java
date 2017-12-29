@@ -95,4 +95,9 @@ public class GoodDealRepository extends NetworkRepository implements ShareContra
     public Observable<GoodDealCancelResponse> cancelGoodDeal(String _id) {
         return getNetworkObservable(goodDealService.cancelGoodDeal(_id));
     }
+
+    @Override
+    public Observable<GoodDealResponse> updateGoodDeal(String _id, GoodDealRequest request) {
+        return getNetworkObservable(goodDealService.updateGoodDeal(_id, request));
+    }
 }

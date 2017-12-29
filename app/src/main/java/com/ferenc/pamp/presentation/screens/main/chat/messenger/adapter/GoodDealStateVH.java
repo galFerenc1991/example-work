@@ -41,48 +41,26 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
 
         Context context = data.getContext();
         MessageResponse messageResponse = data.getMessageResponse();
-        String deliveryStartDate = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryStartDate));
+        String deliveryStartDate = messageResponse.description != null
+                ? new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryStartDate))
+                : "";
 
         switch (messageResponse.code) {
             case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_date_msg));
-                tvStateDescription.setText(
-                        messageResponse.description != null
-                                ? context.getString(R.string.text_change_date)
-                                + "\n"
-                                + deliveryStartDate
-                                : context.getString(R.string.text_change_date)
-                );
+                tvStateDescription.setText(context.getString(R.string.text_change_date) + "\n" + deliveryStartDate);
                 break;
             case Constants.M12_DELIVERY_DATE:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_date_msg));
-                tvStateDescription.setText(
-                        messageResponse.description != null
-                                ? context.getString(R.string.text_delivery_date)
-                                + "\n"
-                                + deliveryStartDate
-                                : context.getString(R.string.text_delivery_date)
-                );
+                tvStateDescription.setText(context.getString(R.string.text_delivery_date) + "\n" + deliveryStartDate);
                 break;
             case Constants.M6_GOOD_DEAL_CLOSING_DATE_CHANGED:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_hourglass_msg));
-                tvStateDescription.setText(
-                        messageResponse.description != null
-                                ? context.getString(R.string.text_change_closing_date)
-                                + "\n"
-                                + deliveryStartDate
-                                : context.getString(R.string.text_change_closing_date)
-                );
+                tvStateDescription.setText(context.getString(R.string.text_change_closing_date) + "\n" + deliveryStartDate);
                 break;
             case Constants.M9_CLOSING_DATE:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_hourglass_msg));
-                tvStateDescription.setText(
-                        messageResponse.description != null
-                                ? context.getString(R.string.text_closing_date)
-                                + "\n"
-                                + deliveryStartDate
-                                : context.getString(R.string.text_closing_date)
-                );
+                tvStateDescription.setText(context.getString(R.string.text_closing_date));
                 break;
         }
     }
