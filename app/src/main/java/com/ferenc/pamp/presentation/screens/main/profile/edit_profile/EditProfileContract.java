@@ -1,7 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.profile.edit_profile;
 
 import com.ferenc.pamp.data.model.common.User;
-import com.ferenc.pamp.data.model.common.UserUpdateRequest;
 import com.ferenc.pamp.presentation.base.BaseModel;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.BaseView;
@@ -9,8 +8,11 @@ import com.ferenc.pamp.presentation.base.BaseView;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 
 /**
@@ -50,6 +52,8 @@ public interface EditProfileContract {
         boolean isCameraPermissionNotGranted();
 
         void checkCameraPermission();
+
+        void finishActivity();
     }
 
     interface Presenter extends BasePresenter {
@@ -74,6 +78,6 @@ public interface EditProfileContract {
     }
 
     interface Model extends BaseModel {
-        Observable<User> updateUser(UserUpdateRequest _user);
+        Observable<User> updateUser(Map<String, RequestBody> userBody, MultipartBody.Part avatar);
     }
 }

@@ -5,12 +5,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telephony.SmsManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +23,7 @@ import com.ferenc.pamp.presentation.custom.end_flow_screen.EndFlowActivity_;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.ContactManager;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -79,6 +79,8 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     protected ContactAdapter mContactAdapter;
     @Bean
     protected GoodDealManager mGoodDealManager;
+    @Bean
+    protected ContactManager mContactManager;
 
     @FragmentArg
     protected boolean isReBroadcastFlow;
@@ -86,7 +88,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     @AfterInject
     @Override
     public void initPresenter() {
-        new SharePresenter(this, mGoodDealRepository, mGoodDealManager, isReBroadcastFlow);
+        new SharePresenter(this, mGoodDealRepository, mGoodDealManager, isReBroadcastFlow, mContactManager);
 
         mContactAdapter.setOnCardClickListener((view, position, viewType) ->
                 mPresenter.selectItem(mContactAdapter.getItem(position), position));
@@ -119,7 +121,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
         ArrayList<String> selectedContacts = new ArrayList<>(_selectedContacts);
         mGoodDealResponse = _goodDealResponse;
 
-        Uri uri = Uri.parse(Constants.KEY_SENDTO_SMS + selectedContacts);
+        Uri uri = Uri.parse(Constants.KEY_SENDTO_SMS + TextUtils.join(", ", selectedContacts));
         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
         it.putExtra(Constants.KEY_SMS_BODY, R.string.msg_send_good_deal + _dynamicLink.toString());
         startActivity(it);

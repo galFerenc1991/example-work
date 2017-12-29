@@ -6,7 +6,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvContactList_FSGP"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/default_button_height"
+        android:clipToPadding="false"/>
 
     <Button
         android:id="@+id/btnShare_FSGP"

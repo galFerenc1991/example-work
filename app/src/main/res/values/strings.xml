@@ -26,6 +26,8 @@
     <string name="title_good_deal_created">Bon plan envoyé</string>
     <string name="title_good_deal_canceled">Votre bon plan a été annulé</string>
     <string name="title_settings">Vous pouvez gérer automatiquement certains paramètres de votre bon plan :</string>
+    <string name="title_participants_list">Les participants au bon plan</string>
+    <string name="title_add_participants">Ajouter Des Destinataries</string>
     <string name="title_payment">Paiement</string>
     <string name="title_select_payment_information">Saisissez vos informations de paiement</string>
 
@@ -250,6 +252,7 @@
     <!--Cancel Good Deal PopUP-->
     <string name="cancel_good_deal_pop_up_title">Vous voulez annuler votre bon plan ?</string>
     <string name="cancel_good_deal_pop_up_text">Un message sera envoyé à votre liste de diffusion… \nAucune commande ne pourra être passé, mais vous pourrez communiquer avec vos proches via la messagerie</string>
+    <string name="button_ajouter">AJOUTER</string>
 
 
     <!--BBankCardCard Input texts-->

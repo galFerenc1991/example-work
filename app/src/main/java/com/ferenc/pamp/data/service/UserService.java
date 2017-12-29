@@ -1,14 +1,18 @@
 package com.ferenc.pamp.data.service;
 
 import com.ferenc.pamp.data.model.common.User;
-import com.ferenc.pamp.data.model.common.UserUpdateRequest;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
-import retrofit2.http.Body;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 
 /**
  * Created by
@@ -26,6 +30,11 @@ public interface UserService {
     @GET("/user")
     Observable<User> getUser();
 
+    @Multipart
     @PUT("/user")
-    Observable<User> updateUser(@Body UserUpdateRequest _user);
+    Observable<User> updateUser(@PartMap() Map<String, RequestBody> user);
+
+    @Multipart
+    @PUT("/user")
+    Observable<User> updateUser(@PartMap() Map<String, RequestBody> user, @Part MultipartBody.Part file);
 }

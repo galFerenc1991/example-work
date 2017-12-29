@@ -1,9 +1,14 @@
 package com.ferenc.pamp.presentation.screens.main.chat;
 
+import android.text.TextUtils;
+
+import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
+
+import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -56,8 +61,17 @@ public class ChatPresenter implements ChatContract.Presenter {
     }
 
     @Override
+    public void setParticipants() {
+        ArrayList<String> recipients = new ArrayList<>();
+        for (User user : mGoodDealResponse.recipients) {
+            recipients.add(user.getFirstName());
+        }
+        mView.setParticipants(TextUtils.join(", ", recipients));
+    }
+
+    @Override
     public void clickedParticipants() {
-        mView.ShowParticipants();
+        mView.showParticipants();
     }
 
 

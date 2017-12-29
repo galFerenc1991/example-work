@@ -1,16 +1,22 @@
 package com.ferenc.pamp.presentation.screens.main.profile.edit_profile;
 
 import com.ferenc.pamp.data.model.common.User;
-import com.ferenc.pamp.data.model.common.UserUpdateRequest;
+import com.ferenc.pamp.presentation.screens.main.profile.UserRelay;
+import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import io.reactivex.disposables.CompositeDisposable;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by
@@ -22,17 +28,21 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
     private EditProfileContract.View mView;
     private EditProfileContract.Model mModel;
     private SignedUserManager mUserManager;
+    private UserRelay mUserRelay;
     private CompositeDisposable mCompositeDisposable;
     private Calendar mBirthDate;
     private String mCountry;
     private File mAvatarFile;
 
+
     public EditProfilePresenter(EditProfileContract.View _view
             , EditProfileContract.Model _userRepository
-            , SignedUserManager _userManager) {
+            , SignedUserManager _userManager
+            , UserRelay _userRelay) {
         this.mView = _view;
         this.mModel = _userRepository;
         this.mUserManager = _userManager;
+        this.mUserRelay = _userRelay;
         this.mCompositeDisposable = new CompositeDisposable();
 
         mView.setPresenter(this);
@@ -59,6 +69,7 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
     public void saveAvatar(File _avatar) {
         mAvatarFile = _avatar;
         mView.setUserAvatar(_avatar);
+
     }
 
     @Override
@@ -101,16 +112,44 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
     @Override
     public void clickedSave(String _firstName, String _lastName, String _country) {
-        mCompositeDisposable.add(mModel.updateUser(new UserUpdateRequest(_firstName, _lastName, _country, mAvatarFile))
+
+        mCompositeDisposable.add(mModel.updateUser(
+                getUpdatedBody(_firstName, _lastName, _country),
+                getUpdatedAvatar(mAvatarFile))
                 .subscribe(user -> {
-                    ToastManager.showToast("User updated");
-                }, throwable -> {
-                    ToastManager.showToast(throwable.getMessage());
-                }));
+                    mUserRelay.userRelay.accept(user);
+                    mView.finishActivity();
+                }, throwable -> ToastManager.showToast(throwable.getMessage()))
+        );
+
     }
 
     @Override
     public void unsubscribe() {
         mCompositeDisposable.clear();
+    }
+
+    private MultipartBody.Part getUpdatedAvatar(File _avatarFile) {
+        return _avatarFile != null
+                ? MultipartBody.Part.createFormData(
+                Constants.UPDATE_AVATAR_KEY,
+                _avatarFile.getName(),
+                RequestBody.create(MediaType.parse(Constants.MEDIA_TYPE_IMG), _avatarFile))
+                : null;
+    }
+
+    private Map<String, RequestBody> getUpdatedBody(String _firstName, String _lastName, String _country) {
+
+        HashMap<String, RequestBody> updateRequest = new HashMap<>();
+
+        updateRequest.put(Constants.UPDATE_FIRST_NAME_KEY, createTextRequestBody(_firstName));
+        updateRequest.put(Constants.UPDATE_LAST_NAME_KEY, createTextRequestBody(_lastName));
+        updateRequest.put(Constants.UPDATE_COUNTRY_KEY, createTextRequestBody(_country));
+
+        return updateRequest;
+    }
+
+    private RequestBody createTextRequestBody(String _data) {
+        return RequestBody.create(MediaType.parse(Constants.MEDIA_TYPE_TEXT), _data);
     }
 }

@@ -11,6 +11,7 @@ import com.ferenc.pamp.presentation.base.models.UserContact;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.ContactManager;
 import com.ferenc.pamp.presentation.utils.FirebaseDynamicLinkGenerator;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealValidateManager;
@@ -21,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -39,14 +39,16 @@ public class SharePresenter implements ShareContract.Presenter {
     private List<ContactDH> mPhoneContactList;
     private GoodDealManager mGoodDealManager;
     private  boolean mIsReBroadcastFlow;
+    private ContactManager mContactManager;
 
-    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager,  boolean _isReBroadcastFlow) {
+    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager,  boolean _isReBroadcastFlow, ContactManager _contactManager) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mPhoneContactList = new ArrayList<>();
         this.mGoodDealManager = _goodDealManager;
         this.mIsReBroadcastFlow = _isReBroadcastFlow;
+        this.mContactManager = _contactManager;
 
         mView.setPresenter(this);
     }
@@ -55,21 +57,7 @@ public class SharePresenter implements ShareContract.Presenter {
     public void subscribe() {
         mView.showProgressMain();
         mCompositeDisposable.add(mModel.getUsedUserContact()
-                .flatMap(usedContact -> {
-                    List<ContactDH> contactDHList = new ArrayList<>();
-                    String header = " ";
-//                    boolean isCurrent = false;
-                    contactDHList.add(new ContactDH("VOS CONTACTS", ContactAdapter.TYPE_CONTACT_HEADER));
-                    for (UserContact contact : getContactList()) {
-                        String contactName = contact.getName();
-                        if (!contactName.startsWith(header)) {
-                            header = String.valueOf(contactName.charAt(0));
-                            contactDHList.add(new ContactDH(header, ContactAdapter.TYPE_HEADER));
-                        }
-                        contactDHList.add(new ContactDH(contact, ContactAdapter.TYPE_ITEM));
-                    }
-                    return Observable.just(contactDHList);
-                })
+                .flatMap(usedContact -> Observable.just(mContactManager.getContactsDH()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(contactDHList -> {
@@ -110,6 +98,7 @@ public class SharePresenter implements ShareContract.Presenter {
                             null,
                             ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
                             new String[]{id}, null);
+
                     while (pCur.moveToNext()) {
                         String phoneNo = pCur.getString(pCur.getColumnIndex(
                                 ContactsContract.CommonDataKinds.Phone.NUMBER));
@@ -125,6 +114,9 @@ public class SharePresenter implements ShareContract.Presenter {
         if (cur != null) {
             cur.close();
         }
+
+        Collections.sort(_phoneContactList, (o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
         return _phoneContactList;
     }
 
@@ -184,4 +176,5 @@ public class SharePresenter implements ShareContract.Presenter {
     public void unsubscribe() {
         mCompositeDisposable.clear();
     }
+
 }

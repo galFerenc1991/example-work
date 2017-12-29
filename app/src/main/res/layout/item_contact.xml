@@ -12,7 +12,8 @@
             android:layout_width="@dimen/contact_picture_default_size"
             android:layout_height="@dimen/contact_picture_default_size"
             android:layout_margin="@dimen/padding_half"
-            android:src="@drawable/ic_userpic" />
+            android:src="@drawable/ic_userpic"
+            android:layout_centerVertical="true"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

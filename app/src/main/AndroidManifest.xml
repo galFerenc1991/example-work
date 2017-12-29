@@ -130,6 +130,12 @@
             android:theme="@style/AppTheme" />
 
         <activity
+            android:name=".presentation.screens.main.chat.participants.ParticipantsActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name=".presentation.screens.main.chat.create_order.payment.PaymentActivity_"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"

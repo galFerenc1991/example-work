@@ -16,6 +16,15 @@ public abstract class Constants {
     public static final int CLICK_DELAY_SMALL = 50;
 
 
+    /*MULTIPART REQUEST CODES*/
+    public static final String MEDIA_TYPE_IMG = "image/jpeg";
+    public static final String MEDIA_TYPE_TEXT = "text/plain";
+    public static final String UPDATE_AVATAR_KEY = "avatar";
+    public static final String UPDATE_FIRST_NAME_KEY = "firstName";
+    public static final String UPDATE_LAST_NAME_KEY = "lastName";
+    public static final String UPDATE_COUNTRY_KEY = "counry";
+
+
     /*REQUEST CODES*/
     public static final int REQUEST_CODE_GOOGLE = 1;
     public static final int REQUEST_CODE_COUNTRY_PICKER = 2;

@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.ferenc.pamp.R;
+import com.ferenc.pamp.presentation.screens.main.chat.participants.participants_list.ParticipantsListFragment_;
+import com.ferenc.pamp.presentation.screens.main.propose.share.ShareFragment_;
 import com.ferenc.pamp.presentation.utils.ToolbarManager;
 
 import org.androidannotations.annotations.AfterViews;

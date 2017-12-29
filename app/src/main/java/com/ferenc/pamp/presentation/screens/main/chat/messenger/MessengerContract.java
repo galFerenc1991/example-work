@@ -34,7 +34,7 @@ public interface MessengerContract {
 
         void addItem(List<MessagesDH> _list);
 
-        void sendMessage();
+        void clearInputText();
 
         void addImage();
 

@@ -131,6 +131,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
             mPresenter.loadNextPage();
             return true;
         });
+
         rvMessages.setLayoutManager(llm);
         rvMessages.setAdapter(mMessengerAdapter);
         rvMessages.addOnScrollListener(mScrollListener);
@@ -148,7 +149,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
         RxView.clicks(rlSendMsg)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> sendMessage());
+                .subscribe(o -> mPresenter.sendMessage(etInputText.getText().toString().trim()));
 
     }
 
@@ -300,8 +301,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     }
 
     @Override
-    public void sendMessage() {
-        mPresenter.sendMessage(etInputText.getText().toString().trim());
+    public void clearInputText() {
         etInputText.setText("");
     }
 
