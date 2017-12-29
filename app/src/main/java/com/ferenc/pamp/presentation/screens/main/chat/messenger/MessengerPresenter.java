@@ -173,7 +173,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         mView.showProgressMain();
         mCompositeDisposable.add(mGoodDealModel.cancelGoodDeal(mGoodDealResponse.id)
                 .subscribe(goodDealCancelResponse -> {
-                    mView.showProgressMain();
+                    mView.hideProgress();
                     mView.openEndFlowScreen();
                 }, throwableConsumer));
     }
@@ -199,13 +199,14 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     @Override
     public void changeCloseDateAction() {
         Calendar date = Calendar.getInstance();
-        date.setTimeInMillis(mGoodDealResponse.closingDate);
-        mView.openCloseDatePicker(date, mGoodDealResponse.deliveryStartDate);
+        date.setTimeInMillis(mGoodDealResponseManager.getGoodDealResponse().closingDate);
+        mView.openCloseDatePicker(date, mGoodDealResponseManager.getGoodDealResponse().deliveryStartDate);
     }
 
     @Override
     public void setChangedCloseDate(Calendar _changedCloseDate) {
         /// do request
+
     }
 
     @Override

@@ -49,17 +49,36 @@ public class SettingsActivity extends AppCompatActivity {
         initClickListeners();
 
         GoodDealResponse goodDealResponse = mDealResponseManager.getGoodDealResponse();
-        if (!goodDealResponse.state.equals(Constants.STATE_PROGRESS) &&
-                goodDealResponse.isResend) {
-            rlSendOrders.setVisibility(View.VISIBLE);
-            rlCloseDate.setVisibility(View.GONE);
-            rlCancelGoodDeal.setVisibility(View.GONE);
+
+        if (!goodDealResponse.isResend) {
+            if (goodDealResponse.state.equals(Constants.STATE_PROGRESS)) {
+////do nothing
+            } else {
+                rlSendOrders.setVisibility(View.VISIBLE);
+                rlCloseDate.setVisibility(View.GONE);
+                rlCancelGoodDeal.setVisibility(View.GONE);
+            }
+        } else {
+            if (goodDealResponse.state.equals(Constants.STATE_PROGRESS)) {
+                rlCloseDate.setVisibility(View.GONE);
+            } else {
+                rlCloseDate.setVisibility(View.GONE);
+                rlCancelGoodDeal.setVisibility(View.GONE);
+            }
         }
-        if (goodDealResponse.state.equals(Constants.STATE_PROGRESS) &&
-                !goodDealResponse.isResend) {
-            rlCloseDate.setVisibility(View.GONE);
-            rlDeliveryDate.setVisibility(View.GONE);
-        }
+
+
+//        if (!goodDealResponse.state.equals(Constants.STATE_PROGRESS) &&
+//                goodDealResponse.isResend) {
+//            rlSendOrders.setVisibility(View.VISIBLE);
+//            rlCloseDate.setVisibility(View.GONE);
+//            rlCancelGoodDeal.setVisibility(View.GONE);
+//        }
+//        if (goodDealResponse.state.equals(Constants.STATE_PROGRESS) &&
+//                !goodDealResponse.isResend) {
+//            rlCloseDate.setVisibility(View.GONE);
+//            rlDeliveryDate.setVisibility(View.GONE);
+//        }
     }
 
     private void initClickListeners() {

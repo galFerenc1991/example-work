@@ -310,9 +310,9 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         //TODO : init avatar manager(with CAMERA parameter);
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        mPresenter.unsubscribe();
-//    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.unsubscribe();
+    }
 }

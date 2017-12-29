@@ -5,8 +5,10 @@ import android.text.TextUtils;
 import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
+import com.ferenc.pamp.presentation.utils.ToastManager;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class ChatPresenter implements ChatContract.Presenter {
     private ChatContract.View mView;
     private GoodDealManager mGoodDealManager;
     private GoodDealResponse mGoodDealResponse;
+    private GoodDealResponseManager mGoodDealResponseManager;
     private CompositeDisposable mCompositeDisposable;
 
     public ChatPresenter(ChatContract.View _view, GoodDealManager _goodDealManager, GoodDealResponseManager _goodDealResponseManager) {
@@ -29,6 +32,7 @@ public class ChatPresenter implements ChatContract.Presenter {
         this.mGoodDealManager = _goodDealManager;
         this.mGoodDealResponse = _goodDealResponseManager.getGoodDealResponse();
         this.mCompositeDisposable = new CompositeDisposable();
+        this.mGoodDealResponseManager = _goodDealResponseManager;
 
         mView.setPresenter(this);
     }
@@ -57,7 +61,12 @@ public class ChatPresenter implements ChatContract.Presenter {
 
     @Override
     public void clickedSettings() {
+        if (!mGoodDealResponseManager.getGoodDealResponse().state.equals(Constants.STATE_CANCELED))
         mView.openSettingsDialog();
+        else {
+            ToastManager.showToast("Good Deal Canceled! You can not modified it!");
+            mView.hideSettings();
+        }
     }
 
     @Override
@@ -77,6 +86,8 @@ public class ChatPresenter implements ChatContract.Presenter {
 
     @Override
     public void unsubscribe() {
+        mGoodDealManager.clearGoodDeal();
+        mGoodDealResponseManager.clearGoodDealResponse();
         mCompositeDisposable.clear();
     }
 }
