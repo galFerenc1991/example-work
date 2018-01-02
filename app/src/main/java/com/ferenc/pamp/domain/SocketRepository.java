@@ -76,16 +76,19 @@ public class SocketRepository implements MessengerContract.SocketModel {
                 if (data.has(valContent)) {
                     messageResponse.content = data.getString(valContent);
                 }
-                user.setId(data.getJSONObject(valUser).getString(valId));
-                user.setFirstName(data.getJSONObject(valUser).getString(valFirstName));
-                user.setLastName(data.getJSONObject(valUser).getString(valLastName));
-                user.setAvatar(data.getJSONObject(valUser).getString(valAvatar));
 
+                if (!data.getString(valType).equals("AUTO")) {
+                    user.setId(data.getJSONObject(valUser).getString(valId));
+                    user.setFirstName(data.getJSONObject(valUser).getString(valFirstName));
+                    user.setLastName(data.getJSONObject(valUser).getString(valLastName));
+                    user.setAvatar(data.getJSONObject(valUser).getString(valAvatar));
+
+                    messageResponse.user = user;
+                    messageResponse.text = data.getString(valText);
+                }
                 messageResponse.code = data.has(valCode) ? data.getString(valCode) : null;
-                messageResponse.user = user;
                 messageResponse._id = data.getString(valId);
                 messageResponse.type = data.getString(valType);
-                messageResponse.text = data.getString(valText);
                 messageResponse.createdAt = data.getLong(valCreatedAt);
 
                 Log.d(TAG, "New message:" + data.toString());
@@ -150,6 +153,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
         if (mSocket !=null) {
             mSocket.emit(emitLeaveRoom);
             mSocket.off(Socket.EVENT_CONNECT);
+            mSocket.off(Socket.EVENT_MESSAGE);
             mSocket.disconnect();
             Log.d(TAG, "Emitting: leave room");
             Log.d(TAG, "Disconnect");
