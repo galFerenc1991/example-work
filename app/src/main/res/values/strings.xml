@@ -261,8 +261,10 @@
     <string name="send_order_list_producer">Producteur</string>
 
 
+
     <!--BBankCardCard Input texts-->
     <string name="text_card_number">Numéro de carte</string>
     <string name="text_expiration_date">Date d’expiration</string>
     <string name="text_cvv">CVV</string>
+    <string name="send_order_list_add_producer">Entrer un nouveau producteur</string>
 </resources>

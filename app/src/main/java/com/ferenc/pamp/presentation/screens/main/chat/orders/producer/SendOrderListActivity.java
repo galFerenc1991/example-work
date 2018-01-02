@@ -11,6 +11,7 @@ import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_pop_up.CreateOrderPopUpActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.ChooseProducerActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -107,7 +108,7 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
 
         RxView.clicks(tvProducer)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> {});
+                .subscribe(o -> chooseProducer());
 
     }
 
@@ -122,7 +123,7 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     }
 
     private void chooseProducer() {
-        //TODO : intent to chooseProducerActivity;
+        ChooseProducerActivity_.intent(this).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
     }
 
     @Override

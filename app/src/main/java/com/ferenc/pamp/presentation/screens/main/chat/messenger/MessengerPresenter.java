@@ -105,7 +105,6 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(messageResponse -> {
-                    Log.d("SocketIO", "New message is here: " + messageResponse.text);
                     mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
                     mView.addItem(mMessagesDH);
                 }, throwable -> {

@@ -1,5 +1,6 @@
 package com.ferenc.pamp.data.service;
 
+import com.ferenc.pamp.data.model.base.ListResponse;
 import com.ferenc.pamp.data.model.home.orders.MessageOrderResponse;
 import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.home.orders.OrderRequest;
@@ -12,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by
@@ -35,8 +37,8 @@ public interface OrderService {
     @POST("/producer")
     Observable<Producer> createProducer(@Body Producer _producer);
 
-//    @GET("/producer")
-//    Observable<ListResponse<Producer>> getProducer(@Query("page") int page, @Query("limit") int limit);
+    @GET("/producer")
+    Observable<ListResponse<Producer>> getProducerList(@Query("page") int page, @Query("limit") int limit);
 
     @POST("/producer/{id}")
     Observable<Object> sendPurchase(@Path("id") String _producerID, @Body OrderRequest _localOrder);

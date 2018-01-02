@@ -15,6 +15,7 @@
 
 
     <dimen name="margin_big">60dp</dimen>
+    <dimen name="margin_huge">57dp</dimen>
     <dimen name="margin_triple">48dp</dimen>
     <dimen name="margin_37">37dp</dimen>
     <dimen name="margin_double">32dp</dimen>
