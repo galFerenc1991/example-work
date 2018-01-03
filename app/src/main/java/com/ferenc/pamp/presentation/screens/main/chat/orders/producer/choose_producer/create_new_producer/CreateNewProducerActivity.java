@@ -1,10 +1,16 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer;
 
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
+import com.ferenc.pamp.presentation.utils.Constants;
+import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 
 import org.androidannotations.annotations.AfterInject;
@@ -14,6 +20,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -29,6 +36,24 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
 
     @ViewById(R.id.toolbar_ACNP)
     protected Toolbar toolbar;
+
+    @ViewById(R.id.etProducerName_ACNP)
+    protected EditText etProducerName;
+
+    @ViewById(R.id.etProducerEmail_ACNP)
+    protected EditText etProducerEmail;
+
+    @ViewById(R.id.etProducerPhone_ACNP)
+    protected EditText etProducerPhone;
+
+    @ViewById(R.id.etProducerAddress_ACNP)
+    protected EditText etProducerAddress;
+
+    @ViewById(R.id.etProducerDescription_ACNP)
+    protected EditText etProducerDescription;
+
+    @ViewById(R.id.btnValider_ACNP)
+    protected Button btnValider;
 
     @StringRes(R.string.send_order_list_producer)
     protected String titleProducer;
@@ -69,6 +94,33 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
     }
 
     private void initClickListeners() {
+        RxView.clicks(btnValider)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.createProducer(
+                        getText(etProducerName),
+                        getText(etProducerEmail),
+                        getText(etProducerPhone),
+                        getText(etProducerAddress),
+                        getText(etProducerDescription))
+                );
 
+        RxTextView.afterTextChangeEvents(etProducerName).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
+        RxTextView.afterTextChangeEvents(etProducerEmail).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
+
+    }
+
+    private String getText(EditText et) {
+        return et.getText().toString().trim();
+    }
+
+    @Override
+    public boolean validerData() {
+        return !TextUtils.isEmpty(getText(etProducerName)) && !TextUtils.isEmpty(getText(etProducerEmail));
+    }
+
+    @Override
+    public void enableValidateBtn(boolean _isEnabled) {
+        btnValider.setBackgroundColor(getResources().getColor(!_isEnabled ? R.color.msgGoodDealDiffusionColorOther : R.color.msgMyGoodDealDiffusionColor));
+        btnValider.setEnabled(_isEnabled);
     }
 }

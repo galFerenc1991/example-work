@@ -1,5 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders.producer;
 
+import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.BaseView;
 
@@ -12,11 +13,16 @@ public interface SendOrderListContract {
 
     interface View extends BaseView<Presenter> {
         void setBonPlanInfo(String _bonPlanInfo);
+
+        void setProducer(String name);
+
+        void openSendOrderListFlow(PDFPreviewRequest _pdfPreviewRequest);
     }
 
     interface Presenter extends BasePresenter {
 
         boolean setQuantity(int _quantity);
 
+        void clickValider(String _id, String _dealId, int _quantity);
     }
 }

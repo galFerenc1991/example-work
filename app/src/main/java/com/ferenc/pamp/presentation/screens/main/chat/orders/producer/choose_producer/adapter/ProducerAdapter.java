@@ -25,4 +25,6 @@ public class ProducerAdapter extends RecyclerAdapter<ProducerDH> {
     protected int getLayoutRes(int viewType) {
         return R.layout.item_producer;
     }
+
+
 }

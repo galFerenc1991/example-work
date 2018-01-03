@@ -3,13 +3,10 @@ package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_pr
 import android.view.View;
 import android.widget.TextView;
 
+import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
-import com.ferenc.pamp.presentation.utils.Constants;
-import com.jakewharton.rxbinding2.view.RxView;
 import com.michenko.simpleadapter.OnCardClickListener;
 import com.michenko.simpleadapter.RecyclerVH;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by shonliu on 1/2/18.
@@ -26,17 +23,25 @@ public class ProducerVH extends RecyclerVH<ProducerDH> {
 
     @Override
     public void setListeners(OnCardClickListener listener) {
-
+        itemView.setOnClickListener(view -> listener.onClick(itemView, getAdapterPosition(), getItemViewType()));
     }
 
     @Override
     public void bindData(ProducerDH data) {
+
         tvProducer.setText(data.getProducer());
 
-        RxView.clicks(tvProducer)
-                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> {
+        if (data.isSelected()) {
+            select();
+        } else {
+            unselected();
+        }
 
-                });
+    }
+    private void unselected() {
+        tvProducer.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.colorBlackTransparent));
+    }
+    private void select() {
+        tvProducer.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.textColorBlack));
     }
 }

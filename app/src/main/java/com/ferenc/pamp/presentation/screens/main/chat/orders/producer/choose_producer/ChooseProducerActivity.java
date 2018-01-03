@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.ferenc.pamp.R;
+import com.ferenc.pamp.data.model.home.orders.Producer;
 import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.adapter.ProducerAdapter;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.adapter.ProducerDH;
-import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer.CreateNewProducerActivity;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer.CreateNewProducerActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -51,6 +52,9 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     @ViewById(R.id.rvProducerList_ACP)
     protected RecyclerView rvProducer;
 
+    @ViewById(R.id.btnValider_ACP)
+    protected Button btnValider;
+
     @StringRes(R.string.send_order_list_producer)
     protected String titleProducer;
 
@@ -80,6 +84,8 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     @Override
     public void initPresenter() {
         new ChooseProducerPresenter(this, mOrderRepository);
+        mProducerAdapter.setOnCardClickListener((view, position, viewType) ->
+                mPresenter.selectItem(mProducerAdapter.getItem(position), position));
     }
 
     @Override
@@ -97,6 +103,9 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
         RxView.clicks(tvAddNewProducer)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> createNewProducer());
+        RxView.clicks(btnValider)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.clickedValide());
     }
 
     private void createNewProducer() {
@@ -106,5 +115,25 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     @Override
     public void setProducerList(List<ProducerDH> _list) {
         mProducerAdapter.setListDH(_list);
+    }
+
+    @Override
+    public void updateItem(ProducerDH item, int position) {
+        mProducerAdapter.changeItem(item, position);
+    }
+
+    @Override
+    public void selectItem(int _poss) {
+        mPresenter.selectItem(mProducerAdapter.getItem(_poss), _poss);
+    }
+
+    @Override
+    public void finishActivityWithResult() {
+        Producer producer = mPresenter.getSelectedProducer();
+        Intent intent = new Intent();
+        intent.putExtra("producerName", producer.name);
+        intent.putExtra("producerId", producer.producerId);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

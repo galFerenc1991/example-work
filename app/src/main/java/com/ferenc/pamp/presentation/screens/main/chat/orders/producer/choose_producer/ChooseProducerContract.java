@@ -19,10 +19,16 @@ public interface ChooseProducerContract {
     interface View extends BaseView<Presenter> {
 
         void setProducerList(List<ProducerDH> _list);
+        void updateItem(ProducerDH item, int position);
+        void selectItem(int _poss);
+        void finishActivityWithResult();
     }
 
     interface Presenter extends BasePresenter {
+        void selectItem(ProducerDH item, int position);
 
+        Producer getSelectedProducer();
+        void clickedValide();
     }
 
     interface Model {

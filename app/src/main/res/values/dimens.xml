@@ -70,6 +70,8 @@
     <dimen name="default_producer_text_width">281dp</dimen>
     <dimen name="view_width">3dp</dimen>
     <dimen name="shadow_height">2dp</dimen>
+    <dimen name="toolbar_shadow_height">5dp</dimen>
+
 
 
 </resources>

@@ -3,17 +3,37 @@ package com.ferenc.pamp.data.model.home.orders;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by shonliu on 12/29/17.
  */
 
 public class Producer implements Parcelable {
+    @SerializedName("_id")
+    public String producerId;
     public String name;
     public String email;
     public String phone;
     public String address;
     public String description;
 
+    public Producer(String _name, String _email, String _phone, String _address, String _description) {
+        this.name = _name;
+        this.email = _email;
+        this.phone = _phone;
+        this.address = _address;
+        this.description = _description;
+    }
+
+    public Producer(String _name, String _producerId) {
+        this.name = _name;
+        this.producerId = _producerId;
+    }
+
+    public Producer() {
+
+    }
 
     protected Producer(Parcel in) {
         name = in.readString();
@@ -48,4 +68,6 @@ public class Producer implements Parcelable {
         dest.writeString(address);
         dest.writeString(description);
     }
+
+
 }

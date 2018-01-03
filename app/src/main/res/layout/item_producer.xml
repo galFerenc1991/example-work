@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/ContactNameTextStyle"
+        android:textColor="@color/colorBlackTransparent"
         android:gravity="center"
         android:drawablePadding="@dimen/padding_upper_large"
         android:text="@string/send_order_list_producer"

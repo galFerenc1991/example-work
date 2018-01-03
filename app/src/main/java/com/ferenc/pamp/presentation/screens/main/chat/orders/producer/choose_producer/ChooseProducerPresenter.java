@@ -21,8 +21,11 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
     private ChooseProducerContract.View mView;
     private CompositeDisposable mCompositeDisposable;
     private ChooseProducerContract.Model mModel;
+    private String mProducer;
+    private int selectedPos;
     private int mPage;
     private int mTotalPages = Integer.MAX_VALUE;
+    private List<ProducerDH> producerDHS;
 
     public ChooseProducerPresenter(ChooseProducerContract.View _view, ChooseProducerContract.Model _model) {
         mView = _view;
@@ -48,10 +51,10 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
                     Log.d("ChooseProducerPresenter", "getProducers successfully");
 //                    mView.hideProgressPagination();
 
-                    List<ProducerDH> producerDHS = new ArrayList<>();
+                    producerDHS = new ArrayList<>();
 
                     for (Producer producer : producerListResponse.data)
-                        producerDHS.add(new ProducerDH(producer.name));
+                        producerDHS.add(new ProducerDH(producer.producerId, producer.name));
 
                     if (!isLoadMore) {
                         mView.setProducerList(producerDHS);
@@ -72,5 +75,23 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
     @Override
     public void unsubscribe() {
         mCompositeDisposable.clear();
+    }
+
+    @Override
+    public void selectItem(ProducerDH item, int position) {
+        mView.updateItem(new ProducerDH(producerDHS.get(selectedPos).getProducerId(), producerDHS.get(selectedPos).getProducer()), selectedPos);
+
+        selectedPos = position;
+        mView.updateItem(new ProducerDH(item.getProducerId(),item.getProducer(), true), selectedPos);
+    }
+
+    @Override
+    public Producer getSelectedProducer() {
+        return new Producer(producerDHS.get(selectedPos).getProducer(), producerDHS.get(selectedPos).getProducerId());
+    }
+
+    @Override
+    public void clickedValide() {
+        mView.finishActivityWithResult();
     }
 }

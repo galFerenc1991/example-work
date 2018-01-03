@@ -8,12 +8,36 @@ import com.michenko.simpleadapter.RecyclerDH;
 
 public class ProducerDH implements RecyclerDH {
 
-    private String mProducer;
+    private String mProducerName;
+    private String mProducerId;
+    private boolean mSelected = false;
 
-    public ProducerDH(String _producerName) {
-        mProducer = _producerName;
+
+    public ProducerDH(String _producerId, String _producerName) {
+        mProducerId = _producerId;
+        mProducerName = _producerName;
     }
+
+    public ProducerDH(String _producerId, String _producerName, boolean _selected) {
+        mProducerId = _producerId;
+        mProducerName = _producerName;
+        mSelected = _selected;
+    }
+
     public String getProducer() {
-        return mProducer;
+        return mProducerName;
     }
+
+    public String getProducerId() {
+        return mProducerId;
+    }
+
+    public boolean isSelected() {
+        return mSelected;
+    }
+
+    public void setPosition(boolean _selected) {
+        mSelected = _selected;
+    }
+
 }

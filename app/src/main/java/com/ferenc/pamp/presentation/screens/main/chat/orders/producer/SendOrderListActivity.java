@@ -8,10 +8,11 @@ import android.widget.TextView;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_pop_up.CreateOrderPopUpActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.ChooseProducerActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.preview_pdf.PreviewPDFActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -33,6 +34,9 @@ import java.util.concurrent.TimeUnit;
 @EActivity(R.layout.activity_send_order_list)
 public class SendOrderListActivity extends BaseActivity implements SendOrderListContract.View{
 
+    private String mProducerName;
+    private String mProducerId;
+
     @ViewById(R.id.toolbar_ASOL)
     protected Toolbar toolbar;
 
@@ -44,6 +48,9 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
 
     @ViewById(R.id.tvBonPlanInfo_ASOL)
     protected TextView tvBonPlanInfo;
+
+    @ViewById(R.id.btnValider_ASOL)
+    protected Button btnValider;
 
     @StringRes(R.string.title_send_order_list)
     protected String titleSendOrderList;
@@ -110,6 +117,10 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> chooseProducer());
 
+        RxView.clicks(btnValider)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.clickValider(mProducerId, mGoodDealResponseManager.getGoodDealResponse().id, mQuantity));
+
     }
 
     private void setBonPlanInfoVisibility(boolean _quantity) {
@@ -123,11 +134,42 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     }
 
     private void chooseProducer() {
-        ChooseProducerActivity_.intent(this).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
+        ChooseProducerActivity_.intent(this).startForResult(666);
     }
 
     @Override
     public void setBonPlanInfo(String _bonPlanInfo) {
         tvBonPlanInfo.setText(_bonPlanInfo);
+    }
+
+    @Override
+    public void setProducer(String name) {
+        tvProducer.setText(name);
+    }
+
+    @Override
+    public void openSendOrderListFlow(PDFPreviewRequest _pdfPreviewRequest) {
+        PreviewPDFActivity_.intent(this).mPDFPreviewRequest(_pdfPreviewRequest).start();
+    }
+
+//    @OnActivityResult(666)
+//    protected void setProducerName(int resultCode, Intent data) {
+//        if (resultCode == RESULT_OK) {
+//            Producer producer = (Producer) data.getSerializableExtra("name");
+//
+//            tvProducer.setText(producer.name);
+//        }
+//    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+           if (requestCode==666){
+               mProducerName = data.getStringExtra("producerName");
+               mProducerId = data.getStringExtra("producerId");
+
+               tvProducer.setText(mProducerName);
+           }
+        }
     }
 }

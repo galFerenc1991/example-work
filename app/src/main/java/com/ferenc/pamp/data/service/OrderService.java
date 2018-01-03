@@ -4,9 +4,13 @@ import com.ferenc.pamp.data.model.base.ListResponse;
 import com.ferenc.pamp.data.model.home.orders.MessageOrderResponse;
 import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.home.orders.OrderRequest;
+import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
+import com.ferenc.pamp.data.model.home.orders.PDFPreviewResponse;
 import com.ferenc.pamp.data.model.home.orders.Producer;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -14,6 +18,8 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 
 /**
  * Created by
@@ -41,5 +47,9 @@ public interface OrderService {
     Observable<ListResponse<Producer>> getProducerList(@Query("page") int page, @Query("limit") int limit);
 
     @POST("/producer/{id}")
-    Observable<Object> sendPurchase(@Path("id") String _producerID, @Body OrderRequest _localOrder);
+    Observable<PDFPreviewResponse> sendPurchase(@Path("id") String _producerID, @Body PDFPreviewRequest _requestBody);
+
+    @Streaming
+    @GET
+    Observable<Response<ResponseBody>> downloadFile(@Url String _fileUrl);
 }
