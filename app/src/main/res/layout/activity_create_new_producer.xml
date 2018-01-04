@@ -24,17 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/padding_double_upper_medium"
+            android:paddingTop="@dimen/padding_default"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="@dimen/default_producer_text_width"
-                android:layout_height="wrap_content"
-                android:text="@string/send_order_list_header_text"
-                android:textColor="@color/colorSelectedPageIndicator"
-                android:fontFamily="sans-serif-medium"
-                android:textSize="@dimen/text_size_default"
-                android:layout_marginTop="@dimen/margin_double_upper_medium"
-                android:layout_marginBottom="@dimen/margin_37"/>
 
             <EditText
                 android:id="@+id/etProducerName_ACNP"
@@ -43,7 +34,7 @@
                 android:backgroundTint="@color/colorBackgroundSendOrderListLine"
                 android:textSize="@dimen/text_size_small"
                 android:fontFamily="sans-serif"
-                android:hint="Nom du producteur"
+                android:hint="@string/hint_add_producer_nom_du_producteur"
                 android:inputType="textPersonName"
                 android:imeOptions="actionNext"
                 android:layout_marginBottom="@dimen/margin_default"
@@ -55,7 +46,7 @@
                 android:backgroundTint="@color/colorBackgroundSendOrderListLine"
                 android:textSize="@dimen/text_size_small"
                 android:fontFamily="sans-serif"
-                android:hint="e-mail"
+                android:hint="@string/hint_add_producer_e_mail"
                 android:inputType="textEmailAddress"
                 android:imeOptions="actionNext"
                 android:layout_marginBottom="@dimen/margin_default"
@@ -67,7 +58,7 @@
                 android:backgroundTint="@color/colorBackgroundSendOrderListLine"
                 android:textSize="@dimen/text_size_small"
                 android:fontFamily="sans-serif"
-                android:hint="Tel (optionnel)"
+                android:hint="@string/hint_add_producer_tel_optionnel"
                 android:inputType="phone"
                 android:imeOptions="actionNext"
                 android:layout_marginBottom="@dimen/margin_default"
@@ -78,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorBackgroundSendOrderListLine"
                 android:textSize="@dimen/text_size_small"
-                android:hint="Adresse (optionel) N° et nom voie, Code postal,…"
+                android:hint="@string/hint_add_producer_adresse_optionel_n_et_nom_voie_code_postal"
                 android:fontFamily="sans-serif"
                 android:inputType="textPostalAddress"
                 android:imeOptions="actionNext"
@@ -91,7 +82,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_description"
                 android:textSize="@dimen/text_size_small"
-                android:hint="Description (optionnel)"
+                android:hint="@string/hint_add_producer_description_optionnel"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textMultiLine"
                 android:imeOptions="actionDone"
@@ -102,16 +93,15 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/confirm_button_height"
-                android:layout_centerInParent="true"
                 android:layout_marginBottom="@dimen/margin_half"
-                android:layout_marginTop="@dimen/margin_half"
+                android:layout_marginTop="@dimen/margin_huge"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/bg_confirm_button_disable"
                 android:enabled="false"
                 android:paddingEnd="@dimen/padding_double"
                 android:paddingStart="@dimen/padding_double"
                 android:textAllCaps="false"
-                android:text="VALIDER"/>
+                android:text="@string/producer_valider"/>
 
         </LinearLayout>
 

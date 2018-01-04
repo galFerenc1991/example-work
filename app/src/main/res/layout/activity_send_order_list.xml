@@ -32,7 +32,7 @@
                 android:layout_width="@dimen/default_producer_text_width"
                 android:layout_height="wrap_content"
                 android:text="@string/send_order_list_header_text"
-                android:textColor="@color/textColorGreen"
+                android:textColor="@color/textColorBlack"
                 android:fontFamily="sans-serif-medium"
                 android:textSize="@dimen/text_size_default"/>
 
@@ -44,8 +44,31 @@
                 android:textSize="@dimen/text_size_small"
                 android:textColor="@color/textColorGraySendOrderList"
                 android:fontFamily="sans-serif-light"
-                android:text="@string/send_order_list_commander_header_text"
+                android:text="@string/send_order_list_producer_header_text"
                 />
+
+            <TextView
+                android:id="@+id/tvProducer_ASOL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/msgMyGoodDealDiffusionColor"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:drawablePadding="@dimen/padding_upper_large"
+                android:text="@string/send_order_list_producer"
+                android:drawableStart="@drawable/ic_producer"/>
+
+            <TextView
+                android:layout_width="@dimen/default_producer_text_width_smaller"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_double"
+                android:layout_marginBottom="@dimen/margin_default"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/textColorGraySendOrderList"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/send_order_list_commander_header_text"/>
+
 
             <Button
                 android:id="@+id/btnCommander_ASOL"
@@ -63,8 +86,7 @@
                 android:id="@+id/tvBonPlanInfo_ASOL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Entre-Deux-Mer : 6 / bouteille de 75 cl."
-                android:drawableLeft="@drawable/ic_check_green"
+                android:drawableStart="@drawable/ic_check_green"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/textColorGreen"
                 android:fontFamily="sans-serif-medium"
@@ -87,29 +109,6 @@
                 android:layout_height="1dp"
                 android:background="@color/colorBackgroundSendOrderListLine"/>
 
-            <TextView
-                android:layout_width="@dimen/default_producer_text_width_smaller"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:layout_marginBottom="@dimen/margin_default"
-                android:textSize="@dimen/text_size_small"
-                android:textColor="@color/textColorGraySendOrderList"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/send_order_list_producer_header_text"/>
-
-
-            <TextView
-                android:id="@+id/tvProducer_ASOL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_small"
-                android:textColor="@color/colorBackgroundSendOrderListLine"
-                android:fontFamily="sans-serif-light"
-                android:gravity="center"
-                android:drawablePadding="@dimen/padding_upper_large"
-                android:text="@string/send_order_list_producer"
-                android:drawableLeft="@drawable/ic_producer"/>
-
             <Button
                 android:id="@+id/btnValider_ASOL"
                 style="@style/Widget.AppCompat.Button.Colored"
@@ -124,7 +123,7 @@
                 android:paddingEnd="@dimen/padding_double"
                 android:paddingStart="@dimen/padding_double"
                 android:textAllCaps="false"
-                android:text="VALIDER"/>
+                android:text="@string/producer_valider"/>
 
         </LinearLayout>
 

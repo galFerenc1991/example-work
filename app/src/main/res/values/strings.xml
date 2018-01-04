@@ -82,6 +82,11 @@
     <string name="hint_bank_card_number">Numéro de carte</string>
     <string name="hint_bank_card_expiration_date">"Date d'expiration"</string>
     <string name="hint_bank_cvv">CVV</string>
+    <string name="hint_add_producer_nom_du_producteur">Nom du producteur</string>
+    <string name="hint_add_producer_e_mail">e-mail</string>
+    <string name="hint_add_producer_tel_optionnel">Tel (optionnel)</string>
+    <string name="hint_add_producer_adresse_optionel_n_et_nom_voie_code_postal">Adresse (optionel) N° et nom voie, Code postal,…</string>
+    <string name="hint_add_producer_description_optionnel">Description (optionnel)</string>
 
 
     <!--Error messages-->
@@ -254,7 +259,7 @@
     <string name="cancel_good_deal_pop_up_title">Vous voulez annuler votre bon plan ?</string>
     <string name="cancel_good_deal_pop_up_text">Un message sera envoyé à votre liste de diffusion… \nAucune commande ne pourra être passé, mais vous pourrez communiquer avec vos proches via la messagerie</string>
     <string name="button_ajouter">AJOUTER</string>
-    <string name="send_order_list_header_text"><![CDATA[Utilisez cette fonctionalité qui vous permet de : \n\n > lui envoyer directement la commande et gagner du temps \n\n> gérer votre bon plan à distance et se faire livrer]]></string>
+    <string name="send_order_list_header_text">Pour lui envoyer directement la commande et gagner du temps \n\nPour gérer votre bon plan à distance et se faire livrer</string>
     <string name="send_order_list_commander_header_text">N’oubliez pas d’inscrire aussi votre propre commande :</string>
     <string name="send_order_list_commander_footer_text">Votre commande sera enregistrée à la liste des commandes mais aucune transaction ne sera effectuée</string>
     <string name="send_order_list_producer_header_text">Enregistrez les coordonnées de votre producteur :</string>
@@ -267,4 +272,5 @@
     <string name="text_expiration_date">Date d’expiration</string>
     <string name="text_cvv">CVV</string>
     <string name="send_order_list_add_producer">Entrer un nouveau producteur</string>
+    <string name="producer_valider">VALIDER</string>
 </resources>

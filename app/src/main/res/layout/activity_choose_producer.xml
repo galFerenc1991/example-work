@@ -21,19 +21,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_below="@+id/toolbar_ACP"
         android:paddingStart="@dimen/padding_double_upper_medium">
-
-        <TextView
-            android:layout_width="@dimen/default_producer_text_width"
-            android:layout_height="wrap_content"
-            android:text="@string/send_order_list_header_text"
-            android:textColor="@color/colorSelectedPageIndicator"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginTop="@dimen/margin_double_upper_medium"
-            android:textSize="@dimen/text_size_default"/>
 
         <TextView
             android:id="@+id/tvAddNewProducer_ACP"
@@ -41,7 +32,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/margin_double"
             android:drawableStart="@drawable/ic_add_circle_green"
-            android:layout_marginTop="@dimen/margin_huge"
+            android:layout_marginTop="@dimen/margin_double_upper_medium"
             android:layout_marginBottom="@dimen/margin_double_upper_medium"
             android:gravity="center"
             android:text="@string/send_order_list_add_producer"/>
@@ -69,7 +60,6 @@
 
     </LinearLayout>
 
-
     <Button
         android:id="@+id/btnValider_ACP"
         style="@style/Widget.AppCompat.Button.Colored"
@@ -84,6 +74,6 @@
         android:paddingEnd="@dimen/padding_double"
         android:paddingStart="@dimen/padding_double"
         android:textAllCaps="false"
-        android:text="VALIDER"/>
+        android:text="@string/producer_valider"/>
 
 </RelativeLayout>
