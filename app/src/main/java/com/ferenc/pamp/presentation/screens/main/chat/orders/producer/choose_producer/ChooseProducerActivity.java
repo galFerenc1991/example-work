@@ -37,6 +37,8 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
 
     private ChooseProducerContract.Presenter mPresenter;
 
+    private List<ProducerDH> mProducerDHList;
+
     @Bean
     protected OrderRepository mOrderRepository;
 
@@ -66,6 +68,7 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
 
         rvProducer.setLayoutManager(new LinearLayoutManager(this));
         rvProducer.setAdapter(mProducerAdapter);
+        rvProducer.setNestedScrollingEnabled(false);
 
         mPresenter.subscribe();
     }
@@ -109,11 +112,23 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     }
 
     private void createNewProducer() {
-        CreateNewProducerActivity_.intent(this).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
+        CreateNewProducerActivity_.intent(this).startForResult(Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED) {
+                String mProducerName = data.getStringExtra("producerName");
+                String mProducerId = data.getStringExtra("producerId");
+                mPresenter.addNewProducer(mProducerName, mProducerId);
+            }
+        }
     }
 
     @Override
     public void setProducerList(List<ProducerDH> _list) {
+        mProducerDHList = _list;
         mProducerAdapter.setListDH(_list);
     }
 
@@ -135,5 +150,17 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
         intent.putExtra("producerId", producer.producerId);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void enabledValider() {
+        btnValider.setBackground(getResources().getDrawable(R.drawable.bg_confirm_button));
+        btnValider.setEnabled(true);
+    }
+
+    @Override
+    public void addItemToList(String _producerName, String _producerId) {
+        mProducerDHList.add(0, new ProducerDH(_producerId,_producerName));
+        mProducerAdapter.setListDH(mProducerDHList);
     }
 }

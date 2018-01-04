@@ -88,7 +88,7 @@ public class OrderRepository extends NetworkRepository implements
 
     @Override
     public Observable<Response<ResponseBody>> getFileByUrl(String _url) {
-        return getNetworkObservable(orderService.downloadFile(_url));
+        return orderService.downloadFile(_url);
     }
 
     @Override

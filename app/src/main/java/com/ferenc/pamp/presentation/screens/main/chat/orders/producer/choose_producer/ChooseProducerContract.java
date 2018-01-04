@@ -22,6 +22,10 @@ public interface ChooseProducerContract {
         void updateItem(ProducerDH item, int position);
         void selectItem(int _poss);
         void finishActivityWithResult();
+
+        void enabledValider();
+
+        void addItemToList(String _producerName, String _producerId);
     }
 
     interface Presenter extends BasePresenter {
@@ -29,6 +33,8 @@ public interface ChooseProducerContract {
 
         Producer getSelectedProducer();
         void clickedValide();
+
+        void addNewProducer(String _producerName, String _producerId);
     }
 
     interface Model {

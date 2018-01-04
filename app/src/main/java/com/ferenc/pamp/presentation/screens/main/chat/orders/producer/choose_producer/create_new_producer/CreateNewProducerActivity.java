@@ -1,14 +1,17 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer;
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.ferenc.pamp.R;
+import com.ferenc.pamp.data.model.home.orders.Producer;
 import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.ValidationManager;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -115,12 +118,24 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
 
     @Override
     public boolean validerData() {
-        return !TextUtils.isEmpty(getText(etProducerName)) && !TextUtils.isEmpty(getText(etProducerEmail));
+        return !TextUtils.isEmpty(getText(etProducerName))
+                && !TextUtils.isEmpty(getText(etProducerEmail))
+                && ValidationManager.validateEmail(getText(etProducerEmail)) == ValidationManager.OK;
     }
 
     @Override
     public void enableValidateBtn(boolean _isEnabled) {
-        btnValider.setBackgroundColor(getResources().getColor(!_isEnabled ? R.color.msgGoodDealDiffusionColorOther : R.color.msgMyGoodDealDiffusionColor));
+        btnValider.setBackground(getResources().getDrawable(!_isEnabled ? R.drawable.bg_confirm_button_disable : R.drawable.bg_confirm_button));
         btnValider.setEnabled(_isEnabled);
+    }
+
+    @Override
+    public void finishActivityWithResult(Producer producer) {
+
+        Intent intent = new Intent();
+        intent.putExtra("producerName", producer.name);
+        intent.putExtra("producerId", producer.producerId);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

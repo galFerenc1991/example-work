@@ -45,6 +45,8 @@ public abstract class Constants {
     public static final int REQUEST_CODE_ACTIVITY_EXPIRATION = 19;
     public static final int REQUEST_CODE_ACTIVITY_CARD_CVV = 20;
     public static final int REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY = 21;
+    public static final int REQUEST_CODE_ACTIVITY_CHOOSE_PRODUCER = 22;
+    public static final int REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED = 23;
 
 
     /*PERMISSIONS REQUEST CODES*/

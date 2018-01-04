@@ -16,6 +16,7 @@ import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.preview_pd
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxrelay2.PublishRelay;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -27,15 +28,14 @@ import org.androidannotations.annotations.res.StringRes;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Nullable;
+
 /**
  * Created by shonliu on 12/28/17.
  */
 
 @EActivity(R.layout.activity_send_order_list)
 public class SendOrderListActivity extends BaseActivity implements SendOrderListContract.View{
-
-    private String mProducerName;
-    private String mProducerId;
 
     @ViewById(R.id.toolbar_ASOL)
     protected Toolbar toolbar;
@@ -55,9 +55,13 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     @StringRes(R.string.title_send_order_list)
     protected String titleSendOrderList;
 
-    private SendOrderListContract.Presenter mPresenter;
+    private String mProducerName;
 
+    @Nullable
+    private String mProducerId;
     private int mQuantity;
+
+    private SendOrderListContract.Presenter mPresenter;
 
     @Bean
     protected GoodDealResponseManager mGoodDealResponseManager;
@@ -77,6 +81,8 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     protected void initUI() {
         initBar();
         initClickListeners();
+
+        mPresenter.subscribe();
     }
 
     @Override
@@ -94,6 +100,7 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
         if (resultCode == RESULT_OK) {
             mQuantity = data.getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1);
             setBonPlanInfoVisibility(mPresenter.setQuantity(data.getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1)));
+            mPresenter.validateData(mQuantity, mProducerId);
         }
     }
 
@@ -134,7 +141,7 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     }
 
     private void chooseProducer() {
-        ChooseProducerActivity_.intent(this).startForResult(666);
+        ChooseProducerActivity_.intent(this).startForResult(Constants.REQUEST_CODE_ACTIVITY_CHOOSE_PRODUCER);
     }
 
     @Override
@@ -152,23 +159,21 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
         PreviewPDFActivity_.intent(this).mPDFPreviewRequest(_pdfPreviewRequest).start();
     }
 
-//    @OnActivityResult(666)
-//    protected void setProducerName(int resultCode, Intent data) {
-//        if (resultCode == RESULT_OK) {
-//            Producer producer = (Producer) data.getSerializableExtra("name");
-//
-//            tvProducer.setText(producer.name);
-//        }
-//    }
+    @Override
+    public void setValidateButtonEnabled(boolean _isEnabled) {
+        btnValider.setBackground(getResources().getDrawable(!_isEnabled ? R.drawable.bg_confirm_button_disable : R.drawable.bg_confirm_button));
+        btnValider.setEnabled(_isEnabled);
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-           if (requestCode==666){
+           if (requestCode == Constants.REQUEST_CODE_ACTIVITY_CHOOSE_PRODUCER) {
                mProducerName = data.getStringExtra("producerName");
                mProducerId = data.getStringExtra("producerId");
-
                tvProducer.setText(mProducerName);
+               mPresenter.validateData(mQuantity, mProducerId);
            }
         }
     }

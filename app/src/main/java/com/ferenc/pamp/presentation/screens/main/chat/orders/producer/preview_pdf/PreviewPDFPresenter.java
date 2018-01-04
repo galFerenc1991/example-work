@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.content.FileProvider;
 
+import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.data.api.Rest;
 import com.ferenc.pamp.data.api.RestConst;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
@@ -22,10 +24,12 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import okio.BufferedSink;
 import okio.Okio;
@@ -88,11 +92,12 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
     @Override
     public void clickedConfirm() {
         mView.showProgress();
-        mCompositeDisposable.add(mModel.getFileByUrl(RestConst.BASE_URL + "/" + getPDFPreviewResponse().file)
+        mCompositeDisposable.add(mModel.getFileByUrl("/" + getPDFPreviewResponse().file)
                 .flatMap(responseBodyResponse -> Observable.create((ObservableOnSubscribe<File>) subscriber -> {
                     try {
-//                        String header = responseBodyResponse.headers().get("Content-Disposition");
-                        File file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), "orders_list.pdf");
+                        String header = responseBodyResponse.headers().get("Content-Disposition");
+//                        String fileName = header.replace("attachment; filename=", "");
+                        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsoluteFile(), "order_list_" + System.currentTimeMillis() + ".pdf");
                         BufferedSink sink = Okio.buffer(Okio.sink(file));
                         sink.writeAll(responseBodyResponse.body().source());
                         sink.close();
@@ -102,9 +107,9 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
                         e.printStackTrace();
                         subscriber.onError(e);
                     }
-
-
-                })).subscribe(file ->{
+                })).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(file ->{
                     mView.hideProgress(false);
                     sharePDF(file);
                 }, throwableConsumer));
@@ -116,7 +121,7 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
     }
 
     private void sharePDF(File _file) {
-        Uri fileUri = Uri.fromFile(_file);
+        Uri fileUri = FileProvider.getUriForFile(PampApp_.getInstance(), "com.ferenc.pamp.provider", _file);
         String bodyText = "Body Text That Will Be Shared";
         String subjectText = "Subject Text That Will Be Shared";
         Intent shareIntent = ShareCompat.IntentBuilder.from(mActivity)

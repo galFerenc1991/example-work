@@ -21,6 +21,8 @@ public interface CreateNewProducerContract {
         void enableValidateBtn(boolean _isEnabled);
 
         void finish();
+
+        void finishActivityWithResult(Producer producer);
     }
 
     interface Presenter extends BasePresenter {

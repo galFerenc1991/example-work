@@ -17,6 +17,8 @@ public interface SendOrderListContract {
         void setProducer(String name);
 
         void openSendOrderListFlow(PDFPreviewRequest _pdfPreviewRequest);
+
+        void setValidateButtonEnabled(boolean _isEnabled);
     }
 
     interface Presenter extends BasePresenter {
@@ -24,5 +26,7 @@ public interface SendOrderListContract {
         boolean setQuantity(int _quantity);
 
         void clickValider(String _id, String _dealId, int _quantity);
+
+        void validateData(int _quantity, String _producerId);
     }
 }

@@ -83,6 +83,7 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
 
         selectedPos = position;
         mView.updateItem(new ProducerDH(item.getProducerId(),item.getProducer(), true), selectedPos);
+        mView.enabledValider();
     }
 
     @Override
@@ -93,5 +94,10 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
     @Override
     public void clickedValide() {
         mView.finishActivityWithResult();
+    }
+
+    @Override
+    public void addNewProducer(String _producerName, String _producerId) {
+        mView.addItemToList(_producerName,_producerId);
     }
 }

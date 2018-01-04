@@ -45,7 +45,7 @@ public class CreateNewProducerPresenter implements CreateNewProducerContract.Pre
     public void createProducer(String _name, String _email, String _phone, String _address, String _description) {
 
         mCompositeDisposable.add(mModel.createProducer(new Producer(_name, _email, _phone, _address, _description)).subscribe(producer -> {
-            mView.finish();
+            mView.finishActivityWithResult(producer);
         }));
     }
 }

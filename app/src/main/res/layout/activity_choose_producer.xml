@@ -58,7 +58,7 @@
                 android:layout_marginTop="@dimen/margin_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="60dp"
+                android:paddingBottom="@dimen/default_button_height"
                 android:clipToPadding="true"/>
 
 
@@ -76,7 +76,8 @@
         android:layout_marginBottom="@dimen/margin_half"
         android:layout_marginTop="@dimen/margin_half"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_confirm_button"
+        android:background="@drawable/bg_confirm_button_disable"
+        android:enabled="false"
         android:paddingEnd="@dimen/padding_double"
         android:paddingStart="@dimen/padding_double"
         android:textAllCaps="false"
