@@ -1,7 +1,5 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders.producer;
 
-import android.content.Context;
-import android.text.TextUtils;
 
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
@@ -18,14 +16,12 @@ public class SendOrderListPresenter implements SendOrderListContract.Presenter {
 
     private SendOrderListContract.View mView;
     private GoodDealResponseManager mGoodDealResponseManager;
-    private Context mContext;
     private CompositeDisposable compositeDisposable;
     private PublishRelay<Boolean> validateData;
 
-    public SendOrderListPresenter(SendOrderListContract.View _view, GoodDealResponseManager _goodDealResponseManager, Context _context) {
+    public SendOrderListPresenter(SendOrderListContract.View _view, GoodDealResponseManager _goodDealResponseManager) {
         mView = _view;
         mGoodDealResponseManager = _goodDealResponseManager;
-        mContext = _context;
         compositeDisposable = new CompositeDisposable();
         validateData = PublishRelay.create();
         mView.setPresenter(this);
@@ -66,6 +62,16 @@ public class SendOrderListPresenter implements SendOrderListContract.Presenter {
     @Override
     public void validateData(int _quantity, String _producerId) {
          validateData.accept(_producerId != null);
+    }
+
+    @Override
+    public void clickToOpenCreateOrderPopUp() {
+        mView.openCreateOrderPopUp();
+    }
+
+    @Override
+    public void clickToChooseProducer() {
+        mView.chooseProducer();
     }
 
 }

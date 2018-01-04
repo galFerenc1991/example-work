@@ -28,6 +28,7 @@ import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.ContactManager;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -83,6 +84,8 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     @Bean
     protected GoodDealManager mGoodDealManager;
     @Bean
+    protected GoodDealResponseManager mGoodDealResponseManager;
+    @Bean
     protected ContactManager mContactManager;
 
     @FragmentArg
@@ -94,7 +97,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     @AfterInject
     @Override
     public void initPresenter() {
-        new SharePresenter(this, mGoodDealRepository, mGoodDealManager, isReBroadcastFlow, isUpdateGoodDeal, mContactManager);
+        new SharePresenter(this, mGoodDealRepository, mGoodDealManager, mGoodDealResponseManager, isReBroadcastFlow, isUpdateGoodDeal, mContactManager);
 
         mContactAdapter.setOnCardClickListener((view, position, viewType) ->
                 mPresenter.selectItem(mContactAdapter.getItem(position), position));

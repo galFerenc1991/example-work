@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.orders.Producer;
 import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
+import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.adapter.ProducerAdapter;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.adapter.ProducerDH;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer.CreateNewProducerActivity_;
@@ -39,6 +44,8 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
 
     private List<ProducerDH> mProducerDHList;
 
+    protected EndlessScrollListener mScrollListener;
+
     @Bean
     protected OrderRepository mOrderRepository;
 
@@ -57,6 +64,10 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     @ViewById(R.id.btnValider_ACP)
     protected Button btnValider;
 
+    @ViewById(R.id.progressBar_ACP)
+    protected ProgressBar progressBar;
+
+
     @StringRes(R.string.send_order_list_producer)
     protected String titleProducer;
 
@@ -66,9 +77,21 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
         initBar();
         initClickListeners();
 
-        rvProducer.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+
+        rvProducer.setLayoutManager(llm);
         rvProducer.setAdapter(mProducerAdapter);
-        rvProducer.setNestedScrollingEnabled(false);
+
+        mScrollListener = new EndlessScrollListener(llm, () -> {
+//            if (isRefreshing()) return false;
+            mPresenter.loadNextPage();
+            return true;
+        });
+
+
+
+
+        rvProducer.addOnScrollListener(mScrollListener);
 
         mPresenter.subscribe();
     }
@@ -105,14 +128,32 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     private void initClickListeners() {
         RxView.clicks(tvAddNewProducer)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> createNewProducer());
+                .subscribe(o -> mPresenter.clickToCreateNewProducer());
         RxView.clicks(btnValider)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedValide());
     }
 
-    private void createNewProducer() {
+    @Override
+    public void createNewProducer() {
         CreateNewProducerActivity_.intent(this).startForResult(Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED);
+    }
+
+    @Override
+    public void showProgressBar() {
+        rvProducer.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
+        rvProducer.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void addProducerList(List<ProducerDH> producerDHS) {
+        mProducerAdapter.addListDH(producerDHS);
     }
 
     @Override
@@ -162,5 +203,10 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     public void addItemToList(String _producerName, String _producerId) {
         mProducerDHList.add(0, new ProducerDH(_producerId,_producerName));
         mProducerAdapter.setListDH(mProducerDHList);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

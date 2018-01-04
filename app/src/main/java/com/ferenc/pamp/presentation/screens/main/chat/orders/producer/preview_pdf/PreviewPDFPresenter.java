@@ -7,33 +7,22 @@ import android.support.v4.app.ShareCompat;
 import android.support.v4.content.FileProvider;
 
 import com.ferenc.pamp.PampApp_;
-import com.ferenc.pamp.data.api.Rest;
-import com.ferenc.pamp.data.api.RestConst;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewResponse;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 
-import org.reactivestreams.Subscriber;
-
 import java.io.File;
 import java.io.IOException;
-
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 import okio.BufferedSink;
 import okio.Okio;
-import retrofit2.Response;
+
 
 
 /**
@@ -58,6 +47,7 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
         mView.setPresenter(this);
     }
 
+    @Override
     public void getPDFPreview() {
         mView.showProgress();
         mCompositeDisposable.add(mModel.getPDFPreview(mPDFPreviewRequest.id, mPDFPreviewRequest)

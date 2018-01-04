@@ -16,7 +16,6 @@ import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.preview_pd
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.jakewharton.rxbinding2.view.RxView;
-import com.jakewharton.rxrelay2.PublishRelay;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -74,7 +73,7 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     @AfterInject
     @Override
     public void initPresenter() {
-        new SendOrderListPresenter(this, mGoodDealResponseManager, PampApp_.getInstance());
+        new SendOrderListPresenter(this, mGoodDealResponseManager);
     }
 
     @AfterViews
@@ -114,15 +113,15 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
 
         RxView.clicks(btnCommander)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> openCreateOrderPopUp());
+                .subscribe(o -> mPresenter.clickToOpenCreateOrderPopUp());
 
         RxView.clicks(tvBonPlanInfo)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> openCreateOrderPopUp());
+                .subscribe(o -> mPresenter.clickToOpenCreateOrderPopUp());
 
         RxView.clicks(tvProducer)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> chooseProducer());
+                .subscribe(o -> mPresenter.clickToChooseProducer());
 
         RxView.clicks(btnValider)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
@@ -135,12 +134,14 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
         btnCommander.setVisibility(_quantity  ? View.GONE : View.VISIBLE);
     }
 
-    private void openCreateOrderPopUp() {
+    @Override
+    public void openCreateOrderPopUp() {
         CreateOrderPopUpActivity_.intent(this).isSendOrderListFlow(true).mSendOrderListQuantity(mQuantity)
                 .startForResult(Constants.REQUEST_CODE_CREATE_ORDER_POP_UP_ACTIVITY);
     }
 
-    private void chooseProducer() {
+    @Override
+    public void chooseProducer() {
         ChooseProducerActivity_.intent(this).startForResult(Constants.REQUEST_CODE_ACTIVITY_CHOOSE_PRODUCER);
     }
 
@@ -165,6 +166,10 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
         btnValider.setEnabled(_isEnabled);
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

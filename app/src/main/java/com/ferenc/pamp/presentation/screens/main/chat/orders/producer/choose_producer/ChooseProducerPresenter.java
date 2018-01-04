@@ -42,14 +42,14 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
 
     private void getProducers(int _page, boolean isLoadMore) {
 
-//        mView.showProgressPagination();
+        mView.showProgressBar();
 
         mCompositeDisposable.add(mModel.getProducerList(_page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(producerListResponse -> {
                     Log.d("ChooseProducerPresenter", "getProducers successfully");
-//                    mView.hideProgressPagination();
+                    mView.hideProgressBar();
 
                     producerDHS = new ArrayList<>();
 
@@ -58,15 +58,14 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
 
                     if (!isLoadMore) {
                         mView.setProducerList(producerDHS);
-                    }
-                    else {
-//                        mView.addProducerList();
+                    } else {
+                        mView.addProducerList(producerDHS);
                     }
 
                     mTotalPages = producerListResponse.meta.pages;
                     mPage++;
                 }, e -> {
-//                    mView.hideProgressPagination();
+                    mView.hideProgressBar();
 
                     Log.d("ChooseProducerPresenter", "Error while getting new producers: " + e.getMessage());
                 }));
@@ -99,5 +98,17 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
     @Override
     public void addNewProducer(String _producerName, String _producerId) {
         mView.addItemToList(_producerName,_producerId);
+    }
+
+    @Override
+    public void clickToCreateNewProducer() {
+        mView.createNewProducer();
+    }
+
+    @Override
+    public void loadNextPage() {
+        if (mPage - 1 != mTotalPages) {
+            getProducers(mPage, true);
+        }
     }
 }

@@ -20,6 +20,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,6 +38,10 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     protected RelativeLayout rlProgress;
     @ViewById(R.id.wvHtml_APPDF)
     protected WebView wvHtmlPage;
+    @ViewById(R.id.toolbar_APPDF)
+    protected Toolbar toolbar;
+    @StringRes(R.string.send_order_list_producer)
+    protected String titlePDFPreview;
 
     @Extra
     protected PDFPreviewRequest mPDFPreviewRequest;
@@ -53,9 +58,15 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     @AfterViews
     protected void initUI() {
         initClickListeners();
+        initBar();
         mPresenter.getPDFPreview();
-
         mPresenter.subscribe();
+    }
+
+    private void initBar() {
+        toolbarManager.setTitle(titlePDFPreview);
+        toolbarManager.showHomeAsUp(true);
+        toolbarManager.closeActivityWhenBackArrowPressed(this);
     }
 
     private void initClickListeners() {
@@ -76,7 +87,7 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
 
     @Override
     protected Toolbar getToolbar() {
-        return new Toolbar(this);
+        return toolbar;
     }
 
     @Override
@@ -98,5 +109,10 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
         final String mimeType = "text/html";
         final String encoding = "UTF-8";
         wvHtmlPage.loadData(pdfPreviewResponse.template, mimeType, encoding);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

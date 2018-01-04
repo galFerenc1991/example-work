@@ -19,22 +19,38 @@ public interface ChooseProducerContract {
     interface View extends BaseView<Presenter> {
 
         void setProducerList(List<ProducerDH> _list);
+
         void updateItem(ProducerDH item, int position);
+
         void selectItem(int _poss);
+
         void finishActivityWithResult();
 
         void enabledValider();
 
         void addItemToList(String _producerName, String _producerId);
+
+        void createNewProducer();
+
+        void showProgressBar();
+
+        void hideProgressBar();
+
+        void addProducerList(List<ProducerDH> producerDHS);
     }
 
     interface Presenter extends BasePresenter {
         void selectItem(ProducerDH item, int position);
 
         Producer getSelectedProducer();
+
         void clickedValide();
 
         void addNewProducer(String _producerName, String _producerId);
+
+        void clickToCreateNewProducer();
+
+        void loadNextPage();
     }
 
     interface Model {

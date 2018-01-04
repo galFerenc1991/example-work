@@ -31,10 +31,15 @@ public class ParticipantsListPresenter implements ParticipantsListContract.Prese
     public void subscribe() {
 
         mParticipantsDH = new ArrayList<>();
-        for (User participant : mGoodDealResponseManager.getGoodDealResponse().recipients)
-            mParticipantsDH.add(new ParticipantsDH(participant, mContext));
+        List<User> recipients = mGoodDealResponseManager.getGoodDealResponse().recipients != null
+                ? mGoodDealResponseManager.getGoodDealResponse().recipients
+                : new ArrayList<>();
 
-        mView.setParticipantsList(mParticipantsDH);
+        if (recipients.size() > 0) {
+            for (User participant : recipients)
+                mParticipantsDH.add(new ParticipantsDH(participant, mContext));
+            mView.setParticipantsList(mParticipantsDH);
+        }
     }
 
     @Override

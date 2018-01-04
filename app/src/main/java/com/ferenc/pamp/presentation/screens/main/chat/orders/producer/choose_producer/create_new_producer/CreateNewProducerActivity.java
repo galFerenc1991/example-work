@@ -130,6 +130,11 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
     }
 
     @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
     public void finishActivityWithResult(Producer producer) {
 
         Intent intent = new Intent();
