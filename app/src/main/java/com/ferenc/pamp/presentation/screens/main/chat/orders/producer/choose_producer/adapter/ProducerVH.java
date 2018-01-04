@@ -42,6 +42,6 @@ public class ProducerVH extends RecyclerVH<ProducerDH> {
         tvProducer.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.colorBlackTransparent));
     }
     private void select() {
-        tvProducer.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.textColorBlack));
+        tvProducer.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
     }
 }

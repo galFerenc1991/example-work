@@ -59,6 +59,7 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     @Nullable
     private String mProducerId;
     private int mQuantity;
+    private String mProducerEmail;
 
     private SendOrderListContract.Presenter mPresenter;
 
@@ -125,7 +126,7 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
 
         RxView.clicks(btnValider)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.clickValider(mProducerId, mGoodDealResponseManager.getGoodDealResponse().id, mQuantity));
+                .subscribe(o -> mPresenter.clickValider(mProducerId, mGoodDealResponseManager.getGoodDealResponse().id, mQuantity, mProducerEmail));
 
     }
 
@@ -156,8 +157,8 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     }
 
     @Override
-    public void openSendOrderListFlow(PDFPreviewRequest _pdfPreviewRequest) {
-        PreviewPDFActivity_.intent(this).mPDFPreviewRequest(_pdfPreviewRequest).start();
+    public void openSendOrderListFlow(PDFPreviewRequest _pdfPreviewRequest, String _producerEmail) {
+        PreviewPDFActivity_.intent(this).mPDFPreviewRequest(_pdfPreviewRequest).mProducerEmail(_producerEmail).start();
     }
 
     @Override
@@ -177,6 +178,7 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
            if (requestCode == Constants.REQUEST_CODE_ACTIVITY_CHOOSE_PRODUCER) {
                mProducerName = data.getStringExtra("producerName");
                mProducerId = data.getStringExtra("producerId");
+               mProducerEmail = data.getStringExtra("producerEmail");
                tvProducer.setText(mProducerName);
                mPresenter.validateData(mQuantity, mProducerId);
            }

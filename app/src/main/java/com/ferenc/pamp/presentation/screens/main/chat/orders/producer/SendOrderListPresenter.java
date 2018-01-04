@@ -54,9 +54,9 @@ public class SendOrderListPresenter implements SendOrderListContract.Presenter {
     }
 
     @Override
-    public void clickValider(String _id, String _dealId, int _quantity) {
+    public void clickValider(String _id, String _dealId, int _quantity, String _producerEmail) {
         PDFPreviewRequest pdfPreviewRequest = new PDFPreviewRequest(_id, _dealId, _quantity);
-        mView.openSendOrderListFlow(pdfPreviewRequest);
+        mView.openSendOrderListFlow(pdfPreviewRequest, _producerEmail);
     }
 
     @Override

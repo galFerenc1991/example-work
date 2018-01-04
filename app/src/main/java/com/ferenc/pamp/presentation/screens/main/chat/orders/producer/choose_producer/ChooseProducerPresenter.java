@@ -23,7 +23,7 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
     private ChooseProducerContract.Model mModel;
     private String mProducer;
     private int selectedPos;
-    private int mPage;
+    private int mPage = 1;
     private int mTotalPages = Integer.MAX_VALUE;
     private List<ProducerDH> producerDHS;
 
@@ -31,6 +31,7 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
         mView = _view;
         mModel = _model;
         mCompositeDisposable = new CompositeDisposable();
+        producerDHS = new ArrayList<>();
         mView.setPresenter(this);
     }
 
@@ -50,16 +51,17 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
                 .subscribe(producerListResponse -> {
                     Log.d("ChooseProducerPresenter", "getProducers successfully");
                     mView.hideProgressBar();
-
-                    producerDHS = new ArrayList<>();
+                    List<ProducerDH> producers = new ArrayList<>();
 
                     for (Producer producer : producerListResponse.data)
-                        producerDHS.add(new ProducerDH(producer.producerId, producer.name));
+                        producers.add(new ProducerDH(producer.producerId, producer.name, producer.email));
+
+                    producerDHS.addAll(producers);
 
                     if (!isLoadMore) {
-                        mView.setProducerList(producerDHS);
+                        mView.setProducerList(producers);
                     } else {
-                        mView.addProducerList(producerDHS);
+                        mView.addProducerList(producers);
                     }
 
                     mTotalPages = producerListResponse.meta.pages;
@@ -78,7 +80,11 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
 
     @Override
     public void selectItem(ProducerDH item, int position) {
-        mView.updateItem(new ProducerDH(producerDHS.get(selectedPos).getProducerId(), producerDHS.get(selectedPos).getProducer()), selectedPos);
+        mView.updateItem(new ProducerDH(
+                producerDHS.get(selectedPos).getProducerId(),
+                producerDHS.get(selectedPos).getProducer(),
+                producerDHS.get(selectedPos).getProducerEmail()),
+                selectedPos);
 
         selectedPos = position;
         mView.updateItem(new ProducerDH(item.getProducerId(),item.getProducer(), true), selectedPos);
@@ -87,7 +93,7 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
 
     @Override
     public Producer getSelectedProducer() {
-        return new Producer(producerDHS.get(selectedPos).getProducer(), producerDHS.get(selectedPos).getProducerId());
+        return new Producer(producerDHS.get(selectedPos).getProducer(), producerDHS.get(selectedPos).getProducerId(), producerDHS.get(selectedPos).getProducerEmail());
     }
 
     @Override
@@ -96,8 +102,8 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
     }
 
     @Override
-    public void addNewProducer(String _producerName, String _producerId) {
-        mView.addItemToList(_producerName,_producerId);
+    public void addNewProducer(String _producerName, String _producerId, String _producerEmail) {
+        mView.addItemToList(_producerName, _producerId, _producerEmail);
     }
 
     @Override

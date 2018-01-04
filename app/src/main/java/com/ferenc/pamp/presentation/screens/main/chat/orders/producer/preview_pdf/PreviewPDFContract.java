@@ -23,6 +23,12 @@ public interface PreviewPDFContract {
         void hideProgress(boolean _closeActivity);
 
         void showPDFInWebView(PDFPreviewResponse pdfPreviewResponse);
+
+        boolean isReedStoragePermissionNotGranted();
+
+        void checkStoragePermission();
+
+        void showValiderButton();
     }
 
     interface Presenter extends BasePresenter {

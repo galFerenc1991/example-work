@@ -29,6 +29,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -87,9 +88,6 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
             mPresenter.loadNextPage();
             return true;
         });
-
-
-
 
         rvProducer.addOnScrollListener(mScrollListener);
 
@@ -162,15 +160,16 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
             if (requestCode == Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED) {
                 String mProducerName = data.getStringExtra("producerName");
                 String mProducerId = data.getStringExtra("producerId");
-                mPresenter.addNewProducer(mProducerName, mProducerId);
+                String mProducerEmail = data.getStringExtra("producerEmail");
+                mPresenter.addNewProducer(mProducerName, mProducerId, mProducerEmail);
             }
         }
     }
 
     @Override
     public void setProducerList(List<ProducerDH> _list) {
-        mProducerDHList = _list;
-        mProducerAdapter.setListDH(_list);
+        mProducerDHList = _list != null ? _list : new ArrayList<>();
+        mProducerAdapter.setListDH(mProducerDHList);
     }
 
     @Override
@@ -189,6 +188,7 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
         Intent intent = new Intent();
         intent.putExtra("producerName", producer.name);
         intent.putExtra("producerId", producer.producerId);
+        intent.putExtra("producerEmail", producer.email);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -200,8 +200,8 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     }
 
     @Override
-    public void addItemToList(String _producerName, String _producerId) {
-        mProducerDHList.add(0, new ProducerDH(_producerId,_producerName));
+    public void addItemToList(String _producerName, String _producerId, String _producerEmail) {
+        mProducerDHList.add(0, new ProducerDH(_producerId,_producerName, _producerEmail));
         mProducerAdapter.setListDH(mProducerDHList);
     }
 

@@ -172,7 +172,6 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     public boolean isReedContactsPermissionNotGranted() {
         return ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED;
-
     }
 
     @Override

@@ -83,7 +83,7 @@ public class OrderRepository extends NetworkRepository implements
 
     @Override
     public Observable<ListResponse<Producer>> getProducerList(int _page) {
-        return getNetworkObservable(orderService.getProducerList(_page, 10));
+        return getNetworkObservable(orderService.getProducerList(_page, 20));
     }
 
     @Override

@@ -14,6 +14,10 @@ import com.ferenc.pamp.presentation.utils.ToastManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -37,17 +41,19 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
     private PDFPreviewRequest mPDFPreviewRequest;
     private PDFPreviewResponse mPDFPreviewResponse;
     private PreviewPDFActivity mActivity;
+    private String mProducerEmail;
 
-    public PreviewPDFPresenter(PreviewPDFContract.View _view, PreviewPDFContract.Model _model, PDFPreviewRequest _PDFPreviewRequest, PreviewPDFActivity _activity) {
+    public PreviewPDFPresenter(PreviewPDFContract.View _view, PreviewPDFContract.Model _model, PDFPreviewRequest _PDFPreviewRequest, PreviewPDFActivity _activity, String _producerEmail) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mPDFPreviewRequest = _PDFPreviewRequest;
         this.mActivity = _activity;
+        this.mProducerEmail = _producerEmail;
         mView.setPresenter(this);
     }
 
-    @Override
+
     public void getPDFPreview() {
         mView.showProgress();
         mCompositeDisposable.add(mModel.getPDFPreview(mPDFPreviewRequest.id, mPDFPreviewRequest)
@@ -55,12 +61,13 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
                     mView.hideProgress(false);
                     mPDFPreviewResponse = pdfPreviewResponse;
                     mView.showPDFInWebView(getPDFPreviewResponse());
+                    mView.showValiderButton();
                 }, throwableConsumer));
     }
 
     @Override
     public void subscribe() {
-
+        getPDFPreview();
     }
 
     @Override
@@ -112,11 +119,15 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
 
     private void sharePDF(File _file) {
         Uri fileUri = FileProvider.getUriForFile(PampApp_.getInstance(), "com.ferenc.pamp.provider", _file);
-        String bodyText = "Body Text That Will Be Shared";
-        String subjectText = "Subject Text That Will Be Shared";
+        String bodyText = "Pamp Order list";
+        String subjectText = "Shared order list";
+
+
+
         Intent shareIntent = ShareCompat.IntentBuilder.from(mActivity)
                 .setSubject(subjectText)
                 .setText(bodyText)
+                .setEmailTo(new String[]{mProducerEmail})
                 .setType("application/pdf")
                 .addStream(fileUri)
                 .getIntent();

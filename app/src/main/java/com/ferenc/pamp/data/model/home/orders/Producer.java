@@ -26,9 +26,10 @@ public class Producer implements Parcelable {
         this.description = _description;
     }
 
-    public Producer(String _name, String _producerId) {
+    public Producer(String _name, String _producerId, String _producerEmail) {
         this.name = _name;
         this.producerId = _producerId;
+        this.email = _producerEmail;
     }
 
     public Producer() {

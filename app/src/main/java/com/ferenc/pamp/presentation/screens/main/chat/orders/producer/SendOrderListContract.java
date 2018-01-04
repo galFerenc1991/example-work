@@ -16,7 +16,7 @@ public interface SendOrderListContract {
 
         void setProducer(String name);
 
-        void openSendOrderListFlow(PDFPreviewRequest _pdfPreviewRequest);
+        void openSendOrderListFlow(PDFPreviewRequest _pdfPreviewRequest, String _producerEmail);
 
         void setValidateButtonEnabled(boolean _isEnabled);
 
@@ -29,7 +29,7 @@ public interface SendOrderListContract {
 
         boolean setQuantity(int _quantity);
 
-        void clickValider(String _id, String _dealId, int _quantity);
+        void clickValider(String _id, String _dealId, int _quantity, String _producerEmail);
 
         void validateData(int _quantity, String _producerId);
 

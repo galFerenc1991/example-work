@@ -28,7 +28,7 @@ public interface ChooseProducerContract {
 
         void enabledValider();
 
-        void addItemToList(String _producerName, String _producerId);
+        void addItemToList(String _producerName, String _producerId, String _producerEmail);
 
         void createNewProducer();
 
@@ -46,7 +46,7 @@ public interface ChooseProducerContract {
 
         void clickedValide();
 
-        void addNewProducer(String _producerName, String _producerId);
+        void addNewProducer(String _producerName, String _producerId, String mProducerEmail);
 
         void clickToCreateNewProducer();
 

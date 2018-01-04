@@ -10,12 +10,14 @@ public class ProducerDH implements RecyclerDH {
 
     private String mProducerName;
     private String mProducerId;
+    private String mProducerEmail;
     private boolean mSelected = false;
 
 
-    public ProducerDH(String _producerId, String _producerName) {
+    public ProducerDH(String _producerId, String _producerName, String _producerEmail) {
         mProducerId = _producerId;
         mProducerName = _producerName;
+        mProducerEmail = _producerEmail;
     }
 
     public ProducerDH(String _producerId, String _producerName, boolean _selected) {
@@ -31,6 +33,8 @@ public class ProducerDH implements RecyclerDH {
     public String getProducerId() {
         return mProducerId;
     }
+
+    public String getProducerEmail() {return mProducerEmail;}
 
     public boolean isSelected() {
         return mSelected;

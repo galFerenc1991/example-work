@@ -7,12 +7,18 @@
         android:id="@+id/toolbar_APPDF"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_bar_height"/>
+    <View
+        android:id="@+id/viewShadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_elevation"
+        android:background="@drawable/shadow"
+        android:layout_below="@id/toolbar_APPDF"/>
 
     <WebView
         android:id="@+id/wvHtml_APPDF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_ASOL"
+        android:layout_below="@+id/viewShadow"
         android:layout_marginBottom="@dimen/margin_default"
         android:layout_marginLeft="@dimen/margin_default"
         android:layout_marginRight="@dimen/margin_default" />
@@ -30,7 +36,8 @@
         android:paddingEnd="@dimen/margin_triple"
         android:paddingStart="@dimen/margin_triple"
         android:paddingTop="@dimen/margin_half"
-        android:text="@string/button_confirm" />
+        android:text="@string/button_confirm"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/rlProgress_APPDF"
