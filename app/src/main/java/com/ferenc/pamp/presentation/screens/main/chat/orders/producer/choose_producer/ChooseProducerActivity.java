@@ -155,6 +155,11 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     }
 
     @Override
+    public List<ProducerDH> getCurrentList() {
+        return mProducerAdapter.getListDH();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED) {

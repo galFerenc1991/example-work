@@ -56,7 +56,7 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
                     for (Producer producer : producerListResponse.data)
                         producers.add(new ProducerDH(producer.producerId, producer.name, producer.email));
 
-                    producerDHS.addAll(producers);
+//                    producerDHS.addAll(producers);
 
                     if (!isLoadMore) {
                         mView.setProducerList(producers);
@@ -64,6 +64,7 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
                         mView.addProducerList(producers);
                     }
 
+                    producerDHS = mView.getCurrentList();
                     mTotalPages = producerListResponse.meta.pages;
                     mPage++;
                 }, e -> {

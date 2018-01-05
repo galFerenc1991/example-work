@@ -37,6 +37,8 @@ public interface ChooseProducerContract {
         void hideProgressBar();
 
         void addProducerList(List<ProducerDH> producerDHS);
+
+        List<ProducerDH> getCurrentList();
     }
 
     interface Presenter extends BasePresenter {
