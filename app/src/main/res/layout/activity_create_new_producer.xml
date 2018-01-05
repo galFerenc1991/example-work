@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_ACNP"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_elevation"
+        android:background="@drawable/shadow"
+        android:layout_below="@+id/toolbar_ACNP"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_ACNP">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/padding_double_upper_medium"
+            android:paddingTop="@dimen/padding_default"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etProducerName_ACNP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorBackgroundSendOrderListLine"
+                android:textSize="@dimen/text_size_small"
+                android:fontFamily="sans-serif"
+                android:hint="@string/hint_add_producer_nom_du_producteur"
+                android:inputType="textPersonName"
+                android:imeOptions="actionNext"
+                android:layout_marginBottom="@dimen/margin_default"
+                />
+            <EditText
+                android:id="@+id/etProducerEmail_ACNP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorBackgroundSendOrderListLine"
+                android:textSize="@dimen/text_size_small"
+                android:fontFamily="sans-serif"
+                android:hint="@string/hint_add_producer_e_mail"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"
+                android:layout_marginBottom="@dimen/margin_default"
+                />
+            <EditText
+                android:id="@+id/etProducerPhone_ACNP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorBackgroundSendOrderListLine"
+                android:textSize="@dimen/text_size_small"
+                android:fontFamily="sans-serif"
+                android:hint="@string/hint_add_producer_tel_optionnel"
+                android:inputType="phone"
+                android:imeOptions="actionNext"
+                android:layout_marginBottom="@dimen/margin_default"
+                />
+            <EditText
+                android:id="@+id/etProducerAddress_ACNP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorBackgroundSendOrderListLine"
+                android:textSize="@dimen/text_size_small"
+                android:hint="@string/hint_add_producer_adresse_optionel_n_et_nom_voie_code_postal"
+                android:fontFamily="sans-serif"
+                android:inputType="textPostalAddress"
+                android:imeOptions="actionNext"
+                android:layout_marginBottom="@dimen/margin_default"
+                />
+            <EditText
+                android:id="@+id/etProducerDescription_ACNP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_description"
+                android:textSize="@dimen/text_size_small"
+                android:hint="@string/hint_add_producer_description_optionnel"
+                android:fontFamily="sans-serif-medium"
+                android:inputType="textMultiLine"
+                android:imeOptions="actionDone"
+                />
+
+            <Button
+                android:id="@+id/btnValider_ACNP"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/confirm_button_height"
+                android:layout_marginBottom="@dimen/margin_half"
+                android:layout_marginTop="@dimen/margin_huge"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bg_confirm_button_disable"
+                android:enabled="false"
+                android:paddingEnd="@dimen/padding_double"
+                android:paddingStart="@dimen/padding_double"
+                android:textAllCaps="false"
+                android:text="@string/producer_valider"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

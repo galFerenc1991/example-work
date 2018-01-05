@@ -118,6 +118,10 @@ public class SettingsActivity extends AppCompatActivity {
                 intent.putExtra(Constants.KEY_SETTINGS, Constants.KEY_CANCEL_GOOD_DEAL);
                 setResult(RESULT_OK, intent);
                 break;
+            case Constants.KEY_SEND_ORDERS:
+                intent.putExtra(Constants.KEY_SETTINGS, Constants.KEY_SEND_ORDERS);
+                setResult(RESULT_OK, intent);
+                break;
         }
         finish();
     }

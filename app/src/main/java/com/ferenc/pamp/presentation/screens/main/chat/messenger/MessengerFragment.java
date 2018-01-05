@@ -168,6 +168,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
             switch (data.getStringExtra(Constants.KEY_SETTINGS)) {
                 case Constants.KEY_SEND_ORDERS:
                     mPresenter.sendOrders();
+                    break;
                 case Constants.KEY_CHANGE_CLOSE_DATE:
                     mPresenter.changeCloseDateAction();
                     break;

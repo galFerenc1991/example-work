@@ -16,6 +16,8 @@ import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.model.message.MessageResponse;
+import com.ferenc.pamp.presentation.utils.Constants;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.michenko.simpleadapter.OnCardClickListener;
 import com.michenko.simpleadapter.RecyclerVH;
 import com.squareup.picasso.Picasso;
@@ -24,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -108,39 +111,42 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         tvDealEndDate.setText(deliveryEndDate);
         tvDealLocation.setText(goodDealResponse.deliveryAddress);
 
-        llCreateEvent.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_INSERT);
-            intent.setType("vnd.android.cursor.item/event");
 
-            long startTime = goodDealResponse.deliveryStartDate;
-            long endTime = goodDealResponse.deliveryEndDate;
+        RxView.clicks(llCreateEvent)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> {
+                    Intent intent = new Intent(Intent.ACTION_INSERT);
+                    intent.setType("vnd.android.cursor.item/event");
 
-            intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime);
-            intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime);
-            intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+                    long startTime = goodDealResponse.deliveryStartDate;
+                    long endTime = goodDealResponse.deliveryEndDate;
 
-            intent.putExtra(CalendarContract.Events.TITLE, "BON PLAN");
-            intent.putExtra(CalendarContract.Events.DESCRIPTION, "Bon Plan delivery date");
-            intent.putExtra(CalendarContract.Events.EVENT_LOCATION, goodDealResponse.deliveryAddress);
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime);
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime);
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+
+                    intent.putExtra(CalendarContract.Events.TITLE, "BON PLAN");
+                    intent.putExtra(CalendarContract.Events.DESCRIPTION, "Bon Plan delivery date");
+                    intent.putExtra(CalendarContract.Events.EVENT_LOCATION, goodDealResponse.deliveryAddress);
 //            intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
 
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        });
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                });
 
-        tvDealLocation.setOnClickListener(v -> {
+        RxView.clicks(tvDealLocation)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> {
+
 //            Uri gmmIntentUri = Uri.parse("google.navigation:q=" + Uri.encode(goodDealResponse.deliveryAddress)); if we needed to navigate user to place XD
-            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(goodDealResponse.deliveryAddress));
+                    Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(goodDealResponse.deliveryAddress));
 
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-            mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
-                context.startActivity(mapIntent);
-            }
-        });
-
-
-
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
+                        context.startActivity(mapIntent);
+                    }
+                });
     }
 }

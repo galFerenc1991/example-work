@@ -94,7 +94,7 @@ public class ParticipantsActivity extends BaseActivity {
     private void replaceShareFragment() {
         setToolbarTitle(mTitleAddParticipants);
         btnAjouter.setVisibility(View.GONE);
-        replaceFragment(ShareFragment_.builder().isReBroadcastFlow(false).isUpdateGoodDeal(true).build());
+        replaceFragmentClearBackstack(ShareFragment_.builder().isReBroadcastFlow(false).isUpdateGoodDeal(true).build());
     }
 
     private void replaceParticipantsFragment(int fromWhere) {
@@ -102,7 +102,7 @@ public class ParticipantsActivity extends BaseActivity {
             btnAjouter.setVisibility(View.VISIBLE);
         }
         setToolbarTitle(mTitleParticipantsList);
-        replaceFragment(ParticipantsListFragment_.builder().build());
+        replaceFragmentClearBackstack(ParticipantsListFragment_.builder().build());
     }
 
     private void setToolbarTitle(String toolbarTitle) {

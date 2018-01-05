@@ -41,22 +41,26 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
 
         Context context = data.getContext();
         MessageResponse messageResponse = data.getMessageResponse();
-        String deliveryStartDate = messageResponse.description != null
-                ? new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryStartDate))
+        String deliveryClosingDate = messageResponse.description != null
+                ? new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(messageResponse.description.closingDate))
                 : "";
+        String deliveryEndDate = messageResponse.description != null
+                ? new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryEndDate))
+                : "";
+
 
         switch (messageResponse.code) {
             case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_date_msg));
-                tvStateDescription.setText(context.getString(R.string.text_change_date) + "\n" + deliveryStartDate);
+                tvStateDescription.setText(context.getString(R.string.text_change_date) + "\n" + deliveryEndDate);
                 break;
             case Constants.M12_DELIVERY_DATE:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_date_msg));
-                tvStateDescription.setText(context.getString(R.string.text_delivery_date) + "\n" + deliveryStartDate);
+                tvStateDescription.setText(context.getString(R.string.text_delivery_date));
                 break;
             case Constants.M6_GOOD_DEAL_CLOSING_DATE_CHANGED:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_hourglass_msg));
-                tvStateDescription.setText(context.getString(R.string.text_change_closing_date) + "\n" + deliveryStartDate);
+                tvStateDescription.setText(context.getString(R.string.text_change_closing_date) + "\n" + deliveryClosingDate);
                 break;
             case Constants.M9_CLOSING_DATE:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_hourglass_msg));

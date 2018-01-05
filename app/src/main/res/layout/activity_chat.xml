@@ -46,7 +46,6 @@
                     android:id="@+id/tvParticipants_AC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sasha, Vasia, Shoni, Feri, Ivan.."
                     android:textSize="@dimen/text_size_tiny"
                     android:textStyle="bold" />
 

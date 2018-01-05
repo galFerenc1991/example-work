@@ -15,6 +15,7 @@
 
 
     <dimen name="margin_big">60dp</dimen>
+    <dimen name="margin_huge">57dp</dimen>
     <dimen name="margin_triple">48dp</dimen>
     <dimen name="margin_37">37dp</dimen>
     <dimen name="margin_double">32dp</dimen>
@@ -69,6 +70,8 @@
     <dimen name="default_producer_text_width">281dp</dimen>
     <dimen name="view_width">3dp</dimen>
     <dimen name="shadow_height">2dp</dimen>
+    <dimen name="toolbar_shadow_height">5dp</dimen>
+
 
 
 </resources>
