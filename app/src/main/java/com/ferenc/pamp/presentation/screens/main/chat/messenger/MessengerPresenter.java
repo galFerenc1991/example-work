@@ -110,9 +110,13 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(messageResponse -> {
-                    Log.d("SocketIO", "New message is here: " + messageResponse.text);
                     mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
                     mView.addItem(mMessagesDH);
+                    if (messageResponse.code.equals(Constants.M6_GOOD_DEAL_CLOSING_DATE_CHANGED)) {
+                        GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
+                        goodDealResponse.closingDate = messageResponse.description.closingDate;
+                        mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
+                    }
                 }, throwable -> {
                     Log.d("MessengerPresenter", "Error while getting new message " + throwable.getMessage());
                 }));

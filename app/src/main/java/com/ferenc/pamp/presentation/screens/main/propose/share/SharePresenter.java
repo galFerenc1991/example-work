@@ -14,6 +14,7 @@ import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.ContactManager;
 import com.ferenc.pamp.presentation.utils.FirebaseDynamicLinkGenerator;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.GoodDealValidateManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 
@@ -38,16 +39,18 @@ public class SharePresenter implements ShareContract.Presenter {
     private CompositeDisposable mCompositeDisposable;
     private List<ContactDH> mPhoneContactList;
     private GoodDealManager mGoodDealManager;
+    private GoodDealResponseManager mGoodDealResponseManager;
     private boolean mIsReBroadcastFlow;
     private boolean mIsUpdateGoodDeal;
     private ContactManager mContactManager;
 
-    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager, boolean _isReBroadcastFlow, boolean _isUpdateGoodDeal, ContactManager _contactManager) {
+    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager, GoodDealResponseManager _goodDealResponseManager,  boolean _isReBroadcastFlow, boolean _isUpdateGoodDeal, ContactManager _contactManager) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mPhoneContactList = new ArrayList<>();
         this.mGoodDealManager = _goodDealManager;
+        this.mGoodDealResponseManager = _goodDealResponseManager;
         this.mIsReBroadcastFlow = _isReBroadcastFlow;
         this.mIsUpdateGoodDeal = _isUpdateGoodDeal;
         this.mContactManager = _contactManager;
@@ -133,8 +136,9 @@ public class SharePresenter implements ShareContract.Presenter {
                         ? mModel.updateGoodDeal(mGoodDealManager.getGoodDeal().getId(), createRequestParameter(contactDHList))
                         : mModel.createGoodDeal(createRequestParameter(contactDHList)))
                         .subscribe(goodDealResponse -> {
-                            mView.hideProgress();
-                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
+                                    mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
+                                    mView.hideProgress();
+                                    mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
                         }, throwable -> {
                             mView.hideProgress();
                             mView.showErrorMessage(Constants.MessageType.ERROR_WHILE_SELECT_ADDRESS);

@@ -6,14 +6,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ShareCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
+import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.domain.GoodDealRepository;
@@ -25,6 +28,7 @@ import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.ContactManager;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -80,6 +84,8 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     @Bean
     protected GoodDealManager mGoodDealManager;
     @Bean
+    protected GoodDealResponseManager mGoodDealResponseManager;
+    @Bean
     protected ContactManager mContactManager;
 
     @FragmentArg
@@ -91,7 +97,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     @AfterInject
     @Override
     public void initPresenter() {
-        new SharePresenter(this, mGoodDealRepository, mGoodDealManager, isReBroadcastFlow, isUpdateGoodDeal, mContactManager);
+        new SharePresenter(this, mGoodDealRepository, mGoodDealManager, mGoodDealResponseManager, isReBroadcastFlow, isUpdateGoodDeal, mContactManager);
 
         mContactAdapter.setOnCardClickListener((view, position, viewType) ->
                 mPresenter.selectItem(mContactAdapter.getItem(position), position));
@@ -127,22 +133,29 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
         Uri uri = Uri.parse(Constants.KEY_SENDTO_SMS + TextUtils.join(", ", selectedContacts));
         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
         it.putExtra(Constants.KEY_SMS_BODY, R.string.msg_send_good_deal + _dynamicLink.toString());
-        startActivity(it);
         startActivityForResult(it, Constants.REQUEST_CODE_SEND_SMS_DONE);
+
+
+//        SmsManager smsManager = SmsManager.getDefault();
+//        smsManager.sendTextMessage(TextUtils.join(", ", selectedContacts),null, R.string.msg_send_good_deal + _dynamicLink.toString(),null, null);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.REQUEST_CODE_SEND_SMS_DONE) {
-            EndFlowActivity_
-                    .intent(this)
-                    .mFlow(Constants.CREATE_FLOW)
-//                    .mIsCreatedFlow(true)
-                    .fromWhere(Constants.ITEM_TYPE_REUSE)
-                    .mGoodDealResponse(mGoodDealResponse)
-                    .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    .start();
+            if (!isUpdateGoodDeal) {
+                EndFlowActivity_
+                        .intent(this)
+                        .mFlow(Constants.CREATE_FLOW)
+//                        .mIsCreatedFlow(true)
+                        .fromWhere(Constants.ITEM_TYPE_REUSE)
+                        .mGoodDealResponse(mGoodDealResponse)
+                        .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .start();
+            } else {
+                getActivity().finish();
+            }
         }
     }
 
@@ -160,7 +173,6 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     public boolean isReedContactsPermissionNotGranted() {
         return ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED;
-
     }
 
     @Override

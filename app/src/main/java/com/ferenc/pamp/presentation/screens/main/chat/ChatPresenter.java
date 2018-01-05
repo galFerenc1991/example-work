@@ -72,10 +72,12 @@ public class ChatPresenter implements ChatContract.Presenter {
     @Override
     public void setParticipants() {
         ArrayList<String> recipients = new ArrayList<>();
-        for (User user : mGoodDealResponse.recipients) {
-            recipients.add(user.getFirstName());
+        if (mGoodDealResponse.recipients != null) {
+            for (User user : mGoodDealResponse.recipients) {
+                recipients.add(user.getFirstName());
+            }
+            mView.setParticipants(TextUtils.join(", ", recipients));
         }
-        mView.setParticipants(TextUtils.join(", ", recipients));
     }
 
     @Override

@@ -23,6 +23,8 @@ public abstract class Constants {
     public static final String UPDATE_FIRST_NAME_KEY = "firstName";
     public static final String UPDATE_LAST_NAME_KEY = "lastName";
     public static final String UPDATE_COUNTRY_KEY = "counry";
+    public static final String MIME_TYPE = "text/html";
+    public static final String DEFAULT_UNCODING = "UTF-8";
 
 
     /*REQUEST CODES*/
@@ -45,6 +47,8 @@ public abstract class Constants {
     public static final int REQUEST_CODE_ACTIVITY_EXPIRATION = 19;
     public static final int REQUEST_CODE_ACTIVITY_CARD_CVV = 20;
     public static final int REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY = 21;
+    public static final int REQUEST_CODE_ACTIVITY_CHOOSE_PRODUCER = 22;
+    public static final int REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED = 23;
 
 
     /*PERMISSIONS REQUEST CODES*/
@@ -52,6 +56,7 @@ public abstract class Constants {
     public static final int REQUEST_CODE_SEND_SMS = 13;
     public static final int REQUEST_CODE_CAMERA = 14;
     public static final int REQUEST_CODE_SEND_SMS_DONE = 15;
+    public static final int REQUEST_CODE_STORAGE = 24;
 
     /*KEYS*/
     public static final String KEY_COUNTRY = "country";
@@ -64,6 +69,10 @@ public abstract class Constants {
     public static final String KEY_SENDTO_SMS = "smsto: ";
     public static final String KEY_SMS_BODY = "sms_body";
     public static final String KEY_PRODUCT_QUANTITY = "quantity";
+    public static final String KEY_PRODUCER_NAME = "producerName";
+    public static final String KEY_PRODUCER_ID = "producerId";
+    public static final String KEY_PRODUCER_EMAIL = "producerEmail";
+
 
     /*GOOD DEAL STATES*/
     public static final String STATE_CANCELED = "canceled";

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_APPDF"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"/>
+    <View
+        android:id="@+id/viewShadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_elevation"
+        android:background="@drawable/shadow"
+        android:layout_below="@id/toolbar_APPDF"/>
+
+    <WebView
+        android:id="@+id/wvHtml_APPDF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/viewShadow"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:layout_marginLeft="@dimen/margin_default"
+        android:layout_marginRight="@dimen/margin_default" />
+
+    <Button
+        android:id="@+id/btnConfirm_APPDF"
+        style="@style/ConfirmButtonTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/confirm_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:background="@drawable/bg_confirm_button"
+        android:paddingBottom="@dimen/margin_half"
+        android:paddingEnd="@dimen/margin_triple"
+        android:paddingStart="@dimen/margin_triple"
+        android:paddingTop="@dimen/margin_half"
+        android:text="@string/button_confirm"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:id="@+id/rlProgress_APPDF"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/colorWhite"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+</RelativeLayout>
