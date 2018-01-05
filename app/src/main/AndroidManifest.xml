@@ -174,6 +174,12 @@
             android:label="@string/app_name" />
 
         <activity
+            android:name=".presentation.custom.bank_account.BankAccountActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>

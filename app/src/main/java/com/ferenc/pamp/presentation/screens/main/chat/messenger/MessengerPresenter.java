@@ -6,11 +6,13 @@ import android.util.Log;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.domain.SocketRepository;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
@@ -40,6 +42,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     private MessengerContract.GoodDealModel mGoodDealModel;
     private CompositeDisposable mCompositeDisposable;
     private GoodDealResponseManager mGoodDealResponseManager;
+    private GoodDealManager mGoodDealManager;
 
     private int mPage;
     private int mTotalPages = Integer.MAX_VALUE;
@@ -54,7 +57,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
             , SocketRepository _socketRepository
             , SignedUserManager _signedUserManager
             , Context _context
-            , GoodDealResponseManager _goodDealResponseManager) {
+            , GoodDealResponseManager _goodDealResponseManager
+            , GoodDealManager _goodDealManager) {
 
         this.mView = mView;
         this.mModel = _messageRepository;
@@ -66,6 +70,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         this.mSocketModel = _socketRepository;
         this.mGoodDealResponse = _goodDealResponseManager.getGoodDealResponse();
         this.mGoodDealResponseManager = _goodDealResponseManager;
+        this.mGoodDealManager = _goodDealManager;
 
         mView.setPresenter(this);
     }
@@ -205,8 +210,34 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
     @Override
     public void setChangedCloseDate(Calendar _changedCloseDate) {
-        /// do request
+        mView.showProgressMain();
+        mCompositeDisposable.add(mGoodDealModel.updateGoodDeal(mGoodDealResponse.id, new GoodDealRequest.Builder()
+                .setClosingDate(_changedCloseDate.getTimeInMillis())
+                .build())
+                .subscribe(goodDealResponse -> {
+                    mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
+                    mView.hideProgress();
+                }, throwable -> {
+                    mView.hideProgress();
+                    mView.showErrorMessage(Constants.MessageType.UNKNOWN);
+                }));
 
+    }
+
+    @Override
+    public void setChangedDeliveryDate(String _startDate, String _endDate) {
+        mView.showProgressMain();
+        mCompositeDisposable.add(mGoodDealModel.updateGoodDeal(mGoodDealResponse.id, new GoodDealRequest.Builder()
+                .setDeliveryStartDate(mGoodDealManager.getGoodDeal().getDeliveryStartDate())
+                .setDeliveryEndDate(mGoodDealManager.getGoodDeal().getDeliveryEndDate())
+                .build())
+                .subscribe(goodDealResponse -> {
+                    mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
+                    mView.hideProgress();
+                }, throwable -> {
+                    mView.hideProgress();
+                    mView.showErrorMessage(Constants.MessageType.UNKNOWN);
+                }));
     }
 
     @Override

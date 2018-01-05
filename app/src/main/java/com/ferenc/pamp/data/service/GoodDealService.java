@@ -5,6 +5,7 @@ import com.ferenc.pamp.data.model.home.good_deal.ConnectGoodDealResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.data.model.home.orders.OrdersList;
 import com.ferenc.pamp.presentation.base.models.GoodDeal;
 
 import io.reactivex.Observable;
@@ -41,4 +42,7 @@ public interface GoodDealService {
 
     @PUT("/deal/{id}")
     Observable<GoodDealResponse> updateGoodDeal(@Path("id") String _id, @Body GoodDealRequest request);
+
+    @PUT("/deal/{id}/confirm")
+    Observable<GoodDealCancelResponse> confirmDeal(@Path("id") String _dealId, @Body OrdersList list);
 }

@@ -113,8 +113,14 @@ public abstract class Constants {
     public static final int M8_M10_MSG_GROUP_TYPE = 4;
     public static final int M11_1_M11_2_M11_3_MSG_GROUP_TYPE = 5;
 
+    /*FLOWS*/
+    public static final int CREATE_FLOW = 501;
+    public static final int NOT_CREATE_FLOW = 502;
+    public static final int ATTACH_BANK_ACCOUNT_FLOW = 503;
 
-    public enum MessageType{
+
+
+    public enum MessageType {
         CONNECTION_PROBLEMS(R.string.err_msg_connection_problem, true),
         USER_NOT_REGISTERED(R.string.err_msg_user_not_registered, true),
         BAD_CREDENTIALS(R.string.err_msg_bad_credentials, true),

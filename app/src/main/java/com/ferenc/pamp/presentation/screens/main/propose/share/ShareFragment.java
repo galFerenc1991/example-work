@@ -137,7 +137,8 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
         if (requestCode == Constants.REQUEST_CODE_SEND_SMS_DONE) {
             EndFlowActivity_
                     .intent(this)
-                    .mIsCreatedFlow(true)
+                    .mFlow(Constants.CREATE_FLOW)
+//                    .mIsCreatedFlow(true)
                     .fromWhere(Constants.ITEM_TYPE_REUSE)
                     .mGoodDealResponse(mGoodDealResponse)
                     .flags(Intent.FLAG_ACTIVITY_NEW_TASK)

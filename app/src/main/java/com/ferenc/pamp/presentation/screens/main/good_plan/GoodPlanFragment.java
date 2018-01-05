@@ -39,7 +39,7 @@ public class GoodPlanFragment extends ContentTabsFragment {
     @AfterViews
     public void configViewPager(){
         rlTitle.setVisibility(View.GONE);
-        vpContent.setPagingEnabled(false);
+//        vpContent.setPagingEnabled(false);
     }
 
     @Override

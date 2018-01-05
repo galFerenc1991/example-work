@@ -35,8 +35,8 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
         GoodDealRequest reUseGoodDeal = mGoodDealManager.getGoodDeal();
         if (reUseGoodDeal.getProduct() != null) {
             if (!mIsReBroadcastFlow) {
-                mView.setCloseDate(convertServerDateToString(reUseGoodDeal.getClosingDate()));
-                mView.setDeliveryDate(convertServerDateToString(reUseGoodDeal.getDeliveryStartDate()) + "\n" + convertServerDateToString(reUseGoodDeal.getDeliveryEndDate()));
+//                mView.setCloseDate(convertServerDateToString(reUseGoodDeal.getClosingDate()));
+//                mView.setDeliveryDate(convertServerDateToString(reUseGoodDeal.getDeliveryStartDate()) + "\n" + convertServerDateToString(reUseGoodDeal.getDeliveryEndDate()));
                 mView.setDeliveryPlace(reUseGoodDeal.getDeliveryAddress());
             } else {
                 mView.setProductDescription(reUseGoodDeal.getDescription());

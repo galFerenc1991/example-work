@@ -42,7 +42,7 @@ public class SharePresenter implements ShareContract.Presenter {
     private boolean mIsUpdateGoodDeal;
     private ContactManager mContactManager;
 
-    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager,  boolean _isReBroadcastFlow, boolean _isUpdateGoodDeal, ContactManager _contactManager) {
+    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager, boolean _isReBroadcastFlow, boolean _isUpdateGoodDeal, ContactManager _contactManager) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
@@ -124,38 +124,38 @@ public class SharePresenter implements ShareContract.Presenter {
 
     @Override
     public void share(List<ContactDH> contactDHList) {
-        if (!mIsReBroadcastFlow){
-            List<String> selectedContacts = getSelectedContacts(contactDHList);
-            if (!selectedContacts.isEmpty()) {
-                if (GoodDealValidateManager.validate(mGoodDealManager.getGoodDeal())) {
+        List<String> selectedContacts = getSelectedContacts(contactDHList);
 
-                    mView.showProgressMain();
-                    mCompositeDisposable.add((mIsUpdateGoodDeal
-                            ? mModel.updateGoodDeal(mGoodDealManager.getGoodDeal().getId(), createRequestParameter(contactDHList))
-                            : mModel.createGoodDeal(createRequestParameter(contactDHList)))
-                            .subscribe(goodDealResponse -> {
-                                mView.hideProgress();
-                                mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
-                            }, throwable -> {
-                                mView.hideProgress();
-                                mView.showErrorMessage(Constants.MessageType.ERROR_WHILE_SELECT_ADDRESS);
-                            }));
-                } else {
-                    mView.openVerificationErrorPopUP();
-                }
+        if (!mIsReBroadcastFlow) {
+            if (GoodDealValidateManager.validate(mGoodDealManager.getGoodDeal(), selectedContacts)) {
+                mView.showProgressMain();
+                mCompositeDisposable.add((mIsUpdateGoodDeal
+                        ? mModel.updateGoodDeal(mGoodDealManager.getGoodDeal().getId(), createRequestParameter(contactDHList))
+                        : mModel.createGoodDeal(createRequestParameter(contactDHList)))
+                        .subscribe(goodDealResponse -> {
+                            mView.hideProgress();
+                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
+                        }, throwable -> {
+                            mView.hideProgress();
+                            mView.showErrorMessage(Constants.MessageType.ERROR_WHILE_SELECT_ADDRESS);
+                        }));
             } else {
-                ToastManager.showToast("Please select contacts");
+                mView.openVerificationErrorPopUP();
             }
         } else {
-            mView.showProgressMain();
-            mCompositeDisposable.add(mModel.resendGoodDeal(createRequestParameter(contactDHList))
-                    .subscribe(goodDealResponse -> {
-                        mView.hideProgress();
-                        mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
-                    }, throwable -> {
-                        mView.hideProgress();
-                        mView.showErrorMessage(Constants.MessageType.ERROR_WHILE_SELECT_ADDRESS);
-                    }));
+            if (GoodDealValidateManager.validate(mGoodDealManager.getGoodDeal(), selectedContacts)) {
+                mView.showProgressMain();
+                mCompositeDisposable.add(mModel.resendGoodDeal(createRequestParameter(contactDHList))
+                        .subscribe(goodDealResponse -> {
+                            mView.hideProgress();
+                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
+                        }, throwable -> {
+                            mView.hideProgress();
+                            mView.showErrorMessage(Constants.MessageType.UNKNOWN);
+                        }));
+            } else {
+                ToastManager.showToast("Please set all required fields");
+            }
         }
 
 

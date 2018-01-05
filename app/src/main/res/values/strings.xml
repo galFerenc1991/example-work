@@ -31,6 +31,9 @@
     <string name="title_payment">Paiement</string>
     <string name="title_select_payment_information">Saisissez vos informations de paiement</string>
     <string name="title_send_order_list">Envoyer Votre Liste de Commande au Producteur</string>
+    <string name="title_bank_account">Enregistrer vos donnees bancaires</string>
+    <string name="title_create_bank_account">Cela nous permettra de virer sur votre compte les sommes liées à vos commandes</string>
+
 
     <!--Buttons-->
     <string name="button_sign_in">S\'inscrire</string>
@@ -54,6 +57,7 @@
     <string name="button_cancel_deal">Oui, j’annule</string>
     <string name="button_not_cancel_deal">Finalement, non</string>
     <string name="button_add_payment">Ajouter un moyen de paiement</string>
+    <string name="button_confirm_orders">Verser l’argent sur mon compte</string>
 
 
     <!--Hints-->
@@ -243,6 +247,8 @@
     <string name="text_name_a_change">a change:</string>
     <string name="type_a_message">Type a message..</string>
     <string name="bon_plan">BON PLAN</string>
+    <string name="text_bank_account_attached">Vos données bancaires ont été enregistrées</string>
+
 
     <!--Settings Good Deal texts-->
     <string name="text_send_orders_list">Envoyer votre liste de commandes au producteur</string>
@@ -265,4 +271,12 @@
     <string name="text_card_number">Numéro de carte</string>
     <string name="text_expiration_date">Date d’expiration</string>
     <string name="text_cvv">CVV</string>
+
+    <!--Orders Confirm Dialog-->
+    <string name="orders_confirm_dialog_title">Vous voulez confirmer définitivement votre bon plan ?</string>
+    <string name="orders_confirm_dialog_message1">En confirmant votre bon plan, les commandes seront débitées puis seront versés sur votre compte bancaire.</string>
+    <string name="orders_confirm_dialog_message2">Il ne vous restera plus qu’à livrer vos proches…</string>
+    <string name="orders_confirm_dialog_message3">Assurez vous avant que tout est bien calé avec le producteur… pensez à utiliser la fonctionalité « envoyer votre commande au producteur »</string>
+    <string name="bank_account_error_message">Pour recevoir sur votre compte le virement correspondant aux commandes, vous devez enregistrer vos données bancaires»</string>
+
 </resources>

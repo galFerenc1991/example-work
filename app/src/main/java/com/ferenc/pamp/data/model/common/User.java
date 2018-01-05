@@ -25,6 +25,7 @@ public class User implements Parcelable {
     private String token;
     private String avatar;
     private Card card;
+    private BankAccount bankAccount;
 
     public User() {
     }
@@ -99,6 +100,14 @@ public class User implements Parcelable {
         this.avatar = _avatar;
     }
 
+    public BankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -116,6 +125,7 @@ public class User implements Parcelable {
         dest.writeString(this.token);
         dest.writeString(this.avatar);
         dest.writeParcelable(this.card, flags);
+        dest.writeParcelable(this.bankAccount, flags);
     }
 
     protected User(Parcel in) {
@@ -129,6 +139,7 @@ public class User implements Parcelable {
         this.token = in.readString();
         this.avatar = in.readString();
         this.card = in.readParcelable(Card.class.getClassLoader());
+        this.bankAccount = in.readParcelable(BankAccount.class.getClassLoader());
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

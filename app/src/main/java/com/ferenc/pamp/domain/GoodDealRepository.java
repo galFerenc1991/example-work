@@ -7,10 +7,12 @@ import com.ferenc.pamp.data.model.home.good_deal.ConnectGoodDealResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.data.model.home.orders.OrdersList;
 import com.ferenc.pamp.data.service.GoodDealService;
 import com.ferenc.pamp.data.service.UserService;
 import com.ferenc.pamp.presentation.screens.main.MainContract;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerContract;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.OrderContract;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.ProposedPlansContract;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.ReceivedPlansContract;
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_place.DeliveryPlaceContract;
@@ -39,7 +41,8 @@ public class GoodDealRepository extends NetworkRepository implements ShareContra
         , ReceivedPlansContract.Model
         , MainContract.Model
         , MessengerContract.GoodDealModel
-        , DeliveryPlaceContract.Model {
+        , DeliveryPlaceContract.Model
+        , OrderContract.GoodDealModel {
 
     @Bean
     protected Rest rest;
@@ -111,5 +114,10 @@ public class GoodDealRepository extends NetworkRepository implements ShareContra
     @Override
     public Observable<GoodDealResponse> updateGoodDeal(String _id, GoodDealRequest request) {
         return getNetworkObservable(goodDealService.updateGoodDeal(_id, request));
+    }
+
+    @Override
+    public Observable<GoodDealCancelResponse> confirmDeal(String _dealId, OrdersList list) {
+        return getNetworkObservable(goodDealService.confirmDeal(_dealId, list));
     }
 }

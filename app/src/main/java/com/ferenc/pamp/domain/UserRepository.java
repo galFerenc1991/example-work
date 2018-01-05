@@ -6,6 +6,7 @@ import com.ferenc.pamp.data.model.common.User;
 
 import com.ferenc.pamp.data.service.UserService;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.select_card.SelectCardContract;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.OrderContract;
 import com.ferenc.pamp.presentation.screens.main.profile.ProfileContract;
 
 import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.EditProfileContract;
@@ -28,7 +29,10 @@ import okhttp3.RequestBody;
  * Ferenc on 2017.12.01..
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class UserRepository extends NetworkRepository implements ProfileContract.UserProfileModel, EditProfileContract.Model, SelectCardContract.Model {
+public class UserRepository extends NetworkRepository implements ProfileContract.UserProfileModel,
+        EditProfileContract.Model,
+        SelectCardContract.Model,
+        OrderContract.UserModel{
 
     @Bean
     protected Rest rest;

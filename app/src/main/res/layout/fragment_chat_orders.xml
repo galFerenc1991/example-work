@@ -41,7 +41,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/OrderCreatedAtTextStyle"
+            android:id="@+id/tvOrderCreatedAtFCO"
             style="@style/OrderCreatedAtTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,12 +51,15 @@
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rlOrders_FCO"
+        android:id="@+id/rvOrders_FCO"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rlBonPlan_FCO" />
+        android:layout_below="@+id/rlBonPlan_FCO"
+        android:layout_above="@+id/btnConfirmOrders_FCO"
+        android:layout_margin="@dimen/margin_medium" />
 
     <TextView
+        android:id="@+id/tvPlaceHolder_FCO"
         style="@style/GoodPlanWithTextStyle"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -66,5 +69,19 @@
         android:gravity="center_horizontal"
         android:text="Vous n’avez pas encore de commandes…."
         android:textColor="@color/textColorGreen" />
+
+    <Button
+        android:id="@+id/btnConfirmOrders_FCO"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/confirm_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:background="@drawable/bg_confirm_button"
+        android:paddingEnd="@dimen/padding_double"
+        android:paddingStart="@dimen/padding_double"
+        android:text="@string/button_confirm_orders" />
 
 </RelativeLayout>

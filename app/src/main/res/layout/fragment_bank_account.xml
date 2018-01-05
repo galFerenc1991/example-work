@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_large">
+
+    <TextView
+        android:id="@+id/tvTitle_FBA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_horizontal"
+        android:text="@string/title_create_bank_account"
+        android:textColor="@color/textColorGreen"
+        android:textSize="@dimen/text_size_default" />
+
+    <LinearLayout
+        android:id="@+id/llCountrySpinner_FBA"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle_FBA"
+        android:layout_marginTop="@dimen/margin_default">
+
+        <TextView
+            android:id="@+id/tvCountry_FBA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Select country"
+            android:textColor="@color/textColorGray"
+            android:textColorHint="@color/textColorGray"
+            android:textSize="@dimen/text_size_default" />
+    </LinearLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilIBAN_FBA"
+        style="@style/TILStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llCountrySpinner_FBA"
+        android:hint="@string/hint_iban">
+
+        <EditText
+            android:id="@+id/etIban_FBA"
+            style="@style/AuthEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_edit" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnConfirm_FBA"
+        style="@style/ConfirmButtonTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/confirm_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:background="@drawable/bg_confirm_button"
+        android:paddingBottom="@dimen/margin_half"
+        android:paddingEnd="@dimen/margin_triple"
+        android:paddingStart="@dimen/margin_triple"
+        android:paddingTop="@dimen/margin_half"
+        android:text="@string/button_confirm" />
+</RelativeLayout>
