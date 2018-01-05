@@ -118,9 +118,7 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
 
     @Override
     public boolean validerData() {
-        return !TextUtils.isEmpty(getText(etProducerName))
-                && !TextUtils.isEmpty(getText(etProducerEmail))
-                && ValidationManager.validateEmail(getText(etProducerEmail)) == ValidationManager.OK;
+        return mPresenter.validateData(getText(etProducerName), getText(etProducerEmail));
     }
 
     @Override
@@ -136,10 +134,10 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
 
     @Override
     public void finishActivityWithResult(Producer producer) {
-
         Intent intent = new Intent();
-        intent.putExtra("producerName", producer.name);
-        intent.putExtra("producerId", producer.producerId);
+        intent.putExtra(Constants.KEY_PRODUCER_NAME, producer.name);
+        intent.putExtra(Constants.KEY_PRODUCER_ID, producer.producerId);
+        intent.putExtra(Constants.KEY_PRODUCER_EMAIL, producer.email);
         setResult(RESULT_OK, intent);
         finish();
     }

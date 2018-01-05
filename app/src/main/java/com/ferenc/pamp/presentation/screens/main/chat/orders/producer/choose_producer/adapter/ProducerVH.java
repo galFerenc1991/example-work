@@ -1,5 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,8 +16,9 @@ import com.michenko.simpleadapter.RecyclerVH;
 public class ProducerVH extends RecyclerVH<ProducerDH> {
 
     private TextView tvProducer;
+    private Context context;
 
-    public ProducerVH(View itemView) {
+    ProducerVH(View itemView) {
         super(itemView);
         tvProducer = itemView.findViewById(R.id.tvProducer_IP);
     }
@@ -29,6 +31,7 @@ public class ProducerVH extends RecyclerVH<ProducerDH> {
     @Override
     public void bindData(ProducerDH data) {
 
+        context = itemView.getContext();
         tvProducer.setText(data.getProducer());
 
         if (data.isSelected()) {
@@ -39,9 +42,9 @@ public class ProducerVH extends RecyclerVH<ProducerDH> {
 
     }
     private void unselected() {
-        tvProducer.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.colorBlackTransparent));
+        tvProducer.setTextColor(context.getResources().getColor(R.color.colorBlackTransparent));
     }
     private void select() {
-        tvProducer.setTextColor(PampApp_.getInstance().getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
+        tvProducer.setTextColor(context.getResources().getColor(R.color.msgMyGoodDealDiffusionColor));
     }
 }

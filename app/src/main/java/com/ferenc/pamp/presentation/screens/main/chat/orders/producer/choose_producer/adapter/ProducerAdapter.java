@@ -26,5 +26,4 @@ public class ProducerAdapter extends RecyclerAdapter<ProducerDH> {
         return R.layout.item_producer;
     }
 
-
 }

@@ -23,11 +23,13 @@ public interface SendOrderListContract {
         void openCreateOrderPopUp();
 
         void chooseProducer();
+
+        void setBonPlanInfoVisibility(boolean _isVisible);
     }
 
     interface Presenter extends BasePresenter {
 
-        boolean setQuantity(int _quantity);
+        void setQuantity(int _quantity);
 
         void clickValider(String _id, String _dealId, int _quantity, String _producerEmail);
 

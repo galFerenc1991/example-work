@@ -99,7 +99,7 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     protected void createOrderResult(int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             mQuantity = data.getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1);
-            setBonPlanInfoVisibility(mPresenter.setQuantity(data.getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1)));
+            mPresenter.setQuantity(data.getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1));
             mPresenter.validateData(mQuantity, mProducerId);
         }
     }
@@ -130,7 +130,8 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
 
     }
 
-    private void setBonPlanInfoVisibility(boolean _quantity) {
+    @Override
+    public void setBonPlanInfoVisibility(boolean _quantity) {
         tvBonPlanInfo.setVisibility(_quantity ? View.VISIBLE : View.GONE);
         btnCommander.setVisibility(_quantity  ? View.GONE : View.VISIBLE);
     }
@@ -176,9 +177,9 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
            if (requestCode == Constants.REQUEST_CODE_ACTIVITY_CHOOSE_PRODUCER) {
-               mProducerName = data.getStringExtra("producerName");
-               mProducerId = data.getStringExtra("producerId");
-               mProducerEmail = data.getStringExtra("producerEmail");
+               mProducerName = data.getStringExtra(Constants.KEY_PRODUCER_NAME);
+               mProducerId = data.getStringExtra(Constants.KEY_PRODUCER_ID);
+               mProducerEmail = data.getStringExtra(Constants.KEY_PRODUCER_EMAIL);
                tvProducer.setText(mProducerName);
                mPresenter.validateData(mQuantity, mProducerId);
            }

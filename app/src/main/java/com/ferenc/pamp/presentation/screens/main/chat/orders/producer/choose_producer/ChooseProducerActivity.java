@@ -158,9 +158,9 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED) {
-                String mProducerName = data.getStringExtra("producerName");
-                String mProducerId = data.getStringExtra("producerId");
-                String mProducerEmail = data.getStringExtra("producerEmail");
+                String mProducerName = data.getStringExtra(Constants.KEY_PRODUCER_NAME);
+                String mProducerId = data.getStringExtra(Constants.KEY_PRODUCER_ID);
+                String mProducerEmail = data.getStringExtra(Constants.KEY_PRODUCER_EMAIL);
                 mPresenter.addNewProducer(mProducerName, mProducerId, mProducerEmail);
             }
         }
@@ -186,9 +186,9 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     public void finishActivityWithResult() {
         Producer producer = mPresenter.getSelectedProducer();
         Intent intent = new Intent();
-        intent.putExtra("producerName", producer.name);
-        intent.putExtra("producerId", producer.producerId);
-        intent.putExtra("producerEmail", producer.email);
+        intent.putExtra(Constants.KEY_PRODUCER_NAME, producer.name);
+        intent.putExtra(Constants.KEY_PRODUCER_ID, producer.producerId);
+        intent.putExtra(Constants.KEY_PRODUCER_EMAIL, producer.email);
         setResult(RESULT_OK, intent);
         finish();
     }

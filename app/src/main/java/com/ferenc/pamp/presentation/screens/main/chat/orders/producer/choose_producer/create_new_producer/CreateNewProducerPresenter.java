@@ -1,6 +1,9 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer;
 
+import android.text.TextUtils;
+
 import com.ferenc.pamp.data.model.home.orders.Producer;
+import com.ferenc.pamp.presentation.utils.ValidationManager;
 import com.jakewharton.rxrelay2.PublishRelay;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -28,7 +31,6 @@ public class CreateNewProducerPresenter implements CreateNewProducerContract.Pre
     @Override
     public void subscribe() {
         mCompositeDisposable.add(validerData.subscribe(aBoolean -> mView.enableValidateBtn(aBoolean)));
-
     }
 
     @Override
@@ -43,9 +45,15 @@ public class CreateNewProducerPresenter implements CreateNewProducerContract.Pre
 
     @Override
     public void createProducer(String _name, String _email, String _phone, String _address, String _description) {
-
         mCompositeDisposable.add(mModel.createProducer(new Producer(_name, _email, _phone, _address, _description)).subscribe(producer -> {
             mView.finishActivityWithResult(producer);
         }));
+    }
+
+    @Override
+    public boolean validateData(String _name, String _email) {
+        return !TextUtils.isEmpty(_name)
+                && !TextUtils.isEmpty(_email)
+                && ValidationManager.validateEmail(_email) == ValidationManager.OK;
     }
 }

@@ -40,7 +40,7 @@ public class SendOrderListPresenter implements SendOrderListContract.Presenter {
     }
 
     @Override
-    public boolean setQuantity(int _quantity) {
+    public void setQuantity(int _quantity) {
 
         String bonPlanInfo = mGoodDealResponseManager.getGoodDealResponse().title
                 + " : "
@@ -50,7 +50,7 @@ public class SendOrderListPresenter implements SendOrderListContract.Presenter {
 
         mView.setBonPlanInfo(bonPlanInfo);
 
-        return _quantity >= 1;
+        mView.setBonPlanInfoVisibility(_quantity >= 1);
     }
 
     @Override

@@ -118,8 +118,8 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
 
     @Override
     public void showPDFInWebView(PDFPreviewResponse pdfPreviewResponse) {
-        final String mimeType = "text/html";
-        final String encoding = "UTF-8";
+        final String mimeType = Constants.MIME_TYPE;
+        final String encoding = Constants.DEFAULT_UNCODING;
         wvHtmlPage.loadData(pdfPreviewResponse.template, mimeType, encoding);
     }
 
@@ -134,7 +134,7 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     @Override
     public void checkStoragePermission() {
         if (isReedStoragePermissionNotGranted()) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 666);
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.REQUEST_CODE_STORAGE);
         } else {
             mPresenter.subscribe();
         }
@@ -148,11 +148,10 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 666) {
+        if (requestCode == Constants.REQUEST_CODE_STORAGE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mPresenter.subscribe();
             } else {
-//                ToastManager.showToast("Please, allow for PAMP access to read storage.");
                 Snackbar.make(
                         getWindow().getDecorView(),
                         "Please, allow for PAMP access to read storage.",

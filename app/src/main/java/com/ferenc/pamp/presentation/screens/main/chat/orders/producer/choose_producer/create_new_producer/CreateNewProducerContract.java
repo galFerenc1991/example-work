@@ -34,6 +34,8 @@ public interface CreateNewProducerContract {
                  String _phone,
                  String _address,
                  String _description);
+
+        boolean validateData(String _name, String _email);
     }
 
     interface Model {
