@@ -78,7 +78,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
             try {
                 MessageResponse messageResponse = new MessageResponse();
                 User user = new User();
-
+                Description description = new Description();
                 if (data.has(valContent)) {
                     messageResponse.content = data.getString(valContent);
                 }
@@ -97,14 +97,14 @@ public class SocketRepository implements MessengerContract.SocketModel {
                 messageResponse.type = data.getString(valType);
                 messageResponse.createdAt = data.getLong(valCreatedAt);
 
-                Description description = new Description();
-
 
                 description.quantity = data.has(valDescription) ? data.getJSONObject(valDescription).has(valQuantity) ? data.getJSONObject(valDescription).getInt(valQuantity) : 0 : 0;
                 description.firstName = (data.has(valDescription) ? data.getJSONObject(valDescription).getString(valFirstName) : "user==null");
                 description.deliveryEndDate = data.has(valDescription) ? data.getJSONObject(valDescription).has(valDeliveryEndDate) ? data.getJSONObject(valDescription).getInt(valDeliveryEndDate) : 0 : 0;
                 description.closingDate = data.has(valDescription) ? data.getJSONObject(valDescription).has(valClosingDate) ? data.getJSONObject(valDescription).getInt(valClosingDate) : 0 : 0;
+
                 messageResponse.description = description;
+
                 Log.d(TAG, "New message:" + data.toString());
 
                 getNewMessage.accept(messageResponse);
