@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.ferenc.pamp.data.api.RestConst;
 import com.ferenc.pamp.data.model.common.User;
+import com.ferenc.pamp.data.model.message.Description;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerContract;
 import com.jakewharton.rxrelay2.PublishRelay;
@@ -45,6 +46,11 @@ public class SocketRepository implements MessengerContract.SocketModel {
     private String valToken = "token";
     private String valDealID = "dealId";
     private String valCode = "code";
+    private String valDescription = "description";
+    private String valQuantity = "quantity";
+    private String valDeliveryEndDate = "deliveryEndDate";
+    private String valClosingDate = "closingDate";
+
 
     @AfterInject
     protected void initSocket() {
@@ -83,14 +89,22 @@ public class SocketRepository implements MessengerContract.SocketModel {
                     user.setLastName(data.getJSONObject(valUser).getString(valLastName));
                     user.setAvatar(data.getJSONObject(valUser).getString(valAvatar));
 
-                    messageResponse.user = user;
                     messageResponse.text = data.getString(valText);
+                    messageResponse.user = user;
                 }
                 messageResponse.code = data.has(valCode) ? data.getString(valCode) : null;
                 messageResponse._id = data.getString(valId);
                 messageResponse.type = data.getString(valType);
                 messageResponse.createdAt = data.getLong(valCreatedAt);
 
+                Description description = new Description();
+
+
+                description.quantity = data.has(valDescription) ? data.getJSONObject(valDescription).has(valQuantity) ? data.getJSONObject(valDescription).getInt(valQuantity) : 0 : 0;
+                description.firstName = (data.has(valDescription) ? data.getJSONObject(valDescription).getString(valFirstName) : "user==null");
+                description.deliveryEndDate = data.has(valDescription) ? data.getJSONObject(valDescription).has(valDeliveryEndDate) ? data.getJSONObject(valDescription).getInt(valDeliveryEndDate) : 0 : 0;
+                description.closingDate = data.has(valDescription) ? data.getJSONObject(valDescription).has(valClosingDate) ? data.getJSONObject(valDescription).getInt(valClosingDate) : 0 : 0;
+                messageResponse.description = description;
                 Log.d(TAG, "New message:" + data.toString());
 
                 getNewMessage.accept(messageResponse);

@@ -50,13 +50,13 @@ public class OrderingStateVH extends RecyclerVH<MessagesDH> {
                 ivOrderState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_msg));
                 rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_product_ordering));
                 tvOrderOwnerName.setText(messageResponse.description != null ? messageResponse.description.firstName : "user == null");
-                tvPriceDescription.setText(goodDealResponse.quantity + "/" + goodDealResponse.unit);
+                tvPriceDescription.setText(messageResponse.description.quantity + "/" + goodDealResponse.unit);
                 break;
             case Constants.M3_ORDER_CHANGING:
                 ivOrderState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_msg));
                 rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_product_ordering));
-                tvOrderOwnerName.setText(messageResponse.description != null ? messageResponse.description.firstName + context.getString(R.string.text_name_a_change) : "user == null");
-                tvPriceDescription.setText(goodDealResponse.quantity + "/" + goodDealResponse.unit);
+                tvOrderOwnerName.setText(messageResponse.description != null ? messageResponse.description.firstName + " " + context.getString(R.string.text_name_a_change) : "user == null");
+                tvPriceDescription.setText(messageResponse.description.quantity + "/" + goodDealResponse.unit);
                 break;
             case Constants.M4_ORDER_CANCELLATION:
                 ivOrderState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_close_msg));

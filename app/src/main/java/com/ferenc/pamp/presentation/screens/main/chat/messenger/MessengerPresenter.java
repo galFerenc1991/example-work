@@ -297,7 +297,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
     @Override
     public void unsubscribe() {
-        disconnectSocket();
+//        disconnectSocket();
         mCompositeDisposable.clear();
     }
 }
