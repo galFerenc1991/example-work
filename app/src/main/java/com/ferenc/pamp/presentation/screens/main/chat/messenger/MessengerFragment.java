@@ -376,10 +376,6 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         etInputText.setText("");
     }
 
-    @Override
-    public void addImage() {
-
-    }
 
     @Override
     public void onDestroy() {

@@ -20,9 +20,10 @@ public class ProducerDH implements RecyclerDH {
         mProducerEmail = _producerEmail;
     }
 
-    public ProducerDH(String _producerId, String _producerName, boolean _selected) {
+    public ProducerDH(String _producerId, String _producerName, String _producerEmail, boolean _selected) {
         mProducerId = _producerId;
         mProducerName = _producerName;
+        mProducerEmail = _producerEmail;
         mSelected = _selected;
     }
 

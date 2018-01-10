@@ -14,9 +14,6 @@ import com.ferenc.pamp.presentation.utils.ToastManager;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -42,26 +39,45 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
     private PDFPreviewResponse mPDFPreviewResponse;
     private PreviewPDFActivity mActivity;
     private String mProducerEmail;
+    private String mOrderId;
+    private boolean isFromOrderList;
 
-    public PreviewPDFPresenter(PreviewPDFContract.View _view, PreviewPDFContract.Model _model, PDFPreviewRequest _PDFPreviewRequest, PreviewPDFActivity _activity, String _producerEmail) {
+    public PreviewPDFPresenter(PreviewPDFContract.View _view,
+                               PreviewPDFContract.Model _model,
+                               PDFPreviewRequest _PDFPreviewRequest,
+                               PreviewPDFActivity _activity,
+                               String _producerEmail,
+                               String _orderId,
+                               boolean _isFromOrderList) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mPDFPreviewRequest = _PDFPreviewRequest;
         this.mActivity = _activity;
         this.mProducerEmail = _producerEmail;
+        this.mOrderId = _orderId;
+        this.isFromOrderList = _isFromOrderList;
         mView.setPresenter(this);
     }
 
 
     public void getPDFPreview() {
         mView.showProgress();
-        mCompositeDisposable.add(mModel.getPDFPreview(mPDFPreviewRequest.id, mPDFPreviewRequest)
+        mCompositeDisposable.add((isFromOrderList
+                ? mModel.getPDFPreview(mPDFPreviewRequest.id, mPDFPreviewRequest)
+                : mModel.getPDFPreview(mOrderId))
                 .subscribe(pdfPreviewResponse -> {
                     mView.hideProgress(false);
                     mPDFPreviewResponse = pdfPreviewResponse;
                     mView.showPDFInWebView(getPDFPreviewResponse());
-                    mView.showValiderButton();
+                    if (isFromOrderList) {
+                        mView.showValiderButton();
+                        mView.hideSendMyOrderButton();
+                    } else {
+                        mView.hideValiderButton();
+                        mView.showSendMyOrderButton();
+                    }
+
                 }, throwableConsumer));
     }
 
@@ -94,7 +110,7 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
                     try {
                         String header = responseBodyResponse.headers().get("Content-Disposition");
 //                        String fileName = header.replace("attachment; filename=", "");
-                        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsoluteFile(), "order_list_" + System.currentTimeMillis() + ".pdf");
+                        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsoluteFile(), "order_" + System.currentTimeMillis() + ".pdf");
                         BufferedSink sink = Okio.buffer(Okio.sink(file));
                         sink.writeAll(responseBodyResponse.body().source());
                         sink.close();
@@ -119,15 +135,15 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
 
     private void sharePDF(File _file) {
         Uri fileUri = FileProvider.getUriForFile(PampApp_.getInstance(), "com.ferenc.pamp.provider", _file);
-        String bodyText = "Pamp Order list";
-        String subjectText = "Shared order list";
+        String bodyText = "Some body text";
+        String subjectText = "Some subject text";
 
 
 
         Intent shareIntent = ShareCompat.IntentBuilder.from(mActivity)
                 .setSubject(subjectText)
                 .setText(bodyText)
-                .setEmailTo(new String[]{mProducerEmail})
+                .setEmailTo(isFromOrderList ? new String[]{mProducerEmail} : new String[]{"someones.email@gmail.com"})
                 .setType("application/pdf")
                 .addStream(fileUri)
                 .getIntent();

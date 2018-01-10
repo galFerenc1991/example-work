@@ -60,6 +60,7 @@ public class SharePresenter implements ShareContract.Presenter {
 
     @Override
     public void subscribe() {
+        //TODO : set usedContact;
         mView.showProgressMain();
         mCompositeDisposable.add(mModel.getUsedUserContact()
                 .flatMap(usedContact -> Observable.just(mContactManager.getContactsDH()))

@@ -33,8 +33,6 @@ public interface MessengerContract {
 
         void clearInputText();
 
-        void addImage();
-
         void openCloseDatePicker(Calendar _calendar, long _startDeliveryDate);
 
         void openDeliveryDateScreen();
@@ -69,8 +67,6 @@ public interface MessengerContract {
 
         void sendMessage(String messageText);
 
-        void addImage();
-
         void cancelDealAction();
 
         void cancelDeal();
@@ -98,15 +94,15 @@ public interface MessengerContract {
 
     interface SocketModel {
 
-        Observable<Void> connectSocket(String _userToken, String _dealId);
+        Observable<Void> connectSocket(String _dealId);
 
         Observable<MessageResponse> getNewMessage();
 
-        Observable<Void> sendMessage(String _userToken, String _dealId, String _messageText);
+        Observable<Void> sendMessage(String _dealId, String _messageText);
 
         Observable<Void> disconnectSocket();
 
-        Observable<Void> sendImage(String _userToken, String _dealId, String _messageText);
+        Observable<Void> sendImage(String _dealId, String _messageText);
 
     }
 

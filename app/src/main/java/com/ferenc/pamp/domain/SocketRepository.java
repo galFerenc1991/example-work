@@ -7,11 +7,13 @@ import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.model.message.Description;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerContract;
+import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.jakewharton.rxrelay2.PublishRelay;
 import com.jakewharton.rxrelay2.Relay;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,7 +52,10 @@ public class SocketRepository implements MessengerContract.SocketModel {
     private String valQuantity = "quantity";
     private String valDeliveryEndDate = "deliveryEndDate";
     private String valClosingDate = "closingDate";
+    private String mUserToken;
 
+    @Pref
+    protected SharedPrefManager_ mSharedPrefManager;
 
     @AfterInject
     protected void initSocket() {
@@ -64,14 +69,15 @@ public class SocketRepository implements MessengerContract.SocketModel {
     }
 
     @Override
-    public Observable<Void> connectSocket(String _userToken, String _roomID) {
+    public Observable<Void> connectSocket(String _roomID) {
+        mUserToken = mSharedPrefManager.getAccessToken().get().replaceAll("Bearer ","");
         if (mSocket.connected())
             return connectSocketVoidRelay;
 
         mSocket.connect();
         mSocket.on(Socket.EVENT_CONNECT, args -> {
             Log.d(TAG, "Connected");
-            joinRoom(_userToken,_roomID);
+            joinRoom(mUserToken, _roomID);
         }).on(Socket.EVENT_MESSAGE, args -> {
             JSONObject data = (JSONObject) args[0];
 
@@ -123,11 +129,11 @@ public class SocketRepository implements MessengerContract.SocketModel {
     }
 
     @Override
-    public Observable<Void> sendMessage(String _userToken, String _dealId, String _messageText) {
+    public Observable<Void> sendMessage(String _dealId, String _messageText) {
 
         JSONObject obj = new JSONObject();
         try {
-            obj.put(valToken, _userToken);
+            obj.put(valToken, mUserToken);
             obj.put(valDealID, _dealId);
             obj.put(valText, _messageText);
         } catch (JSONException e) {
@@ -142,11 +148,11 @@ public class SocketRepository implements MessengerContract.SocketModel {
     }
 
     @Override
-    public Observable<Void> sendImage(String _userToken, String _dealId, String _imageBase64) {
+    public Observable<Void> sendImage(String _dealId, String _imageBase64) {
 
         JSONObject obj = new JSONObject();
         try {
-            obj.put(valToken, _userToken);
+            obj.put(valToken, mUserToken);
             obj.put(valDealID, _dealId);
             obj.put(valContent, _imageBase64);
         } catch (JSONException e) {

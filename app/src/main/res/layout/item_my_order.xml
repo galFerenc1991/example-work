@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_default"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvOrderName_IMO"
+            android:layout_width="@dimen/default_my_order_title"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_default"
+            android:fontFamily="sans-serif-light"
+            android:gravity="start"
+            android:textColor="@color/textColorBlack"/>
+
+        <TextView
+            android:id="@+id/tvOrderDate_IMO"
+            android:layout_width="@dimen/default_my_order_date"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_very_small"
+            android:fontFamily="sans-serif-light"
+            android:gravity="end"
+            android:textColor="@color/textColorOrangeMyOrderList"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/very_small_view_width"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shadow"/>
+</RelativeLayout>

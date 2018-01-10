@@ -20,7 +20,7 @@ public interface PreviewPDFContract {
 
         void showProgress();
 
-        void hideProgress(boolean _closeActivity);
+        void hideProgress(boolean hide);
 
         void showPDFInWebView(PDFPreviewResponse pdfPreviewResponse);
 
@@ -29,6 +29,12 @@ public interface PreviewPDFContract {
         void checkStoragePermission();
 
         void showValiderButton();
+
+        void hideValiderButton();
+
+        void showSendMyOrderButton();
+
+        void hideSendMyOrderButton();
     }
 
     interface Presenter extends BasePresenter {
@@ -46,6 +52,8 @@ public interface PreviewPDFContract {
         Observable<Response<ResponseBody>> getFileByUrl(String _url);
 
         Observable<PDFPreviewResponse> getPDFPreview(String _producerId, PDFPreviewRequest _requestBody);
+
+        Observable<PDFPreviewResponse> getPDFPreview(String _orderId);
 
     }
 

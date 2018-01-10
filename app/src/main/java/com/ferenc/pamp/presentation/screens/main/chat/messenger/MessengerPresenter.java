@@ -98,9 +98,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     private void connectSocket() {
         mCompositeDisposable.add(
                 mSocketModel
-                        .connectSocket(
-                                mSignedUserManager.getCurrentUser().getToken(),
-                                mGoodDealResponse.id)
+                        .connectSocket(mGoodDealResponse.id)
                         .subscribe()
         );
     }
@@ -234,7 +232,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
             mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, Constants.DEFAULT_MSG_GROUP_TYPE));
 
-            mCompositeDisposable.add(mSocketModel.sendMessage(mSignedUserManager.getCurrentUser().getToken(), mGoodDealResponse.id, messageText)
+            mCompositeDisposable.add(mSocketModel.sendMessage(mGoodDealResponse.id, messageText)
                     .subscribe(aVoid -> {
                     }));
 
@@ -242,11 +240,6 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
             mView.clearInputText();
         }
-    }
-
-    @Override
-    public void addImage() {
-        mView.addImage();
     }
 
     private int typeDistributor(String code) {
@@ -303,8 +296,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     @Override
     public void sendImage(File croppedFile) {
 
-
-        mCompositeDisposable.add(mSocketModel.sendImage(mSignedUserManager.getCurrentUser().getToken(), mGoodDealResponse.id, getBase64(croppedFile))
+        mCompositeDisposable.add(mSocketModel.sendImage(mGoodDealResponse.id, getBase64(croppedFile))
                 .subscribe(aVoid -> {}));
 
         MessageResponse messageResponse = new MessageResponse();
@@ -343,7 +335,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
     @Override
     public void unsubscribe() {
-//        disconnectSocket();
+        disconnectSocket();
         mCompositeDisposable.clear();
     }
 }

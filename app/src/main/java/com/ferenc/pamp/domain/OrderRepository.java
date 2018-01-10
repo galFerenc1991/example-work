@@ -11,13 +11,12 @@ import com.ferenc.pamp.data.model.home.orders.PDFPreviewResponse;
 import com.ferenc.pamp.data.model.home.orders.Producer;
 import com.ferenc.pamp.data.service.OrderService;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_pop_up.CreateOrderPopUpContract;
-import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.add_card.AddCardContract;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.save_card.SaveCardContract;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.select_card.SelectCardContract;
-import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerContract;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.ChooseProducerContract;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer.CreateNewProducerContract;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.preview_pdf.PreviewPDFContract;
+import com.ferenc.pamp.presentation.screens.main.profile.my_orders.MyOrdersContract;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 
 import org.androidannotations.annotations.AfterInject;
@@ -40,7 +39,8 @@ public class OrderRepository extends NetworkRepository implements
         SelectCardContract.CreateOrderModel,
         ChooseProducerContract.Model,
         CreateNewProducerContract.Model,
-        PreviewPDFContract.Model {
+        PreviewPDFContract.Model,
+        MyOrdersContract.Model {
 
     @Bean
     protected Rest rest;
@@ -97,7 +97,18 @@ public class OrderRepository extends NetworkRepository implements
     }
 
     @Override
+    public Observable<PDFPreviewResponse> getPDFPreview(String _orderId) {
+        return getNetworkObservable(orderService.getOrderDetails(_orderId));
+    }
+
+
+    @Override
     public Observable<Producer> createProducer(Producer _producer) {
         return getNetworkObservable(orderService.createProducer(_producer));
+    }
+
+    @Override
+    public Observable<ListResponse<Order>> getMyOrders(int _page) {
+        return getNetworkObservable(orderService.getMyOrders(_page, 20));
     }
 }
