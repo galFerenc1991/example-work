@@ -1,13 +1,15 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
-import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.domain.SocketRepository;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -16,6 +18,9 @@ import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -288,6 +293,47 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     @Override
     public void sendOrders() {
         mView.openSendOrderListFlow();
+    }
+
+    @Override
+    public void selectImage() {
+        mView.selectImage();
+    }
+
+    @Override
+    public void sendImage(File croppedFile) {
+
+
+        mCompositeDisposable.add(mSocketModel.sendImage(mSignedUserManager.getCurrentUser().getToken(), mGoodDealResponse.id, getBase64(croppedFile))
+                .subscribe(aVoid -> {}));
+
+        MessageResponse messageResponse = new MessageResponse();
+
+        messageResponse.user = mSignedUserManager.getCurrentUser();
+        messageResponse.localImage = croppedFile;
+
+        mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, Constants.DEFAULT_MSG_GROUP_TYPE));
+
+        mView.addItem(mMessagesDH);
+
+    }
+
+    private String getBase64(File _croppedFile) {
+        String imageBase64 = "";
+        if (_croppedFile != null) {
+            Bitmap bm = BitmapFactory.decodeFile(_croppedFile.getAbsolutePath());
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] b = baos.toByteArray();
+            imageBase64 = Base64.encodeToString(b, Base64.DEFAULT);
+
+            try {
+                baos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return imageBase64;
     }
 
     private void disconnectSocket() {

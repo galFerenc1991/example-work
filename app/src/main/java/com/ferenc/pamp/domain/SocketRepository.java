@@ -79,9 +79,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
                 MessageResponse messageResponse = new MessageResponse();
                 User user = new User();
                 Description description = new Description();
-                if (data.has(valContent)) {
-                    messageResponse.content = data.getString(valContent);
-                }
+
 
                 if (!data.getString(valType).equals("AUTO")) {
                     user.setId(data.getJSONObject(valUser).getString(valId));
@@ -89,9 +87,10 @@ public class SocketRepository implements MessengerContract.SocketModel {
                     user.setLastName(data.getJSONObject(valUser).getString(valLastName));
                     user.setAvatar(data.getJSONObject(valUser).getString(valAvatar));
 
-                    messageResponse.text = data.getString(valText);
+                    messageResponse.text = data.has(valText) ? data.getString(valText) : "";
                     messageResponse.user = user;
                 }
+                messageResponse.content = data.has(valContent) ? data.getString(valContent) : "";
                 messageResponse.code = data.has(valCode) ? data.getString(valCode) : null;
                 messageResponse._id = data.getString(valId);
                 messageResponse.type = data.getString(valType);
@@ -128,9 +127,6 @@ public class SocketRepository implements MessengerContract.SocketModel {
 
         JSONObject obj = new JSONObject();
         try {
-//            if (!imageBase64.equals("")) {
-//                obj.put(valContent, imageBase64);
-//            }
             obj.put(valToken, _userToken);
             obj.put(valDealID, _dealId);
             obj.put(valText, _messageText);
@@ -139,6 +135,25 @@ public class SocketRepository implements MessengerContract.SocketModel {
         }
 
         Log.d(TAG, "Emitting: send message" + obj.toString());
+
+        mSocket.emit(Socket.EVENT_MESSAGE, obj);
+
+        return voidRelay;
+    }
+
+    @Override
+    public Observable<Void> sendImage(String _userToken, String _dealId, String _imageBase64) {
+
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put(valToken, _userToken);
+            obj.put(valDealID, _dealId);
+            obj.put(valContent, _imageBase64);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "Emitting: send image" + obj.toString());
 
         mSocket.emit(Socket.EVENT_MESSAGE, obj);
 

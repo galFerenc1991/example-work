@@ -1,9 +1,16 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,11 +36,13 @@ import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.Messages
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessengerAdapter;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.SendOrderListActivity_;
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_date.DeliveryDateActivity_;
+import com.ferenc.pamp.presentation.utils.AvatarManager;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.DateManager;
 
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
+import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import org.androidannotations.annotations.AfterInject;
@@ -76,6 +85,8 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     protected EndlessScrollListener mScrollListener;
 
+    private Context mContext;
+
     @Bean
     protected MessengerAdapter mMessengerAdapter;
     @Bean
@@ -88,6 +99,8 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     protected SocketRepository mSocketRepository;
     @Bean
     protected SignedUserManager signedUserManager;
+    @Bean
+    protected AvatarManager avatarManager;
 
     @ViewById(R.id.rvMessages_FChM)
     protected RecyclerView rvMessages;
@@ -116,10 +129,12 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @AfterInject
     @Override
     public void initPresenter() {
+        mContext = PampApp_.getInstance();
         new MessengerPresenter(this,
                 mChatRepository, mGoodDealRepository,
                 mSocketRepository, signedUserManager,
-                PampApp_.getInstance(), mGoodDealResponseManager);
+                mContext, mGoodDealResponseManager);
+        avatarManager.attach(this);
     }
 
     @AfterViews
@@ -146,7 +161,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
         RxView.clicks(ivAddImg)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> addImage());
+                .subscribe(o -> mPresenter.selectImage());
 
         RxView.clicks(rlSendMsg)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
@@ -214,6 +229,52 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
                 .intent(this)
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
+    }
+
+    @Override
+    public void selectImage() {
+        checkCameraPermission();
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_GET_IMAGE)
+    protected void handleImage(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK)
+            avatarManager.handleFullsizeImage(Constants.REQUEST_CODE_CROP_IMAGE, resultCode, data, true);
+    }
+
+
+    @OnActivityResult(Constants.REQUEST_CODE_CROP_IMAGE)
+    protected void cropImage(int resultCode) {
+        if (resultCode == RESULT_OK) {
+            mPresenter.sendImage(avatarManager.getCroppedFile());
+        }
+    }
+
+    @Override
+    public boolean isCameraPermissionNotGranted() {
+        return ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED;
+    }
+
+    @Override
+    public void checkCameraPermission() {
+        if (isCameraPermissionNotGranted()) {
+            ActivityCompat.requestPermissions((Activity)mContext, new String[]{Manifest.permission.CAMERA}, Constants.REQUEST_CODE_CAMERA);
+        } else {
+            avatarManager.getImageOnlyFromCamera(Constants.REQUEST_CODE_GET_IMAGE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Constants.REQUEST_CODE_CAMERA) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                avatarManager.getImageOnlyFromCamera(Constants.REQUEST_CODE_GET_IMAGE);
+            } else {
+                ToastManager.showToast("Please, allow for PAMP access to Camera.");
+            }
+        }
     }
 
     @OnActivityResult(Constants.REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY)

@@ -2,21 +2,18 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 
 import com.ferenc.pamp.data.model.base.ListResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
-import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.presentation.base.BaseModel;
 import com.ferenc.pamp.presentation.base.BaseView;
 import com.ferenc.pamp.presentation.base.content.ContentView;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
-import com.jakewharton.rxrelay2.Relay;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.List;
 
 import io.reactivex.Observable;
-import retrofit2.http.Path;
 
 /**
  * Created by shonliu on 12/12/17.
@@ -55,6 +52,12 @@ public interface MessengerContract {
         void openCreateOrderFlow(int _quantity);
 
         void openSendOrderListFlow();
+
+        void selectImage();
+
+        boolean isCameraPermissionNotGranted();
+
+        void checkCameraPermission();
     }
 
     interface Presenter extends RefreshablePresenter {
@@ -83,6 +86,10 @@ public interface MessengerContract {
         void resultQuantity(int _quantity);
 
         void sendOrders();
+
+        void selectImage();
+
+        void sendImage(File croppedFile);
     }
 
     interface Model {
@@ -98,6 +105,9 @@ public interface MessengerContract {
         Observable<Void> sendMessage(String _userToken, String _dealId, String _messageText);
 
         Observable<Void> disconnectSocket();
+
+        Observable<Void> sendImage(String _userToken, String _dealId, String _messageText);
+
     }
 
     interface GoodDealModel extends BaseModel {

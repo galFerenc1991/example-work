@@ -173,7 +173,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     @OnActivityResult(Constants.REQUEST_CODE_GET_IMAGE)
     protected void handleImage(int resultCode, Intent data) {
         if (resultCode == RESULT_OK)
-            avatarManager.handleFullsizeImage(Constants.REQUEST_CODE_CROP_IMAGE, resultCode, data);
+            avatarManager.handleFullsizeImage(Constants.REQUEST_CODE_CROP_IMAGE, resultCode, data, false);
     }
 
 

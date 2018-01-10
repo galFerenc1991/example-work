@@ -156,6 +156,7 @@ public class SharePresenter implements ShareContract.Presenter {
             mView.showProgressMain();
             mCompositeDisposable.add(mModel.resendGoodDeal(createRequestParameter(contactDHList))
                     .subscribe(goodDealResponse -> {
+                        mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                         mView.hideProgress();
                         mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
                     }, throwable -> {
