@@ -260,8 +260,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 case Constants.M10_GOOD_DEAL_CLOSING:
                     return Constants.M8_M10_MSG_GROUP_TYPE;
                 case Constants.M11_1_GOOD_DEAL_CONFIRMATION:
-                case Constants.M11_2_GOOD_DEAL_CONFIRMATION_REJECTED:
-                case Constants.M11_3_GOOD_DEAL_CONFIRMATION_APPLYED:
+                case Constants.M11_3_GOOD_DEAL_CONFIRMATION_REJECTED:
+                case Constants.M11_2_GOOD_DEAL_CONFIRMATION_APPLYED:
                     return Constants.M11_1_M11_2_M11_3_MSG_GROUP_TYPE;
                 default:
                     throw new RuntimeException("MessagesDH :: typeDistributor [Can find needed group type]");
