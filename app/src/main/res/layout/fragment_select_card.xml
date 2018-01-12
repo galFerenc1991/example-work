@@ -36,7 +36,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/margin_default"
                 android:drawablePadding="@dimen/margin_default"
-                android:drawableStart="@drawable/ic_visa"
                 android:text="card"
                 android:textColor="@color/textColorGray"
                 android:textSize="@dimen/text_size_big" />

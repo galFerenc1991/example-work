@@ -21,11 +21,16 @@ import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.api.RestConst;
 import com.ferenc.pamp.domain.UserRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
+import com.ferenc.pamp.presentation.custom.bank_account.BankAccountActivity_;
 import com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker.CountryPickerActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.add_card.AddCardFragment_;
 import com.ferenc.pamp.presentation.screens.main.profile.UserRelay;
+import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.bank_card.AddBankCardActivity_;
+import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.change_password.ChangePasswordActivity_;
 import com.ferenc.pamp.presentation.screens.main.propose.delivery.delivery_place.DeliveryPlaceActivity_;
 import com.ferenc.pamp.presentation.utils.AvatarManager;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.CreditCardImageManager;
 import com.ferenc.pamp.presentation.utils.RoundedTransformation;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
@@ -60,7 +65,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
 
     @Override
     protected int getContainer() {
-        return 0;
+        return R.id.flContainer_AEP;
     }
 
     @Override
@@ -93,7 +98,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     @ViewById(R.id.tvEmail_AEP)
     protected TextView tvEmail;
     @ViewById(R.id.llCountrySpinner_AEP)
-    protected LinearLayout llCountrySpinnner;
+    protected LinearLayout llCountrySpinner;
     @ViewById(R.id.tvCountry_AEP)
     protected TextView tvCountry;
     @ViewById(R.id.llAddress_AEP)
@@ -154,7 +159,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
         RxView.clicks(llBirthDate)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedBirthDate());
-        RxView.clicks(llCountrySpinnner)
+        RxView.clicks(llCountrySpinner)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedCountry());
         RxView.clicks(llAddress)
@@ -163,6 +168,47 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
         RxView.clicks(btnSave)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedSave(etName.getText().toString(), etSurname.getText().toString(), tvCountry.getText().toString()));
+
+        RxView.clicks(llBankCard)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.clickedBankCard());
+
+        RxView.clicks(llIBAN)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.clickedIban());
+
+        RxView.clicks(llChangePassword)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.clickedChangePassword());
+    }
+
+    @Override
+    public void openAddBankCardScreen() {
+        AddBankCardActivity_.intent(this).startForResult(Constants.REQUEST_CODE_ACTIVITY_BANK_CARD);
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_ACTIVITY_BANK_CARD)
+    protected void bankCardCreated(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            mPresenter.subscribe();
+        }
+    }
+
+    @Override
+    public void openCreateBankAccountScreen() {
+        BankAccountActivity_.intent(this).startForResult(Constants.REQUEST_CODE_ACTIVITY_BANK_ACCOUNT);
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_ACTIVITY_BANK_ACCOUNT)
+    protected void bankAccountCreated(int resultCode) {
+        if (resultCode == RESULT_OK) {
+            mPresenter.subscribe();
+        }
+    }
+
+    @Override
+    public void openChangePasswordScreen() {
+        ChangePasswordActivity_.intent(this).start();
     }
 
     @Override
@@ -284,12 +330,13 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
 
     @Override
     public void setIban(String _iban) {
-
+        tvIBAN.setText(_iban);
     }
 
     @Override
-    public void setCardNumber(String _bankCardNumber) {
-
+    public void setCardNumber(String _bankCardNumber, String _brand) {
+        tvBankCard.setText(_bankCardNumber);
+        tvBankCard.setCompoundDrawablesWithIntrinsicBounds(CreditCardImageManager.getBrandImage(_brand), 0, 0, 0);
     }
 
     @Override

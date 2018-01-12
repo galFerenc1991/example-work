@@ -1,5 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 
+import android.app.Activity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -40,6 +41,7 @@ import com.ferenc.pamp.presentation.utils.AvatarManager;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.DateManager;
 
+import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
@@ -102,6 +104,9 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Bean
     protected AvatarManager avatarManager;
 
+    @Bean
+    protected GoodDealManager mGoodDealManager;
+
     @ViewById(R.id.rvMessages_FChM)
     protected RecyclerView rvMessages;
 
@@ -133,7 +138,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         new MessengerPresenter(this,
                 mChatRepository, mGoodDealRepository,
                 mSocketRepository, signedUserManager,
-                mContext, mGoodDealResponseManager);
+                mContext, mGoodDealResponseManager, mGoodDealManager);
         avatarManager.attach(this);
     }
 
@@ -282,7 +287,6 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         if (resultCode == RESULT_OK) {
             mPresenter.initCreateOrderButton();
             EndFlowOrderActivity_.intent(this).mIsCreatedFlow(true).start();
-//            mPresenter.resultQuantity(data.getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1));
         }
     }
 
@@ -319,6 +323,14 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
                 .startForResult(Constants.REQUEST_CODE_ACTIVITY_DELIVERY_DATE);
     }
 
+    @OnActivityResult(Constants.REQUEST_CODE_ACTIVITY_DELIVERY_DATE)
+    void resultDate(int resultCode, @OnActivityResult.Extra(value = Constants.KEY_START_DATE_RESULT) String _startDate
+            , @OnActivityResult.Extra(value = Constants.KEY_END_DATE_RESULT) String _endDate) {
+        if (resultCode == Activity.RESULT_OK) {
+            mPresenter.setChangedDeliveryDate(_startDate, _endDate);
+        }
+    }
+
     @Override
     public void openCloseGoodDealPopUp() {
         View dialogViewTitle = LayoutInflater.from(getContext())
@@ -340,7 +352,8 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     public void openEndFlowScreen() {
         EndFlowActivity_
                 .intent(this)
-                .mIsCreatedFlow(false)
+//                .mIsCreatedFlow(false)
+                .mFlow(Constants.NOT_CREATE_FLOW)
                 .fromWhere(Constants.ITEM_TYPE_REUSE)
                 .mGoodDealResponse(mGoodDealResponseManager.getGoodDealResponse())
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)

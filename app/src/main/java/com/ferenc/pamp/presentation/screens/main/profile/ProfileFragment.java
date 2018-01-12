@@ -152,8 +152,10 @@ public class ProfileFragment extends ContentFragment implements ProfileContract.
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mPresenter.unsubscribe();
+    public void onDestroyView() {
+        super.onDestroyView();
+                mPresenter.unsubscribe();
+
     }
+
 }

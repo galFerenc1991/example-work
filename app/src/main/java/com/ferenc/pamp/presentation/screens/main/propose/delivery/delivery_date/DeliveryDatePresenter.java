@@ -94,11 +94,7 @@ public class DeliveryDatePresenter implements DeliveryDateContract.Presenter {
     }
 
     private Long getDateForServer(Calendar calendar) {
-//        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss zzz", Locale.getDefault());
-//        return sdf.format(calendar.getTime());
         return calendar.getTimeInMillis();
-
-//        Fri Dec 01 2017 17:09:05 GMT+0100
     }
 
     @Override

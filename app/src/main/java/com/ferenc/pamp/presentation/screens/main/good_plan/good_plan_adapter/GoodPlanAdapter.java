@@ -28,6 +28,7 @@ import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.RoundedTransformation;
+import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.Bean;
@@ -126,46 +127,54 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
                 .into(viewHolder.ivProfileImage);
         viewHolder.tvGoodPlanWith.setText(goodDealResponse.title);
         viewHolder.tvProductName.setText(goodDealResponse.product);
-//        if (goodDealResponse.recipients.isEmpty()) {
-//            viewHolder.tvOrderStatus.setVisibility(View.INVISIBLE);
-//        } else {
-//            viewHolder.tvOrderStatus.setVisibility(View.VISIBLE);
-//        }
         if (goodDealResponse.isResend) {
             viewHolder.ivReuseIndicator.setVisibility(View.VISIBLE);
         } else {
             viewHolder.ivReuseIndicator.setVisibility(View.INVISIBLE);
         }
 
-        if (goodDealResponse.state.equals("progress")) {
-            long timeBeforeClose = goodDealResponse.closingDate - System.currentTimeMillis();
-            long timeBeforeCloseInHours = timeBeforeClose / (60 * 60 * 1000);
-            long days = timeBeforeCloseInHours / 24;
-            long hours = timeBeforeCloseInHours - days * 24;
+        String state = goodDealResponse.state;
+        switch (state) {
+            case Constants.STATE_PROGRESS:
+                long timeBeforeClose = goodDealResponse.closingDate - System.currentTimeMillis();
+                long timeBeforeCloseInHours = timeBeforeClose / (60 * 60 * 1000);
+                long days = timeBeforeCloseInHours / 24;
+                long hours = timeBeforeCloseInHours - days * 24;
 
-            viewHolder.tvPlanStatus.setVisibility(View.GONE);
-            viewHolder.tvTimeBeforeClosing.setVisibility(View.VISIBLE);
-            String time = "j" + days + ". et " + hours + ".";
-            viewHolder.tvTimeBeforeClosing.setText(time);
-        } else if (goodDealResponse.state.equals("closed")) {
-            viewHolder.tvPlanStatus.setVisibility(View.GONE);
-            viewHolder.tvTimeBeforeClosing.setVisibility(View.VISIBLE);
-            viewHolder.tvTimeBeforeClosing.setText(goodDealResponse.state);
-        } else if (goodDealResponse.state.equals(Constants.STATE_CANCELED)) {
-            viewHolder.tvPlanStatus.setVisibility(View.VISIBLE);
-            viewHolder.tvTimeBeforeClosing.setVisibility(View.GONE);
-            viewHolder.tvPlanStatus.setText(goodDealResponse.state);
-            viewHolder.tvPlanStatus.setTextColor(context.getResources().getColor(R.color.textColorRed));
+                viewHolder.tvPlanStatus.setVisibility(View.GONE);
+                viewHolder.tvTimeBeforeClosing.setVisibility(View.VISIBLE);
+                String time = "j" + days + ". et " + hours + ".";
+                viewHolder.tvTimeBeforeClosing.setText(time);
+                break;
+            case Constants.STATE_CLOSED:
+                viewHolder.tvPlanStatus.setVisibility(View.GONE);
+                viewHolder.tvTimeBeforeClosing.setVisibility(View.VISIBLE);
+                viewHolder.tvTimeBeforeClosing.setText(goodDealResponse.state);
+                break;
+            case Constants.STATE_CANCELED:
+                viewHolder.tvPlanStatus.setVisibility(View.VISIBLE);
+                viewHolder.tvTimeBeforeClosing.setVisibility(View.GONE);
+                viewHolder.tvPlanStatus.setText(goodDealResponse.state);
+                viewHolder.tvPlanStatus.setTextColor(context.getResources().getColor(R.color.textColorRed));
+                break;
+            case Constants.STATE_CONFIRM:
+                viewHolder.tvPlanStatus.setVisibility(View.VISIBLE);
+                viewHolder.tvTimeBeforeClosing.setVisibility(View.GONE);
+                viewHolder.tvPlanStatus.setText(goodDealResponse.state);
+                viewHolder.tvPlanStatus.setTextColor(context.getResources().getColor(R.color.textColorGreen));
+                break;
         }
 
         if (mGoodPlanItemType == Constants.ITEM_TYPE_RE_BROADCAST) {
             viewHolder.rlReBroadcast.setOnClickListener(view -> {
-                mGoodDealManager.saveGoodDeal(getGoodDealFromItem(goodDealResponse));
-                mReceiveRelay.receiveRelay.accept(true);
+                if (goodDealResponse.state.equals(Constants.STATE_PROGRESS)) {
+                    mGoodDealManager.saveGoodDeal(getGoodDealFromReSend(goodDealResponse));
+                    mReceiveRelay.receiveRelay.accept(true);
+                } else ToastManager.showToast("You can not resend CLOSED GOOD DEAL!!!");
             });
         } else {
             viewHolder.rlReuse.setOnClickListener(view -> {
-                mGoodDealManager.saveGoodDeal(getGoodDealFromItem(goodDealResponse));
+                mGoodDealManager.saveGoodDeal(getGoodDealFromReUse(goodDealResponse));
                 mProposeRelay.proposeRelay.accept(true);
             });
         }
@@ -198,6 +207,30 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
                 .setDeliveryAddress(_goodDealResponse.deliveryAddress)
                 .setDeliveryStartDate(_goodDealResponse.deliveryStartDate)
                 .setDeliveryEndDate(_goodDealResponse.deliveryEndDate)
+                .build();
+    }
+
+    private GoodDealRequest getGoodDealFromReUse(GoodDealResponse _goodDealResponse) {
+        return new GoodDealRequest.Builder()
+                .setID(_goodDealResponse.id)
+                .setProduct(_goodDealResponse.product)
+                .setDescription(_goodDealResponse.description)
+                .setPrice(_goodDealResponse.price)
+                .setUnit(_goodDealResponse.unit)
+                .setQuantity(_goodDealResponse.quantity)
+                .setDeliveryAddress(_goodDealResponse.deliveryAddress)
+                .build();
+    }
+
+    private GoodDealRequest getGoodDealFromReSend(GoodDealResponse _goodDealResponse) {
+        return new GoodDealRequest.Builder()
+                .setID(_goodDealResponse.id)
+                .setProduct(_goodDealResponse.product)
+                .setDescription(_goodDealResponse.description)
+                .setPrice(_goodDealResponse.price)
+                .setUnit(_goodDealResponse.unit)
+                .setQuantity(_goodDealResponse.quantity)
+                .setClosingDate(_goodDealResponse.closingDate)
                 .build();
     }
 

@@ -18,6 +18,7 @@ import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_rela
 import com.ferenc.pamp.presentation.screens.main.profile.ProfileFragment_;
 import com.ferenc.pamp.presentation.screens.main.propose.ProposeFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -39,6 +40,9 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Bean
     protected ProposeRelay mProposeRelay;
+
+    @Bean
+    protected GoodDealManager mGoodDealManager;
 
     @ViewById(R.id.toolbar_AM)
     protected Toolbar mToolBar;
@@ -242,5 +246,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     protected Toolbar getToolbar() {
         return mToolBar;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mGoodDealManager.clearGoodDeal();
     }
 }

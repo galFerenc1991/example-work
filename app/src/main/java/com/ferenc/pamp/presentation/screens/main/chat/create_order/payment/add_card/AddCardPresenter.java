@@ -1,11 +1,8 @@
 package com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.add_card;
 
 import com.ferenc.pamp.data.model.auth.TokenRequest;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
-import com.ferenc.pamp.data.model.home.orders.OrderRequest;
 import com.ferenc.pamp.presentation.base.models.BankCard;
 import com.ferenc.pamp.presentation.base.models.ExpDate;
-import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.ferenc.pamp.presentation.utils.ValidationManager;
 
@@ -19,6 +16,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class AddCardPresenter implements AddCardContract.Presenter {
 
     private AddCardContract.View mView;
+    private AddCardContract.Model mModel;
     private CompositeDisposable mCompositeDisposable;
     private String mCardNumber;
     private String mCardExpirationDate;
@@ -26,11 +24,14 @@ public class AddCardPresenter implements AddCardContract.Presenter {
     private int mCardExpYear;
     private String mCardCVV;
     private int mQuantity;
+    private boolean mWithEditProfile;
 
-    public AddCardPresenter(AddCardContract.View _view, int _quantity) {
+    public AddCardPresenter(AddCardContract.View _view, int _quantity, AddCardContract.Model _model, boolean _withEditProfile) {
         this.mView = _view;
+        this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mQuantity = _quantity;
+        mWithEditProfile = _withEditProfile;
 
         mView.setPresenter(this);
     }
@@ -92,8 +93,19 @@ public class AddCardPresenter implements AddCardContract.Presenter {
 
     @Override
     public void createCard(String _token, String _brand, String _last4) {
-        mView.openSetNewCardScreen(_brand, "****" + _last4, _token, mQuantity);
-
+        if (mWithEditProfile) {
+            mView.showProgressMain();
+            mCompositeDisposable.add(mModel.createCard(new TokenRequest(_token))
+                    .subscribe(card -> {
+                        mView.hideProgress();
+                        mView.closeAddCardScreen(card);
+                    }, throwable -> {
+                        mView.hideProgress();
+                        ToastManager.showToast("Add card Fragment Error");
+                    }));
+        } else {
+            mView.openSetNewCardScreen(_brand, "****" + _last4, _token, mQuantity);
+        }
     }
 
     @Override
