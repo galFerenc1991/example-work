@@ -62,6 +62,11 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
+    public void clickedMyOrders() {
+        mView.showMyOrders();
+    }
+
+    @Override
     public void clickedLogOut() {
         mView.showProgressMain();
         mCompositeDisposable.add(mModel.signOut()

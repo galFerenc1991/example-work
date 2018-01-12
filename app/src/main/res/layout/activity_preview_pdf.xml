@@ -7,6 +7,14 @@
         android:id="@+id/toolbar_APPDF"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_bar_height"/>
+    <ImageView
+        android:id="@+id/ivSendMyOrder_APPDF"
+        android:layout_width="@dimen/bottom_bar_height"
+        android:layout_height="@dimen/bottom_bar_height"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/padding_default"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/ic_send0"/>
     <View
         android:id="@+id/viewShadow"
         android:layout_width="match_parent"

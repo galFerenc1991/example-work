@@ -80,8 +80,8 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         MessageResponse messageResponse = data.getMessageResponse();
         Context context = data.getContext();
         User user = data.getMyUser();
-        String deliveryStartDate = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryStartDate));
-        String deliveryEndDate = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryEndDate));
+        String deliveryStartDate = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryStartDate));
+        String deliveryEndDate = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryEndDate));
 
         if (goodDealResponse.owner.getId().equals(user.getId())) {
             Picasso.with(context)
@@ -104,9 +104,9 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         }
 
 
-        tvDealDescription.setText(messageResponse.text);
-        tvDealPriceDescription.setText(goodDealResponse.description);
-        tvDealAmountItems.setText(goodDealResponse.unit);
+        tvDealDescription.setText(goodDealResponse.description);
+        tvDealPriceDescription.setText(String.valueOf(goodDealResponse.price) + " € " + " la " + goodDealResponse.product + " de " + goodDealResponse.unit);
+        tvDealAmountItems.setText("Quantité max. : " + String.valueOf(goodDealResponse.quantity));
         tvDealStartDate.setText(deliveryStartDate);
         tvDealEndDate.setText(deliveryEndDate);
         tvDealLocation.setText(goodDealResponse.deliveryAddress);
@@ -125,7 +125,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
                     intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime);
                     intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
 
-                    intent.putExtra(CalendarContract.Events.TITLE, "BON PLAN");
+                    intent.putExtra(CalendarContract.Events.TITLE, goodDealResponse.title);
                     intent.putExtra(CalendarContract.Events.DESCRIPTION, "Bon Plan delivery date");
                     intent.putExtra(CalendarContract.Events.EVENT_LOCATION, goodDealResponse.deliveryAddress);
 //            intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");

@@ -135,8 +135,8 @@ public abstract class Constants {
     public static final String M10_GOOD_DEAL_CLOSING = "M10";
 
     public static final String M11_1_GOOD_DEAL_CONFIRMATION = "M11_1";
-    public static final String M11_2_GOOD_DEAL_CONFIRMATION_REJECTED = "M11_2";
-    public static final String M11_3_GOOD_DEAL_CONFIRMATION_APPLYED = "M11_3";
+    public static final String M11_2_GOOD_DEAL_CONFIRMATION_APPLYED = "M11_2";
+    public static final String M11_3_GOOD_DEAL_CONFIRMATION_REJECTED = "M11_3";
 
     public static final int DEFAULT_MSG_GROUP_TYPE = 0;
     public static final int M1_MSG_GROUP_TYPE = 1;

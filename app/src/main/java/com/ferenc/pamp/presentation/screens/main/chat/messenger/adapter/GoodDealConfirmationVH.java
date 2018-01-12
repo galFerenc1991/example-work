@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -48,7 +47,7 @@ public class GoodDealConfirmationVH extends RecyclerVH<MessagesDH> {
                 ivGoodDealConfirmationState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_gift_msg));
                 tvStateConfirmationDescription.setText(context.getString(R.string.text_bon_plan_confirme));
                 break;
-            case Constants.M11_2_GOOD_DEAL_CONFIRMATION_REJECTED:
+            case Constants.M11_3_GOOD_DEAL_CONFIRMATION_REJECTED:
                 rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_red));
                 ivGoodDealConfirmationState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_finger_down_msg));
                 tvStateConfirmationDescription.setText(
@@ -60,7 +59,7 @@ public class GoodDealConfirmationVH extends RecyclerVH<MessagesDH> {
                                 + context.getString(R.string.text_commande_annule)
                 );
                 break;
-            case Constants.M11_3_GOOD_DEAL_CONFIRMATION_APPLYED:
+            case Constants.M11_2_GOOD_DEAL_CONFIRMATION_APPLYED:
                 rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_green));
                 ivGoodDealConfirmationState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_finger_up_msg));
                 tvStateConfirmationDescription.setText(

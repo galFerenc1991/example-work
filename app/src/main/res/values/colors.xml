@@ -36,6 +36,7 @@
     <color name="textColorBlack">#000000</color>
     <color name="textColorGrayTransparent">#80333333</color>
     <color name="textColorGraySendOrderList">#7B7C7C</color>
+    <color name="textColorOrangeMyOrderList">#FF5B00</color>
 
 
 

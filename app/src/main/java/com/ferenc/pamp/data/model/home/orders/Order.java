@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.ferenc.pamp.data.model.common.User;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -19,6 +20,7 @@ public class Order implements Parcelable{
     private boolean delivered;
     private int quantity;
     private User user;
+    private GoodDealResponse deal;
 
     public String getId() {
         return id;
@@ -68,6 +70,9 @@ public class Order implements Parcelable{
         this.user = user;
     }
 
+    public GoodDealResponse getDeal() {
+        return deal;
+    }
 
     @Override
     public int describeContents() {
@@ -82,6 +87,7 @@ public class Order implements Parcelable{
         dest.writeByte(this.delivered ? (byte) 1 : (byte) 0);
         dest.writeInt(this.quantity);
         dest.writeParcelable(this.user, flags);
+        dest.writeParcelable(this.deal, flags);
     }
 
     public Order() {
@@ -99,6 +105,7 @@ public class Order implements Parcelable{
         this.delivered = in.readByte() != 0;
         this.quantity = in.readInt();
         this.user = in.readParcelable(User.class.getClassLoader());
+        this.deal = in.readParcelable(GoodDealResponse.class.getClassLoader());
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {

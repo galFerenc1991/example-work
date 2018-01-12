@@ -55,7 +55,13 @@ public interface OrderService {
                                              @Query("limit") int limit);
     Observable<PDFPreviewResponse> sendPurchase(@Path("id") String _producerID, @Body PDFPreviewRequest _requestBody);
 
+    @GET("/order/{id}")
+    Observable<PDFPreviewResponse> getOrderDetails(@Path("id") String _orderId);
+
     @Streaming
     @GET
     Observable<Response<ResponseBody>> downloadFile(@Url String _fileUrl);
+
+    @GET("/order/my")
+    Observable<ListResponse<Order>> getMyOrders(@Query("page") int page, @Query("limit") int limit);
 }

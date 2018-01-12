@@ -2,9 +2,13 @@ package com.ferenc.pamp.data.model.message;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
-import com.ferenc.pamp.data.model.common.Contributor;
+import com.ferenc.pamp.data.api.RestConst;
+
 import com.ferenc.pamp.data.model.common.User;
+
+import java.io.File;
 
 /**
  * Created by shonliu on 12/13/17.
@@ -21,6 +25,7 @@ public class MessageResponse implements Parcelable {
     public String content;
     public User user;
     public Description description;
+    public File localImage;
 
     public MessageResponse(Parcel in) {
         _id = in.readString();
@@ -62,5 +67,13 @@ public class MessageResponse implements Parcelable {
         parcel.writeLong(createdAt);
         parcel.writeString(content);
         parcel.writeParcelable(user, i);
+    }
+
+    public String getContentUrl() {
+        return RestConst.BASE_URL + "/" + content;
+    }
+
+    public boolean isContentPresent() {
+        return !TextUtils.isEmpty(content) || localImage != null;
     }
 }

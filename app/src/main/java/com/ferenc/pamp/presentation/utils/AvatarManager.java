@@ -38,6 +38,7 @@ public class AvatarManager {
     private static final String TEMP_IMAGE_AVATAR_NAME = "temp_avatar.jpg";
     private static int mRotationAttribute = ExifInterface.ORIENTATION_NORMAL;
     private static int IMAGE_SIDE = 256;  //px
+    private static int IMAGE_SIDE_MSG = 768;  //px
 
     private File mTakePhotoTempFile;
 
@@ -73,6 +74,14 @@ public class AvatarManager {
         startCropActivity(picUri, requestCode);
     }
 
+    private void cropCapturedImage(int requestCode, Uri picUri, boolean isMessageImg) {
+        if (isMessageImg) {
+            startMessagesImageCropActivity(picUri, requestCode);
+        } else {
+            startCropActivity(picUri, requestCode);
+        }
+    }
+
     /**
      * Init system picker to pick image from camera or gallery
      */
@@ -90,6 +99,20 @@ public class AvatarManager {
 
         Intent chooserIntent = Intent.createChooser(pickIntent, CHOOSER_TITLE);
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{takePhotoIntent});
+
+        startActivityForResult(chooserIntent, requestCode);
+    }
+
+    /**
+     * Init system to take image from camera
+     */
+    public void getImageOnlyFromCamera(int requestCode) {
+        mTakePhotoTempFile = new File(mCtx.getExternalCacheDir(), TEMP_IMAGE_AVATAR_NAME);
+
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTakePhotoTempFile));
+
+        Intent chooserIntent = Intent.createChooser(takePhotoIntent, CHOOSER_TITLE);
 
         startActivityForResult(chooserIntent, requestCode);
     }
@@ -113,6 +136,22 @@ public class AvatarManager {
         }
     }
 
+    public void handleFullsizeImage(int requestCode, int resultCode, Intent data, boolean isMessageImg) {
+        if (resultCode == Activity.RESULT_OK) {
+
+            if (data != null && data.getData() != null) {
+                readExifAngleFromTempFile(data.getData());
+                cropCapturedImage(requestCode, data.getData(), isMessageImg);
+            } else {
+                if (mTakePhotoTempFile == null)
+                    mTakePhotoTempFile = new File(mCtx.getExternalCacheDir(), TEMP_IMAGE_AVATAR_NAME);
+                readExifAngleFromTempFile(Uri.parse(mTakePhotoTempFile.getPath()));
+                cropCapturedImage(requestCode, Uri.fromFile(mTakePhotoTempFile) ,isMessageImg);
+            }
+
+        }
+    }
+
     private void startActivityForResult(Intent itent, int requestCode) {
         if (mActivity != null)
             mActivity.startActivityForResult(itent, requestCode);
@@ -129,6 +168,15 @@ public class AvatarManager {
             Crop.of(picUri, Uri.fromFile(mTakePhotoTempFile)).asSquare().withMaxSize(IMAGE_SIDE, IMAGE_SIDE).start(mFragment.getActivity(), mFragment, requestCode);
         else if (mFragmentSupport != null)
             Crop.of(picUri, Uri.fromFile(mTakePhotoTempFile)).asSquare().withMaxSize(IMAGE_SIDE, IMAGE_SIDE).start(mFragmentSupport.getActivity(), mFragmentSupport, requestCode);
+    }
+
+    private void startMessagesImageCropActivity(Uri picUri, int requestCode) {
+        if (mActivity != null)
+            Crop.of(picUri, Uri.fromFile(mTakePhotoTempFile)).asSquare().withMaxSize(IMAGE_SIDE_MSG, IMAGE_SIDE_MSG).start(mActivity, requestCode);
+        else if (mFragment != null)
+            Crop.of(picUri, Uri.fromFile(mTakePhotoTempFile)).asSquare().withMaxSize(IMAGE_SIDE_MSG, IMAGE_SIDE_MSG).start(mFragment.getActivity(), mFragment, requestCode);
+        else if (mFragmentSupport != null)
+            Crop.of(picUri, Uri.fromFile(mTakePhotoTempFile)).asSquare().withMaxSize(IMAGE_SIDE_MSG, IMAGE_SIDE_MSG).start(mFragmentSupport.getActivity(), mFragmentSupport, requestCode);
     }
 
     /*Read exif attribute 1-8 or orientation and save in to mRotation*/

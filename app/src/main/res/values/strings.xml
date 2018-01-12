@@ -273,6 +273,7 @@
     <string name="send_order_list_commander_footer_text">Votre commande sera enregistrée à la liste des commandes mais aucune transaction ne sera effectuée</string>
     <string name="send_order_list_producer_header_text">Enregistrez les coordonnées de votre producteur :</string>
     <string name="send_order_list_producer">Producteur</string>
+    <string name="send_my_order">Detail Commande</string>
 
 
 
@@ -282,6 +283,7 @@
     <string name="text_cvv">CVV</string>
     <string name="send_order_list_add_producer">Entrer un nouveau producteur</string>
     <string name="producer_valider">VALIDER</string>
+    <string name="text_my_order_list_date">Commandé le\n</string>
 
     <!--Orders Confirm Dialog-->
     <string name="orders_confirm_dialog_title">Vous voulez confirmer définitivement votre bon plan ?</string>

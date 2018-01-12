@@ -21,6 +21,9 @@ public class Description implements Parcelable {
         deliveryEndDate = in.readLong();
         closingDate = in.readLong();
     }
+    public Description(){
+
+    }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
