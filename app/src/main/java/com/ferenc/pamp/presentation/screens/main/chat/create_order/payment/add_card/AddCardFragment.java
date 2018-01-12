@@ -1,5 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.add_card;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -7,7 +8,6 @@ import android.widget.TextView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.domain.CardRepository;
-import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
 import com.ferenc.pamp.presentation.base.models.BankCard;
@@ -16,7 +16,6 @@ import com.ferenc.pamp.presentation.custom.bank_card_inputs.BankCardExpirationIn
 import com.ferenc.pamp.presentation.custom.bank_card_inputs.BankCardNumberInputActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.save_card.SaveCardFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
-import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.stripe.android.Stripe;
@@ -75,13 +74,19 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
     @ViewById(R.id.btnValidate_FAC)
     protected Button btnValidate;
 
+    @Bean
+    protected CardRepository mCardRepository;
+
+    @FragmentArg
+    protected boolean withEditProfile;
+
     @FragmentArg
     protected int mQuantity;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new AddCardPresenter(this, mQuantity);
+        new AddCardPresenter(this, mQuantity, mCardRepository, withEditProfile);
     }
 
     @AfterViews
@@ -185,6 +190,14 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
                 mPresenter.createCard(token.getId(), token.getCard().getBrand(), token.getCard().getLast4());
             }
         });
+    }
+
+    @Override
+    public void closeAddCardScreen(com.ferenc.pamp.data.model.common.Card _card) {
+        Intent intent = new Intent();
+        intent.putExtra(Constants.KEY_BANK_CARD, _card);
+        mActivity.setResult(Activity.RESULT_OK, intent);
+        mActivity.finish();
     }
 
     @Override

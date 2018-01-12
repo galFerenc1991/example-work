@@ -1,14 +1,18 @@
 package com.ferenc.pamp.domain;
 
 import com.ferenc.pamp.data.api.Rest;
+import com.ferenc.pamp.data.model.base.GeneralMessageResponse;
+import com.ferenc.pamp.data.model.common.ChangePasswordRequest;
 import com.ferenc.pamp.data.model.common.User;
 
 
 import com.ferenc.pamp.data.service.UserService;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.select_card.SelectCardContract;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.OrderContract;
 import com.ferenc.pamp.presentation.screens.main.profile.ProfileContract;
 
 import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.EditProfileContract;
+import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.change_password.ChangePasswordContract;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 
@@ -28,7 +32,11 @@ import okhttp3.RequestBody;
  * Ferenc on 2017.12.01..
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class UserRepository extends NetworkRepository implements ProfileContract.UserProfileModel, EditProfileContract.Model, SelectCardContract.Model {
+public class UserRepository extends NetworkRepository implements ProfileContract.UserProfileModel,
+        EditProfileContract.Model,
+        SelectCardContract.Model,
+        OrderContract.UserModel,
+        ChangePasswordContract.Model {
 
     @Bean
     protected Rest rest;
@@ -57,8 +65,12 @@ public class UserRepository extends NetworkRepository implements ProfileContract
     @Override
     public Observable<User> updateUser(Map<String, RequestBody> userBody, MultipartBody.Part avatar) {
         return getNetworkObservable(userService.updateUser(userBody, avatar).flatMap(user -> {
-            mSignedUserManager.saveUser(user);
-            return Observable.just(user);
+            return getUserProfile();
         }));
+    }
+
+    @Override
+    public Observable<GeneralMessageResponse> changePassword(ChangePasswordRequest request) {
+        return getNetworkObservable(userService.changePassword(request));
     }
 }

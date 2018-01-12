@@ -7,6 +7,7 @@ import com.ferenc.pamp.PampApp;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.api.exceptions.TimeoutException;
 import com.ferenc.pamp.data.service.AuthService;
+import com.ferenc.pamp.data.service.BankAccountService;
 import com.ferenc.pamp.data.service.CardService;
 import com.ferenc.pamp.data.service.ChatService;
 import com.ferenc.pamp.data.service.GoodDealService;
@@ -122,6 +123,10 @@ public class Rest {
 
     public CardService getCardService() {
         return retrofit.create(CardService.class);
+    }
+
+    public BankAccountService getBankAccountService() {
+        return retrofit.create(BankAccountService.class);
     }
 
 }

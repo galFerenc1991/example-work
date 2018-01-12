@@ -57,11 +57,13 @@ public class ProposedPlansFragment extends RefreshableFragment implements Propos
     protected GoodDealRepository mGoodDealRepository;
     @Bean
     protected GoodPlanAdapter mGoodPlanAdapter;
+    @Bean
+    protected ProposeRelay mProposeRelay;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new ProposedPlansPresenter(this, mGoodDealRepository);
+        new ProposedPlansPresenter(this, mGoodDealRepository, mProposeRelay);
     }
 
     @AfterViews
@@ -110,7 +112,7 @@ public class ProposedPlansFragment extends RefreshableFragment implements Propos
     @Override
     public void openProposerFragment() {
         MainActivity activity = (MainActivity) getActivity();
-        activity.clickedPropose();
+        activity.openProposedFlow();
     }
 
     @Override

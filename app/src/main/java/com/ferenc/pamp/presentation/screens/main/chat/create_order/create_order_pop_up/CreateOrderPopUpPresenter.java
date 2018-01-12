@@ -7,6 +7,8 @@ import com.ferenc.pamp.data.model.home.orders.OrderRequest;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 
+import java.text.DecimalFormat;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 
@@ -68,14 +70,14 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
     private void setLocalOrder(int _quantity) {
         mQuantity = _quantity;
         mView.showQuantity(String.valueOf(_quantity));
-        mView.showTotal(String.valueOf(mGoodDealResponse.price * _quantity) + " €");
+        mView.showTotal(calculateTotal());
     }
 
     private void setOrder(Order _order) {
         mOrder = _order;
         mQuantity = _order.getQuantity();
         mView.showQuantity(String.valueOf(_order.getQuantity()));
-        mView.showTotal(String.valueOf(_order.getPrice() * _order.getQuantity()) + " €");
+        mView.showTotal(calculateTotal());
     }
 
     @Override
@@ -83,7 +85,7 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
         mQuantity = mQuantity + 1;
         mView.setQuantityColorToRed(false);
         mView.showQuantity(String.valueOf(mQuantity));
-        mView.showTotal(String.valueOf(mGoodDealResponse.price * mQuantity) + " €");
+        mView.showTotal(calculateTotal());
     }
 
     @Override
@@ -91,7 +93,13 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
         if (mQuantity > 0) mQuantity = mQuantity - 1;
         if (mHasOrder && mQuantity == 0) mView.setQuantityColorToRed(true);
         mView.showQuantity(String.valueOf(mQuantity));
-        mView.showTotal(String.valueOf(mGoodDealResponse.price * mQuantity) + " €");
+        mView.showTotal(calculateTotal());
+    }
+
+    private String calculateTotal() {
+        double totalInDouble = mGoodDealResponse.price * mQuantity + ((mGoodDealResponse.price * mQuantity / 100) * 3.5) + 0.75;
+        DecimalFormat df = new DecimalFormat("#.##");
+        return String.valueOf(df.format(totalInDouble)) + " €";
     }
 
     @Override

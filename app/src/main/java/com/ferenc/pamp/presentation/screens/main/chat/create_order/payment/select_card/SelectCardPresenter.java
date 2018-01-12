@@ -37,8 +37,8 @@ public class SelectCardPresenter implements SelectCardContract.Presenter {
         mCompositeDisposable.add(mModel.getUserProfile()
                 .subscribe(user -> {
                     mView.hideProgress();
-                    if (user.getCard().getBrand() != null)
-                        mView.setCardNumber("**** " + user.getCard().getLast4());
+                    if (user.getCard() != null)
+                        mView.setCardNumber("**** " + user.getCard().getLast4(), user.getCard().getBrand());
                 }, throwable -> {
                     mView.hideProgress();
                     ToastManager.showToast("GEtUSer: " + throwable.getMessage());

@@ -147,7 +147,8 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
             if (!isUpdateGoodDeal) {
                 EndFlowActivity_
                         .intent(this)
-                        .mIsCreatedFlow(true)
+                        .mFlow(Constants.CREATE_FLOW)
+//                        .mIsCreatedFlow(true)
                         .fromWhere(Constants.ITEM_TYPE_REUSE)
                         .mGoodDealResponse(mGoodDealResponse)
                         .flags(Intent.FLAG_ACTIVITY_NEW_TASK)

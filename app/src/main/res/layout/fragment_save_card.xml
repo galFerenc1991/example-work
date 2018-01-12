@@ -29,7 +29,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_triple"
                 android:drawablePadding="@dimen/margin_default"
-                android:drawableStart="@drawable/ic_visa"
                 android:text="card"
                 android:textColor="@color/textColorGray"
                 android:textSize="@dimen/text_size_big" />

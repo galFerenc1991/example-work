@@ -34,8 +34,10 @@ public class EndFlowActivity extends AppCompatActivity {
     @ViewById(R.id.tvEndFlowMassage_AEF)
     protected TextView tvEndFlowMassage;
 
+//    @Extra
+//    protected boolean mIsCreatedFlow;
     @Extra
-    protected boolean mIsCreatedFlow;
+    int mFlow;
 
     @Extra
     protected int fromWhere;
@@ -45,19 +47,43 @@ public class EndFlowActivity extends AppCompatActivity {
     @AfterViews
     protected void initUI() {
         initCloseButton();
-        if (!mIsCreatedFlow) {
-            ivSuccess.setImageResource(R.drawable.ic_close_big_red);
-            tvEndFlowMassage.setText(R.string.title_good_deal_canceled);
-            tvEndFlowMassage.setTextColor(getResources().getColor(R.color.textColorRed));
+
+        switch (mFlow) {
+            case Constants.CREATE_FLOW:
+                break;
+            case Constants.NOT_CREATE_FLOW:
+                ivSuccess.setImageResource(R.drawable.ic_close_big_red);
+                tvEndFlowMassage.setText(R.string.title_good_deal_canceled);
+                tvEndFlowMassage.setTextColor(getResources().getColor(R.color.textColorRed));
+                break;
+            case Constants.ATTACH_BANK_ACCOUNT_FLOW:
+                tvEndFlowMassage.setText(R.string.text_bank_account_attached);
+                break;
         }
+//        if (!mIsCreatedFlow) {
+//            ivSuccess.setImageResource(R.drawable.ic_close_big_red);
+//            tvEndFlowMassage.setText(R.string.title_good_deal_canceled);
+//            tvEndFlowMassage.setTextColor(getResources().getColor(R.color.textColorRed));
+//        }
     }
 
     private void initCloseButton() {
         RxView.clicks(ivClose)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> {
-                    if (!mIsCreatedFlow) finish();
-                    else startChatScreen();
+                    switch (mFlow) {
+                        case Constants.CREATE_FLOW:
+                            startChatScreen();
+                            break;
+                        case Constants.NOT_CREATE_FLOW:
+                            finish();
+                            break;
+                        case Constants.ATTACH_BANK_ACCOUNT_FLOW:
+                            finish();
+                            break;
+                    }
+//                    if (!mIsCreatedFlow) finish();
+//                    else startChatScreen();
                 });
     }
 

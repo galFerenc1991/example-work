@@ -1,5 +1,7 @@
 package com.ferenc.pamp.data.service;
 
+import com.ferenc.pamp.data.model.base.GeneralMessageResponse;
+import com.ferenc.pamp.data.model.common.ChangePasswordRequest;
 import com.ferenc.pamp.data.model.common.User;
 
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.PUT;
@@ -37,4 +40,7 @@ public interface UserService {
     @Multipart
     @PUT("/user")
     Observable<User> updateUser(@PartMap() Map<String, RequestBody> user, @Part MultipartBody.Part file);
+
+    @PUT("/user/changePassword")
+    Observable<GeneralMessageResponse> changePassword(@Body ChangePasswordRequest request);
 }

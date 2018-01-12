@@ -50,6 +50,12 @@ public interface OrderService {
     Observable<ListResponse<Producer>> getProducerList(@Query("page") int page, @Query("limit") int limit);
 
     @POST("/producer/{id}")
+    Observable<Object> sendPurchase(@Path("id") String _producerID, @Body OrderRequest _localOrder);
+
+    @GET("/order")
+    Observable<ListResponse<Order>> getOrders(@Query("dealId") String _dealId,
+                                             @Query("page") int page,
+                                             @Query("limit") int limit);
     Observable<PDFPreviewResponse> sendPurchase(@Path("id") String _producerID, @Body PDFPreviewRequest _requestBody);
 
     @GET("/order/{id}")
