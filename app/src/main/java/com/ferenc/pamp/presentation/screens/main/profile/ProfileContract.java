@@ -21,6 +21,8 @@ public interface ProfileContract {
         void openEditProfile();
         void setUserProfilePictureAndName(String _avatarUrl, String _name);
         void sharePamp();
+
+        void showMyOrders();
     }
 
     interface Presenter extends BasePresenter {
@@ -28,6 +30,7 @@ public interface ProfileContract {
         void clickedProfileInformation();
         void clickedSharePamp();
 
+        void clickedMyOrders();
     }
 
     interface SignOutModel extends BaseModel {

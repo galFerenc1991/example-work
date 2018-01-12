@@ -21,7 +21,6 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
     private ChooseProducerContract.View mView;
     private CompositeDisposable mCompositeDisposable;
     private ChooseProducerContract.Model mModel;
-    private String mProducer;
     private int selectedPos;
     private int mPage = 1;
     private int mTotalPages = Integer.MAX_VALUE;
@@ -56,7 +55,6 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
                     for (Producer producer : producerListResponse.data)
                         producers.add(new ProducerDH(producer.producerId, producer.name, producer.email));
 
-//                    producerDHS.addAll(producers);
 
                     if (!isLoadMore) {
                         mView.setProducerList(producers);
@@ -88,7 +86,7 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
                 selectedPos);
 
         selectedPos = position;
-        mView.updateItem(new ProducerDH(item.getProducerId(),item.getProducer(), true), selectedPos);
+        mView.updateItem(new ProducerDH(item.getProducerId(),item.getProducer(), item.getProducerEmail(), true), selectedPos);
         mView.enabledValider();
     }
 

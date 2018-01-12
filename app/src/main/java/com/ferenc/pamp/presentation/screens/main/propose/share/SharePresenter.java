@@ -62,7 +62,7 @@ public class SharePresenter implements ShareContract.Presenter {
     public void subscribe() {
         mView.showProgressMain();
         mCompositeDisposable.add(mModel.getUsedUserContact()
-                .flatMap(usedContact -> Observable.just(mContactManager.getContactsDH()))
+                .flatMap(usedContact -> Observable.just(mContactManager.getContactsDH(usedContact)))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(contactDHList -> {
@@ -81,48 +81,6 @@ public class SharePresenter implements ShareContract.Presenter {
         } else {
             mView.updateItem(new ContactDH(item.getUserContact(), true, ContactAdapter.TYPE_ITEM), position);
         }
-    }
-
-    private ArrayList<UserContact> getContactList() {
-        ArrayList<UserContact> _phoneContactList = new ArrayList<>();
-        ContentResolver cr = PampApp_.getInstance().getContentResolver();
-        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
-                null, null, null, null);
-
-        if ((cur != null ? cur.getCount() : 0) > 0) {
-            while (cur != null && cur.moveToNext()) {
-                String id = cur.getString(
-                        cur.getColumnIndex(ContactsContract.Contacts._ID));
-                String name = cur.getString(cur.getColumnIndex(
-                        ContactsContract.Contacts.DISPLAY_NAME));
-
-                if (cur.getInt(cur.getColumnIndex(
-                        ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
-                    Cursor pCur = cr.query(
-                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                            null,
-                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                            new String[]{id}, null);
-
-                    while (pCur.moveToNext()) {
-                        String phoneNo = pCur.getString(pCur.getColumnIndex(
-                                ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        Log.d("Contact", "Name: " + name);
-                        Log.d("Contact", "Phone Number: " + phoneNo);
-
-                        _phoneContactList.add(new UserContact(name, phoneNo));
-                    }
-                    pCur.close();
-                }
-            }
-        }
-        if (cur != null) {
-            cur.close();
-        }
-
-        Collections.sort(_phoneContactList, (o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
-
-        return _phoneContactList;
     }
 
     @Override
@@ -156,6 +114,7 @@ public class SharePresenter implements ShareContract.Presenter {
             mView.showProgressMain();
             mCompositeDisposable.add(mModel.resendGoodDeal(createRequestParameter(contactDHList))
                     .subscribe(goodDealResponse -> {
+                        mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                         mView.hideProgress();
                         mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
                     }, throwable -> {

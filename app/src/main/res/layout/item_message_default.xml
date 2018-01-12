@@ -35,21 +35,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="@dimen/padding_upper_medium">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvMsgAuthorName_IMD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColorBlack"
-                    android:layout_marginBottom="@dimen/padding_quart"/>
+                    android:layout_marginBottom="@dimen/padding_quart"
+                    android:layout_marginTop="@dimen/margin_upper_medium"
+                    android:layout_marginStart="@dimen/margin_upper_medium"/>
                 <TextView
                     android:id="@+id/tvMsgText_IMD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColorBlack"
+                    android:layout_marginStart="@dimen/margin_upper_medium"
+                    android:layout_marginBottom="@dimen/margin_upper_medium"
+                    android:visibility="visible"
                     />
+
+                <ImageView
+                    android:id="@+id/ivMessageImage_IMD"
+                    android:layout_width="@dimen/default_message_width"
+                    android:layout_height="@dimen/default_message_width"
+                     />
 
             </LinearLayout>
 

@@ -10,9 +10,11 @@ import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.ferenc.pamp.R;
@@ -41,9 +43,12 @@ import java.util.concurrent.TimeUnit;
 public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContract.View{
 
     private PreviewPDFContract.Presenter mPresenter;
+    private boolean mIsFromOrderList;
 
     @ViewById(R.id.btnConfirm_APPDF)
     protected Button btnConfirm;
+    @ViewById(R.id.ivSendMyOrder_APPDF)
+    protected ImageView ivSendMyOrder;
     @ViewById(R.id.rlProgress_APPDF)
     protected RelativeLayout rlProgress;
     @ViewById(R.id.wvHtml_APPDF)
@@ -52,6 +57,8 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     protected Toolbar toolbar;
     @StringRes(R.string.send_order_list_producer)
     protected String titlePDFPreview;
+    @StringRes(R.string.send_my_order)
+    protected String titleSendMyOrder;
 
     @Extra
     protected PDFPreviewRequest mPDFPreviewRequest;
@@ -59,13 +66,17 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     @Extra
     protected String mProducerEmail;
 
+    @Extra
+    protected String mOrderId;
+
     @Bean
     protected OrderRepository mOrderRepository;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new PreviewPDFPresenter(this, mOrderRepository, mPDFPreviewRequest, this, mProducerEmail);
+        mIsFromOrderList = TextUtils.isEmpty(mOrderId);
+        new PreviewPDFPresenter(this, mOrderRepository, mPDFPreviewRequest, this, mProducerEmail, mOrderId, mIsFromOrderList);
     }
 
     @AfterViews
@@ -76,13 +87,17 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     }
 
     private void initBar() {
-        toolbarManager.setTitle(titlePDFPreview);
+        toolbarManager.setTitle(mIsFromOrderList ? titlePDFPreview : titleSendMyOrder);
         toolbarManager.showHomeAsUp(true);
         toolbarManager.closeActivityWhenBackArrowPressed(this);
+
     }
 
     private void initClickListeners() {
         RxView.clicks(btnConfirm)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.clickedConfirm());
+        RxView.clicks(ivSendMyOrder)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedConfirm());
     }
@@ -143,6 +158,21 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     @Override
     public void showValiderButton() {
         btnConfirm.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideValiderButton() {
+        btnConfirm.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSendMyOrderButton() {
+        ivSendMyOrder.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideSendMyOrderButton() {
+        ivSendMyOrder.setVisibility(View.GONE);
     }
 
     @Override

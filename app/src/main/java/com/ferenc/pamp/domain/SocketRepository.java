@@ -4,13 +4,16 @@ import android.util.Log;
 
 import com.ferenc.pamp.data.api.RestConst;
 import com.ferenc.pamp.data.model.common.User;
+import com.ferenc.pamp.data.model.message.Description;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerContract;
+import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.jakewharton.rxrelay2.PublishRelay;
 import com.jakewharton.rxrelay2.Relay;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,6 +48,14 @@ public class SocketRepository implements MessengerContract.SocketModel {
     private String valToken = "token";
     private String valDealID = "dealId";
     private String valCode = "code";
+    private String valDescription = "description";
+    private String valQuantity = "quantity";
+    private String valDeliveryEndDate = "deliveryEndDate";
+    private String valClosingDate = "closingDate";
+    private String mUserToken;
+
+    @Pref
+    protected SharedPrefManager_ mSharedPrefManager;
 
     @AfterInject
     protected void initSocket() {
@@ -58,24 +69,23 @@ public class SocketRepository implements MessengerContract.SocketModel {
     }
 
     @Override
-    public Observable<Void> connectSocket(String _userToken, String _roomID) {
+    public Observable<Void> connectSocket(String _roomID) {
+        mUserToken = mSharedPrefManager.getAccessToken().get().replaceAll("Bearer ","");
         if (mSocket.connected())
             return connectSocketVoidRelay;
 
         mSocket.connect();
         mSocket.on(Socket.EVENT_CONNECT, args -> {
             Log.d(TAG, "Connected");
-            joinRoom(_userToken,_roomID);
+            joinRoom(mUserToken, _roomID);
         }).on(Socket.EVENT_MESSAGE, args -> {
             JSONObject data = (JSONObject) args[0];
 
             try {
                 MessageResponse messageResponse = new MessageResponse();
                 User user = new User();
+                Description description = new Description();
 
-                if (data.has(valContent)) {
-                    messageResponse.content = data.getString(valContent);
-                }
 
                 if (!data.getString(valType).equals("AUTO")) {
                     user.setId(data.getJSONObject(valUser).getString(valId));
@@ -83,13 +93,22 @@ public class SocketRepository implements MessengerContract.SocketModel {
                     user.setLastName(data.getJSONObject(valUser).getString(valLastName));
                     user.setAvatar(data.getJSONObject(valUser).getString(valAvatar));
 
+                    messageResponse.text = data.has(valText) ? data.getString(valText) : "";
                     messageResponse.user = user;
-                    messageResponse.text = data.getString(valText);
                 }
+                messageResponse.content = data.has(valContent) ? data.getString(valContent) : "";
                 messageResponse.code = data.has(valCode) ? data.getString(valCode) : null;
                 messageResponse._id = data.getString(valId);
                 messageResponse.type = data.getString(valType);
                 messageResponse.createdAt = data.getLong(valCreatedAt);
+
+
+                description.quantity = data.has(valDescription) ? data.getJSONObject(valDescription).has(valQuantity) ? data.getJSONObject(valDescription).getInt(valQuantity) : 0 : 0;
+                description.firstName = (data.has(valDescription) ? data.getJSONObject(valDescription).getString(valFirstName) : "user==null");
+                description.deliveryEndDate = data.has(valDescription) ? data.getJSONObject(valDescription).has(valDeliveryEndDate) ? data.getJSONObject(valDescription).getInt(valDeliveryEndDate) : 0 : 0;
+                description.closingDate = data.has(valDescription) ? data.getJSONObject(valDescription).has(valClosingDate) ? data.getJSONObject(valDescription).getInt(valClosingDate) : 0 : 0;
+
+                messageResponse.description = description;
 
                 Log.d(TAG, "New message:" + data.toString());
 
@@ -110,14 +129,11 @@ public class SocketRepository implements MessengerContract.SocketModel {
     }
 
     @Override
-    public Observable<Void> sendMessage(String _userToken, String _dealId, String _messageText) {
+    public Observable<Void> sendMessage(String _dealId, String _messageText) {
 
         JSONObject obj = new JSONObject();
         try {
-//            if (!imageBase64.equals("")) {
-//                obj.put(valContent, imageBase64);
-//            }
-            obj.put(valToken, _userToken);
+            obj.put(valToken, mUserToken);
             obj.put(valDealID, _dealId);
             obj.put(valText, _messageText);
         } catch (JSONException e) {
@@ -125,6 +141,25 @@ public class SocketRepository implements MessengerContract.SocketModel {
         }
 
         Log.d(TAG, "Emitting: send message" + obj.toString());
+
+        mSocket.emit(Socket.EVENT_MESSAGE, obj);
+
+        return voidRelay;
+    }
+
+    @Override
+    public Observable<Void> sendImage(String _dealId, String _imageBase64) {
+
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put(valToken, mUserToken);
+            obj.put(valDealID, _dealId);
+            obj.put(valContent, _imageBase64);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "Emitting: send image" + obj.toString());
 
         mSocket.emit(Socket.EVENT_MESSAGE, obj);
 
