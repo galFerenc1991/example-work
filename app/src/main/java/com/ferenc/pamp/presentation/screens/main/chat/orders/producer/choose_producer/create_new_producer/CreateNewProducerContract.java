@@ -23,22 +23,35 @@ public interface CreateNewProducerContract {
         void finish();
 
         void finishActivityWithResult(Producer producer);
+
+        void setProducerData(Producer _producer);
+
+        void showProgress();
+
+        void hideProgress();
     }
 
     interface Presenter extends BasePresenter {
 
         PublishRelay<Boolean> validateFields();
 
-        void createProducer( String _name,
-                 String _email,
-                 String _phone,
-                 String _address,
-                 String _description);
+        void createUpdateProducer(String _name,
+                                  String _email,
+                                  String _phone,
+                                  String _address,
+                                  String _description);
 
-        boolean validateData(String _name, String _email);
+        boolean validateData(String _name,
+                             String _email,
+                             String _phone,
+                             String _address,
+                             String _description);
+
     }
 
     interface Model {
         Observable<Producer> createProducer(Producer _producer);
+
+        Observable<Producer> updateProducer(Producer _producer);
     }
 }

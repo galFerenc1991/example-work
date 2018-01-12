@@ -2,16 +2,18 @@ package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_pr
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.orders.Producer;
 import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.utils.Constants;
-import com.ferenc.pamp.presentation.utils.ValidationManager;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -20,6 +22,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
@@ -58,20 +61,31 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
     @ViewById(R.id.btnValider_ACNP)
     protected Button btnValider;
 
+    @ViewById(R.id.progressBar_ACNP)
+    protected ProgressBar progressBar;
+
+    @ViewById(R.id.scrollView_ACNP)
+    protected ScrollView scrollView;
+
     @StringRes(R.string.send_order_list_producer)
     protected String titleProducer;
+
+    @Extra
+    protected boolean isCreate;
+
+    @Extra
+    protected Producer mProducer;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new CreateNewProducerPresenter(this, mOrderRepository);
+        new CreateNewProducerPresenter(this, mOrderRepository, isCreate, mProducer);
     }
 
     @AfterViews
     protected void initUI() {
         initBar();
         initClickListeners();
-
         mPresenter.subscribe();
     }
 
@@ -99,12 +113,13 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
     private void initClickListeners() {
         RxView.clicks(btnValider)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.createProducer(
-                        getText(etProducerName),
-                        getText(etProducerEmail),
-                        getText(etProducerPhone),
-                        getText(etProducerAddress),
-                        getText(etProducerDescription))
+                .subscribe(o ->
+                        mPresenter.createUpdateProducer(
+                                getText(etProducerName),
+                                getText(etProducerEmail),
+                                getText(etProducerPhone),
+                                getText(etProducerAddress),
+                                getText(etProducerDescription))
                 );
 
         RxTextView.afterTextChangeEvents(etProducerName).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
@@ -118,7 +133,7 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
 
     @Override
     public boolean validerData() {
-        return mPresenter.validateData(getText(etProducerName), getText(etProducerEmail));
+        return mPresenter.validateData(getText(etProducerName), getText(etProducerEmail), getText(etProducerPhone), getText(etProducerAddress), getText(etProducerDescription));
     }
 
     @Override
@@ -138,7 +153,31 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
         intent.putExtra(Constants.KEY_PRODUCER_NAME, producer.name);
         intent.putExtra(Constants.KEY_PRODUCER_ID, producer.producerId);
         intent.putExtra(Constants.KEY_PRODUCER_EMAIL, producer.email);
+        intent.putExtra(Constants.KEY_PRODUCER_PHONE, producer.phone);
+        intent.putExtra(Constants.KEY_PRODUCER_ADDRESS, producer.address);
+        intent.putExtra(Constants.KEY_PRODUCER_DESCRIPTION, producer.description);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void setProducerData(Producer _producer) {
+        etProducerName.setText(_producer.name);
+        etProducerEmail.setText(_producer.email);
+        etProducerPhone.setText(_producer.phone);
+        etProducerAddress.setText(_producer.address);
+        etProducerDescription.setText(_producer.description);
+    }
+
+    @Override
+    public void showProgress() {
+        scrollView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+        scrollView.setVisibility(View.VISIBLE);
     }
 }

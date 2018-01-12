@@ -177,8 +177,8 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
            if (requestCode == Constants.REQUEST_CODE_ACTIVITY_CHOOSE_PRODUCER) {
-               mProducerName = data.getStringExtra(Constants.KEY_PRODUCER_NAME);
                mProducerId = data.getStringExtra(Constants.KEY_PRODUCER_ID);
+               mProducerName = data.getStringExtra(Constants.KEY_PRODUCER_NAME);
                mProducerEmail = data.getStringExtra(Constants.KEY_PRODUCER_EMAIL);
                tvProducer.setText(mProducerName);
                mPresenter.validateData(mQuantity, mProducerId);

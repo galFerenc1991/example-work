@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="@dimen/padding_default"
     android:background="?attr/selectableItemBackground">
 
@@ -16,6 +16,15 @@
         android:gravity="center"
         android:drawablePadding="@dimen/padding_upper_large"
         android:text="@string/send_order_list_producer"
-        android:drawableLeft="@drawable/ic_producer"/>
+        android:layout_centerVertical="true"
+        android:drawableStart="@drawable/ic_producer"/>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/ivEditProducer_IP"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_edit"/>
+
+</RelativeLayout>

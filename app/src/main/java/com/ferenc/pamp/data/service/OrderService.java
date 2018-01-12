@@ -43,6 +43,9 @@ public interface OrderService {
     @POST("/producer")
     Observable<Producer> createProducer(@Body Producer _producer);
 
+    @PUT("/producer/{id}")
+    Observable<Producer> updateProducer(@Path("id") String _producerID, @Body Producer _producer);
+
     @GET("/producer")
     Observable<ListResponse<Producer>> getProducerList(@Query("page") int page, @Query("limit") int limit);
 

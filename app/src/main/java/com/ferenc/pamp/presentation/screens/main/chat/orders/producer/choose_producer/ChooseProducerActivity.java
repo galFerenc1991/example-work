@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.orders.Producer;
@@ -134,7 +135,7 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
 
     @Override
     public void createNewProducer() {
-        CreateNewProducerActivity_.intent(this).startForResult(Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED);
+        CreateNewProducerActivity_.intent(this).isCreate(true).startForResult(Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED);
     }
 
     @Override
@@ -162,12 +163,18 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            if (requestCode == Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED) {
-                String mProducerName = data.getStringExtra(Constants.KEY_PRODUCER_NAME);
-                String mProducerId = data.getStringExtra(Constants.KEY_PRODUCER_ID);
-                String mProducerEmail = data.getStringExtra(Constants.KEY_PRODUCER_EMAIL);
-                mPresenter.addNewProducer(mProducerName, mProducerId, mProducerEmail);
-            }
+            String mProducerId = data.getStringExtra(Constants.KEY_PRODUCER_ID);
+            String mProducerName = data.getStringExtra(Constants.KEY_PRODUCER_NAME);
+            String mProducerEmail = data.getStringExtra(Constants.KEY_PRODUCER_EMAIL);
+            String mProducerPhone = data.getStringExtra(Constants.KEY_PRODUCER_PHONE);
+            String mProducerAddress = data.getStringExtra(Constants.KEY_PRODUCER_ADDRESS);
+            String mProducerDescription = data.getStringExtra(Constants.KEY_PRODUCER_DESCRIPTION);
+
+            if (requestCode == Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED)
+                mPresenter.addNewProducer(new Producer(mProducerId, mProducerName, mProducerEmail, mProducerPhone, mProducerAddress, mProducerDescription));
+            else if (requestCode == Constants.REQUEST_CODE_ACTIVITY_UPDATE_PRODUCER)
+                mPresenter.updateProducer(new Producer(mProducerId, mProducerName, mProducerEmail, mProducerPhone, mProducerAddress, mProducerDescription));
+
         }
     }
 
@@ -191,9 +198,12 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     public void finishActivityWithResult() {
         Producer producer = mPresenter.getSelectedProducer();
         Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_PRODUCER_NAME, producer.name);
         intent.putExtra(Constants.KEY_PRODUCER_ID, producer.producerId);
+        intent.putExtra(Constants.KEY_PRODUCER_NAME, producer.name);
         intent.putExtra(Constants.KEY_PRODUCER_EMAIL, producer.email);
+        intent.putExtra(Constants.KEY_PRODUCER_PHONE, producer.phone);
+        intent.putExtra(Constants.KEY_PRODUCER_ADDRESS, producer.address);
+        intent.putExtra(Constants.KEY_PRODUCER_DESCRIPTION, producer.description);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -205,8 +215,8 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     }
 
     @Override
-    public void addItemToList(String _producerName, String _producerId, String _producerEmail) {
-        mProducerDHList.add(0, new ProducerDH(_producerId,_producerName, _producerEmail));
+    public void addItemToList(Producer _producer) {
+        mProducerDHList.add(0, new ProducerDH(_producer,false));
         mProducerAdapter.setListDH(mProducerDHList);
     }
 

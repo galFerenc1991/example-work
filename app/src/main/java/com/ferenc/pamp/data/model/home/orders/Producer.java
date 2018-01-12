@@ -18,6 +18,15 @@ public class Producer implements Parcelable {
     public String address;
     public String description;
 
+    public Producer(String _id, String _name, String _email, String _phone, String _address, String _description) {
+        this.producerId = _id;
+        this.name = _name;
+        this.email = _email;
+        this.phone = _phone;
+        this.address = _address;
+        this.description = _description;
+    }
+
     public Producer(String _name, String _email, String _phone, String _address, String _description) {
         this.name = _name;
         this.email = _email;
@@ -37,6 +46,7 @@ public class Producer implements Parcelable {
     }
 
     protected Producer(Parcel in) {
+        producerId = in.readString();
         name = in.readString();
         email = in.readString();
         phone = in.readString();
@@ -63,6 +73,7 @@ public class Producer implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(producerId);
         dest.writeString(name);
         dest.writeString(email);
         dest.writeString(phone);

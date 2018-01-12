@@ -3,7 +3,7 @@
     android:id="@+id/rlReuse_VR"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/textColorGreen">
+    android:background="@color/colorBackGroundReuse">
 
     <ImageView
         android:id="@+id/ivReBroadcast"

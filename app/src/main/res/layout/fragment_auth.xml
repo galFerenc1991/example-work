@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        style="@style/PampTitleStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_big"
-        android:layout_marginTop="@dimen/margin_big"
-        android:gravity="center_horizontal"
-        android:text="@string/title_auth" />
+
+    <ImageView
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:src="@drawable/icon_pamp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_double_upper_medium"
+        />
 
     <FrameLayout
         android:id="@+id/btnLoginPamp_FA"

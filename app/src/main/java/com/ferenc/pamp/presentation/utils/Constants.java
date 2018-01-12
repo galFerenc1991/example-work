@@ -49,6 +49,7 @@ public abstract class Constants {
     public static final int REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY = 21;
     public static final int REQUEST_CODE_ACTIVITY_CHOOSE_PRODUCER = 22;
     public static final int REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED = 23;
+    public static final int REQUEST_CODE_ACTIVITY_UPDATE_PRODUCER = 24;
 
 
     /*PERMISSIONS REQUEST CODES*/
@@ -69,9 +70,13 @@ public abstract class Constants {
     public static final String KEY_SENDTO_SMS = "smsto: ";
     public static final String KEY_SMS_BODY = "sms_body";
     public static final String KEY_PRODUCT_QUANTITY = "quantity";
+
     public static final String KEY_PRODUCER_NAME = "producerName";
     public static final String KEY_PRODUCER_ID = "producerId";
     public static final String KEY_PRODUCER_EMAIL = "producerEmail";
+    public static final String KEY_PRODUCER_PHONE = "producerPhone";
+    public static final String KEY_PRODUCER_ADDRESS = "producerAddress";
+    public static final String KEY_PRODUCER_DESCRIPTION = "producerDescription";
 
 
     /*GOOD DEAL STATES*/
