@@ -14,11 +14,13 @@ public class OrderDH implements RecyclerDH {
     private boolean isOriginal;
     private String dealStatus;
     private boolean isSelected;
+    private int mItemType;
 
-    public OrderDH(Order mOrder, boolean isOriginal, String dealStatus) {
+    public OrderDH(Order mOrder, boolean isOriginal, String dealStatus, int _itemType) {
         this.mOrder = mOrder;
         this.isOriginal = isOriginal;
         this.dealStatus = dealStatus;
+        this.mItemType = _itemType;
     }
 
     public Order getmOrder() {
@@ -39,5 +41,9 @@ public class OrderDH implements RecyclerDH {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public int getItemType() {
+        return mItemType;
     }
 }

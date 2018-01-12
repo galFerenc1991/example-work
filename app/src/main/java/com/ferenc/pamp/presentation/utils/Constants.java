@@ -49,6 +49,9 @@ public abstract class Constants {
     public static final int REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY = 21;
     public static final int REQUEST_CODE_ACTIVITY_CHOOSE_PRODUCER = 22;
     public static final int REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED = 23;
+    public static final int REQUEST_CODE_ACTIVITY_BANK_ACCOUNT = 24;
+    public static final int REQUEST_CODE_ACTIVITY_BANK_CARD = 24;
+
 
 
     /*PERMISSIONS REQUEST CODES*/
@@ -72,6 +75,7 @@ public abstract class Constants {
     public static final String KEY_PRODUCER_NAME = "producerName";
     public static final String KEY_PRODUCER_ID = "producerId";
     public static final String KEY_PRODUCER_EMAIL = "producerEmail";
+    public static final String KEY_BANK_CARD = "creditCard";
 
 
     /*GOOD DEAL STATES*/
@@ -79,6 +83,25 @@ public abstract class Constants {
     public static final String STATE_CLOSED = "closed";
     public static final String STATE_PROGRESS = "progress";
     public static final String STATE_CONFIRM = "confirmed";
+
+    /*ORDER STATUS*/
+    public static final String STATUS_CONFIRMED_TEXT = "Confirmé";
+    public static final String STATUS_CANCELED_TEXT = "Annulé";
+    public static final String STATUS_TO_DELIVER_TEXT = "À LIVRER";
+    public static final String STATUS_DELIVER_TEXT = "LIVRER";
+    public static final String STATUS_CANCEL_TEXT = "ANNULER";
+    public static final String STATUS_IN_PROGRESS_TEXT = "EN COURS";
+
+
+
+    /*CREDIT CARDS BRAND*/
+    public static final String AMERICAN_EXPRESS = "American Express";
+    public static final String DISCOVER = "Discover";
+    public static final String JCB = "JCB";
+    public static final String DINERS_CLUB = "Diners Club";
+    public static final String VISA = "Visa";
+    public static final String MASTERCARD = "MasterCard";
+    public static final String UNKNOWN = "Unknown";
 
 
     /*ACTION KEYS*/

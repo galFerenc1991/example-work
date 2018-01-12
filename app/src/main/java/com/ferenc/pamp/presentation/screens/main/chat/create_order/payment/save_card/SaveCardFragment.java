@@ -11,6 +11,7 @@ import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.CreditCardImageManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -77,6 +78,7 @@ public class SaveCardFragment extends ContentFragment implements SaveCardContrac
     @AfterViews
     protected void InitUI() {
         tvCardNumber.setText(mLast4);
+        tvCardNumber.setCompoundDrawablesWithIntrinsicBounds(CreditCardImageManager.getBrandImage(mCardType), 0, 0, 0);
         setClickListeners();
     }
 

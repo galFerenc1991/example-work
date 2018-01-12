@@ -113,7 +113,7 @@
                 style="@style/CancelDialPopUpTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Frais PAMP (4,25% + 0,75€) : 3,78 € " />
+                android:text="Frais PAMP (3,5% + 0,75 €)" />
 
         </LinearLayout>
 

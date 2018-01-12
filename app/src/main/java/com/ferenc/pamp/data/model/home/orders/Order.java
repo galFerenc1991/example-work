@@ -87,6 +87,11 @@ public class Order implements Parcelable{
     public Order() {
     }
 
+    public Order(double price, int quantity) {
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     protected Order(Parcel in) {
         this.id = in.readString();
         this.state = in.readString();

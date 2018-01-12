@@ -1,5 +1,6 @@
 package com.ferenc.pamp.presentation.custom.bank_account;
 
+import android.app.Activity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -98,6 +99,7 @@ public class BankAccountFragment extends ContentFragment implements BankAccountC
 
     @Override
     public void showSuccessEndFlowScreen() {
+        mActivity.setResult(Activity.RESULT_OK);
         mActivity.finish();
         EndFlowActivity_.intent(this)
                 .mFlow(Constants.ATTACH_BANK_ACCOUNT_FLOW)

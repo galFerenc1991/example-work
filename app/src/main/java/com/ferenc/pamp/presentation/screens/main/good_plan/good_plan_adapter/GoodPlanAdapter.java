@@ -127,11 +127,6 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
                 .into(viewHolder.ivProfileImage);
         viewHolder.tvGoodPlanWith.setText(goodDealResponse.title);
         viewHolder.tvProductName.setText(goodDealResponse.product);
-//        if (goodDealResponse.recipients.isEmpty()) {
-//            viewHolder.tvOrderStatus.setVisibility(View.INVISIBLE);
-//        } else {
-//            viewHolder.tvOrderStatus.setVisibility(View.VISIBLE);
-//        }
         if (goodDealResponse.isResend) {
             viewHolder.ivReuseIndicator.setVisibility(View.VISIBLE);
         } else {

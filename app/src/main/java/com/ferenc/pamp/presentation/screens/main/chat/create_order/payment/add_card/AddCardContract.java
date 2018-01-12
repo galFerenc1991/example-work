@@ -12,6 +12,7 @@ import com.ferenc.pamp.presentation.base.models.BankCard;
 import com.ferenc.pamp.presentation.base.models.ExpDate;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 
 /**
  * Created by
@@ -36,6 +37,8 @@ public interface AddCardContract {
         void openSetNewCardScreen(String _cardType, String _last4, String _token, int _quantity);
 
         void getTokenWithStripe(BankCard _bankCard);
+
+        void closeAddCardScreen(Card _card);
     }
 
     interface Presenter extends BasePresenter {
@@ -55,6 +58,10 @@ public interface AddCardContract {
 
         void createCard(String _token, String _brand, String _last4);
 
+    }
+
+    interface Model extends BaseModel {
+        Observable<Card> createCard(TokenRequest request);
     }
 
 }

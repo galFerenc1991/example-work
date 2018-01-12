@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.proposed;
 
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
+import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -16,15 +17,17 @@ public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
     private ProposedPlansContract.View mView;
     private ProposedPlansContract.Model mModel;
     private CompositeDisposable mCompositeDisposable;
+    private ProposeRelay mProposeRelay;
 
     private int page;
     private int totalPages = Integer.MAX_VALUE;
     private boolean needRefresh;
 
-    public ProposedPlansPresenter(ProposedPlansContract.View mView, ProposedPlansContract.Model _goodDealRepository) {
+    public ProposedPlansPresenter(ProposedPlansContract.View mView, ProposedPlansContract.Model _goodDealRepository, ProposeRelay _proposeRelay) {
         this.mView = mView;
         this.mModel = _goodDealRepository;
         this.mCompositeDisposable = new CompositeDisposable();
+        this.mProposeRelay = _proposeRelay;
         this.page = 1;
         needRefresh = true;
 
@@ -33,7 +36,8 @@ public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
 
     @Override
     public void openProposerFragment() {
-        mView.openProposerFragment();
+//        mView.openProposerFragment();
+        mProposeRelay.proposeRelay.accept(true);
     }
 
     @Override

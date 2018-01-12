@@ -3,9 +3,11 @@ package com.ferenc.pamp.domain;
 import com.ferenc.pamp.data.api.Rest;
 import com.ferenc.pamp.data.model.auth.TokenRequest;
 import com.ferenc.pamp.data.model.common.BankAccount;
+import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.service.BankAccountService;
 import com.ferenc.pamp.data.service.CardService;
 import com.ferenc.pamp.presentation.custom.bank_account.BankAccountContract;
+import com.ferenc.pamp.presentation.utils.SignedUserManager;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
@@ -25,6 +27,9 @@ public class BankAccountRepository extends NetworkRepository implements BankAcco
     @Bean
     protected Rest rest;
 
+    @Bean
+    protected SignedUserManager mSignedUserManager;
+
     private BankAccountService bankAccountService;
 
     @AfterInject
@@ -34,6 +39,11 @@ public class BankAccountRepository extends NetworkRepository implements BankAcco
 
     @Override
     public Observable<BankAccount> attachBankAccount(TokenRequest request) {
-        return getNetworkObservable(bankAccountService.attachBankAccount(request));
+        return getNetworkObservable(bankAccountService.attachBankAccount(request)
+                .flatMap(bankAccount -> {
+                    User user = mSignedUserManager.getCurrentUser();
+                    user.setBankAccount(bankAccount);
+                    return Observable.just(bankAccount);
+                }));
     }
 }

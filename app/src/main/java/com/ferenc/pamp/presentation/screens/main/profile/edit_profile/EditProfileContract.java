@@ -31,6 +31,7 @@ public interface EditProfileContract {
         void openLocationPicker();
 
         void setUserAvatar(String _patch);
+
         void setUserAvatar(File _avatarFile);
 
         void setUserName(String _name);
@@ -47,13 +48,20 @@ public interface EditProfileContract {
 
         void setIban(String _iban);
 
-        void setCardNumber(String _bankCardNumber);
+        void setCardNumber(String _bankCardNumber, String _brand);
 
         boolean isCameraPermissionNotGranted();
 
         void checkCameraPermission();
 
         void finishActivity();
+
+        void openAddBankCardScreen();
+
+        void openCreateBankAccountScreen();
+
+        void openChangePasswordScreen();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -74,6 +82,12 @@ public interface EditProfileContract {
         void setSelectedCountry(String _country);
 
         void setSelectedAddress(String _address);
+
+        void clickedBankCard();
+
+        void clickedIban();
+
+        void clickedChangePassword();
 
     }
 

@@ -33,6 +33,7 @@
     <string name="title_send_order_list">Envoyer Votre Liste de Commande au Producteur</string>
     <string name="title_bank_account">Enregistrer vos donnees bancaires</string>
     <string name="title_create_bank_account">Cela nous permettra de virer sur votre compte les sommes liées à vos commandes</string>
+    <string name="title_change_password">Changer le mot de passe</string>
 
 
     <!--Buttons-->
@@ -68,9 +69,11 @@
     <string name="hint_country">Pays de résidence</string>
     <string name="hint_address_of_residence">Adresse de résidence</string>
     <string name="hint_iban">Mes infos bancaire(IBAN)</string>
-    <string name="hint_bank_card">Visa ******4874</string>
+    <string name="hint_bank_card">Carte de crédit</string>
     <string name="hint_change_password">Mot de passe</string>
     <string name="hint_password">Mot de passe</string>
+    <string name="hint_current_password">Mot de actuel passe</string>
+    <string name="hint_new_password">Mot de nouveau passe</string>
     <string name="hint_confirm_password">Confirmer le mot de passe</string>
     <string name="hint_good_plan_name">Nom du produit</string>
     <string name="hint_good_plan_description">Décrire votre bon plan</string>

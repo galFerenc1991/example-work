@@ -50,34 +50,36 @@ public class OrderVH extends RecyclerVH<OrderDH> {
             switch (data.getDealStatus()) {
                 case Constants.STATE_CLOSED:
                     rlConfirmationContainer.setVisibility(View.VISIBLE);
-                    swDelivery.setOnCheckedChangeListener((compoundButton, b) -> {
-                        data.setSelected(b);
-                        if (b) {
+                    swDelivery.setChecked(data.isSelected());
+                    swDelivery.setOnClickListener(view -> {
+                        data.setSelected(swDelivery.isChecked());
+                        if (swDelivery.isChecked()) {
                             tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGreen));
-                            tvStatus.setText("Confirmé");
+                            tvStatus.setText(Constants.STATUS_CONFIRMED_TEXT);//Confirmé
                         } else {
-                            tvStatus.setText("Annulé");
+                            tvStatus.setText(Constants.STATUS_CANCELED_TEXT);//Annulé
                             tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
                         }
                     });
                     break;
                 case Constants.STATE_CONFIRM:
-                    if (data.getmOrder().getState().equals(Constants.STATE_CONFIRM)) {
+                    if (order.getState().equals(Constants.STATE_CONFIRM)) {
                         rlConfirmationContainer.setVisibility(View.VISIBLE);
-                        swDelivery.setOnCheckedChangeListener((compoundButton, b) -> {
-                            data.setSelected(b);
-                            if (b) {
+                        swDelivery.setChecked(order.isDelivered());
+                        swDelivery.setOnClickListener(view -> {
+                            data.setSelected(swDelivery.isChecked());
+                            if (swDelivery.isChecked()) {
                                 tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGreen));
-                                tvStatus.setText("LIVRER");
+                                tvStatus.setText(Constants.STATUS_DELIVER_TEXT);//LIVRER
                             } else {
-                                tvStatus.setText("A LIVRER");
+                                tvStatus.setText(Constants.STATUS_TO_DELIVER_TEXT);//À LIVRER
                                 tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
                             }
                         });
                     } else {
                         rlConfirmationContainer.setVisibility(View.VISIBLE);
                         swDelivery.setVisibility(View.GONE);
-                        tvStatus.setText("ANNULER");
+                        tvStatus.setText(Constants.STATUS_CANCEL_TEXT);///ANNULER
                         tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
                     }
                     break;
@@ -87,26 +89,26 @@ public class OrderVH extends RecyclerVH<OrderDH> {
                 case Constants.STATE_CLOSED:
                     rlConfirmationContainer.setVisibility(View.VISIBLE);
                     swDelivery.setVisibility(View.GONE);
-                    tvStatus.setText("EN COURS");
+                    tvStatus.setText(Constants.STATUS_IN_PROGRESS_TEXT);//EN COURS
                     tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.msgYellowColor));
                     break;
                 case Constants.STATE_CONFIRM:
                     if (data.getmOrder().getState().equals(Constants.STATE_CONFIRM)) {
                         rlConfirmationContainer.setVisibility(View.VISIBLE);
-                        swDelivery.setOnCheckedChangeListener((compoundButton, b) -> {
-                            data.setSelected(b);
-                            if (b) {
+                        swDelivery.setOnClickListener(view -> {
+                            data.setSelected(swDelivery.isChecked());
+                            if (swDelivery.isChecked()) {
                                 tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGreen));
-                                tvStatus.setText("LIVRER");
+                                tvStatus.setText(Constants.STATUS_DELIVER_TEXT);//LIVRER
                             } else {
-                                tvStatus.setText("A LIVRER");
+                                tvStatus.setText(Constants.STATUS_TO_DELIVER_TEXT);//À LIVRER
                                 tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
                             }
                         });
                     } else {
                         rlConfirmationContainer.setVisibility(View.VISIBLE);
                         swDelivery.setVisibility(View.GONE);
-                        tvStatus.setText("ANNULER");
+                        tvStatus.setText(Constants.STATUS_CANCEL_TEXT);///ANNULER
                         tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
                     }
                     break;

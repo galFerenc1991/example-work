@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.screens.main.chat.orders;
 
 import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.home.orders.OrdersList;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.order_adapter.OrderAdapter;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.order_adapter.OrderDH;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
@@ -28,6 +29,7 @@ public class OrderPresenter implements OrderContract.Presenter {
     private boolean mIsOriginal;
     private String mDealStatus;
     private List<OrderDH> mOrders;
+    private List<OrderDH> loadedOrders;
 
 
     private int page;
@@ -50,6 +52,7 @@ public class OrderPresenter implements OrderContract.Presenter {
         this.page = 1;
         needRefresh = true;
         mOrders = new ArrayList<>();
+        loadedOrders = new ArrayList<>();
 
         mView.setPresenter(this);
     }
@@ -87,23 +90,41 @@ public class OrderPresenter implements OrderContract.Presenter {
                     } else {
                         mView.addOrder(createOrderList(orderListResponse.data));
                     }
+                    if (page == totalPages) {
+                        mView.addOrder(createTotalItem());
+                    }
                 }, throwable -> {
                     ToastManager.showToast("Something went wrong");
                 }));
     }
 
     private List<OrderDH> createOrderList(List<Order> orders) {
-        List<OrderDH> list = new ArrayList<>();
         if (!orders.isEmpty()) {
             for (Order order : orders) {
-                list.add(new OrderDH(order, mIsOriginal, mDealStatus));
+                loadedOrders.add(new OrderDH(order, mIsOriginal, mDealStatus, OrderAdapter.TYPE_ORDER));
             }
         }
-        return list;
+        return loadedOrders;
+    }
+
+    private List<OrderDH> createTotalItem() {
+        List<OrderDH> totalItem = new ArrayList<>();
+        int totalQuantity = 0;
+        double totalPrice = 0.0;
+
+        if (mDealStatus.equals(Constants.STATE_CLOSED)) {
+            for (OrderDH orderDH : loadedOrders) {
+                totalQuantity = totalQuantity + orderDH.getmOrder().getQuantity();
+                totalPrice = totalPrice + orderDH.getmOrder().getPrice();
+            }
+            totalItem.add(new OrderDH(new Order(totalPrice, totalQuantity), mIsOriginal, mDealStatus, OrderAdapter.TYPE_TOTAL));
+        }
+        return totalItem;
     }
 
     @Override
     public void onRefresh() {
+        loadedOrders.clear();
         loadData(1);
     }
 

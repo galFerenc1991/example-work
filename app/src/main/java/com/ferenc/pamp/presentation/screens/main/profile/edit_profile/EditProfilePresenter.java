@@ -57,7 +57,28 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
             mView.setUserSurName(signedUser.getLastName());
             mView.setUserEmail(signedUser.getEmail());
             mView.setUserCountry(signedUser.getCountry());
+            if (signedUser.getBankAccount() != null) {
+                mView.setIban(signedUser.getBankAccount().getCountry() + " ***** " + signedUser.getBankAccount().getLast4());
+            }
+            if (signedUser.getCard() != null) {
+                mView.setCardNumber(" **** " + signedUser.getCard().getLast4(), signedUser.getCard().getBrand());
+            }
         }
+    }
+
+    @Override
+    public void clickedChangePassword() {
+        mView.openChangePasswordScreen();
+    }
+
+    @Override
+    public void clickedBankCard() {
+        mView.openAddBankCardScreen();
+    }
+
+    @Override
+    public void clickedIban() {
+        mView.openCreateBankAccountScreen();
     }
 
     @Override
@@ -124,10 +145,6 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
     }
 
-    @Override
-    public void unsubscribe() {
-        mCompositeDisposable.clear();
-    }
 
     private MultipartBody.Part getUpdatedAvatar(File _avatarFile) {
         return _avatarFile != null
@@ -151,5 +168,10 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
     private RequestBody createTextRequestBody(String _data) {
         return RequestBody.create(MediaType.parse(Constants.MEDIA_TYPE_TEXT), _data);
+    }
+
+    @Override
+    public void unsubscribe() {
+        mCompositeDisposable.clear();
     }
 }

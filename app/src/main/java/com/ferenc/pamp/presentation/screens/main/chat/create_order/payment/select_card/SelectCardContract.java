@@ -17,7 +17,7 @@ import io.reactivex.Observable;
 
 public interface SelectCardContract {
     interface View extends ContentView, BaseView<Presenter> {
-        void setCardNumber(String _cardNumber);
+        void setCardNumber(String _cardNumber, String _brand);
 
         void showEndFlowCreateOrder();
     }

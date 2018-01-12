@@ -15,6 +15,7 @@ import com.ferenc.pamp.presentation.base.content.ContentView;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.add_card.AddCardFragment;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.add_card.AddCardFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.CreditCardImageManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -92,9 +93,10 @@ public class SelectCardFragment extends ContentFragment implements SelectCardCon
     }
 
     @Override
-    public void setCardNumber(String _cardNumber) {
+    public void setCardNumber(String _cardNumber, String _brand) {
         cvSelectBankCard.setVisibility(View.VISIBLE);
         tvCardNumber.setText(_cardNumber);
+        tvCardNumber.setCompoundDrawablesWithIntrinsicBounds(CreditCardImageManager.getBrandImage(_brand), 0, 0, 0);
     }
 
     private void initClickListeners() {
