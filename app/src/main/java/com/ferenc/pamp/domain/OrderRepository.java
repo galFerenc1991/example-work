@@ -14,10 +14,9 @@ import com.ferenc.pamp.data.service.OrderService;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_pop_up.CreateOrderPopUpContract;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.save_card.SaveCardContract;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.select_card.SelectCardContract;
-import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerContract;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.OrderContract;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.ChooseProducerContract;
-import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer.CreateNewProducerContract;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_update_producer.CreateUpdateProducerContract;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.preview_pdf.PreviewPDFContract;
 import com.ferenc.pamp.presentation.screens.main.profile.my_orders.MyOrdersContract;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
@@ -41,7 +40,7 @@ public class OrderRepository extends NetworkRepository implements
         SaveCardContract.Model,
         SelectCardContract.CreateOrderModel,
         ChooseProducerContract.Model,
-        CreateNewProducerContract.Model,
+        CreateUpdateProducerContract.Model,
         PreviewPDFContract.Model,
         OrderContract.Model,
         MyOrdersContract.Model {

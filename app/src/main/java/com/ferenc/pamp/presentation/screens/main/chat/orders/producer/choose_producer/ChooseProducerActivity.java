@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.orders.Producer;
@@ -19,7 +16,7 @@ import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.adapter.ProducerAdapter;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.adapter.ProducerDH;
-import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer.CreateNewProducerActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_update_producer.CreateUpdateProducerActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -135,7 +132,7 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
 
     @Override
     public void createNewProducer() {
-        CreateNewProducerActivity_.intent(this).isCreate(true).startForResult(Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED);
+        CreateUpdateProducerActivity_.intent(this).isCreate(true).startForResult(Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED);
     }
 
     @Override

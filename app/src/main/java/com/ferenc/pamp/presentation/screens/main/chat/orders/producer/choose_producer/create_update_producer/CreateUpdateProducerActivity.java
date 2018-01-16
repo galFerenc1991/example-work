@@ -1,4 +1,4 @@
-package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer;
+package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_update_producer;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
@@ -41,9 +41,9 @@ import java.util.concurrent.TimeUnit;
  * Created by shonliu on 1/2/18.
  */
 @EActivity(R.layout.activity_create_new_producer)
-public class CreateNewProducerActivity extends BaseActivity implements CreateNewProducerContract.View {
+public class CreateUpdateProducerActivity extends BaseActivity implements CreateUpdateProducerContract.View {
 
-    private CreateNewProducerContract.Presenter mPresenter;
+    private CreateUpdateProducerContract.Presenter mPresenter;
 
     @Bean
     protected OrderRepository mOrderRepository;
@@ -90,7 +90,7 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
     @AfterInject
     @Override
     public void initPresenter() {
-        new CreateNewProducerPresenter(this, mOrderRepository, isCreate, mProducer);
+        new CreateUpdateProducerPresenter(this, mOrderRepository, isCreate, mProducer);
     }
 
     @AfterViews
@@ -101,7 +101,7 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
     }
 
     @Override
-    public void setPresenter(CreateNewProducerContract.Presenter _presenter) {
+    public void setPresenter(CreateUpdateProducerContract.Presenter _presenter) {
         mPresenter = _presenter;
     }
 

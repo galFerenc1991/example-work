@@ -6,8 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ferenc.pamp.R;
-import com.ferenc.pamp.data.model.home.orders.Producer;
-import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer.CreateNewProducerActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_update_producer.CreateUpdateProducerActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.michenko.simpleadapter.OnCardClickListener;
@@ -50,7 +49,7 @@ public class ProducerVH extends RecyclerVH<ProducerDH> {
 
         RxView.clicks(ivEditProducer)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> CreateNewProducerActivity_
+                .subscribe(o -> CreateUpdateProducerActivity_
                         .intent(context)
                         .isCreate(false)
                         .mProducer(data.getProducer())

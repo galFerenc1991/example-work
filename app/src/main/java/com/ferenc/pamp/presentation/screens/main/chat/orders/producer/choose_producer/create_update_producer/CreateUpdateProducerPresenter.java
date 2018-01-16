@@ -1,4 +1,4 @@
-package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer;
+package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_update_producer;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,17 +13,17 @@ import io.reactivex.disposables.CompositeDisposable;
  * Created by shonliu on 1/2/18.
  */
 
-public class CreateNewProducerPresenter implements CreateNewProducerContract.Presenter {
+public class CreateUpdateProducerPresenter implements CreateUpdateProducerContract.Presenter {
 
 
-    private CreateNewProducerContract.View mView;
+    private CreateUpdateProducerContract.View mView;
     private CompositeDisposable mCompositeDisposable;
-    private CreateNewProducerContract.Model mModel;
+    private CreateUpdateProducerContract.Model mModel;
     private PublishRelay<Boolean> validerData;
     private boolean mIsCreate;
     private Producer mProducer;
 
-    public CreateNewProducerPresenter(CreateNewProducerContract.View _view, CreateNewProducerContract.Model _model, boolean _isCreate, Producer _producer) {
+    public CreateUpdateProducerPresenter(CreateUpdateProducerContract.View _view, CreateUpdateProducerContract.Model _model, boolean _isCreate, Producer _producer) {
         mView = _view;
         mModel = _model;
         mCompositeDisposable = new CompositeDisposable();
