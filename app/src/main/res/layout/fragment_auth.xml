@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="220dp"
         android:layout_height="220dp"
-        android:src="@drawable/icon_pamp"
+        android:src="@drawable/ic_pamp_logo"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_double_upper_medium"
         />

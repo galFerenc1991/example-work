@@ -70,9 +70,26 @@ public class CreateNewProducerPresenter implements CreateNewProducerContract.Pre
 
     @Override
     public boolean validateData(String _name, String _email, String _phone, String _address, String _description) {
-        return !TextUtils.isEmpty(_name)
+
+        if (mIsCreate) {
+            return !TextUtils.isEmpty(_name)
                     && !TextUtils.isEmpty(_email)
                     && ValidationManager.validateEmail(_email) == ValidationManager.OK;
+        } else {
+            return ((!TextUtils.isEmpty(_name)
+                    && !TextUtils.isEmpty(_email)
+                    && ValidationManager.validateEmail(_email) == ValidationManager.OK)&&
+                    (!_name.equals(mProducer.name)
+                    || !_email.equals(mProducer.email)
+                    || !_phone.equals(mProducer.phone == null ? "" : mProducer.phone)
+                    || !_address.equals(mProducer.address == null ? "" : mProducer.address)
+                    || !_description.equals(mProducer.description == null ? "" : mProducer.description)));
+        }
 
+    }
+
+    @Override
+    public void clickOnAddress() {
+        mView.openAutocompletePlaceScreen();
     }
 }

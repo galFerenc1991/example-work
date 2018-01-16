@@ -6,14 +6,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.orders.Producer;
 import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.PlayServiceUtils;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -23,6 +30,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
@@ -40,6 +48,9 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
     @Bean
     protected OrderRepository mOrderRepository;
 
+    @Bean
+    protected PlayServiceUtils playServiceUtils;
+
     @ViewById(R.id.toolbar_ACNP)
     protected Toolbar toolbar;
 
@@ -52,8 +63,8 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
     @ViewById(R.id.etProducerPhone_ACNP)
     protected EditText etProducerPhone;
 
-    @ViewById(R.id.etProducerAddress_ACNP)
-    protected EditText etProducerAddress;
+    @ViewById(R.id.tvProducerAddress_ACNP)
+    protected TextView tvProducerAddress;
 
     @ViewById(R.id.etProducerDescription_ACNP)
     protected EditText etProducerDescription;
@@ -118,13 +129,18 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
                                 getText(etProducerName),
                                 getText(etProducerEmail),
                                 getText(etProducerPhone),
-                                getText(etProducerAddress),
+                                tvProducerAddress.getText().toString(),
                                 getText(etProducerDescription))
                 );
+        RxView.clicks(tvProducerAddress)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.clickOnAddress());
 
         RxTextView.afterTextChangeEvents(etProducerName).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
         RxTextView.afterTextChangeEvents(etProducerEmail).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
-
+        RxTextView.afterTextChangeEvents(etProducerPhone).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
+        RxTextView.afterTextChangeEvents(tvProducerAddress).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
+        RxTextView.afterTextChangeEvents(etProducerDescription).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
     }
 
     private String getText(EditText et) {
@@ -132,8 +148,37 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
     }
 
     @Override
+    public void openAutocompletePlaceScreen() {
+        if (playServiceUtils.checkPlayServices(this)) {
+            AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+                    .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
+                    .build();
+            try {
+                Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                        .setFilter(typeFilter)
+                        .build(this);
+                startActivityForResult(intent, Constants.REQUEST_CODE_ACTIVITY_AUTOCOMPLETE_PLACE);
+            } catch (GooglePlayServicesRepairableException e) {
+                playServiceUtils.checkPlayServices(this);
+            } catch (GooglePlayServicesNotAvailableException e) {
+                Toast.makeText(this, "Google Play Services is not available.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_ACTIVITY_AUTOCOMPLETE_PLACE)
+    protected void onDeliveryPlaceSelected(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            Place place = PlaceAutocomplete.getPlace(this, data);
+            tvProducerAddress.setText(place.getAddress().toString());
+        } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+            Toast.makeText(this, "Error while select address. Try again", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     public boolean validerData() {
-        return mPresenter.validateData(getText(etProducerName), getText(etProducerEmail), getText(etProducerPhone), getText(etProducerAddress), getText(etProducerDescription));
+        return mPresenter.validateData(getText(etProducerName), getText(etProducerEmail), getText(etProducerPhone), tvProducerAddress.getText().toString(), getText(etProducerDescription));
     }
 
     @Override
@@ -165,7 +210,7 @@ public class CreateNewProducerActivity extends BaseActivity implements CreateNew
         etProducerName.setText(_producer.name);
         etProducerEmail.setText(_producer.email);
         etProducerPhone.setText(_producer.phone);
-        etProducerAddress.setText(_producer.address);
+        tvProducerAddress.setText(_producer.address);
         etProducerDescription.setText(_producer.description);
     }
 

@@ -29,6 +29,8 @@ public interface CreateNewProducerContract {
         void showProgress();
 
         void hideProgress();
+
+        void openAutocompletePlaceScreen();
     }
 
     interface Presenter extends BasePresenter {
@@ -47,6 +49,7 @@ public interface CreateNewProducerContract {
                              String _address,
                              String _description);
 
+        void clickOnAddress();
     }
 
     interface Model {
