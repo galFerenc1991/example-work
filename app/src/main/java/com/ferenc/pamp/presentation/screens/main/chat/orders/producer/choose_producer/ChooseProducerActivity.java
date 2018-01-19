@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ferenc.pamp.R;
@@ -18,7 +16,7 @@ import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.adapter.ProducerAdapter;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.adapter.ProducerDH;
-import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer.CreateNewProducerActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.create_update_producer.CreateUpdateProducerActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -134,7 +132,10 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
 
     @Override
     public void createNewProducer() {
-        CreateNewProducerActivity_.intent(this).startForResult(Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED);
+        CreateUpdateProducerActivity_
+                .intent(this)
+                .isCreate(true)
+                .startForResult(Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED);
     }
 
     @Override
@@ -162,12 +163,11 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            if (requestCode == Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED) {
-                String mProducerName = data.getStringExtra(Constants.KEY_PRODUCER_NAME);
-                String mProducerId = data.getStringExtra(Constants.KEY_PRODUCER_ID);
-                String mProducerEmail = data.getStringExtra(Constants.KEY_PRODUCER_EMAIL);
-                mPresenter.addNewProducer(mProducerName, mProducerId, mProducerEmail);
-            }
+            if (data.getExtras()!=null)
+            if (requestCode == Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED)
+                mPresenter.addNewProducer(data.getExtras().getParcelable(Constants.KEY_PRODUCER));
+            else if (requestCode == Constants.REQUEST_CODE_ACTIVITY_UPDATE_PRODUCER)
+                mPresenter.updateProducer(data.getExtras().getParcelable(Constants.KEY_PRODUCER));
         }
     }
 
@@ -189,11 +189,8 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
 
     @Override
     public void finishActivityWithResult() {
-        Producer producer = mPresenter.getSelectedProducer();
         Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_PRODUCER_NAME, producer.name);
-        intent.putExtra(Constants.KEY_PRODUCER_ID, producer.producerId);
-        intent.putExtra(Constants.KEY_PRODUCER_EMAIL, producer.email);
+        intent.putExtra(Constants.KEY_PRODUCER,  mPresenter.getSelectedProducer());
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -205,8 +202,8 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     }
 
     @Override
-    public void addItemToList(String _producerName, String _producerId, String _producerEmail) {
-        mProducerDHList.add(0, new ProducerDH(_producerId,_producerName, _producerEmail));
+    public void addItemToList(Producer _producer) {
+        mProducerDHList.add(0, new ProducerDH(_producer,false));
         mProducerAdapter.setListDH(mProducerDHList);
     }
 

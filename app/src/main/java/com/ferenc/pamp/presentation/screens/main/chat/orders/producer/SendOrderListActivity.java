@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
+import com.ferenc.pamp.data.model.home.orders.Producer;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_pop_up.CreateOrderPopUpActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.ChooseProducerActivity_;
@@ -177,9 +178,14 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
            if (requestCode == Constants.REQUEST_CODE_ACTIVITY_CHOOSE_PRODUCER) {
-               mProducerName = data.getStringExtra(Constants.KEY_PRODUCER_NAME);
-               mProducerId = data.getStringExtra(Constants.KEY_PRODUCER_ID);
-               mProducerEmail = data.getStringExtra(Constants.KEY_PRODUCER_EMAIL);
+               if (data.getExtras() != null) {
+                   Producer producer = data.getExtras().getParcelable(Constants.KEY_PRODUCER);
+                   if (producer != null) {
+                       mProducerId = producer.producerId;
+                       mProducerName = producer.name;
+                       mProducerEmail = producer.email;
+                   }
+               }
                tvProducer.setText(mProducerName);
                mPresenter.validateData(mQuantity, mProducerId);
            }

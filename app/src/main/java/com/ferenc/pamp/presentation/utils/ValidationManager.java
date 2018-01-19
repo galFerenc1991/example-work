@@ -91,4 +91,8 @@ public abstract class ValidationManager {
     public static int validateColor(String color) {
         return TextUtils.isEmpty(color) ? EMPTY : OK;
     }
+
+    public static boolean isEquals(String _firstVal, String _secondVal) {
+        return _firstVal.equals(_secondVal == null ? "" : _secondVal);
+    }
 }
