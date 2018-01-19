@@ -41,7 +41,8 @@ import java.util.concurrent.TimeUnit;
  * Created by shonliu on 1/2/18.
  */
 @EActivity(R.layout.activity_create_new_producer)
-public class CreateUpdateProducerActivity extends BaseActivity implements CreateUpdateProducerContract.View {
+public class CreateUpdateProducerActivity extends BaseActivity
+        implements CreateUpdateProducerContract.View {
 
     private CreateUpdateProducerContract.Presenter mPresenter;
 
@@ -136,11 +137,16 @@ public class CreateUpdateProducerActivity extends BaseActivity implements Create
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickOnAddress());
 
-        RxTextView.afterTextChangeEvents(etProducerName).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
-        RxTextView.afterTextChangeEvents(etProducerEmail).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
-        RxTextView.afterTextChangeEvents(etProducerPhone).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
-        RxTextView.afterTextChangeEvents(tvProducerAddress).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
-        RxTextView.afterTextChangeEvents(etProducerDescription).subscribe(textViewAfterTextChangeEvent -> mPresenter.validateFields().accept(validerData()));
+        RxTextView.afterTextChangeEvents(etProducerName).subscribe(textViewAfterTextChangeEvent ->
+                mPresenter.validateFields().accept(validerData()));
+        RxTextView.afterTextChangeEvents(etProducerEmail).subscribe(textViewAfterTextChangeEvent ->
+                mPresenter.validateFields().accept(validerData()));
+        RxTextView.afterTextChangeEvents(etProducerPhone).subscribe(textViewAfterTextChangeEvent ->
+                mPresenter.validateFields().accept(validerData()));
+        RxTextView.afterTextChangeEvents(tvProducerAddress).subscribe(textViewAfterTextChangeEvent ->
+                mPresenter.validateFields().accept(validerData()));
+        RxTextView.afterTextChangeEvents(etProducerDescription).subscribe(textViewAfterTextChangeEvent ->
+                mPresenter.validateFields().accept(validerData()));
     }
 
     private String getText(EditText et) {
@@ -161,7 +167,10 @@ public class CreateUpdateProducerActivity extends BaseActivity implements Create
             } catch (GooglePlayServicesRepairableException e) {
                 playServiceUtils.checkPlayServices(this);
             } catch (GooglePlayServicesNotAvailableException e) {
-                Toast.makeText(this, "Google Play Services is not available.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,
+                        "Google Play Services is not available.",
+                        Toast.LENGTH_SHORT)
+                        .show();
             }
         }
     }
@@ -172,18 +181,28 @@ public class CreateUpdateProducerActivity extends BaseActivity implements Create
             Place place = PlaceAutocomplete.getPlace(this, data);
             tvProducerAddress.setText(place.getAddress().toString());
         } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-            Toast.makeText(this, "Error while select address. Try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    "Error while select address. Try again",
+                    Toast.LENGTH_SHORT)
+                    .show();
         }
     }
 
     @Override
     public boolean validerData() {
-        return mPresenter.validateData(getText(etProducerName), getText(etProducerEmail), getText(etProducerPhone), tvProducerAddress.getText().toString(), getText(etProducerDescription));
+        return mPresenter.validateData(
+                getText(etProducerName),
+                getText(etProducerEmail),
+                getText(etProducerPhone),
+                tvProducerAddress.getText().toString(),
+                getText(etProducerDescription));
     }
 
     @Override
     public void enableValidateBtn(boolean _isEnabled) {
-        btnValider.setBackground(getResources().getDrawable(!_isEnabled ? R.drawable.bg_confirm_button_disable : R.drawable.bg_confirm_button));
+        btnValider.setBackground(getResources().getDrawable(!_isEnabled
+                ? R.drawable.bg_confirm_button_disable
+                : R.drawable.bg_confirm_button));
         btnValider.setEnabled(_isEnabled);
     }
 
@@ -195,12 +214,7 @@ public class CreateUpdateProducerActivity extends BaseActivity implements Create
     @Override
     public void finishActivityWithResult(Producer producer) {
         Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_PRODUCER_NAME, producer.name);
-        intent.putExtra(Constants.KEY_PRODUCER_ID, producer.producerId);
-        intent.putExtra(Constants.KEY_PRODUCER_EMAIL, producer.email);
-        intent.putExtra(Constants.KEY_PRODUCER_PHONE, producer.phone);
-        intent.putExtra(Constants.KEY_PRODUCER_ADDRESS, producer.address);
-        intent.putExtra(Constants.KEY_PRODUCER_DESCRIPTION, producer.description);
+        intent.putExtra(Constants.KEY_PRODUCER, producer);
         setResult(RESULT_OK, intent);
         finish();
     }

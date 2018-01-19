@@ -75,12 +75,7 @@ public abstract class Constants {
     public static final String KEY_SMS_BODY = "sms_body";
     public static final String KEY_PRODUCT_QUANTITY = "quantity";
     public static final String KEY_BANK_CARD = "creditCard";
-    public static final String KEY_PRODUCER_NAME = "producerName";
-    public static final String KEY_PRODUCER_ID = "producerId";
-    public static final String KEY_PRODUCER_EMAIL = "producerEmail";
-    public static final String KEY_PRODUCER_PHONE = "producerPhone";
-    public static final String KEY_PRODUCER_ADDRESS = "producerAddress";
-    public static final String KEY_PRODUCER_DESCRIPTION = "producerDescription";
+    public static final String KEY_PRODUCER = "producer";
 
 
     /*GOOD DEAL STATES*/
