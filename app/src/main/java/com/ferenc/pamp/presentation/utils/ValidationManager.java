@@ -92,7 +92,7 @@ public abstract class ValidationManager {
         return TextUtils.isEmpty(color) ? EMPTY : OK;
     }
 
-    public static boolean isEquils(String _firstVal, String _secondVal) {
+    public static boolean isEquals(String _firstVal, String _secondVal) {
         return _firstVal.equals(_secondVal == null ? "" : _secondVal);
     }
 }

@@ -63,22 +63,22 @@ public class CreateUpdateProducerPresenter implements CreateUpdateProducerContra
         mView.showProgress();
         mCompositeDisposable.add((mIsCreate
                 ? mModel.createProducer(new Producer(_name, _email, _phone, _address, _description))
-                : mModel.updateProducer(new Producer(
-                mProducer.producerId,
-                _name,
-                _email,
-                _phone,
-                _address,
-                _description)))
-                .subscribe(producer -> {
-                            mView.finishActivityWithResult(producer);
+                : mModel.updateProducer(
+                new Producer(mProducer.producerId,
+                        _name,
+                        _email,
+                        _phone,
+                        _address,
+                        _description))
+        ).subscribe(producer -> {
+                    mView.finishActivityWithResult(producer);
 //                            mView.hideProgress();
-                        },
-                        e -> {
-                            mView.hideProgress();
-                            Log.d(mIsCreate ? "Create" : "Update", "Error " + e.getMessage());
-                        }
-                ));
+                },
+                e -> {
+                    mView.hideProgress();
+                    Log.d(mIsCreate ? "Create" : "Update", "Error " + e.getMessage());
+                }
+        ));
     }
 
     @Override
@@ -94,11 +94,11 @@ public class CreateUpdateProducerPresenter implements CreateUpdateProducerContra
         } else {
             return ((!TextUtils.isEmpty(_name)
                     && ValidationManager.validateEmail(_email) == ValidationManager.OK)&&
-                    (!_name.equals(mProducer.name)
-                    || !_email.equals(mProducer.email)
-                    || !_phone.equals(mProducer.phone == null ? "" : mProducer.phone)
-                    || !_address.equals(mProducer.address == null ? "" : mProducer.address)
-                    || !_description.equals(mProducer.description == null ? "" : mProducer.description)));
+                    (!ValidationManager.isEquals(_name, mProducer.name)
+                    || !ValidationManager.isEquals(_email, mProducer.email)
+                    || !ValidationManager.isEquals(_phone, mProducer.phone)
+                    || !ValidationManager.isEquals(_address, mProducer.address)
+                    || !ValidationManager.isEquals(_description, mProducer.description)));
         }
 
     }
