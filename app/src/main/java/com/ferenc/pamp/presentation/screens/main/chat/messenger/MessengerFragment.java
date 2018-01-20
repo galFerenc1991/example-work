@@ -212,18 +212,17 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     protected void createOrderResult(int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             mPresenter.initCreateOrderButton();
-            mPresenter.resultQuantity(data.getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1));
+            mPresenter.resultQuantity(data.getDoubleExtra(Constants.KEY_PRODUCT_QUANTITY, -1));
         }
     }
 
     @Override
     public void openDeleteOrderScreen() {
         EndFlowOrderActivity_.intent(this).mIsCreatedFlow(false).start();
-//        mActivity.replaceFragment(EndFlowFragment_.builder().mIsCreatedFlow(false).build());
     }
 
     @Override
-    public void openCreateOrderFlow(int _quantity) {
+    public void openCreateOrderFlow(double _quantity) {
         PaymentActivity_.intent(this).extra(Constants.KEY_PRODUCT_QUANTITY, _quantity)
                 .startForResult(Constants.REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY);
     }

@@ -23,7 +23,7 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
     private GoodDealResponseManager mGoodDealResponseManager;
     private CreateOrderPopUpContract.OrderModel mOrderModel;
     private CompositeDisposable mCompositeDisposable;
-    private int mQuantity;
+    private double mQuantity;
     private Order mOrder;
     private boolean mHasOrder;
     private boolean mIsSendOrderListFlow;
@@ -40,7 +40,7 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
         this.mOrderModel = _orderModel;
         this.mGoodDealResponseManager = _goodDealResponseManager;
         this.mCompositeDisposable = new CompositeDisposable();
-        this.mQuantity = 0;
+        this.mQuantity = 1.0d;
         this.mGoodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
         this.mHasOrder = mGoodDealResponse.hasOrders;
         this.mIsSendOrderListFlow = _isSendOrderListFlow;
@@ -80,19 +80,68 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
         mView.showTotal(calculateTotal());
     }
 
+//    @Override
+//    public void clickedAddQuantity() {
+//        if (mQuantity < 1) {
+//            DecimalFormat df = new DecimalFormat("#.#");
+//            mQuantity = mQuantity + 0.1;
+//            mView.showQuantity(df.format(mQuantity));
+//        } else {
+//            DecimalFormat df = new DecimalFormat("#");
+//            mQuantity = mQuantity + 1;
+//            mView.showQuantity(df.format(mQuantity));
+//        }
+//        mView.setQuantityColorToRed(false);
+//        mView.showTotal(calculateTotal());
+//    }
+//
+//    @Override
+//    public void clickedRemoveQuantity() {
+//        if (mQuantity > 0 && mQuantity <= 1) {
+//            DecimalFormat df = new DecimalFormat("#.#");
+//            mQuantity = mQuantity - 0.1;
+//            mView.showQuantity(df.format(mQuantity));
+//        } else if (mQuantity > 1) {
+//            DecimalFormat df = new DecimalFormat("#");
+//            mQuantity = mQuantity - 1;
+//            mView.showQuantity(df.format(mQuantity));
+//        }
+//        if (mHasOrder && mQuantity == 0) mView.setQuantityColorToRed(true);
+//        mView.showTotal(calculateTotal());
+//    }
+
     @Override
     public void clickedAddQuantity() {
-        mQuantity = mQuantity + 1;
+        if (mQuantity < 1) {
+            mQuantity = (mQuantity * 10 + 1) / 10;
+        } else {
+            mQuantity = mQuantity + 1;
+        }
+
+        if (mQuantity >= 1) {
+            DecimalFormat df = new DecimalFormat("#");
+            mView.showQuantity(df.format(mQuantity));
+        } else {
+            mView.showQuantity(String.valueOf(mQuantity));
+        }
         mView.setQuantityColorToRed(false);
-        mView.showQuantity(String.valueOf(mQuantity));
         mView.showTotal(calculateTotal());
     }
 
     @Override
     public void clickedRemoveQuantity() {
-        if (mQuantity > 0) mQuantity = mQuantity - 1;
+        if (mQuantity > 0 && mQuantity <= 1) {
+            mQuantity = (mQuantity * 10 - 1) / 10;
+        } else if (mQuantity > 1) {
+            mQuantity = mQuantity - 1;
+        }
+        if (mQuantity == 0) {
+            DecimalFormat df = new DecimalFormat("#");
+            mView.showQuantity(df.format(mQuantity));
+        } else {
+            mView.showQuantity(String.valueOf(mQuantity));
+        }
         if (mHasOrder && mQuantity == 0) mView.setQuantityColorToRed(true);
-        mView.showQuantity(String.valueOf(mQuantity));
         mView.showTotal(calculateTotal());
     }
 

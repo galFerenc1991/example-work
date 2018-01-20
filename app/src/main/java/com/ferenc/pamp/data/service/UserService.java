@@ -1,5 +1,6 @@
 package com.ferenc.pamp.data.service;
 
+import com.ferenc.pamp.data.model.auth.TokenRequest;
 import com.ferenc.pamp.data.model.base.GeneralMessageResponse;
 import com.ferenc.pamp.data.model.common.ChangePasswordRequest;
 import com.ferenc.pamp.data.model.common.User;
@@ -43,4 +44,7 @@ public interface UserService {
 
     @PUT("/user/changePassword")
     Observable<GeneralMessageResponse> changePassword(@Body ChangePasswordRequest request);
+
+    @PUT("/user/notificationToken")
+    Observable<GeneralMessageResponse> setNotifToken(@Body TokenRequest request);
 }

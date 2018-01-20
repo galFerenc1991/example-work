@@ -16,6 +16,9 @@ public class TokenRequest implements Parcelable {
         this.token = token;
     }
 
+    public String getToken() {
+        return token;
+    }
 
     @Override
     public int describeContents() {

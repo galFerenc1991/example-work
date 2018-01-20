@@ -308,7 +308,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     }
 
     @Override
-    public void resultQuantity(int _quantity) {
+    public void resultQuantity(double _quantity) {
         if (_quantity == 0) mView.openDeleteOrderScreen();
         else if (!mGoodDealResponseManager.getGoodDealResponse().hasOrders)
             mView.openCreateOrderFlow(_quantity);

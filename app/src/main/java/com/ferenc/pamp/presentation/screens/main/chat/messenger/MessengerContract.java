@@ -51,7 +51,7 @@ public interface MessengerContract {
 
         void openDeleteOrderScreen();
 
-        void openCreateOrderFlow(int _quantity);
+        void openCreateOrderFlow(double _quantity);
 
         void openSendOrderListFlow();
 
@@ -85,7 +85,7 @@ public interface MessengerContract {
 
         void clickedCreateOrder();
 
-        void resultQuantity(int _quantity);
+        void resultQuantity(double _quantity);
 
         void sendOrders();
 

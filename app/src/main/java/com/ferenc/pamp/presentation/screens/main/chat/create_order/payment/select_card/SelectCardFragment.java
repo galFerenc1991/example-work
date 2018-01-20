@@ -62,7 +62,7 @@ public class SelectCardFragment extends ContentFragment implements SelectCardCon
     protected TextView tvCardNumber;
 
     @FragmentArg
-    protected int mQuantity;
+    protected double mQuantity;
 
     @Bean
     protected UserRepository mUserRepository;
