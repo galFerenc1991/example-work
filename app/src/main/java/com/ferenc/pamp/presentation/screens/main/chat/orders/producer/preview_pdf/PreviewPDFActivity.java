@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -23,7 +22,6 @@ import com.ferenc.pamp.data.model.home.orders.PDFPreviewResponse;
 import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.utils.Constants;
-import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import org.androidannotations.annotations.AfterInject;
@@ -133,7 +131,7 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
 
     @Override
     public void showPDFInWebView(PDFPreviewResponse pdfPreviewResponse) {
-        final String mimeType = Constants.MIME_TYPE;
+        final String mimeType = Constants.MIME_TYPE_HTML;
         final String encoding = Constants.DEFAULT_UNCODING;
         wvHtmlPage.loadData(pdfPreviewResponse.template, mimeType, encoding);
     }

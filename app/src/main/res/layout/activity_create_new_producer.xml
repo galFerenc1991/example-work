@@ -16,6 +16,7 @@
         android:layout_below="@+id/toolbar_ACNP"/>
 
     <ScrollView
+        android:id="@+id/scrollView_ACNP"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_ACNP">
@@ -63,18 +64,26 @@
                 android:imeOptions="actionNext"
                 android:layout_marginBottom="@dimen/margin_default"
                 />
-            <EditText
-                android:id="@+id/etProducerAddress_ACNP"
+            <TextView
+                android:id="@+id/tvProducerAddress_ACNP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorBackgroundSendOrderListLine"
+                android:textColor="@color/textColorBlack"
                 android:textSize="@dimen/text_size_small"
-                android:hint="@string/hint_add_producer_adresse_optionel_n_et_nom_voie_code_postal"
+
+                android:layout_marginStart="@dimen/margin_quart"
+                android:hint="@string/hint_add_producer_adresse"
                 android:fontFamily="sans-serif"
-                android:inputType="textPostalAddress"
-                android:imeOptions="actionNext"
-                android:layout_marginBottom="@dimen/margin_default"
                 />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/very_small_view_width"
+                android:background="@color/colorBackgroundSendOrderListLine"
+                android:layout_marginBottom="@dimen/margin_default"
+                android:layout_marginStart="@dimen/view_width"
+                android:layout_marginEnd="@dimen/view_width"
+                android:layout_marginTop="@dimen/view_width"/>
+
             <EditText
                 android:id="@+id/etProducerDescription_ACNP"
                 android:layout_width="match_parent"
@@ -106,6 +115,14 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar_ACNP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
 
 </RelativeLayout>

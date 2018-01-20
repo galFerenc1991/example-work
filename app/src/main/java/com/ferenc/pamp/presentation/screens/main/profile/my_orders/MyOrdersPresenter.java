@@ -49,8 +49,6 @@ public class MyOrdersPresenter implements MyOrdersContract.Presenter {
             mView.showPaginationProgressBar();
 
         mCompositeDisposable.add(mModel.getMyOrders(_page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(orderListResponse -> {
 
                     Log.d("getMyOrders", "successfully");

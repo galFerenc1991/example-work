@@ -26,6 +26,8 @@
     <color name="colorUnselectedPageIndicator">#b7b692</color>
     <color name="colorSelectedPageIndicator">#333333</color>
     <color name="colorBackgroundSendOrderListLine">#95989A</color>
+    <color name="colorBackgroundReUseGoodDealList">#FFF157</color>
+    <color name="colorBackGroundReuse">#41805C</color>
 
 
     <!--Text color-->

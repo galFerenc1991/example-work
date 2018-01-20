@@ -11,6 +11,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 
 import com.soundcloud.android.crop.Crop;
 
@@ -110,7 +111,7 @@ public class AvatarManager {
         mTakePhotoTempFile = new File(mCtx.getExternalCacheDir(), TEMP_IMAGE_AVATAR_NAME);
 
         Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTakePhotoTempFile));
+        takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(mCtx, Constants.AUTHORITY, mTakePhotoTempFile));
 
         Intent chooserIntent = Intent.createChooser(takePhotoIntent, CHOOSER_TITLE);
 
@@ -152,13 +153,13 @@ public class AvatarManager {
         }
     }
 
-    private void startActivityForResult(Intent itent, int requestCode) {
+    private void startActivityForResult(Intent intent, int requestCode) {
         if (mActivity != null)
-            mActivity.startActivityForResult(itent, requestCode);
+            mActivity.startActivityForResult(intent, requestCode);
         else if (mFragment != null)
-            mFragment.startActivityForResult(itent, requestCode);
+            mFragment.startActivityForResult(intent, requestCode);
         else if (mFragmentSupport != null)
-            mFragmentSupport.startActivityForResult(itent, requestCode);
+            mFragmentSupport.startActivityForResult(intent, requestCode);
     }
 
     private void startCropActivity(Uri picUri, int requestCode) {

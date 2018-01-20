@@ -263,7 +263,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void checkCameraPermission() {
         if (isCameraPermissionNotGranted()) {
-            ActivityCompat.requestPermissions((Activity)mContext, new String[]{Manifest.permission.CAMERA}, Constants.REQUEST_CODE_CAMERA);
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.CAMERA}, Constants.REQUEST_CODE_CAMERA);
         } else {
             avatarManager.getImageOnlyFromCamera(Constants.REQUEST_CODE_GET_IMAGE);
         }

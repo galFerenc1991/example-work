@@ -10,6 +10,7 @@ import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewResponse;
+import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 
 import java.io.File;
@@ -134,7 +135,7 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
     }
 
     private void sharePDF(File _file) {
-        Uri fileUri = FileProvider.getUriForFile(PampApp_.getInstance(), "com.ferenc.pamp.provider", _file);
+        Uri fileUri = FileProvider.getUriForFile(PampApp_.getInstance(), Constants.AUTHORITY, _file);
         String bodyText = "Some body text";
         String subjectText = "Some subject text";
 
@@ -144,7 +145,7 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
                 .setSubject(subjectText)
                 .setText(bodyText)
                 .setEmailTo(isFromOrderList ? new String[]{mProducerEmail} : new String[]{"someones.email@gmail.com"})
-                .setType("application/pdf")
+                .setType(Constants.MIME_TYPE_PDF)
                 .addStream(fileUri)
                 .getIntent();
         mActivity.startActivity(shareIntent);

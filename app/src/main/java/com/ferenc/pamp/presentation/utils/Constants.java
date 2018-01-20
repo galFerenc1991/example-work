@@ -23,8 +23,10 @@ public abstract class Constants {
     public static final String UPDATE_FIRST_NAME_KEY = "firstName";
     public static final String UPDATE_LAST_NAME_KEY = "lastName";
     public static final String UPDATE_COUNTRY_KEY = "counry";
-    public static final String MIME_TYPE = "text/html";
+    public static final String MIME_TYPE_HTML = "text/html";
+    public static final String MIME_TYPE_PDF = "application/pdf";
     public static final String DEFAULT_UNCODING = "UTF-8";
+    public static final String AUTHORITY = "com.ferenc.pamp.provider";
 
 
     /*REQUEST CODES*/
@@ -51,7 +53,7 @@ public abstract class Constants {
     public static final int REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED = 23;
     public static final int REQUEST_CODE_ACTIVITY_BANK_ACCOUNT = 24;
     public static final int REQUEST_CODE_ACTIVITY_BANK_CARD = 24;
-
+    public static final int REQUEST_CODE_ACTIVITY_UPDATE_PRODUCER = 25;
 
 
     /*PERMISSIONS REQUEST CODES*/
@@ -72,10 +74,8 @@ public abstract class Constants {
     public static final String KEY_SENDTO_SMS = "smsto: ";
     public static final String KEY_SMS_BODY = "sms_body";
     public static final String KEY_PRODUCT_QUANTITY = "quantity";
-    public static final String KEY_PRODUCER_NAME = "producerName";
-    public static final String KEY_PRODUCER_ID = "producerId";
-    public static final String KEY_PRODUCER_EMAIL = "producerEmail";
     public static final String KEY_BANK_CARD = "creditCard";
+    public static final String KEY_PRODUCER = "producer";
 
 
     /*GOOD DEAL STATES*/

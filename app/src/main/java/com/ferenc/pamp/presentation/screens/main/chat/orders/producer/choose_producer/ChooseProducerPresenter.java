@@ -45,15 +45,13 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
         mView.showProgressBar();
 
         mCompositeDisposable.add(mModel.getProducerList(_page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(producerListResponse -> {
                     Log.d("ChooseProducerPresenter", "getProducers successfully");
                     mView.hideProgressBar();
                     List<ProducerDH> producers = new ArrayList<>();
 
                     for (Producer producer : producerListResponse.data)
-                        producers.add(new ProducerDH(producer.producerId, producer.name, producer.email));
+                        producers.add(new ProducerDH(producer,false));
 
 
                     if (!isLoadMore) {
@@ -80,19 +78,18 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
     @Override
     public void selectItem(ProducerDH item, int position) {
         mView.updateItem(new ProducerDH(
-                producerDHS.get(selectedPos).getProducerId(),
                 producerDHS.get(selectedPos).getProducer(),
-                producerDHS.get(selectedPos).getProducerEmail()),
+                false),
                 selectedPos);
 
         selectedPos = position;
-        mView.updateItem(new ProducerDH(item.getProducerId(),item.getProducer(), item.getProducerEmail(), true), selectedPos);
+        mView.updateItem(new ProducerDH(item.getProducer(), true), selectedPos);
         mView.enabledValider();
     }
 
     @Override
     public Producer getSelectedProducer() {
-        return new Producer(producerDHS.get(selectedPos).getProducer(), producerDHS.get(selectedPos).getProducerId(), producerDHS.get(selectedPos).getProducerEmail());
+        return producerDHS.get(selectedPos).getProducer();
     }
 
     @Override
@@ -101,8 +98,15 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
     }
 
     @Override
-    public void addNewProducer(String _producerName, String _producerId, String _producerEmail) {
-        mView.addItemToList(_producerName, _producerId, _producerEmail);
+    public void addNewProducer(Producer _producer) {
+        mView.addItemToList(_producer);
+    }
+
+    @Override
+    public void updateProducer(Producer _producer) {
+        for (ProducerDH producerDH : producerDHS)
+            if (producerDH.getProducer().producerId.equals(_producer.producerId))
+                mView.updateItem(new ProducerDH(_producer,false), producerDHS.indexOf(producerDH));
     }
 
     @Override
@@ -116,4 +120,6 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
             getProducers(mPage, true);
         }
     }
+
+
 }

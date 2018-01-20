@@ -175,7 +175,7 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".presentation.screens.main.chat.orders.producer.choose_producer.create_new_producer.CreateNewProducerActivity_"
+            android:name=".presentation.screens.main.chat.orders.producer.choose_producer.create_update_producer.CreateUpdateProducerActivity_"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
