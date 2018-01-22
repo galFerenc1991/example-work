@@ -103,7 +103,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
                 messageResponse.createdAt = data.getLong(valCreatedAt);
 
 
-                description.quantity = data.has(valDescription) ? data.getJSONObject(valDescription).has(valQuantity) ? data.getJSONObject(valDescription).getInt(valQuantity) : 0 : 0;
+                description.quantity = data.has(valDescription) ? (float) (data.getJSONObject(valDescription).has(valQuantity) ? data.getJSONObject(valDescription).getDouble(valQuantity) : 0) : 0;
                 description.firstName = (data.has(valDescription) ? data.getJSONObject(valDescription).getString(valFirstName) : "user==null");
                 description.deliveryEndDate = data.has(valDescription) ? data.getJSONObject(valDescription).has(valDeliveryEndDate) ? data.getJSONObject(valDescription).getInt(valDeliveryEndDate) : 0 : 0;
                 description.closingDate = data.has(valDescription) ? data.getJSONObject(valDescription).has(valClosingDate) ? data.getJSONObject(valDescription).getInt(valClosingDate) : 0 : 0;
