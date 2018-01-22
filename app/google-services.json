@@ -1,33 +1,35 @@
 {
   "project_info": {
-    "project_number": "773378553548",
-    "project_id": "pamp-6fb0c"
+    "project_number": "392469561251",
+    "firebase_url": "https://pamp-186009.firebaseio.com",
+    "project_id": "pamp-186009",
+    "storage_bucket": "pamp-186009.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:773378553548:android:e9f63a7f5ccacc33",
+        "mobilesdk_app_id": "1:392469561251:android:e9f63a7f5ccacc33",
         "android_client_info": {
           "package_name": "com.ferenc.pamp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "773378553548-46hfgulvfai96cd7aiba7v7c2ii7g1rm.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "773378553548-9ku0aba8pub9bfcl9qeorurrup1b7eht.apps.googleusercontent.com",
+          "client_id": "392469561251-uohkg06hkcfklunbt1ing1p20o3rhfm0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ferenc.pamp",
-            "certificate_hash": "706d66d3199bc8207bbf3da5f82d5875f4f71cef"
+            "certificate_hash": "ced5a105d7eaf30680bf263d50c599857393466a"
           }
+        },
+        {
+          "client_id": "392469561251-kl0irng19cc3ne0vurejkb6fanu1tv3j.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC1iGfAY4EqrnL_OhS6_9yqy_fVYorgiNo"
+          "current_key": "AIzaSyAZpehI2lO-PTr170PAWIq855jYXHhlo9Y"
         }
       ],
       "services": {
@@ -35,11 +37,24 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392469561251-1ht6vrcevbkvvbb3flvunscap3gefjdr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.1kubator.pamp",
+                "app_store_id": "408709785"
+              }
+            },
+            {
+              "client_id": "392469561251-kl0irng19cc3ne0vurejkb6fanu1tv3j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

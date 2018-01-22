@@ -20,10 +20,14 @@ public class SaveCardPresenter implements SaveCardContract.Presenter {
     private GoodDealResponseManager mGoodDealResponseManager;
     private CompositeDisposable mCompositeDisposable;
     private boolean mSaveCard;
-    private int mQuantity;
+    private double mQuantity;
     private String mStripeToken;
 
-    public SaveCardPresenter(SaveCardContract.View _view, SaveCardContract.Model _model, GoodDealResponseManager _goodDealResponseManager, int _quantity, String _stripeToken) {
+    public SaveCardPresenter(SaveCardContract.View _view,
+                             SaveCardContract.Model _model,
+                             GoodDealResponseManager _goodDealResponseManager,
+                             double _quantity,
+                             String _stripeToken) {
         this.mView = _view;
         this.mModel = _model;
         this.mGoodDealResponseManager = _goodDealResponseManager;

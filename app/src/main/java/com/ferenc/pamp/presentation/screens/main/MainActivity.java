@@ -12,14 +12,19 @@ import android.widget.TextView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.domain.GoodDealRepository;
+import com.ferenc.pamp.domain.UserRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
+import com.ferenc.pamp.presentation.screens.main.chat.ChatActivity_;
 import com.ferenc.pamp.presentation.screens.main.good_plan.GoodPlanFragment_;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.screens.main.profile.ProfileFragment_;
 import com.ferenc.pamp.presentation.screens.main.propose.ProposeFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import org.androidannotations.annotations.AfterInject;
@@ -43,6 +48,9 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Bean
     protected GoodDealManager mGoodDealManager;
+
+    @Bean
+    protected UserRepository mUserRepository;
 
     @ViewById(R.id.toolbar_AM)
     protected Toolbar mToolBar;
@@ -83,16 +91,28 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null)
             initFragment();
+        FirebaseInstanceId.getInstance().getToken();
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int success = googleApiAvailability.isGooglePlayServicesAvailable(this);
+
+        if (success != ConnectionResult.SUCCESS) {
+            googleApiAvailability.makeGooglePlayServicesAvailable(this);
+        }
     }
 
     private void initFragment() {
         replaceFragment(GoodPlanFragment_.builder().build());
     }
 
+    @Override
+    public void openChat(String _id) {
+        ChatActivity_.intent(this).fromWhere(Constants.ITEM_TYPE_RE_BROADCAST).mDealId(_id).start();
+    }
+
     @AfterInject
     @Override
     public void initPresenter() {
-        new MainPresenter(this, mGoodDealRepository, mProposeRelay);
+        new MainPresenter(this, mGoodDealRepository, mProposeRelay, mUserRepository);
     }
 
     @Override

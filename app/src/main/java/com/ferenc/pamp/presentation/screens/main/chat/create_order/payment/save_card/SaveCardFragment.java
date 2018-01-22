@@ -59,7 +59,7 @@ public class SaveCardFragment extends ContentFragment implements SaveCardContrac
     @FragmentArg
     protected String mCardType;
     @FragmentArg
-    protected int mQuantity;
+    protected double mQuantity;
     @FragmentArg
     protected String mStripeToken;
 

@@ -7,10 +7,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.custom.SettingsActivity;
 import com.ferenc.pamp.presentation.custom.SettingsActivity_;
@@ -47,6 +49,9 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     @Extra
     protected int fromWhere;
 
+    @Extra
+    protected String mDealId;
+
     @ViewById(R.id.ivBack_AC)
     protected ImageView ivBack;
 
@@ -62,18 +67,26 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     @ViewById(R.id.tvParticipants_AC)
     protected TextView tvParticipants;
 
+    @ViewById(R.id.pbDealLoad_AC)
+    protected ProgressBar pbDealLoad;
+
     @Bean
     protected GoodDealManager mGoodDealManager;
 
     @Bean
     protected GoodDealResponseManager mGoodDealResponseManager;
 
+    @Bean
+    protected GoodDealRepository mGoodDealRepository;
+
 
     @AfterViews
     protected void initFragment() {
+        mPresenter.subscribe();
+
         initClickListeners();
 
-        mPresenter.setParticipants();
+//        mPresenter.setParticipants();
 
         switch (fromWhere) {
             case Constants.ITEM_TYPE_RE_BROADCAST:
@@ -85,7 +98,23 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
             default:
                 throw new RuntimeException("ChatActivity :: initFragment [Can find fromWhere]");
         }
+//        replaceFragment(ChatFragment_.builder().fromWhere(fromWhere).build());
+    }
+
+    @Override
+    public void showProgress() {
+        pbDealLoad.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        pbDealLoad.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showChat() {
         replaceFragment(ChatFragment_.builder().fromWhere(fromWhere).build());
+
     }
 
     private void initClickListeners() {
@@ -114,7 +143,7 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     @AfterInject
     @Override
     public void initPresenter() {
-        new ChatPresenter(this, mGoodDealManager, mGoodDealResponseManager);
+        new ChatPresenter(this, mGoodDealManager, mGoodDealResponseManager, mGoodDealRepository, mDealId);
     }
 
     @Override

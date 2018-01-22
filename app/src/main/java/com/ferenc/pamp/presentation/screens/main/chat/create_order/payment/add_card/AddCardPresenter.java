@@ -23,10 +23,13 @@ public class AddCardPresenter implements AddCardContract.Presenter {
     private int mCardExpMonth;
     private int mCardExpYear;
     private String mCardCVV;
-    private int mQuantity;
+    private double mQuantity;
     private boolean mWithEditProfile;
 
-    public AddCardPresenter(AddCardContract.View _view, int _quantity, AddCardContract.Model _model, boolean _withEditProfile) {
+    public AddCardPresenter(AddCardContract.View _view,
+                            double _quantity,
+                            AddCardContract.Model _model,
+                            boolean _withEditProfile) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
