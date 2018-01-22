@@ -28,7 +28,7 @@ public class NotificationsService extends FirebaseMessagingService {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channelId")
-                .setSmallIcon(R.drawable.ic_edit)
+                .setSmallIcon(R.drawable.ic_pamp_logo)
                 .setContentTitle(remoteMessage.getNotification().getTitle())
                 .setContentText(remoteMessage.getNotification().getBody())
                 .setContentIntent(pendingIntent);

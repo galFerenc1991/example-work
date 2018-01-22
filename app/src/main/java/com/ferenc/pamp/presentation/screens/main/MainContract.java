@@ -16,6 +16,8 @@ public interface MainContract {
     interface View extends BaseView<Presenter> {
 
         void openProposedFlow();
+
+        void openChat(String _id);
     }
 
     interface Presenter extends BasePresenter {

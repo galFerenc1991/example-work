@@ -34,11 +34,11 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void subscribe() {
         mCompositeDisposable.add(mUserRepository.setNotifToken(new TokenRequest(FirebaseInstanceId.getInstance().getToken()))
-        .subscribe(generalMessageResponse -> {
+                .subscribe(generalMessageResponse -> {
 //            ToastManager.showToast("Token saved");
-        }, throwable -> {
-            ToastManager.showToast("Firebase token save error:" + throwable.getMessage());
-        }));
+                }, throwable -> {
+                    ToastManager.showToast("Firebase token save error:" + throwable.getMessage());
+                }));
         mProposeRelay.proposeRelay.subscribe(aBoolean -> {
             mView.openProposedFlow();
         });
@@ -49,6 +49,7 @@ public class MainPresenter implements MainContract.Presenter {
         mCompositeDisposable.add(mModel.connectGoodDeal(_id)
                 .subscribe(connectGoodDealResponse -> {
                     ToastManager.showToast(" GoodDeal : " + _id + "connected! \nif you don't see it in received list, please do refresh");
+                    mView.openChat(_id);
                 }, throwable -> {
 
                 }));
@@ -56,6 +57,6 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void unsubscribe() {
-mCompositeDisposable.clear();
+        mCompositeDisposable.clear();
     }
 }

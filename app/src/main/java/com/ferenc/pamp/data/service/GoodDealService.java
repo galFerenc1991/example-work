@@ -45,4 +45,7 @@ public interface GoodDealService {
 
     @PUT("/deal/{id}/confirm")
     Observable<GoodDealCancelResponse> confirmDeal(@Path("id") String _dealId, @Body OrdersList list);
+
+    @GET("/deal/{id}")
+    Observable<GoodDealResponse> getDealById(@Path("id") String _dealId);
 }

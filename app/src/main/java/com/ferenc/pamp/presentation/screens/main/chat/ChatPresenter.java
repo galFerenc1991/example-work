@@ -9,6 +9,7 @@ import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
+import com.ferenc.pamp.presentation.utils.ValidationManager;
 
 import java.util.ArrayList;
 
@@ -26,20 +27,42 @@ public class ChatPresenter implements ChatContract.Presenter {
     private GoodDealResponse mGoodDealResponse;
     private GoodDealResponseManager mGoodDealResponseManager;
     private CompositeDisposable mCompositeDisposable;
+    private ChatContract.Model mModel;
+    private String mDealId;
 
-    public ChatPresenter(ChatContract.View _view, GoodDealManager _goodDealManager, GoodDealResponseManager _goodDealResponseManager) {
+    public ChatPresenter(ChatContract.View _view,
+                         GoodDealManager _goodDealManager,
+                         GoodDealResponseManager _goodDealResponseManager,
+                         ChatContract.Model _model,
+                         String _dealId) {
         this.mView = _view;
         this.mGoodDealManager = _goodDealManager;
         this.mGoodDealResponse = _goodDealResponseManager.getGoodDealResponse();
         this.mCompositeDisposable = new CompositeDisposable();
         this.mGoodDealResponseManager = _goodDealResponseManager;
+        this.mModel = _model;
+        this.mDealId = _dealId;
 
         mView.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
-
+        if (mDealId != null) {
+            mView.showProgress();
+            mCompositeDisposable.add(mModel.getDialId(mDealId)
+                    .subscribe(goodDealResponse -> {
+                        mView.hideProgress();
+                        setParticipants();
+                        mView.showChat();
+                    }, throwable -> {
+                        mView.hideProgress();
+                        ToastManager.showToast("Deal load error");
+                    }));
+        } else {
+            setParticipants();
+            mView.showChat();
+        }
     }
 
 
@@ -62,7 +85,7 @@ public class ChatPresenter implements ChatContract.Presenter {
     @Override
     public void clickedSettings() {
         if (!mGoodDealResponseManager.getGoodDealResponse().state.equals(Constants.STATE_CANCELED))
-        mView.openSettingsDialog();
+            mView.openSettingsDialog();
         else {
             ToastManager.showToast("Good Deal Canceled! You can not modified it!");
             mView.hideSettings();

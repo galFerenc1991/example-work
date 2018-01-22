@@ -14,6 +14,7 @@ import com.ferenc.pamp.R;
 import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.domain.UserRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
+import com.ferenc.pamp.presentation.screens.main.chat.ChatActivity_;
 import com.ferenc.pamp.presentation.screens.main.good_plan.GoodPlanFragment_;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.screens.main.profile.ProfileFragment_;
@@ -101,6 +102,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     private void initFragment() {
         replaceFragment(GoodPlanFragment_.builder().build());
+    }
+
+    @Override
+    public void openChat(String _id) {
+        ChatActivity_.intent(this).fromWhere(Constants.ITEM_TYPE_RE_BROADCAST).mDealId(_id).start();
     }
 
     @AfterInject
