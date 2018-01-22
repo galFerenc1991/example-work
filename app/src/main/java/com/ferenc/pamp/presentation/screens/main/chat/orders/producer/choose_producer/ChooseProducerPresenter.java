@@ -104,7 +104,6 @@ public class ChooseProducerPresenter implements ChooseProducerContract.Presenter
 
     @Override
     public void updateProducer(Producer _producer) {
-        //TODO:
         for (ProducerDH producerDH : producerDHS)
             if (producerDH.getProducer().producerId.equals(_producer.producerId))
                 mView.updateItem(new ProducerDH(_producer,false), producerDHS.indexOf(producerDH));

@@ -1,6 +1,9 @@
 package com.ferenc.pamp.domain;
 
+import android.util.Log;
+
 import com.ferenc.pamp.data.api.Rest;
+import com.ferenc.pamp.data.model.auth.TokenRequest;
 import com.ferenc.pamp.data.model.base.GeneralMessageResponse;
 import com.ferenc.pamp.data.model.common.ChangePasswordRequest;
 import com.ferenc.pamp.data.model.common.User;
@@ -26,6 +29,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Body;
 
 /**
  * Created by
@@ -72,5 +76,10 @@ public class UserRepository extends NetworkRepository implements ProfileContract
     @Override
     public Observable<GeneralMessageResponse> changePassword(ChangePasswordRequest request) {
         return getNetworkObservable(userService.changePassword(request));
+    }
+
+    public Observable<GeneralMessageResponse> setNotifToken(TokenRequest request) {
+        Log.d("FT:", "" + request.getToken());
+        return getNetworkObservable(userService.setNotifToken(request));
     }
 }

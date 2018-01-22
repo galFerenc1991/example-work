@@ -34,7 +34,7 @@ public interface AddCardContract {
 
         void setCVV(String _cvv);
 
-        void openSetNewCardScreen(String _cardType, String _last4, String _token, int _quantity);
+        void openSetNewCardScreen(String _cardType, String _last4, String _token, double _quantity);
 
         void getTokenWithStripe(BankCard _bankCard);
 

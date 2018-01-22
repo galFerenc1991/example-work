@@ -11,7 +11,7 @@ import android.os.Parcelable;
 public class OrderRequest implements Parcelable {
 
     private String dealId;
-    private int quantity;
+    private double quantity;
     private boolean cardSave;
     private String cardToken;
 
@@ -28,7 +28,7 @@ public class OrderRequest implements Parcelable {
             return this;
         }
 
-        public Builder setQuantity(int _quantity) {
+        public Builder setQuantity(double _quantity) {
             orderRequest.quantity = _quantity;
             return this;
         }
@@ -58,7 +58,7 @@ public class OrderRequest implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.dealId);
-        dest.writeInt(this.quantity);
+        dest.writeDouble(this.quantity);
         dest.writeByte(this.cardSave ? (byte) 1 : (byte) 0);
         dest.writeString(this.cardToken);
     }
@@ -68,7 +68,7 @@ public class OrderRequest implements Parcelable {
 
     protected OrderRequest(Parcel in) {
         this.dealId = in.readString();
-        this.quantity = in.readInt();
+        this.quantity = in.readDouble();
         this.cardSave = in.readByte() != 0;
         this.cardToken = in.readString();
     }

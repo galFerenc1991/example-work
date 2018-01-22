@@ -12,8 +12,6 @@ import com.ferenc.pamp.presentation.screens.tutorial.TutorialActivity_;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 
 import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 

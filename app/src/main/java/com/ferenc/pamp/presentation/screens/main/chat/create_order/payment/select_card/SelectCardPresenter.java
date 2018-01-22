@@ -18,9 +18,13 @@ public class SelectCardPresenter implements SelectCardContract.Presenter {
     private GoodDealResponseManager mGoodDealResponseManager;
     private SelectCardContract.CreateOrderModel mCreateOrderModel;
     private CompositeDisposable mCompositeDisposable;
-    private int mQuantity;
+    private double mQuantity;
 
-    public SelectCardPresenter(SelectCardContract.View _view, GoodDealResponseManager _goodDealResponseManager, SelectCardContract.Model _model, SelectCardContract.CreateOrderModel _createOrderModel, int _quantity) {
+    public SelectCardPresenter(SelectCardContract.View _view,
+                               GoodDealResponseManager _goodDealResponseManager,
+                               SelectCardContract.Model _model,
+                               SelectCardContract.CreateOrderModel _createOrderModel,
+                               double _quantity) {
         this.mView = _view;
         this.mGoodDealResponseManager = _goodDealResponseManager;
         this.mModel = _model;

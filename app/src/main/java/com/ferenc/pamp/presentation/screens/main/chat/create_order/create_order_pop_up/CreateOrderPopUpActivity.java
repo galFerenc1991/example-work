@@ -147,7 +147,7 @@ public class CreateOrderPopUpActivity extends AppCompatActivity implements Creat
     }
 
     @Override
-    public void closeActivityForResult(int _quantity) {
+    public void closeActivityForResult(double _quantity) {
         Intent intent = new Intent();
         intent.putExtra(Constants.KEY_PRODUCT_QUANTITY, _quantity);
         setResult(RESULT_OK, intent);

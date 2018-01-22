@@ -109,7 +109,7 @@ public class OrderPresenter implements OrderContract.Presenter {
 
     private List<OrderDH> createTotalItem() {
         List<OrderDH> totalItem = new ArrayList<>();
-        int totalQuantity = 0;
+        double totalQuantity = 0;
         double totalPrice = 0.0;
 
         if (mDealStatus.equals(Constants.STATE_CLOSED)) {

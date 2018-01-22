@@ -81,7 +81,7 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
     protected boolean withEditProfile;
 
     @FragmentArg
-    protected int mQuantity;
+    protected double mQuantity;
 
     @AfterInject
     @Override
@@ -163,7 +163,7 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
     }
 
     @Override
-    public void openSetNewCardScreen(String _cardType, String _last4, String _token, int _quantity) {
+    public void openSetNewCardScreen(String _cardType, String _last4, String _token, double _quantity) {
         mActivity.replaceFragment(SaveCardFragment_.builder()
                 .mCardType(_cardType)
                 .mLast4(_last4)

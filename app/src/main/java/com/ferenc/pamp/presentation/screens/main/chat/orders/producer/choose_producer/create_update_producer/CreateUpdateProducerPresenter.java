@@ -23,7 +23,10 @@ public class CreateUpdateProducerPresenter implements CreateUpdateProducerContra
     private boolean mIsCreate;
     private Producer mProducer;
 
-    public CreateUpdateProducerPresenter(CreateUpdateProducerContract.View _view, CreateUpdateProducerContract.Model _model, boolean _isCreate, Producer _producer) {
+    public CreateUpdateProducerPresenter(CreateUpdateProducerContract.View _view,
+                                         CreateUpdateProducerContract.Model _model,
+                                         boolean _isCreate,
+                                         Producer _producer) {
         mView = _view;
         mModel = _model;
         mCompositeDisposable = new CompositeDisposable();
@@ -51,39 +54,51 @@ public class CreateUpdateProducerPresenter implements CreateUpdateProducerContra
     }
 
     @Override
-    public void createUpdateProducer(String _name, String _email, String _phone, String _address, String _description) {
+    public void createUpdateProducer(String _name,
+                                     String _email,
+                                     String _phone,
+                                     String _address,
+                                     String _description) {
 
         mView.showProgress();
         mCompositeDisposable.add((mIsCreate
                 ? mModel.createProducer(new Producer(_name, _email, _phone, _address, _description))
-                : mModel.updateProducer(new Producer(mProducer.producerId, _name, _email, _phone, _address, _description)))
-                .subscribe(producer -> {
-                            mView.finishActivityWithResult(producer);
+                : mModel.updateProducer(
+                new Producer(mProducer.producerId,
+                        _name,
+                        _email,
+                        _phone,
+                        _address,
+                        _description))
+        ).subscribe(producer -> {
+                    mView.finishActivityWithResult(producer);
 //                            mView.hideProgress();
-                        },
-                        e -> {
-                            mView.hideProgress();
-                            Log.d(mIsCreate ? "Create" : "Update", "Error " + e.getMessage());
-                        }
-                ));
+                },
+                e -> {
+                    mView.hideProgress();
+                    Log.d(mIsCreate ? "Create" : "Update", "Error " + e.getMessage());
+                }
+        ));
     }
 
     @Override
-    public boolean validateData(String _name, String _email, String _phone, String _address, String _description) {
+    public boolean validateData(String _name,
+                                String _email,
+                                String _phone,
+                                String _address,
+                                String _description) {
 
         if (mIsCreate) {
             return !TextUtils.isEmpty(_name)
-                    && !TextUtils.isEmpty(_email)
                     && ValidationManager.validateEmail(_email) == ValidationManager.OK;
         } else {
             return ((!TextUtils.isEmpty(_name)
-                    && !TextUtils.isEmpty(_email)
                     && ValidationManager.validateEmail(_email) == ValidationManager.OK)&&
-                    (!_name.equals(mProducer.name)
-                    || !_email.equals(mProducer.email)
-                    || !_phone.equals(mProducer.phone == null ? "" : mProducer.phone)
-                    || !_address.equals(mProducer.address == null ? "" : mProducer.address)
-                    || !_description.equals(mProducer.description == null ? "" : mProducer.description)));
+                    (!ValidationManager.isEquals(_name, mProducer.name)
+                    || !ValidationManager.isEquals(_email, mProducer.email)
+                    || !ValidationManager.isEquals(_phone, mProducer.phone)
+                    || !ValidationManager.isEquals(_address, mProducer.address)
+                    || !ValidationManager.isEquals(_description, mProducer.description)));
         }
 
     }

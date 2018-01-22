@@ -132,7 +132,10 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
 
     @Override
     public void createNewProducer() {
-        CreateUpdateProducerActivity_.intent(this).isCreate(true).startForResult(Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED);
+        CreateUpdateProducerActivity_
+                .intent(this)
+                .isCreate(true)
+                .startForResult(Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED);
     }
 
     @Override
@@ -160,18 +163,11 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            String mProducerId = data.getStringExtra(Constants.KEY_PRODUCER_ID);
-            String mProducerName = data.getStringExtra(Constants.KEY_PRODUCER_NAME);
-            String mProducerEmail = data.getStringExtra(Constants.KEY_PRODUCER_EMAIL);
-            String mProducerPhone = data.getStringExtra(Constants.KEY_PRODUCER_PHONE);
-            String mProducerAddress = data.getStringExtra(Constants.KEY_PRODUCER_ADDRESS);
-            String mProducerDescription = data.getStringExtra(Constants.KEY_PRODUCER_DESCRIPTION);
-
+            if (data.getExtras()!=null)
             if (requestCode == Constants.REQUEST_CODE_ACTIVITY_NEW_PRODUCER_CREATED)
-                mPresenter.addNewProducer(new Producer(mProducerId, mProducerName, mProducerEmail, mProducerPhone, mProducerAddress, mProducerDescription));
+                mPresenter.addNewProducer(data.getExtras().getParcelable(Constants.KEY_PRODUCER));
             else if (requestCode == Constants.REQUEST_CODE_ACTIVITY_UPDATE_PRODUCER)
-                mPresenter.updateProducer(new Producer(mProducerId, mProducerName, mProducerEmail, mProducerPhone, mProducerAddress, mProducerDescription));
-
+                mPresenter.updateProducer(data.getExtras().getParcelable(Constants.KEY_PRODUCER));
         }
     }
 
@@ -193,14 +189,8 @@ public class ChooseProducerActivity extends BaseActivity implements ChooseProduc
 
     @Override
     public void finishActivityWithResult() {
-        Producer producer = mPresenter.getSelectedProducer();
         Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_PRODUCER_ID, producer.producerId);
-        intent.putExtra(Constants.KEY_PRODUCER_NAME, producer.name);
-        intent.putExtra(Constants.KEY_PRODUCER_EMAIL, producer.email);
-        intent.putExtra(Constants.KEY_PRODUCER_PHONE, producer.phone);
-        intent.putExtra(Constants.KEY_PRODUCER_ADDRESS, producer.address);
-        intent.putExtra(Constants.KEY_PRODUCER_DESCRIPTION, producer.description);
+        intent.putExtra(Constants.KEY_PRODUCER,  mPresenter.getSelectedProducer());
         setResult(RESULT_OK, intent);
         finish();
     }

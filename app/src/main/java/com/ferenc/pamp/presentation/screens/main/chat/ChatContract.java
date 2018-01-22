@@ -1,9 +1,12 @@
 package com.ferenc.pamp.presentation.screens.main.chat;
 
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.base.BaseModel;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.BaseView;
+
+import io.reactivex.Observable;
 
 /**
  * Created by
@@ -21,6 +24,12 @@ public interface ChatContract {
         void setParticipants(String participants);
 
         void hideSettings();
+
+        void showChat();
+
+        void showProgress();
+
+        void hideProgress();
     }
 
     interface Presenter extends BasePresenter {
@@ -35,6 +44,6 @@ public interface ChatContract {
     }
 
     interface Model extends BaseModel {
-
+        Observable<GoodDealResponse> getDialId(String _dealId);
     }
 }

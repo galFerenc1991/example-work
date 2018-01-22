@@ -26,7 +26,7 @@ import org.androidannotations.annotations.ViewById;
 public class PaymentActivity extends BaseActivity {
 
     @Extra
-    protected int mQuantity;
+    protected double mQuantity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class PaymentActivity extends BaseActivity {
     }
 
     protected void initFragment() {
-        replaceFragment(SelectCardFragment_.builder().mQuantity(getIntent().getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1)).build());
+        replaceFragment(SelectCardFragment_.builder().mQuantity(getIntent().getDoubleExtra(Constants.KEY_PRODUCT_QUANTITY, -1)).build());
     }
 
     @Override

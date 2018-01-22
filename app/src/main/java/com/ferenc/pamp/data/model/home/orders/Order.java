@@ -18,7 +18,7 @@ public class Order implements Parcelable{
     private String state;
     private double price;
     private boolean delivered;
-    private int quantity;
+    private double quantity;
     private User user;
     private GoodDealResponse deal;
 
@@ -54,11 +54,11 @@ public class Order implements Parcelable{
         this.delivered = delivered;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
@@ -74,6 +74,13 @@ public class Order implements Parcelable{
         return deal;
     }
 
+    public Order() {
+    }
+
+    public Order(double price, double quantity) {
+        this.price = price;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -85,17 +92,9 @@ public class Order implements Parcelable{
         dest.writeString(this.state);
         dest.writeDouble(this.price);
         dest.writeByte(this.delivered ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.quantity);
+        dest.writeDouble(this.quantity);
         dest.writeParcelable(this.user, flags);
         dest.writeParcelable(this.deal, flags);
-    }
-
-    public Order() {
-    }
-
-    public Order(double price, int quantity) {
-        this.price = price;
-        this.quantity = quantity;
     }
 
     protected Order(Parcel in) {
@@ -103,7 +102,7 @@ public class Order implements Parcelable{
         this.state = in.readString();
         this.price = in.readDouble();
         this.delivered = in.readByte() != 0;
-        this.quantity = in.readInt();
+        this.quantity = in.readDouble();
         this.user = in.readParcelable(User.class.getClassLoader());
         this.deal = in.readParcelable(GoodDealResponse.class.getClassLoader());
     }

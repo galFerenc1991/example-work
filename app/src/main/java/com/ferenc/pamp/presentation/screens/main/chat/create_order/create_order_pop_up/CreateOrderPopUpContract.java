@@ -32,7 +32,7 @@ public interface CreateOrderPopUpContract {
 
         void showTotal(String _total);
 
-        void closeActivityForResult(int _quantity);
+        void closeActivityForResult(double _quantity);
 
     }
 
