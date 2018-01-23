@@ -60,6 +60,8 @@ public interface MessengerContract {
         boolean isCameraPermissionNotGranted();
 
         void checkCameraPermission();
+
+        void hideOrderBtn();
     }
 
     interface Presenter extends RefreshablePresenter {

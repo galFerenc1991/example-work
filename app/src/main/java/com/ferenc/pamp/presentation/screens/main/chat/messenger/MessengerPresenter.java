@@ -115,11 +115,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 .subscribe(messageResponse -> {
                     mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
                     mView.addItem(mMessagesDH);
-                    if (messageResponse.code.equals(Constants.M6_GOOD_DEAL_CLOSING_DATE_CHANGED)) {
-                        GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
-                        goodDealResponse.closingDate = messageResponse.description.closingDate;
-                        mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
-                    }
+                    changeGoodDealState(messageResponse.code);
                 }, throwable -> {
                     Log.d("MessengerPresenter", "Error while getting new message " + throwable.getMessage());
                 }));
@@ -273,35 +269,6 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         }
     }
 
-    private int typeDistributor(String code) {
-        if (code != null) {
-            switch (code) {
-                case Constants.M1_GOOD_DEAL_DIFFUSION:
-                    return Constants.M1_MSG_GROUP_TYPE;
-                case Constants.M2_PRODUCT_ORDERING:
-                case Constants.M3_ORDER_CHANGING:
-                case Constants.M4_ORDER_CANCELLATION:
-                    return Constants.M2_M3_M4_MSG_GROUP_TYPE;
-                case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
-                case Constants.M6_GOOD_DEAL_CLOSING_DATE_CHANGED:
-                case Constants.M9_CLOSING_DATE:
-                case Constants.M12_DELIVERY_DATE:
-                    return Constants.M5_M6_M9_M12_MSG_GROUP_TYPE;
-                case Constants.M8_GOOD_DEAL_CANCELLATION:
-                case Constants.M10_GOOD_DEAL_CLOSING:
-                    return Constants.M8_M10_MSG_GROUP_TYPE;
-                case Constants.M11_1_GOOD_DEAL_CONFIRMATION:
-                case Constants.M11_3_GOOD_DEAL_CONFIRMATION_REJECTED:
-                case Constants.M11_2_GOOD_DEAL_CONFIRMATION_APPLYED:
-                    return Constants.M11_1_M11_2_M11_3_MSG_GROUP_TYPE;
-                default:
-                    throw new RuntimeException("MessagesDH :: typeDistributor [Can find needed group type]");
-            }
-        } else {
-            return Constants.DEFAULT_MSG_GROUP_TYPE;
-        }
-    }
-
     @Override
     public void clickedCreateOrder() {
         mView.openCreateOrderPopUp();
@@ -339,6 +306,54 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
         mView.addItem(mMessagesDH);
 
+    }
+
+    private int typeDistributor(String code) {
+        if (code != null) {
+            switch (code) {
+                case Constants.M1_GOOD_DEAL_DIFFUSION:
+                    return Constants.M1_MSG_GROUP_TYPE;
+                case Constants.M2_PRODUCT_ORDERING:
+                case Constants.M3_ORDER_CHANGING:
+                case Constants.M4_ORDER_CANCELLATION:
+                    return Constants.M2_M3_M4_MSG_GROUP_TYPE;
+                case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
+                case Constants.M6_GOOD_DEAL_CLOSING_DATE_CHANGED:
+                case Constants.M9_CLOSING_DATE:
+                case Constants.M12_DELIVERY_DATE:
+                    return Constants.M5_M6_M9_M12_MSG_GROUP_TYPE;
+                case Constants.M8_GOOD_DEAL_CANCELLATION:
+                case Constants.M10_GOOD_DEAL_CLOSING:
+                    return Constants.M8_M10_MSG_GROUP_TYPE;
+                case Constants.M11_1_GOOD_DEAL_CONFIRMATION:
+                case Constants.M11_3_GOOD_DEAL_CONFIRMATION_REJECTED:
+                case Constants.M11_2_GOOD_DEAL_CONFIRMATION_APPLYED:
+                    return Constants.M11_1_M11_2_M11_3_MSG_GROUP_TYPE;
+                default:
+                    throw new RuntimeException("MessagesDH :: typeDistributor [Can find needed group type]");
+            }
+        } else {
+            return Constants.DEFAULT_MSG_GROUP_TYPE;
+        }
+    }
+
+    private void changeGoodDealState(String _code) {
+        GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
+        switch (_code) {
+            case Constants.M8_GOOD_DEAL_CANCELLATION:
+                goodDealResponse.state = Constants.STATE_CANCELED;
+                mView.hideOrderBtn();
+                break;
+            case Constants.M10_GOOD_DEAL_CLOSING:
+                goodDealResponse.state = Constants.STATE_CLOSED;
+                mView.hideOrderBtn();
+                break;
+            case Constants.M11_1_GOOD_DEAL_CONFIRMATION:
+                goodDealResponse.state = Constants.STATE_CONFIRM;
+                mView.hideOrderBtn();
+                break;
+        }
+        mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
     }
 
     private String getBase64(File _croppedFile) {

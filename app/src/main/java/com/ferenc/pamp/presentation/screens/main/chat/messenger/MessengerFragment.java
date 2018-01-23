@@ -270,6 +270,11 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     }
 
     @Override
+    public void hideOrderBtn() {
+        btnOrder.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == Constants.REQUEST_CODE_CAMERA) {
