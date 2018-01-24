@@ -48,6 +48,7 @@ public class ChatPresenter implements ChatContract.Presenter {
 
     @Override
     public void subscribe() {
+        mView.setTitle(mGoodDealResponseManager.getGoodDealResponse().title);
         if (mDealId != null) {
             mView.showProgress();
             mCompositeDisposable.add(mModel.getDialId(mDealId)
