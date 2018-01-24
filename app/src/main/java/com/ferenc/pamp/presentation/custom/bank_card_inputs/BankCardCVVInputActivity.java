@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -24,13 +25,14 @@ public class BankCardCVVInputActivity extends AppCompatActivity {
 
     @AfterViews
     protected void initUI() {
-        etCVV.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                setResult();
-            }
-            return false;
-        });
+        initEditTextListeners();
+    }
 
+    private void initEditTextListeners() {
+        RxTextView.editorActionEvents(etCVV).subscribe(textViewEditorActionEvent -> {
+            if (textViewEditorActionEvent.actionId() == EditorInfo.IME_ACTION_DONE)
+                setResult();
+        });
     }
 
     void setResult() {

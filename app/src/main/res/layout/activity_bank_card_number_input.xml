@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:drawableBottom="@drawable/bg_et_bottom_line"
                 android:focusable="true"
-                android:imeOptions="flagNavigateNext"
+                android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLength="4"
                 android:paddingBottom="@dimen/margin_default"
@@ -51,11 +51,12 @@
                 android:layout_marginStart="@dimen/margin_default"
                 android:layout_weight="1"
                 android:drawableBottom="@drawable/bg_et_bottom_line"
-                android:imeOptions="flagNavigateNext"
+                android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLength="4"
                 android:paddingBottom="@dimen/margin_default"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:enabled="false"/>
 
             <EditText
                 android:id="@+id/etThird_ABCII"
@@ -66,11 +67,12 @@
                 android:layout_marginStart="@dimen/margin_default"
                 android:layout_weight="1"
                 android:drawableBottom="@drawable/bg_et_bottom_line"
-                android:imeOptions="flagNavigateNext"
+                android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLength="4"
                 android:paddingBottom="@dimen/margin_default"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:enabled="false"/>
 
             <EditText
                 android:id="@+id/etFourth_ABCII"
@@ -85,7 +87,8 @@
                 android:inputType="number"
                 android:maxLength="4"
                 android:paddingBottom="@dimen/margin_default"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:enabled="false"/>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>
