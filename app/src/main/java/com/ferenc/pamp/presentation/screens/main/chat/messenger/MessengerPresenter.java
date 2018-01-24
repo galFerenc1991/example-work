@@ -6,7 +6,9 @@ import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
@@ -94,9 +96,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
         if (!goodDealResponse.owner.getId().equals(mSignedUserManager.getCurrentUser().getId())
                 && goodDealResponse.state.equals(Constants.STATE_PROGRESS)) {
-            if (goodDealResponse.hasOrders) {
-                mView.initCreateOrderButton(true);
-            } else mView.initCreateOrderButton(false);
+            mView.initCreateOrderButton(goodDealResponse.hasOrders);
         }
     }
 
@@ -237,9 +237,13 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 .subscribe(goodDealResponse -> {
                     mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                     mView.hideProgress();
+                    Toast.makeText(PampApp_.getInstance(), "SUCCESS", Toast.LENGTH_SHORT).show();
+
                 }, throwable -> {
                     mView.hideProgress();
                     mView.showErrorMessage(Constants.MessageType.UNKNOWN);
+                    Log.d("ChangeDeliveryDate:", throwable.getMessage());
+                    Toast.makeText(PampApp_.getInstance(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 }));
     }
 
