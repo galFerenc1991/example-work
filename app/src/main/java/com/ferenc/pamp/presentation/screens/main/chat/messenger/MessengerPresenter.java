@@ -237,8 +237,6 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 .subscribe(goodDealResponse -> {
                     mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                     mView.hideProgress();
-                    Toast.makeText(PampApp_.getInstance(), "SUCCESS", Toast.LENGTH_SHORT).show();
-
                 }, throwable -> {
                     mView.hideProgress();
                     mView.showErrorMessage(Constants.MessageType.UNKNOWN);

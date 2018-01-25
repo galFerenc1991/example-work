@@ -44,7 +44,6 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
         String deliveryClosingDate = messageResponse.description != null
                 ? new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(new Date(messageResponse.description.closingDate))
                 : "";
-
         String deliveryStartDate = messageResponse.description != null
                 ? new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryStartDate))
                 : "";
