@@ -1,5 +1,7 @@
 package com.ferenc.pamp.data.service;
 
+import android.text.Html;
+
 import com.ferenc.pamp.data.model.auth.TokenRequest;
 import com.ferenc.pamp.data.model.base.GeneralMessageResponse;
 import com.ferenc.pamp.data.model.common.ChangePasswordRequest;
@@ -11,6 +13,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -47,4 +50,14 @@ public interface UserService {
 
     @PUT("/user/notificationToken")
     Observable<GeneralMessageResponse> setNotifToken(@Body TokenRequest request);
+
+    @GET("/static/cgu")
+    Observable<ResponseBody> getCGU();
+
+    @GET("/static/rules")
+    Observable<ResponseBody> getRules();
+
+    @GET("/static/about_us")
+    Observable<ResponseBody> getAboutUs();
+
 }

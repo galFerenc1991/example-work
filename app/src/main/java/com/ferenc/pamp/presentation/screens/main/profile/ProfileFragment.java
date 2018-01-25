@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.screens.main.profile;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.ShareCompat;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ import com.ferenc.pamp.domain.UserRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
 import com.ferenc.pamp.presentation.screens.auth.AuthActivity_;
+import com.ferenc.pamp.presentation.screens.main.profile.about.AboutActivity;
+import com.ferenc.pamp.presentation.screens.main.profile.about.AboutActivity_;
 import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.EditProfileActivity_;
 import com.ferenc.pamp.presentation.screens.main.profile.my_orders.MyOrdersActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -107,6 +110,14 @@ public class ProfileFragment extends ContentFragment implements ProfileContract.
         RxView.clicks(rlMyOrders)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedMyOrders());
+
+        RxView.clicks(rlAbout)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.clickAbout());
+
+        RxView.clicks(rlConnect)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.clickContactUs());
         mPresenter.subscribe();
     }
 
@@ -140,6 +151,27 @@ public class ProfileFragment extends ContentFragment implements ProfileContract.
     @Override
     public void showMyOrders() {
         MyOrdersActivity_.intent(this)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .start();
+    }
+
+    @Override
+    public void openMailSender() {
+        String bodyText = "Some body text";
+        String subjectText = "Some subject text";
+
+        Intent shareIntent = ShareCompat.IntentBuilder.from(mActivity)
+                .setSubject(subjectText)
+                .setText(bodyText)
+                .setEmailTo(new String[]{"someone@gmail.com"})
+                .setType(Constants.MIME_TYPE_PDF)
+                .getIntent();
+        mActivity.startActivity(shareIntent);
+    }
+
+    @Override
+    public void openAbout() {
+        AboutActivity_.intent(this)
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
     }

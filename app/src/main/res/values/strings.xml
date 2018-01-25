@@ -138,8 +138,8 @@
     <string name="msg_empty_received_good_plans">Partager l’appli \npour + de \nbons plans !</string>
     <string name="msg_empty_proposed_good_plans">Proposer votre \npremier bon plan… \nC’est tellement bon !</string>
     <string name="msg_share">Je vous recommande \ncet appli: PAMP ... nous \npourrons partager \nfacilement tous nos \nbons plans de petits \nproducteurs.\nHttps//:AppStore.pamp .com</string>
-    <string name="msg_send_good_deal">Je vous envoi bon plan ... á retrouver sur PAMP en téléchargeant I'appli
-</string>
+    <string name="msg_send_good_deal">Je vous envoi bon plan ... á retrouver sur PAMP en téléchargeant I'appli</string>
+    <string name="msg_send_good_deal_without_account">Je vous envoi un bon plan à retrouver sur PAMP. Si vous n\'avez pas l\'appli (ou de compte), telechargez là, créez-vous un compte et revenez ensuite sur ce lien pour récuperer votre bon plan.</string>
 
 
     <!--Menu-->
@@ -294,5 +294,8 @@
     <string name="orders_confirm_dialog_message2">Il ne vous restera plus qu’à livrer vos proches…</string>
     <string name="orders_confirm_dialog_message3">Assurez vous avant que tout est bien calé avec le producteur… pensez à utiliser la fonctionalité « envoyer votre commande au producteur »</string>
     <string name="bank_account_error_message">Pour recevoir sur votre compte le virement correspondant aux commandes, vous devez enregistrer vos données bancaires»</string>
+    <string name="text_about_cgu">CGU</string>
+    <string name="text_about_rules">Charte de confidentialité</string>
+    <string name="text_about_about_us">Nos mission, nos valeurs</string>
 
 </resources>

@@ -67,6 +67,16 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
+    public void clickContactUs() {
+        mView.openMailSender();
+    }
+
+    @Override
+    public void clickAbout() {
+        mView.openAbout();
+    }
+
+    @Override
     public void clickedLogOut() {
         mView.showProgressMain();
         mCompositeDisposable.add(mModel.signOut()
