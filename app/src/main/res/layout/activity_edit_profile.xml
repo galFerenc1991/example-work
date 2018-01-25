@@ -261,7 +261,7 @@
                     android:background="@drawable/bg_confirm_button"
                     android:paddingEnd="@dimen/padding_double"
                     android:paddingStart="@dimen/padding_double"
-                    android:text="@string/button_save"
+                    android:text="@string/button_confirm"
                     android:textAllCaps="false" />
             </LinearLayout>
 

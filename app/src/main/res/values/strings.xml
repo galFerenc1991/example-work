@@ -62,8 +62,8 @@
 
 
     <!--Hints-->
-    <string name="hint_name">Prénom</string>
-    <string name="hint_surname">Nom</string>
+    <string name="hint_name">Nom</string>
+    <string name="hint_surname">Prénom</string>
     <string name="hint_birth_date">Date de naissance</string>
     <string name="hint_email">Email</string>
     <string name="hint_country">Pays de résidence</string>
