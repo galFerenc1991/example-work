@@ -1,5 +1,6 @@
 package com.ferenc.pamp.domain;
 
+import android.text.Html;
 import android.util.Log;
 
 import com.ferenc.pamp.data.api.Rest;
@@ -14,6 +15,7 @@ import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.selec
 import com.ferenc.pamp.presentation.screens.main.chat.orders.OrderContract;
 import com.ferenc.pamp.presentation.screens.main.profile.ProfileContract;
 
+import com.ferenc.pamp.presentation.screens.main.profile.about.AboutContract;
 import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.EditProfileContract;
 import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.change_password.ChangePasswordContract;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
@@ -29,6 +31,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 
 /**
@@ -40,7 +43,8 @@ public class UserRepository extends NetworkRepository implements ProfileContract
         EditProfileContract.Model,
         SelectCardContract.Model,
         OrderContract.UserModel,
-        ChangePasswordContract.Model {
+        ChangePasswordContract.Model,
+        AboutContract.Model {
 
     @Bean
     protected Rest rest;
@@ -81,5 +85,20 @@ public class UserRepository extends NetworkRepository implements ProfileContract
     public Observable<GeneralMessageResponse> setNotifToken(TokenRequest request) {
         Log.d("FT:", "" + request.getToken());
         return getNetworkObservable(userService.setNotifToken(request));
+    }
+
+    @Override
+    public Observable<ResponseBody> getCGU() {
+        return getNetworkObservable(userService.getCGU());
+    }
+
+    @Override
+    public Observable<ResponseBody> getRules() {
+        return getNetworkObservable(userService.getRules());
+    }
+
+    @Override
+    public Observable<ResponseBody> getAboutUs() {
+        return getNetworkObservable(userService.getAboutUs());
     }
 }

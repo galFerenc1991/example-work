@@ -15,6 +15,7 @@ import com.ferenc.pamp.data.service.OrderService;
 import com.ferenc.pamp.data.service.UserService;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EBean;
@@ -92,6 +93,10 @@ public class Rest {
                     }
                     return originalResponse;
                 });
+
+//        Gson gson = new GsonBuilder()
+//                .setLenient()
+//                .create();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(RestConst.BASE_URL)

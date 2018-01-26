@@ -30,6 +30,8 @@ public interface ChatContract {
         void showProgress();
 
         void hideProgress();
+
+        void setTitle(String _title);
     }
 
     interface Presenter extends BasePresenter {

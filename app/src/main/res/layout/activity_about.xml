@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_AA"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height" />
+
+    <View
+        android:id="@+id/viewShadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_elevation"
+        android:background="@drawable/shadow"
+        android:layout_below="@+id/toolbar_AA"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar_AA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
+
+
+
+    <LinearLayout
+        android:id="@+id/llAboutBtns_AA"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbar_AA">
+
+        <LinearLayout
+            android:id="@+id/llAboutUs_AA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_default"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/tvAboutUs_AA"
+                android:layout_width="@dimen/default_my_order_title"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_default"
+                android:fontFamily="sans-serif-light"
+                android:gravity="start"
+                android:textColor="@color/textColorBlack"
+                android:textStyle="bold"
+                android:text="@string/text_about_about_us"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/very_small_view_width"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shadow"/>
+
+        <LinearLayout
+            android:id="@+id/llCGU_AA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_default"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/tvCGU_AA"
+                android:layout_width="@dimen/default_my_order_title"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_default"
+                android:fontFamily="sans-serif-light"
+                android:gravity="start"
+                android:textStyle="bold"
+                android:textColor="@color/textColorBlack"
+                android:text="@string/text_about_cgu"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/very_small_view_width"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shadow"/>
+
+        <LinearLayout
+            android:id="@+id/llRules_AA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_default"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/tvRules_AA"
+                android:layout_width="@dimen/default_my_order_title"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_default"
+                android:fontFamily="sans-serif-light"
+                android:gravity="start"
+                android:textStyle="bold"
+                android:textColor="@color/textColorBlack"
+                android:text="@string/text_about_rules"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/very_small_view_width"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shadow"/>
+
+
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/wvHtml_AA"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/viewShadow"
+        android:visibility="gone"/>
+
+</RelativeLayout>

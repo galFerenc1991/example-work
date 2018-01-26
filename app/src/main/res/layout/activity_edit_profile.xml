@@ -87,7 +87,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_half"
                     android:layout_marginStart="@dimen/margin_quart"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tvBirthDate_AEP"
@@ -120,7 +121,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_default"
-                        android:drawableEnd="@drawable/ic_edit"
+                        android:textColor="@color/textColorGraySendOrderList"
+                        android:enabled="false"
                         android:hint="@string/hint_email"
                         android:textColorHint="@color/textColorGray" />
 
@@ -153,7 +155,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_quart"
                     android:layout_marginStart="@dimen/margin_quart"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tvAddress_AEP"
@@ -258,7 +261,7 @@
                     android:background="@drawable/bg_confirm_button"
                     android:paddingEnd="@dimen/padding_double"
                     android:paddingStart="@dimen/padding_double"
-                    android:text="@string/button_save"
+                    android:text="@string/button_confirm"
                     android:textAllCaps="false" />
             </LinearLayout>
 

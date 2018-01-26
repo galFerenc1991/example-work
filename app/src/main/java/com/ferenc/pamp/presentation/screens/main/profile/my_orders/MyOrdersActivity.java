@@ -147,7 +147,6 @@ public class MyOrdersActivity extends BaseActivity implements MyOrdersContract.V
     @Override
     public void openOrderPreview(String _orderId) {
         PreviewPDFActivity_.intent(this).mOrderId(_orderId).start();
-
     }
 
 

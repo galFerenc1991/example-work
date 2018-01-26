@@ -23,6 +23,10 @@ public interface ProfileContract {
         void sharePamp();
 
         void showMyOrders();
+
+        void openMailSender();
+
+        void openAbout();
     }
 
     interface Presenter extends BasePresenter {
@@ -31,6 +35,10 @@ public interface ProfileContract {
         void clickedSharePamp();
 
         void clickedMyOrders();
+
+        void clickContactUs();
+
+        void clickAbout();
     }
 
     interface SignOutModel extends BaseModel {

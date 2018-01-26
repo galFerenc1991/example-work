@@ -160,9 +160,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
         RxView.clicks(btnOrder)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> {
-                    mPresenter.clickedCreateOrder();
-                });
+                .subscribe(o -> mPresenter.clickedCreateOrder());
 
         RxView.clicks(ivAddImg)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
@@ -177,9 +175,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void initCreateOrderButton(boolean _isHaveOrder) {
         btnOrder.setVisibility(View.VISIBLE);
-        if (_isHaveOrder) {
-            btnOrder.setText(mButtonChangeOrderText);
-        } else btnOrder.setText(mButtonOrderText);
+        btnOrder.setText(_isHaveOrder ? mButtonChangeOrderText : mButtonOrderText);
     }
 
     @OnActivityResult(Constants.REQUEST_CODE_SETTINGS_ACTIVITY)
@@ -218,12 +214,17 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void openDeleteOrderScreen() {
-        EndFlowOrderActivity_.intent(this).mIsCreatedFlow(false).start();
+        EndFlowOrderActivity_
+                .intent(this)
+                .mIsCreatedFlow(false)
+                .start();
     }
 
     @Override
     public void openCreateOrderFlow(double _quantity) {
-        PaymentActivity_.intent(this).extra(Constants.KEY_PRODUCT_QUANTITY, _quantity)
+        PaymentActivity_
+                .intent(this)
+                .extra(Constants.KEY_PRODUCT_QUANTITY, _quantity)
                 .startForResult(Constants.REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY);
     }
 
@@ -249,9 +250,8 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @OnActivityResult(Constants.REQUEST_CODE_CROP_IMAGE)
     protected void cropImage(int resultCode) {
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK)
             mPresenter.sendImage(avatarManager.getCroppedFile());
-        }
     }
 
     @Override
@@ -267,6 +267,11 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         } else {
             avatarManager.getImageOnlyFromCamera(Constants.REQUEST_CODE_GET_IMAGE);
         }
+    }
+
+    @Override
+    public void hideOrderBtn() {
+        btnOrder.setVisibility(View.GONE);
     }
 
     @Override
