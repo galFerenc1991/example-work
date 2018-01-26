@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.chat.participants;
 
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.base.BaseActivity;
+import com.ferenc.pamp.presentation.custom.end_flow_screen.EndFlowActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.participants.participants_adapter.ParticipantsAdapter;
 import com.ferenc.pamp.presentation.screens.main.chat.participants.participants_list.ParticipantsListFragment_;
 import com.ferenc.pamp.presentation.screens.main.propose.share.ShareFragment_;
@@ -33,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 public class ParticipantsActivity extends BaseActivity {
 
 
+    private boolean isShareReplaced = false;
     @Extra
     protected int fromWhere;
 
@@ -61,6 +64,13 @@ public class ParticipantsActivity extends BaseActivity {
     protected void initUI() {
         initClickListener();
         replaceParticipantsFragment(fromWhere);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isShareReplaced)
+            initUI();
     }
 
     @Override
@@ -98,6 +108,7 @@ public class ParticipantsActivity extends BaseActivity {
     }
 
     private void replaceParticipantsFragment(int fromWhere) {
+        isShareReplaced = false;
         if (fromWhere == Constants.ITEM_TYPE_REUSE) {
             btnAjouter.setVisibility(View.VISIBLE);
         }
@@ -109,5 +120,18 @@ public class ParticipantsActivity extends BaseActivity {
         tvToolbarTitle.setText(toolbarTitle);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        isShareReplaced = true;
+        EndFlowActivity_
+                .intent(this)
+                .mFlow(Constants.ADD_PARTICIPANT_FLOW)
+                .fromWhere(Constants.ITEM_TYPE_REUSE)
+                .mGoodDealResponse(mGoodDealResponseManager.getGoodDealResponse())
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .start();
+
+    }
 
 }
