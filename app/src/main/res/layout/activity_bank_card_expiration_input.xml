@@ -37,7 +37,7 @@
                 android:layout_marginStart="@dimen/margin_default"
                 android:drawableBottom="@drawable/bg_et_bottom_line"
                 android:focusable="true"
-                android:imeOptions="flagNavigateNext"
+                android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLength="2"
                 android:minWidth="@dimen/margin_double"
@@ -65,7 +65,8 @@
                 android:maxLength="2"
                 android:minWidth="@dimen/margin_double"
                 android:paddingBottom="@dimen/margin_default"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:enabled="false"/>
 
         </LinearLayout>
 

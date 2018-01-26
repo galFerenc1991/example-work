@@ -34,6 +34,8 @@ public interface ChatContract {
         void hideProgress();
 
         void initFromWhere(int _fromWhere);
+
+        void setTitle(String _title);
     }
 
     interface Presenter extends BasePresenter {

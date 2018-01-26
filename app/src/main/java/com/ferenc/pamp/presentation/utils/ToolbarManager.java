@@ -102,6 +102,14 @@ public class ToolbarManager {
         });
     }
 
+    public void superBackWhenBackArrowPressed(BaseActivity _activity, boolean isSuper) {
+        toolbar.setNavigationOnClickListener(view -> {
+            if (!isSuper)
+            _activity.finish();
+            else _activity.onBackPressed();
+        });
+    }
+
     public void displayToolbar(boolean isShown) {
         toolbar.setVisibility(isShown ? View.VISIBLE : View.GONE);
     }

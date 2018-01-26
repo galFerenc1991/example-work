@@ -25,7 +25,7 @@ public abstract class DateManager {
     public static final String FORMAT_MY_RIDE_DAY_AND_MONTH = "MMM dd";
     public static final String FORMAT_MY_RIDES_HEADER = "MMMM dd";
     public static final String FORMAT_RIDE_DATE_TIME = "dd MMM ''yy, HH:mm";
-    public static final String FORMAT_OPPORTUNITY_DATE = "hh:mm, dd MMM ''yy";
+    public static final String FORMAT_OPPORTUNITY_DATE = "HH:mm, dd MMM ''yy";
     public static final String FORMAT_CREATOD_BIRTHDAY = "MMM dd, yyyy";
 
     public static final int RELATIVE_TODAY = 31;

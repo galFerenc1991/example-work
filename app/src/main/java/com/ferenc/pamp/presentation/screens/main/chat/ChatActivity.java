@@ -75,6 +75,9 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     @ViewById(R.id.pbDealLoad_AC)
     protected ProgressBar pbDealLoad;
 
+    @ViewById(R.id.tvToolBarName_AC)
+    protected TextView tvToolBarName;
+
     @Bean
     protected GoodDealManager mGoodDealManager;
 
@@ -146,9 +149,13 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     }
 
     @Override
+    public void setTitle(String _title) {
+        tvToolBarName.setText(_title);
+    }
+
+    @Override
     public void showChat() {
         replaceFragment(ChatFragment_.builder().fromWhere(fromWhere).build());
-
     }
 
     private void initClickListeners() {

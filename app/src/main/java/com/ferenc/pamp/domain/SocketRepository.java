@@ -51,6 +51,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
     private String valDescription = "description";
     private String valQuantity = "quantity";
     private String valDeliveryEndDate = "deliveryEndDate";
+    private String valDeliveryStartDate = "deliveryStartDate";
     private String valClosingDate = "closingDate";
     private String mUserToken;
 
@@ -103,14 +104,15 @@ public class SocketRepository implements MessengerContract.SocketModel {
                 messageResponse.createdAt = data.getLong(valCreatedAt);
 
 
-                description.quantity = data.has(valDescription) ? data.getJSONObject(valDescription).has(valQuantity) ? data.getJSONObject(valDescription).getInt(valQuantity) : 0 : 0;
-                description.firstName = (data.has(valDescription) ? data.getJSONObject(valDescription).getString(valFirstName) : "user==null");
+                description.quantity = data.has(valDescription) ? (float) (data.getJSONObject(valDescription).has(valQuantity) ? data.getJSONObject(valDescription).getDouble(valQuantity) : 0) : 0;
+                description.firstName = (data.has(valDescription) ? data.getJSONObject(valDescription).has(valFirstName) ? data.getJSONObject(valDescription).getString(valFirstName) : "" : "");
                 description.deliveryEndDate = data.has(valDescription) ? data.getJSONObject(valDescription).has(valDeliveryEndDate) ? data.getJSONObject(valDescription).getInt(valDeliveryEndDate) : 0 : 0;
+                description.deliveryStartDate = data.has(valDescription) ? data.getJSONObject(valDescription).has(valDeliveryStartDate) ? data.getJSONObject(valDescription).getInt(valDeliveryStartDate) : 0 : 0;
                 description.closingDate = data.has(valDescription) ? data.getJSONObject(valDescription).has(valClosingDate) ? data.getJSONObject(valDescription).getInt(valClosingDate) : 0 : 0;
 
                 messageResponse.description = description;
 
-                Log.d(TAG, "New message:" + data.toString());
+                Log.d(TAG, "New message: " + data.toString());
 
                 getNewMessage.accept(messageResponse);
 

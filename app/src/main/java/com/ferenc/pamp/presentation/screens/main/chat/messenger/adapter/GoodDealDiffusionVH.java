@@ -80,8 +80,13 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         MessageResponse messageResponse = data.getMessageResponse();
         Context context = data.getContext();
         User user = data.getMyUser();
-        String deliveryStartDate = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryStartDate));
-        String deliveryEndDate = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryEndDate));
+        String deliveryStartDate = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryStartDate));
+        String deliveryEndDate = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryEndDate));
+        String dealPriceDescription = String.valueOf(goodDealResponse.price) + " € " + " la " + goodDealResponse.product + " de " + goodDealResponse.unit;
+        String dealQuantityMax = context.getString(R.string.text_message_good_deal_diffusion_quant_max)
+                + (goodDealResponse.quantity != 0
+                ? String.valueOf(goodDealResponse.quantity)
+                : context.getString(R.string.text_message_good_deal_diffusion_no_quant_max));
 
         if (goodDealResponse.owner.getId().equals(user.getId())) {
             Picasso.with(context)
@@ -103,10 +108,9 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
             tvDealAuthorName.setText(goodDealResponse.owner.getFirstName());
         }
 
-
         tvDealDescription.setText(goodDealResponse.description);
-        tvDealPriceDescription.setText(String.valueOf(goodDealResponse.price) + " € " + " la " + goodDealResponse.product + " de " + goodDealResponse.unit);
-        tvDealAmountItems.setText("Quantité max. : " + String.valueOf(goodDealResponse.quantity));
+        tvDealPriceDescription.setText(dealPriceDescription);
+        tvDealAmountItems.setText(dealQuantityMax);
         tvDealStartDate.setText(deliveryStartDate);
         tvDealEndDate.setText(deliveryEndDate);
         tvDealLocation.setText(goodDealResponse.deliveryAddress);

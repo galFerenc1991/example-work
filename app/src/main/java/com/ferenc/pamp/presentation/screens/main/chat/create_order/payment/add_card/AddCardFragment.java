@@ -111,6 +111,8 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
                 .subscribe(o -> mPresenter.clickedValidate());
     }
 
+
+
     @Override
     public void openCardNumberInputScreen(int _requestCode) {
         BankCardNumberInputActivity_.intent(this)

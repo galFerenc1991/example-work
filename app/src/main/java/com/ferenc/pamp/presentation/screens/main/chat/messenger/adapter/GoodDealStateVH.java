@@ -42,16 +42,14 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
         Context context = data.getContext();
         MessageResponse messageResponse = data.getMessageResponse();
         String deliveryClosingDate = messageResponse.description != null
-                ? new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.FRANCE).format(new Date(messageResponse.description.closingDate))
+                ? new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(new Date(messageResponse.description.closingDate))
                 : "";
-
         String deliveryStartDate = messageResponse.description != null
-                ? new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryStartDate))
+                ? new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryStartDate))
                 : "";
         String deliveryEndDate = messageResponse.description != null
-                ? new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryEndDate))
+                ? new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(new Date(messageResponse.description.deliveryEndDate))
                 : "";
-
 
         switch (messageResponse.code) {
             case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:

@@ -210,6 +210,12 @@
             android:theme="@style/AppTheme" />
 
         <activity
+            android:name=".presentation.screens.main.profile.about.AboutActivity_"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name=".presentation.screens.main.profile.edit_profile.change_password.ChangePasswordActivity_"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"

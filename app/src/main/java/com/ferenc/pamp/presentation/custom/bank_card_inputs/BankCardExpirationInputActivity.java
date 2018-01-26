@@ -9,6 +9,7 @@ import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.base.models.ExpDate;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.ToastManager;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -34,8 +35,21 @@ public class BankCardExpirationInputActivity extends AppCompatActivity {
 
     @AfterViews
     protected void initUI() {
-        etYear.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
+        initEditTextListeners();
+    }
+
+    private void initEditTextListeners() {
+
+        RxTextView.editorActionEvents(etMonth).subscribe(textViewEditorActionEvent -> {
+            if (textViewEditorActionEvent.actionId() == EditorInfo.IME_ACTION_NEXT) {
+                etYear.setEnabled(true);
+                etYear.setFocusableInTouchMode(true);
+                etYear.requestFocus();
+            }
+        });
+
+        RxTextView.editorActionEvents(etYear).subscribe(textViewEditorActionEvent -> {
+            if (textViewEditorActionEvent.actionId() == EditorInfo.IME_ACTION_DONE) {
                 Calendar calendar = Calendar.getInstance();
                 int currentYear = calendar.get(Calendar.YEAR);
                 mMonth = Integer.valueOf(etMonth.getText().toString().trim());
@@ -46,7 +60,29 @@ public class BankCardExpirationInputActivity extends AppCompatActivity {
                     ToastManager.showToast("Incorrect month or year");
                 }
             }
-            return false;
+        });
+
+        RxTextView.textChangeEvents(etMonth).subscribe(textChangeEvents -> {
+            if (!textChangeEvents.text().equals("")) {
+                if (textChangeEvents.text().length() == 2) {
+                    etYear.setEnabled(true);
+                    etYear.setFocusableInTouchMode(true);
+                    etYear.requestFocus();
+                } else if (textChangeEvents.text().length() == 0) {
+                    etMonth.setFocusableInTouchMode(true);
+                    etMonth.requestFocus();
+                }
+
+            }
+        });
+
+        RxTextView.textChangeEvents(etYear).subscribe(textChangeEvents -> {
+            if (!textChangeEvents.text().equals("")) {
+                if (textChangeEvents.text().length() == 0) {
+                    etMonth.setFocusableInTouchMode(true);
+                    etMonth.requestFocus();
+                }
+            }
         });
 
     }

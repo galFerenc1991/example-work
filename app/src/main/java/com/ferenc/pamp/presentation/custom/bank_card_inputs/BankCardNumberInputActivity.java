@@ -2,14 +2,12 @@ package com.ferenc.pamp.presentation.custom.bank_card_inputs;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import org.androidannotations.annotations.AfterViews;
 
@@ -34,71 +32,92 @@ public class BankCardNumberInputActivity extends AppCompatActivity {
 
     @AfterViews
     protected void initUI() {
-        etFirst.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() == 4) {
-                    etFirst.clearFocus();
-                    etSecond.requestFocus();
-                }
-            }
+        initEditTextListeners();
+    }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    private void initEditTextListeners() {
 
-            }
+//        etFirst.setFocusableInTouchMode(true);
+//        etFirst.requestFocus();
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-
+        RxTextView.editorActionEvents(etFirst).subscribe(textViewEditorActionEvent -> {
+            if (textViewEditorActionEvent.actionId() == EditorInfo.IME_ACTION_NEXT) {
+                etSecond.setEnabled(true);
+                etSecond.setFocusableInTouchMode(true);
+                etSecond.requestFocus();
             }
         });
 
-        etSecond.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() == 4) {
-                    etSecond.clearFocus();
+        RxTextView.editorActionEvents(etSecond).subscribe(textViewEditorActionEvent -> {
+            if (textViewEditorActionEvent.actionId() == EditorInfo.IME_ACTION_NEXT) {
+                etThird.setEnabled(true);
+                etThird.setFocusableInTouchMode(true);
+                etThird.requestFocus();
+            }
+        });
+
+        RxTextView.editorActionEvents(etThird).subscribe(textViewEditorActionEvent -> {
+            if (textViewEditorActionEvent.actionId() == EditorInfo.IME_ACTION_NEXT) {
+                etFourth.setEnabled(true);
+                etFourth.setFocusableInTouchMode(true);
+                etFourth.requestFocus();
+            }
+        });
+
+        RxTextView.editorActionEvents(etFourth).subscribe(textViewEditorActionEvent -> {
+            if (textViewEditorActionEvent.actionId() == EditorInfo.IME_ACTION_DONE)
+                setResult();
+        });
+
+        RxTextView.textChangeEvents(etFirst).subscribe(textChangeEvents -> {
+            if (!textChangeEvents.text().equals("")) {
+                if (textChangeEvents.text().length() == 4) {
+                    etSecond.setEnabled(true);
+                    etSecond.setFocusableInTouchMode(true);
+                    etSecond.requestFocus();
+                } else {
+                    etSecond.setEnabled(false);
+                }
+            }
+        });
+
+        RxTextView.textChangeEvents(etSecond).subscribe(textChangeEvents -> {
+            if (!textChangeEvents.text().equals("")) {
+                if (textChangeEvents.text().length() == 4) {
+                    etThird.setEnabled(true);
+                    etThird.setFocusableInTouchMode(true);
+                    etThird.requestFocus();
+                } else if (textChangeEvents.text().length() == 0) {
+                    etFirst.setFocusableInTouchMode(true);
+                    etFirst.requestFocus();
+                } else {
+                    etThird.setEnabled(false);
+                }
+            }
+        });
+
+        RxTextView.textChangeEvents(etThird).subscribe(textChangeEvents -> {
+            if (!textChangeEvents.text().equals("")) {
+                if (textChangeEvents.text().length() == 4) {
+                    etFourth.setEnabled(true);
+                    etFourth.setFocusableInTouchMode(true);
+                    etFourth.requestFocus();
+                } else if (textChangeEvents.text().length() == 0) {
+                    etSecond.setFocusableInTouchMode(true);
+                    etSecond.requestFocus();
+                } else {
+                    etFourth.setEnabled(false);
+                }
+            }
+        });
+
+        RxTextView.textChangeEvents(etFourth).subscribe(textChangeEvents -> {
+            if (!textChangeEvents.text().equals("")) {
+                if (textChangeEvents.text().length() == 0) {
+                    etThird.setFocusableInTouchMode(true);
                     etThird.requestFocus();
                 }
             }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        etThird.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() == 4) {
-                    etThird.clearFocus();
-                    etFourth.requestFocus();
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        etFourth.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                setResult();
-            }
-            return false;
         });
 
     }
@@ -111,3 +130,6 @@ public class BankCardNumberInputActivity extends AppCompatActivity {
     }
 
 }
+
+
+

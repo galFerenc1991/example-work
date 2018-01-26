@@ -9,14 +9,14 @@ import android.os.Parcelable;
 
 public class Description implements Parcelable {
     public String firstName;
-    public int quantity;
+    public float quantity;
     public long deliveryStartDate;
     public long deliveryEndDate;
     public long closingDate;
 
     protected Description(Parcel in) {
         firstName = in.readString();
-        quantity = in.readInt();
+        quantity = in.readFloat();
         deliveryStartDate = in.readLong();
         deliveryEndDate = in.readLong();
         closingDate = in.readLong();
@@ -28,10 +28,15 @@ public class Description implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(firstName);
-        dest.writeInt(quantity);
+        dest.writeFloat(quantity);
         dest.writeLong(deliveryStartDate);
         dest.writeLong(deliveryEndDate);
         dest.writeLong(closingDate);
+    }
+
+    public String getStringQuantity() {
+
+        return quantity > 0.9 ? String.valueOf(Math.round(quantity)) : String.valueOf(quantity);
     }
 
     @Override
