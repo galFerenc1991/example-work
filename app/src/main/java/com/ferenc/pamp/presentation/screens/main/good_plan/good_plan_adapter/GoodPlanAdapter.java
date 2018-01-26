@@ -28,6 +28,7 @@ import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.RoundedTransformation;
+import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.squareup.picasso.Picasso;
 
@@ -89,6 +90,8 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
     protected GoodDealManager mGoodDealManager;
     @Bean
     protected GoodDealResponseManager mGoodDealResponseManager;
+    @Bean
+    protected SignedUserManager mSignedUserManager;
 
     private List<GoodDealResponse> listGD = new ArrayList<>();
     private int mGoodPlanItemType;
@@ -125,7 +128,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
                 .fit()
                 .centerCrop()
                 .into(viewHolder.ivProfileImage);
-        viewHolder.tvGoodPlanWith.setText(goodDealResponse.title);
+        viewHolder.tvGoodPlanWith.setText(goodDealResponse.owner.getFirstName());
         viewHolder.tvProductName.setText(goodDealResponse.product);
         if (goodDealResponse.isResend) {
             viewHolder.ivReuseIndicator.setVisibility(View.VISIBLE);
@@ -133,17 +136,28 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
             viewHolder.ivReuseIndicator.setVisibility(View.INVISIBLE);
         }
 
+        if (goodDealResponse.hasOrders) viewHolder.tvOrderStatus.setVisibility(View.VISIBLE);
+        else viewHolder.tvOrderStatus.setVisibility(View.GONE);
+
         String state = goodDealResponse.state;
         switch (state) {
             case Constants.STATE_PROGRESS:
                 long timeBeforeClose = goodDealResponse.closingDate - System.currentTimeMillis();
-                long timeBeforeCloseInHours = timeBeforeClose / (60 * 60 * 1000);
+                long oneHourInMilliseconds = 60 * 60 * 1000;
+                long oneMinuteInMilliseconds = 60 * 1000;
+                long timeBeforeCloseInHours = timeBeforeClose / oneHourInMilliseconds;
                 long days = timeBeforeCloseInHours / 24;
                 long hours = timeBeforeCloseInHours - days * 24;
+                long minute = timeBeforeClose / oneMinuteInMilliseconds;
 
                 viewHolder.tvPlanStatus.setVisibility(View.GONE);
                 viewHolder.tvTimeBeforeClosing.setVisibility(View.VISIBLE);
-                String time = "j" + days + ". et " + hours + ".";
+                String time;
+                if (days == 0 && hours == 0) {
+                    time = minute + "m";
+                } else {
+                    time = days + "j. et " + hours + "h.";
+                }
                 viewHolder.tvTimeBeforeClosing.setText(time);
                 break;
             case Constants.STATE_CLOSED:

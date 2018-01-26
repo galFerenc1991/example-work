@@ -32,7 +32,7 @@ public interface OrderContract {
 
         void hidePlaceholderText();
 
-        void setDealInfo(String _productName, String _util);
+        void setDealInfo(String _productName, String _util, String _closeDate);
 
         void showConfButton();
 

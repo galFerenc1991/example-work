@@ -49,7 +49,8 @@
                 android:layout_marginBottom="@dimen/margin_half"
                 android:drawableStart="@drawable/ic_check"
                 android:gravity="center_vertical"
-                android:text="Vous avez commandé" />
+                android:text="Vous avez commandé"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvTimeBeforeClosing_LIDP"

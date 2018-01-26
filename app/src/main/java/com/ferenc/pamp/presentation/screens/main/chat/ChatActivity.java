@@ -16,11 +16,16 @@ import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.custom.SettingsActivity;
 import com.ferenc.pamp.presentation.custom.SettingsActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ProposeRefreshRelay;
+import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ReceivedRefreshRelay;
 import com.ferenc.pamp.presentation.screens.main.chat.participants.ParticipantsActivity_;
+import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.re_diffuser.ReDiffuserActivity_;
+import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
+import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
 
@@ -79,15 +84,45 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     @Bean
     protected GoodDealRepository mGoodDealRepository;
 
+    @Bean
+    protected ProposeRefreshRelay mProposeRefreshRelay;
+    @Bean
+    protected ReceivedRefreshRelay mReceiveRefreshRelay;
+
+    @Bean
+    protected SignedUserManager mSignedUserManager;
+
 
     @AfterViews
     protected void initFragment() {
-        mPresenter.subscribe();
-
         initClickListeners();
 
 //        mPresenter.setParticipants();
 
+//        switch (fromWhere) {
+//            case Constants.ITEM_TYPE_RE_BROADCAST:
+//                ivShareBonPlan.setVisibility(View.VISIBLE);
+//                break;
+//            case Constants.ITEM_TYPE_REUSE:
+//                ivSettings.setVisibility(View.VISIBLE);
+//                break;
+//            default:
+//                throw new RuntimeException("ChatActivity :: initFragment [Can find fromWhere]");
+//        }
+//        replaceFragment(ChatFragment_.builder().fromWhere(fromWhere).build());
+
+        mPresenter.subscribe();
+    }
+
+    @Override
+    public void initFromWhere(int _fromWhere) {
+        if (fromWhere == 0) {
+            fromWhere = _fromWhere;
+        }
+        initMenuButton();
+    }
+
+    private void initMenuButton() {
         switch (fromWhere) {
             case Constants.ITEM_TYPE_RE_BROADCAST:
                 ivShareBonPlan.setVisibility(View.VISIBLE);
@@ -98,7 +133,6 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
             default:
                 throw new RuntimeException("ChatActivity :: initFragment [Can find fromWhere]");
         }
-//        replaceFragment(ChatFragment_.builder().fromWhere(fromWhere).build());
     }
 
     @Override
@@ -140,10 +174,15 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
         ivSettings.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    public void hideShareButton() {
+        ivShareBonPlan.setVisibility(View.INVISIBLE);
+    }
+
     @AfterInject
     @Override
     public void initPresenter() {
-        new ChatPresenter(this, mGoodDealManager, mGoodDealResponseManager, mGoodDealRepository, mDealId);
+        new ChatPresenter(this, mGoodDealManager, mGoodDealResponseManager, mGoodDealRepository, mDealId, mSignedUserManager);
     }
 
     @Override
@@ -193,6 +232,17 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
 
     @Override
     public void onBackPressed() {
+        mReceiveRefreshRelay.receivedRefreshRelay.accept(true);
+        mProposeRefreshRelay.proposeRefreshRelay.accept(true);
+
+//        switch (fromWhere) {
+//            case Constants.ITEM_TYPE_RE_BROADCAST:
+//                mReceiveRefreshRelay.receivedRefreshRelay.accept(true);
+//                break;
+//            case Constants.ITEM_TYPE_REUSE:
+//                mProposeRefreshRelay.proposeRefreshRelay.accept(true);
+//                break;
+//        }
         finish();
     }
 

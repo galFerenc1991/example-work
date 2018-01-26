@@ -70,7 +70,7 @@ public abstract class Constants {
     public static final String KEY_START_DATE_RESULT = "startDate";
     public static final String KEY_END_DATE_RESULT = "endDate";
     public static final String KEY_PLACE_RESULT = "place";
-    public static final String KEY_IS_REBROADCAST = "rebroadcast";
+    public static final String KEY_IS_REBROADCAST = "isRebroadcast";
     public static final String KEY_SENDTO_SMS = "smsto: ";
     public static final String KEY_SMS_BODY = "sms_body";
     public static final String KEY_PRODUCT_QUANTITY = "quantity";
@@ -113,7 +113,7 @@ public abstract class Constants {
 //    public static final String KEY_CANCEL = "startDate";
 
     /*GOOD_PLANS_ITEM_TYPE*/
-    public static final int ITEM_TYPE_RE_BROADCAST = 0;
+    public static final int ITEM_TYPE_RE_BROADCAST = 2;
     public static final int ITEM_TYPE_REUSE = 1;
 
     /*GOOGLE CODES*/

@@ -18,8 +18,6 @@ import io.reactivex.Observable;
 
 public interface ProposedPlansContract {
     interface View extends ContentView, BaseView<Presenter> {
-        void openProposerFragment();
-
         void setProposedGoodPlanList(List<GoodDealResponse> _proposedGoodPlansList);
 
         void addProposedGoodPlanList(List<GoodDealResponse> _receivedGoodPlansList);

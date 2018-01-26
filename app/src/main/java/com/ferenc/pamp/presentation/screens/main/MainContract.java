@@ -18,6 +18,8 @@ public interface MainContract {
         void openProposedFlow();
 
         void openChat(String _id);
+
+        void refreshReceivedList();
     }
 
     interface Presenter extends BasePresenter {

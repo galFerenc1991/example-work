@@ -22,12 +22,16 @@ public class DeliveryPlacePresenter implements DeliveryPlaceContract.Presenter {
     private CompositeDisposable mCompositeDisposable;
     private DeliveryPlaceContract.Model mModel;
     private List<DeliveryPlaceDH> mDeliveryPlaceList;
+    private boolean mIsRebroadcast;
 
 
-    public DeliveryPlacePresenter(DeliveryPlaceContract.View _view, DeliveryPlaceContract.Model _model) {
+    public DeliveryPlacePresenter(DeliveryPlaceContract.View _view,
+                                  DeliveryPlaceContract.Model _model,
+                                  boolean _isRebroadcast) {
         this.mView = _view;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mModel = _model;
+        this.mIsRebroadcast = _isRebroadcast;
         this.mDeliveryPlaceList = new ArrayList<>();
         mView.setPresenter(this);
     }
@@ -41,12 +45,12 @@ public class DeliveryPlacePresenter implements DeliveryPlaceContract.Presenter {
                 .subscribe(addressList -> {
                     mView.hideProgressBar();
                     for (String address : addressList) {
-                        mDeliveryPlaceList.add(new DeliveryPlaceDH(address));
+                        mDeliveryPlaceList.add(new DeliveryPlaceDH(address, mIsRebroadcast));
                     }
                     mView.setContactAdapterList(mDeliveryPlaceList);
                 }, throwable -> {
                     mView.hideProgressBar();
-                    Log.d("getUsedUserAddresses","Error " + throwable.getMessage());
+                    Log.d("getUsedUserAddresses", "Error " + throwable.getMessage());
                 }));
 
     }

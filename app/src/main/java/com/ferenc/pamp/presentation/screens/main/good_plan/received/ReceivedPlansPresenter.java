@@ -4,6 +4,7 @@ package com.ferenc.pamp.presentation.screens.main.good_plan.received;
 import android.util.Log;
 
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
+import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ReceivedRefreshRelay;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 
@@ -22,15 +23,20 @@ public class ReceivedPlansPresenter implements ReceivedPlansContract.Presenter {
     private ReceivedPlansContract.Model mModel;
     private CompositeDisposable mCompositeDisposable;
     private ReceiveRelay mReceiveRelay;
+    private ReceivedRefreshRelay mReceiveRefreshRelay;
 
     private int page;
     private int totalPages = Integer.MAX_VALUE;
     private boolean needRefresh;
 
-    public ReceivedPlansPresenter(ReceivedPlansContract.View _view, ReceivedPlansContract.Model _model, ReceiveRelay _receiveRelay) {
+    public ReceivedPlansPresenter(ReceivedPlansContract.View _view,
+                                  ReceivedPlansContract.Model _model,
+                                  ReceiveRelay _receiveRelay,
+                                  ReceivedRefreshRelay _receiveRefreshRelay) {
         this.mView = _view;
         this.mModel = _model;
         this.mReceiveRelay = _receiveRelay;
+        this.mReceiveRefreshRelay = _receiveRefreshRelay;
         this.mCompositeDisposable = new CompositeDisposable();
         this.page = 1;
         needRefresh = true;
@@ -47,6 +53,7 @@ public class ReceivedPlansPresenter implements ReceivedPlansContract.Presenter {
         mCompositeDisposable.add(mReceiveRelay.receiveRelay.subscribe(aBoolean -> {
             mView.openReBroadcastFlow();
         }));
+        mCompositeDisposable.add(mReceiveRefreshRelay.receivedRefreshRelay.subscribe(aBoolean -> onRefresh()));
     }
 
     private void loadData(int _page) {

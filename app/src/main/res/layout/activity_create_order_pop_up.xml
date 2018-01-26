@@ -88,7 +88,7 @@
                 style="@style/CancelDialPopUpTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Prix TTC :"/>
+                android:text="Prix TTC : " />
 
             <TextView
                 android:id="@+id/tvPrice_ACOPU"
@@ -107,13 +107,15 @@
             <TextView
                 style="@style/CancelDialPopUpTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Frais PAMP (3,5% + 0,75 €) : " />
 
             <TextView
+                android:id="@+id/tvPampHonorar_ACOPU"
                 style="@style/CancelDialPopUpTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Frais PAMP (3,5% + 0,75 €)" />
+                android:text="25.25 €"/>
 
         </LinearLayout>
 
@@ -126,7 +128,7 @@
                 style="@style/CreateOrderPopUpProductNameTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TOTAL :" />
+                android:text="TOTAL : " />
 
             <TextView
                 android:id="@+id/tvTotalPrice_ACOPU"

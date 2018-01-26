@@ -14,11 +14,11 @@ import com.michenko.simpleadapter.RecyclerVH;
 public class DeliveryPlaceVH extends RecyclerVH<DeliveryPlaceDH> {
 
 
-    private TextView country;
+    private TextView tvCountry;
 
     public DeliveryPlaceVH(View itemView) {
         super(itemView);
-        country = itemView.findViewById(R.id.tvAddress_IDP);
+        tvCountry = itemView.findViewById(R.id.tvAddress_IDP);
     }
 
     @Override
@@ -28,6 +28,9 @@ public class DeliveryPlaceVH extends RecyclerVH<DeliveryPlaceDH> {
 
     @Override
     public void bindData(DeliveryPlaceDH data) {
-        country.setText(data.getCountry());
+        if (data.isReBroadcast()) {
+            tvCountry.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_location_yelow, 0, 0, 0);
+        }
+        tvCountry.setText(data.getCountry());
     }
 }

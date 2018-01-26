@@ -222,7 +222,6 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 .setClosingDate(_changedCloseDate.getTimeInMillis())
                 .build())
                 .subscribe(goodDealResponse -> {
-                    mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                     mView.hideProgress();
                 }, throwable -> {
                     mView.hideProgress();
@@ -239,7 +238,6 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 .setDeliveryEndDate(mGoodDealManager.getGoodDeal().getDeliveryEndDate())
                 .build())
                 .subscribe(goodDealResponse -> {
-                    mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                     mView.hideProgress();
                 }, throwable -> {
                     mView.hideProgress();

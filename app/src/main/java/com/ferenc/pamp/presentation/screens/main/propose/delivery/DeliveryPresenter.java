@@ -99,12 +99,6 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
         return sdf.format(calendar.getTime());
     }
 
-    private String convertServerDateToString(long _dateInMillis) {
-        Calendar date = Calendar.getInstance();
-        date.setTimeInMillis(_dateInMillis);
-        return getCloseDateInString(date);
-    }
-
     @NonNull
     private Long getCloseDateForServer(Calendar calendar) {
         return calendar.getTimeInMillis();

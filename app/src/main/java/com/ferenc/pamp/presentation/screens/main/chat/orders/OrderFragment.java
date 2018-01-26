@@ -68,6 +68,8 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     protected TextView tvOrderCreatedAt;
     @ViewById(R.id.btnConfirmOrders_FCO)
     protected Button btnConfirmOrders;
+    @ViewById(R.id.tvTitleOrderStatus_FCO)
+    protected TextView tvTitleOrderStatus;
 
     @Bean
     protected OrderAdapter mOrderAdapter;
@@ -148,9 +150,10 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     }
 
     @Override
-    public void setDealInfo(String _productName, String _util) {
+    public void setDealInfo(String _productName, String _util, String _closeDate) {
         tvProductName.setText(_productName);
         tvUnit.setText(_util);
+        tvOrderCreatedAt.setText("Bon Plan N°8278 du " + _closeDate);
     }
 
     @Override
@@ -177,11 +180,13 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     @Override
     public void showPlaceHolderText() {
         tvPlaceHolder.setVisibility(View.VISIBLE);
+        tvTitleOrderStatus.setVisibility(View.GONE);
     }
 
     @Override
     public void hidePlaceholderText() {
         tvPlaceHolder.setVisibility(View.GONE);
+        tvTitleOrderStatus.setVisibility(View.VISIBLE);
     }
 
     @Override

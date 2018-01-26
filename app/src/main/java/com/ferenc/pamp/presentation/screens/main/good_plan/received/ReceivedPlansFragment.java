@@ -16,6 +16,7 @@ import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshableFragment;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
+import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ReceivedRefreshRelay;
 import com.ferenc.pamp.presentation.screens.main.good_plan.good_plan_adapter.GoodPlanAdapter;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.re_diffuser.ReDiffuserActivity_;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
@@ -67,13 +68,16 @@ public class ReceivedPlansFragment extends RefreshableFragment implements Receiv
     @Bean
     protected ReceiveRelay mReceiveRelay;
 
+    @Bean
+    protected ReceivedRefreshRelay mReceiveRefreshRelay;
+
     @StringRes(R.string.msg_share)
     protected String mShareMessage;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new ReceivedPlansPresenter(this, mGoodDealRepository, mReceiveRelay);
+        new ReceivedPlansPresenter(this, mGoodDealRepository, mReceiveRelay, mReceiveRefreshRelay);
     }
 
     @AfterViews

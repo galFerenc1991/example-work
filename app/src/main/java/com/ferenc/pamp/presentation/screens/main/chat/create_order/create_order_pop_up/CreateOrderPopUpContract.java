@@ -28,9 +28,7 @@ public interface CreateOrderPopUpContract {
 
         void showPriceDescription(String _priceDescription);
 
-        void showPrice(String _price);
-
-        void showTotal(String _total);
+        void showPrices(String _total, String _price, String _honorar);
 
         void closeActivityForResult(double _quantity);
 

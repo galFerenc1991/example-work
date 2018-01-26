@@ -43,7 +43,9 @@ public class OrderVH extends RecyclerVH<OrderDH> {
     @Override
     public void bindData(OrderDH data) {
         Order order = data.getmOrder();
-        tvName.setText(order.getUser().getFirstName());
+        if (order.getRank() > 1)
+            tvName.setText(order.getUser().getFirstName() + "(" + order.getRank() + ")");
+        else tvName.setText(order.getUser().getFirstName());
         tvQuantity.setText(String.valueOf(order.getQuantity()));
         tvPrice.setText(String.valueOf(order.getPrice()) + " €");
         if (data.isOriginal()) {
@@ -51,6 +53,13 @@ public class OrderVH extends RecyclerVH<OrderDH> {
                 case Constants.STATE_CLOSED:
                     rlConfirmationContainer.setVisibility(View.VISIBLE);
                     swDelivery.setChecked(data.isSelected());
+                    if (swDelivery.isChecked()) {
+                        tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGreen));
+                        tvStatus.setText(Constants.STATUS_CONFIRMED_TEXT);//Confirmé
+                    } else {
+                        tvStatus.setText(Constants.STATUS_CANCELED_TEXT);//Annulé
+                        tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
+                    }
                     swDelivery.setOnClickListener(view -> {
                         data.setSelected(swDelivery.isChecked());
                         if (swDelivery.isChecked()) {

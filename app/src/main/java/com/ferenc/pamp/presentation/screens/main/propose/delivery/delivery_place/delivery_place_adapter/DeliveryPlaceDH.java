@@ -9,12 +9,18 @@ import com.michenko.simpleadapter.RecyclerDH;
 public class DeliveryPlaceDH implements RecyclerDH {
 
     private String mCountry;
+    private boolean isReBroadcast;
 
-    public DeliveryPlaceDH(String _country) {
+    public DeliveryPlaceDH(String _country, boolean _isRebroadcast) {
         mCountry = _country;
+        isReBroadcast = _isRebroadcast;
     }
 
     public String getCountry() {
         return mCountry;
+    }
+
+    public boolean isReBroadcast() {
+        return isReBroadcast;
     }
 }
