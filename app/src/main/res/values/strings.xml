@@ -298,5 +298,6 @@
     <string name="text_about_cgu">CGU</string>
     <string name="text_about_rules">Charte de confidentialité</string>
     <string name="text_about_about_us">Nos mission, nos valeurs</string>
+    <string name="text_send_pdf_to_producer">Commande envoyée au producteur le:</string>
 
 </resources>

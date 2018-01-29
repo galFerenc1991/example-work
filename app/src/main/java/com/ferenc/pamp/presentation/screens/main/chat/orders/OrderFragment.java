@@ -30,7 +30,10 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -60,6 +63,8 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     protected TextView tvPlaceHolder;
     @ViewById(R.id.rvOrders_FCO)
     protected RecyclerView rvOrders;
+    @ViewById(R.id.tvSendPdfToProducer_FCO)
+    protected TextView tvSendPdfToProducer;
     @ViewById(R.id.tvProductName_FCO)
     protected TextView tvProductName;
     @ViewById(R.id.tvUnit_FCO)
@@ -182,6 +187,18 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     @Override
     public void hidePlaceholderText() {
         tvPlaceHolder.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void initSendPdfInfo(boolean isSentEmpty) {
+        String sentTime = new SimpleDateFormat("dd/MM HH:mm", Locale.FRANCE).format(new Date(isSentEmpty ? mGoodDealResponseManager.getGoodDealResponse().sent.getSentAt() : 0));
+
+        String sendPdfToProducerText = isSentEmpty ? getString(R.string.text_send_pdf_to_producer) + "\n" + mGoodDealResponseManager.getGoodDealResponse().sent.getName() + " " + sentTime : "";
+
+        tvSendPdfToProducer.setVisibility(isSentEmpty ? View.VISIBLE : View.GONE);
+
+
+        tvSendPdfToProducer.setText(sendPdfToProducerText);
     }
 
     @Override

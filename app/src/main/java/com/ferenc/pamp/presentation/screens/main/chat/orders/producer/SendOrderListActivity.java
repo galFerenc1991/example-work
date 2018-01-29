@@ -10,6 +10,7 @@ import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
 import com.ferenc.pamp.data.model.home.orders.Producer;
+import com.ferenc.pamp.data.model.home.orders.SendPDFRequest;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_pop_up.CreateOrderPopUpActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.producer.choose_producer.ChooseProducerActivity_;
@@ -159,8 +160,8 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     }
 
     @Override
-    public void openSendOrderListFlow(PDFPreviewRequest _pdfPreviewRequest, String _producerEmail) {
-        PreviewPDFActivity_.intent(this).mPDFPreviewRequest(_pdfPreviewRequest).mProducerEmail(_producerEmail).start();
+    public void openSendOrderListFlow(PDFPreviewRequest _pdfPreviewRequest, String _producerEmail, SendPDFRequest _sendPDFRequest) {
+        PreviewPDFActivity_.intent(this).mPDFPreviewRequest(_pdfPreviewRequest).mProducerEmail(_producerEmail).mSendPDFRequest(_sendPDFRequest).start();
     }
 
     @Override

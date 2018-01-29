@@ -43,6 +43,8 @@ public interface OrderContract {
         void showConfirmPopUp();
 
         void openCreateBankAccountFlow();
+
+        void initSendPdfInfo(boolean isSentEmpty);
     }
 
     interface Presenter extends RefreshablePresenter {
