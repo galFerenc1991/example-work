@@ -76,7 +76,7 @@ public class InputActivity extends AppCompatActivity {
                     etContent.setText(priceFromCash);
                 }
 
-                etContent.setInputType(InputType.TYPE_CLASS_NUMBER);
+                etContent.setRawInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 ivContentIndicator.setImageResource(R.drawable.ic_price);
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_PRICE_DESCRIPTION:
@@ -91,7 +91,7 @@ public class InputActivity extends AppCompatActivity {
                     etContent.setText(quantityFromCash);
                 }
                 ivContentIndicator.setImageResource(R.drawable.ic_payment);
-                etContent.setInputType(InputType.TYPE_CLASS_NUMBER);
+                etContent.setRawInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 break;
         }
     }
