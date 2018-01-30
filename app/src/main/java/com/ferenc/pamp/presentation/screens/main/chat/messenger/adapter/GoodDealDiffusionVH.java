@@ -77,7 +77,6 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
     public void bindData(MessagesDH data) {
 
         GoodDealResponse goodDealResponse = data.getGoodDealResponse();
-        MessageResponse messageResponse = data.getMessageResponse();
         Context context = data.getContext();
         User user = data.getMyUser();
         String deliveryStartDate = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryStartDate));

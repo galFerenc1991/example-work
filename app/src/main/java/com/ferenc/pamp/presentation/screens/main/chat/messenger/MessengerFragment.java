@@ -55,6 +55,7 @@ import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -275,6 +276,16 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     }
 
     @Override
+    public List<MessagesDH> getMessagesDHs() {
+        return mMessengerAdapter.getListDH();
+    }
+
+    @Override
+    public void updateItem(int _position) {
+        mMessengerAdapter.updateItem(_position);
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == Constants.REQUEST_CODE_CAMERA) {
@@ -373,6 +384,11 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     public void setMessagesList(List<MessagesDH> _list) {
         mScrollListener.reset();
         mMessengerAdapter.setListDH(_list);
+    }
+
+    @Override
+    public void changeItem(MessagesDH _item, int _position) {
+        mMessengerAdapter.changeItem(_item, _position);
     }
 
     @Override

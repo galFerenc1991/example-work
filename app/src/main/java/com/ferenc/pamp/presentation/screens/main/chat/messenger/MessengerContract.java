@@ -14,6 +14,7 @@ import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -62,6 +63,12 @@ public interface MessengerContract {
         void checkCameraPermission();
 
         void hideOrderBtn();
+
+        List<MessagesDH> getMessagesDHs();
+
+        void updateItem(int _position);
+
+        void changeItem(MessagesDH _messagesDH, int _position);
     }
 
     interface Presenter extends RefreshablePresenter {
