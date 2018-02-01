@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.text.method.DigitsKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -70,13 +71,14 @@ public class InputActivity extends AppCompatActivity {
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_PRICE:
                 String priceFromCash = String.valueOf(mGoodDealManager.getGoodDeal().getPrice());
+                etContent.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                etContent.setKeyListener(DigitsKeyListener.getInstance(false,true));
                 if (priceFromCash.equals("0")) {
                     etContent.setText("");
                 } else {
                     etContent.setText(priceFromCash);
                 }
 
-                etContent.setRawInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 ivContentIndicator.setImageResource(R.drawable.ic_price);
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_PRICE_DESCRIPTION:
@@ -84,14 +86,16 @@ public class InputActivity extends AppCompatActivity {
                 ivContentIndicator.setImageResource(R.drawable.ic_help);
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_QUANTITY:
+                etContent.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                etContent.setKeyListener(DigitsKeyListener.getInstance(false,true));
                 String quantityFromCash = String.valueOf(mGoodDealManager.getGoodDeal().getQuantity());
+
                 if (quantityFromCash.equals("0")) {
                     etContent.setText("");
                 } else {
                     etContent.setText(quantityFromCash);
                 }
                 ivContentIndicator.setImageResource(R.drawable.ic_payment);
-                etContent.setRawInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 break;
         }
     }
