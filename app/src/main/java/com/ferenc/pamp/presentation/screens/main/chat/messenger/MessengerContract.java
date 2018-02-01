@@ -69,6 +69,8 @@ public interface MessengerContract {
         void updateItem(int _position);
 
         void changeItem(MessagesDH _messagesDH, int _position);
+
+        void changeRecyclerViewLayoutParams(boolean _isChange);
     }
 
     interface Presenter extends RefreshablePresenter {

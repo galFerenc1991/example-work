@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -62,6 +63,8 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static android.app.Activity.RESULT_OK;
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 
 /**
@@ -141,6 +144,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
                 mSocketRepository, signedUserManager,
                 mContext, mGoodDealResponseManager, mGoodDealManager);
         avatarManager.attach(this);
+
     }
 
     @AfterViews
@@ -409,6 +413,12 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         etInputText.setText("");
     }
 
+    @Override
+    public void changeRecyclerViewLayoutParams(boolean _isChange) {
+        ViewGroup.LayoutParams params=rvMessages.getLayoutParams();
+        params.height= _isChange ? WRAP_CONTENT : MATCH_PARENT;
+        rvMessages.setLayoutParams(params);
+    }
 
     @Override
     public void onDestroy() {

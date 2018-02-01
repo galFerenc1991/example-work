@@ -142,6 +142,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
                     Collections.reverse(mMessagesDH);
 
+                    mView.changeRecyclerViewLayoutParams(mMessagesDH.size() == 1);
+
                     if (!isLoadMoreList)
                         mView.setMessagesList(mMessagesDH);
                     else
