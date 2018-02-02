@@ -15,6 +15,7 @@ import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ProposeRefreshR
 import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ReceivedRefreshRelay;
 import com.ferenc.pamp.presentation.screens.main.good_plan.good_plan_adapter.GoodPlanAdapter;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
+import com.ferenc.pamp.presentation.screens.main.good_plan.warning_relay.WarningRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -61,6 +62,8 @@ public class ProposedPlansFragment extends RefreshableFragment implements Propos
     protected GoodPlanAdapter mGoodPlanAdapter;
     @Bean
     protected ProposeRelay mProposeRelay;
+    @Bean
+    protected WarningRelay mWarningRelay;
 
     @Bean
     protected ProposeRefreshRelay mProposeRefreshRelay;
@@ -68,7 +71,7 @@ public class ProposedPlansFragment extends RefreshableFragment implements Propos
     @AfterInject
     @Override
     public void initPresenter() {
-        new ProposedPlansPresenter(this, mGoodDealRepository, mProposeRelay,mProposeRefreshRelay);
+        new ProposedPlansPresenter(this, mGoodDealRepository, mProposeRelay, mProposeRefreshRelay, mWarningRelay);
     }
 
     @AfterViews

@@ -3,7 +3,6 @@ package com.ferenc.pamp.data.model.home.good_deal;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.ferenc.pamp.data.model.common.Contributor;
 import com.ferenc.pamp.data.model.common.User;
 import com.google.gson.annotations.SerializedName;
 
@@ -33,10 +32,14 @@ public class GoodDealResponse implements Parcelable {
     @SerializedName("contributor")
     public User owner;
     public List<User> recipients;
+    private Attention attention;
     public String state;
     @SerializedName("_id")
     public String id;
 
+    public Attention getAttention() {
+        return attention;
+    }
 
     public GoodDealResponse() {
     }
@@ -59,10 +62,12 @@ public class GoodDealResponse implements Parcelable {
         dest.writeString(this.title);
         dest.writeValue(this.createdAt);
         dest.writeByte(this.isResend ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.hasOrders ? (byte) 1 : (byte) 0);
         dest.writeInt(this.rank);
         dest.writeString(this.unit);
         dest.writeParcelable(this.owner, flags);
         dest.writeTypedList(this.recipients);
+        dest.writeParcelable(this.attention, flags);
         dest.writeString(this.state);
         dest.writeString(this.id);
     }
@@ -79,10 +84,12 @@ public class GoodDealResponse implements Parcelable {
         this.title = in.readString();
         this.createdAt = (Long) in.readValue(Long.class.getClassLoader());
         this.isResend = in.readByte() != 0;
+        this.hasOrders = in.readByte() != 0;
         this.rank = in.readInt();
         this.unit = in.readString();
         this.owner = in.readParcelable(User.class.getClassLoader());
         this.recipients = in.createTypedArrayList(User.CREATOR);
+        this.attention = in.readParcelable(Attention.class.getClassLoader());
         this.state = in.readString();
         this.id = in.readString();
     }

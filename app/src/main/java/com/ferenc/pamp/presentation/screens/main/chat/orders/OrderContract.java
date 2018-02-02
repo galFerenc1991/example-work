@@ -3,6 +3,8 @@ package com.ferenc.pamp.presentation.screens.main.chat.orders;
 import com.ferenc.pamp.data.model.base.ListResponse;
 import com.ferenc.pamp.data.model.common.User;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
+import com.ferenc.pamp.data.model.home.orders.ChangeOrderDeliveryStateRequest;
+import com.ferenc.pamp.data.model.home.orders.MessageOrderResponse;
 import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.home.orders.OrdersList;
 import com.ferenc.pamp.presentation.base.BaseModel;
@@ -43,6 +45,12 @@ public interface OrderContract {
         void showConfirmPopUp();
 
         void openCreateBankAccountFlow();
+
+        void showChangeDeliveryProgress();
+
+        void hideChangeDeliveryProgress();
+
+        void updateOrder(OrderDH _changedDeliveryStatusOrder, int position);
     }
 
     interface Presenter extends RefreshablePresenter {
@@ -53,10 +61,15 @@ public interface OrderContract {
         void openCreateBankAccountFlow();
 
         void doConfirm();
+
+        void changeDeliveryState(OrderDH _orderDH, int _orderPosition);
     }
 
     interface Model extends BaseModel {
         Observable<ListResponse<Order>> getOrders(String _dealId, int _page);
+
+        Observable<MessageOrderResponse> changeDeliveryState(String _orderId, ChangeOrderDeliveryStateRequest _request);
+
     }
 
     interface GoodDealModel extends BaseModel {

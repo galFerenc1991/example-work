@@ -64,7 +64,7 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
     @AfterInject
     @Override
     public void initPresenter() {
-        new DeliveryDatePresenter(this, mGoodDealManager);
+        new DeliveryDatePresenter(this, mGoodDealManager, isRebroadcast);
 //        isRebroadcast = getIntent().getBooleanExtra(Constants.KEY_IS_REBROADCAST, false);
     }
 
@@ -81,6 +81,7 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
         }
 
         setClickListeners();
+        mPresenter.subscribe();
     }
 
     private void setClickListeners() {

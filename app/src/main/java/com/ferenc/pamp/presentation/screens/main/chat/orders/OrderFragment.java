@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ferenc.pamp.R;
@@ -70,6 +71,8 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     protected Button btnConfirmOrders;
     @ViewById(R.id.tvTitleOrderStatus_FCO)
     protected TextView tvTitleOrderStatus;
+    @ViewById(R.id.rlChangeOrderStatusProgress_FCO)
+    protected RelativeLayout rlChangeOrderStatusProgress;
 
     @Bean
     protected OrderAdapter mOrderAdapter;
@@ -92,7 +95,7 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     public void initPresenter() {
         new OrderPresenter(this, mOrderRepository, mGoodDealResponseManager, mGoodDealRepository, mUserRepository);
         mOrderAdapter.setOnCardClickListener((view, position, viewType) -> {
-
+            mPresenter.changeDeliveryState(mOrderAdapter.getItem(position), position);
         });
     }
 
@@ -187,6 +190,21 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     public void hidePlaceholderText() {
         tvPlaceHolder.setVisibility(View.GONE);
         tvTitleOrderStatus.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showChangeDeliveryProgress() {
+        rlChangeOrderStatusProgress.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideChangeDeliveryProgress() {
+        rlChangeOrderStatusProgress.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void updateOrder(OrderDH _changedDeliveryStatusOrder, int position) {
+        mOrderAdapter.changeItem(_changedDeliveryStatusOrder, position);
     }
 
     @Override

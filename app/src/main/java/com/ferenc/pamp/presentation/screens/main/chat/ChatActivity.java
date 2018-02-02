@@ -3,7 +3,6 @@ package com.ferenc.pamp.presentation.screens.main.chat;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,17 +10,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ferenc.pamp.R;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
-import com.ferenc.pamp.presentation.custom.SettingsActivity;
 import com.ferenc.pamp.presentation.custom.SettingsActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ProposeRefreshRelay;
 import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ReceivedRefreshRelay;
 import com.ferenc.pamp.presentation.screens.main.chat.participants.ParticipantsActivity_;
-import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.re_diffuser.ReDiffuserActivity_;
-import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
@@ -37,10 +32,8 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import static com.ferenc.pamp.presentation.utils.Constants.REQUEST_CODE_SETTINGS_ACTIVITY;
 
 /**
  * Created by shonliu on 12/13/17.
@@ -241,15 +234,6 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     public void onBackPressed() {
         mReceiveRefreshRelay.receivedRefreshRelay.accept(true);
         mProposeRefreshRelay.proposeRefreshRelay.accept(true);
-
-//        switch (fromWhere) {
-//            case Constants.ITEM_TYPE_RE_BROADCAST:
-//                mReceiveRefreshRelay.receivedRefreshRelay.accept(true);
-//                break;
-//            case Constants.ITEM_TYPE_REUSE:
-//                mProposeRefreshRelay.proposeRefreshRelay.accept(true);
-//                break;
-//        }
         finish();
     }
 

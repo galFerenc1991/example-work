@@ -39,7 +39,6 @@
                     style="@style/AuthTitleStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SYKA"
                     android:textColor="@color/textColorBlack" />
 
                 <TextView

@@ -14,7 +14,11 @@ public class Meta implements Parcelable {
     public int pages;
     public int limit;
     public int total;
+    public boolean attention;
 
+
+    public Meta() {
+    }
 
     @Override
     public int describeContents() {
@@ -27,9 +31,7 @@ public class Meta implements Parcelable {
         dest.writeInt(this.pages);
         dest.writeInt(this.limit);
         dest.writeInt(this.total);
-    }
-
-    public Meta() {
+        dest.writeByte(this.attention ? (byte) 1 : (byte) 0);
     }
 
     protected Meta(Parcel in) {
@@ -37,6 +39,7 @@ public class Meta implements Parcelable {
         this.pages = in.readInt();
         this.limit = in.readInt();
         this.total = in.readInt();
+        this.attention = in.readByte() != 0;
     }
 
     public static final Creator<Meta> CREATOR = new Creator<Meta>() {

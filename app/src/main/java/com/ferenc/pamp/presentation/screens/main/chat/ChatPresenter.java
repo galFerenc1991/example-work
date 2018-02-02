@@ -52,11 +52,12 @@ public class ChatPresenter implements ChatContract.Presenter {
 
     @Override
     public void subscribe() {
-        mView.setTitle(mGoodDealResponseManager.getGoodDealResponse().title);
         if (mDealId != null) {
             mView.showProgress();
             mCompositeDisposable.add(mModel.getDialId(mDealId)
                     .subscribe(goodDealResponse -> {
+                        mGoodDealResponse = goodDealResponse;
+                        mView.setTitle(mGoodDealResponse.title);
                         mView.hideProgress();
                         if (mSignedUserManager.getCurrentUser().getId().equals(goodDealResponse.owner.getId()))
                             mView.initFromWhere(Constants.ITEM_TYPE_REUSE);
@@ -91,6 +92,8 @@ public class ChatPresenter implements ChatContract.Presenter {
                     .setUnit(mGoodDealResponse.unit)
                     .setQuantity(mGoodDealResponse.quantity)
                     .setClosingDate(mGoodDealResponse.closingDate)
+                    .setDeliveryStartDate(mGoodDealResponse.deliveryStartDate)
+                    .setDeliveryEndDate(mGoodDealResponse.deliveryEndDate)
                     .build());
             mView.shareGoodDeal();
         } else {

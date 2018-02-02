@@ -4,6 +4,7 @@ import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ProposeRefreshRelay;
 import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ReceivedRefreshRelay;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
+import com.ferenc.pamp.presentation.screens.main.good_plan.warning_relay.WarningRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -21,6 +22,7 @@ public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
     private CompositeDisposable mCompositeDisposable;
     private ProposeRelay mProposeRelay;
     private ProposeRefreshRelay mProposeRefreshRelay;
+    private WarningRelay mWarningRelay;
 
     private int page;
     private int totalPages = Integer.MAX_VALUE;
@@ -29,12 +31,14 @@ public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
     public ProposedPlansPresenter(ProposedPlansContract.View mView,
                                   ProposedPlansContract.Model _goodDealRepository,
                                   ProposeRelay _proposeRelay,
-                                  ProposeRefreshRelay _proposeRefreshRelay) {
+                                  ProposeRefreshRelay _proposeRefreshRelay,
+                                  WarningRelay _warningRelay) {
         this.mView = mView;
         this.mModel = _goodDealRepository;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mProposeRelay = _proposeRelay;
         this.mProposeRefreshRelay = _proposeRefreshRelay;
+        this.mWarningRelay = _warningRelay;
         this.page = 1;
         needRefresh = true;
 
@@ -61,6 +65,7 @@ public class ProposedPlansPresenter implements ProposedPlansContract.Presenter {
                     mView.hideProgress();
                     this.page = _page;
                     totalPages = goodDealResponseListResponse.meta.pages;
+                    mWarningRelay.proposeRelay.accept(goodDealResponseListResponse.meta.attention);
                     if (page == 1) {
                         mView.setProposedGoodPlanList(goodDealResponseListResponse.data);
                         needRefresh = goodDealResponseListResponse.data.isEmpty();

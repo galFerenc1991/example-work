@@ -138,7 +138,7 @@
     <string name="msg_empty_received_good_plans">Partager l’appli \npour + de \nbons plans !</string>
     <string name="msg_empty_proposed_good_plans">Proposer votre \npremier bon plan… \nC’est tellement bon !</string>
     <string name="msg_share">Je vous recommande \ncet appli: PAMP ... nous \npourrons partager \nfacilement tous nos \nbons plans de petits \nproducteurs.\nHttps//:AppStore.pamp .com</string>
-    <string name="msg_send_good_deal">Je vous envoi bon plan ... á retrouver sur PAMP en téléchargeant I'appli</string>
+    <string name="msg_send_good_deal">"Je vous envoi bon plan ... á retrouver sur PAMP en téléchargeant I'appli"</string>
     <string name="msg_send_good_deal_without_account">Je vous envoi un bon plan à retrouver sur PAMP. Si vous n\'avez pas l\'appli (ou de compte), telechargez là, créez-vous un compte et revenez ensuite sur ce lien pour récuperer votre bon plan.</string>
 
 
@@ -231,6 +231,8 @@
     <!--Delivery propose-->
     <string name="text_title_delivery">Paramétrer les conditions pour répondre et récupérer les produits</string>
     <string name="text_description_delivery">Vous pourrez la changer à tout moment, tout au long du bon plan</string>
+    <string name="text_help_to_delivery_date">Date de livraison du bon plan rediffusé : </string>
+
 
     <!--Profile texts-->
     <string name="text_profile_information">Vos informations de profil</string>
@@ -278,7 +280,9 @@
     <string name="send_order_list_producer">Producteur</string>
     <string name="send_my_order">Detail Commande</string>
 
-
+    <!--Changed Delivery Date Notification PopUP-->
+    <string name="text_change_delivery_date_notif_first_message">Verifiez bien vorte capacité á organiser vorte propre livraison par reapport á cette date</string>
+    <string name="text_change_delivery_date_notif_second_message">"en revalidant vorte date de liuvraison ou en l'adaptant"</string>
 
     <!--BBankCardCard Input texts-->
     <string name="text_card_number">Numéro de carte</string>

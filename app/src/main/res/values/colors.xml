@@ -28,6 +28,7 @@
     <color name="colorBackgroundSendOrderListLine">#95989A</color>
     <color name="colorBackgroundReUseGoodDealList">#FFF157</color>
     <color name="colorBackGroundReuse">#41805C</color>
+    <color name="colorWarning">#FF4444</color>
 
 
     <!--Text color-->
@@ -60,4 +61,6 @@
     <color name="textSelectedPreference">#2997a1</color>
 
     <color name="black_transparent">#c8000000</color>
+    <color name="black_height_transparent">#96000000</color>
+
 </resources>

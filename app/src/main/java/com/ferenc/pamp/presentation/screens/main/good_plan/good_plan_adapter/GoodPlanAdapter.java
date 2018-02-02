@@ -1,6 +1,5 @@
 package com.ferenc.pamp.presentation.screens.main.good_plan.good_plan_adapter;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -14,13 +13,11 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
-import com.ferenc.pamp.PampApp;
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.api.RestConst;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
-import com.ferenc.pamp.presentation.base.models.GoodDeal;
 import com.ferenc.pamp.presentation.screens.main.chat.ChatActivity_;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
 import com.ferenc.pamp.presentation.screens.main.good_plan.received.receive_relay.ReceiveRelay;
@@ -55,6 +52,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
         public TextView tvPlanStatus;
         public TextView tvTimeBeforeClosing;
         public ImageView ivReuseIndicator;
+        private ImageView ivNotif;
 
         public RelativeLayout rlReuse;
         public RelativeLayout rlReBroadcast;
@@ -72,6 +70,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
             rlReuse = (RelativeLayout) itemView.findViewById(R.id.rlReuse_VR);
             rlReBroadcast = (RelativeLayout) itemView.findViewById(R.id.rlReBroadcast_VRB);
             rlRootLayout = (RelativeLayout) itemView.findViewById(R.id.rlRootLayout_LIGP);
+            ivNotif = itemView.findViewById(R.id.ivNotif_LIDP);
 
 
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
@@ -163,21 +162,24 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
             case Constants.STATE_CLOSED:
                 viewHolder.tvPlanStatus.setVisibility(View.GONE);
                 viewHolder.tvTimeBeforeClosing.setVisibility(View.VISIBLE);
-                viewHolder.tvTimeBeforeClosing.setText(goodDealResponse.state);
+                viewHolder.tvTimeBeforeClosing.setText(Constants.STATE_CLOSED_FRANCE);
                 break;
             case Constants.STATE_CANCELED:
                 viewHolder.tvPlanStatus.setVisibility(View.VISIBLE);
                 viewHolder.tvTimeBeforeClosing.setVisibility(View.GONE);
-                viewHolder.tvPlanStatus.setText(goodDealResponse.state);
+                viewHolder.tvPlanStatus.setText(Constants.STATE_CANCELED_FRANCE);
                 viewHolder.tvPlanStatus.setTextColor(context.getResources().getColor(R.color.textColorRed));
                 break;
             case Constants.STATE_CONFIRM:
                 viewHolder.tvPlanStatus.setVisibility(View.VISIBLE);
                 viewHolder.tvTimeBeforeClosing.setVisibility(View.GONE);
-                viewHolder.tvPlanStatus.setText(goodDealResponse.state);
+                viewHolder.tvPlanStatus.setText(Constants.STATE_CONFIRM_FRANCE);
                 viewHolder.tvPlanStatus.setTextColor(context.getResources().getColor(R.color.textColorGreen));
                 break;
         }
+
+        if (goodDealResponse.getAttention() == null) viewHolder.ivNotif.setVisibility(View.GONE);
+        else viewHolder.ivNotif.setVisibility(View.VISIBLE);
 
         if (mGoodPlanItemType == Constants.ITEM_TYPE_RE_BROADCAST) {
             viewHolder.rlReBroadcast.setOnClickListener(view -> {
@@ -194,11 +196,12 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
         }
 
         viewHolder.rlRootLayout.setOnClickListener(view -> {
-                    mGoodDealManager.saveGoodDeal(getGoodDealFromItem(goodDealResponse));
+//                    mGoodDealManager.saveGoodDeal(getGoodDealFromItem(goodDealResponse));
                     mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                     ChatActivity_
                             .intent(context)
-                            .fromWhere(mGoodPlanItemType)
+//                            .fromWhere(mGoodPlanItemType)
+                            .mDealId(goodDealResponse.id)
                             .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .start();
                 }
@@ -245,6 +248,8 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
                 .setUnit(_goodDealResponse.unit)
                 .setQuantity(_goodDealResponse.quantity)
                 .setClosingDate(_goodDealResponse.closingDate)
+                .setDeliveryStartDate(_goodDealResponse.deliveryStartDate)
+                .setDeliveryEndDate(_goodDealResponse.deliveryEndDate)
                 .build();
     }
 

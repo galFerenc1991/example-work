@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders;
 
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.data.model.home.orders.ChangeOrderDeliveryStateRequest;
 import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.home.orders.OrdersList;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.order_adapter.OrderAdapter;
@@ -195,6 +196,24 @@ public class OrderPresenter implements OrderContract.Presenter {
         }
     }
 
+    @Override
+    public void changeDeliveryState(OrderDH _orderDH, int position) {
+        boolean delivered = !_orderDH.getmOrder().isDelivered();
+        mView.showChangeDeliveryProgress();
+        ChangeOrderDeliveryStateRequest request = new ChangeOrderDeliveryStateRequest();
+        request.setDealId(mGoodDealResponseManager.getGoodDealResponse().id);
+        request.setDelivered(delivered);
+        mCompositeDisposable.add(mModel.changeDeliveryState(_orderDH.getmOrder().getId(), request)
+                .subscribe(messageOrderResponse -> {
+                    mView.hideChangeDeliveryProgress();
+                    OrderDH changedDeliveredStatusOrder = _orderDH;
+                    changedDeliveredStatusOrder.getmOrder().setDelivered(delivered);
+                    mView.updateOrder(changedDeliveredStatusOrder, position);
+                }, throwable -> {
+                    mView.hideChangeDeliveryProgress();
+                    mView.updateOrder(_orderDH, position);
+                }));
+    }
 
     @Override
     public void openCreateBankAccountFlow() {

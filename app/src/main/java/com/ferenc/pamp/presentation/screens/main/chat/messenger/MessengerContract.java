@@ -62,6 +62,8 @@ public interface MessengerContract {
         void checkCameraPermission();
 
         void hideOrderBtn();
+
+        void openDeliveryDateChangedNotif(String _title);
     }
 
     interface Presenter extends RefreshablePresenter {

@@ -26,6 +26,8 @@ public interface DeliveryContract {
 
         void setProductDescription(String _nameDescription);
 
+        void setHelpToDeliveryDateText(String _help);
+
         void setDeliveryDate(String _deliveryDate);
 
         void setDeliveryPlace(String _deliveryPlace);

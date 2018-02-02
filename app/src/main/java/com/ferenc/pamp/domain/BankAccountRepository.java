@@ -4,6 +4,7 @@ import com.ferenc.pamp.data.api.Rest;
 import com.ferenc.pamp.data.model.auth.TokenRequest;
 import com.ferenc.pamp.data.model.common.BankAccount;
 import com.ferenc.pamp.data.model.common.User;
+import com.ferenc.pamp.data.model.home.bank_account.BankAccountRequest;
 import com.ferenc.pamp.data.service.BankAccountService;
 import com.ferenc.pamp.data.service.CardService;
 import com.ferenc.pamp.presentation.custom.bank_account.BankAccountContract;
@@ -38,7 +39,17 @@ public class BankAccountRepository extends NetworkRepository implements BankAcco
     }
 
     @Override
-    public Observable<BankAccount> attachBankAccount(TokenRequest request) {
+    public Observable<BankAccount> attachBankAccount(BankAccountRequest request) {
+        return getNetworkObservable(bankAccountService.attachBankAccount(request)
+                .flatMap(bankAccount -> {
+                    User user = mSignedUserManager.getCurrentUser();
+                    user.setBankAccount(bankAccount);
+                    return Observable.just(bankAccount);
+                }));
+    }
+
+    @Override
+    public Observable<BankAccount> updateBankAccount(BankAccountRequest request) {
         return getNetworkObservable(bankAccountService.attachBankAccount(request)
                 .flatMap(bankAccount -> {
                     User user = mSignedUserManager.getCurrentUser();

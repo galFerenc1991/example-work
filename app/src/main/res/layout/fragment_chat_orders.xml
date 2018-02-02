@@ -95,4 +95,17 @@
         android:text="@string/button_confirm_orders"
         android:visibility="gone" />
 
+    <RelativeLayout
+        android:id="@+id/rlChangeOrderStatusProgress_FCO"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_height_transparent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
 </RelativeLayout>

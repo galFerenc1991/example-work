@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
@@ -353,10 +354,26 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     }
 
     @Override
+    public void openDeliveryDateChangedNotif(String _title) {
+        View dialogViewTitle = LayoutInflater.from(getContext())
+                .inflate(R.layout.view_title_notification_pop_up, null, false);
+        TextView textView = dialogViewTitle.findViewById(R.id.tvTitle);
+        textView.setText(_title);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity, R.style.DialogTheme);
+        builder.setCustomTitle(dialogViewTitle)
+                .setView(R.layout.view_delivery_date_changed_pop_up_message)
+                .setPositiveButton(R.string.button_ok, (dialog, which) -> {
+                    mPresenter.changeDeliveryDateAction();
+                })
+                .setCancelable(false)
+                .create()
+                .show();
+    }
+
+    @Override
     public void openEndFlowScreen() {
         EndFlowActivity_
                 .intent(this)
-//                .mIsCreatedFlow(false)
                 .mFlow(Constants.NOT_CREATE_FLOW)
                 .fromWhere(Constants.ITEM_TYPE_REUSE)
                 .mGoodDealResponse(mGoodDealResponseManager.getGoodDealResponse())

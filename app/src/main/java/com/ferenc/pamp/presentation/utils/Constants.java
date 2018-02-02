@@ -84,6 +84,11 @@ public abstract class Constants {
     public static final String STATE_PROGRESS = "progress";
     public static final String STATE_CONFIRM = "confirmed";
 
+    /*GOOD DEAL STATES FRANCE*/
+    public static final String STATE_CANCELED_FRANCE = "Annulé";
+    public static final String STATE_CLOSED_FRANCE = "Clos";
+    public static final String STATE_CONFIRM_FRANCE = "Confirmé";
+
     /*ORDER STATUS*/
     public static final String STATUS_CONFIRMED_TEXT = "Confirmé";
     public static final String STATUS_CANCELED_TEXT = "Annulé";
