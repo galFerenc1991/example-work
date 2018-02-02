@@ -60,8 +60,11 @@ public class OrderPresenter implements OrderContract.Presenter {
     @Override
     public void subscribe() {
         setDealInfo();
-        if (mIsOriginal && mDealStatus.equals(Constants.STATE_CLOSED)) mView.showConfButton();
-        else mView.hideConfButton();
+
+        if (mIsOriginal && mDealStatus.equals(Constants.STATE_CLOSED) && mGoodDealResponseManager.getGoodDealResponse().hasOrders) {
+            mView.initSendPdfInfo(mGoodDealResponseManager.getGoodDealResponse().sent != null);
+            mView.showConfButton();
+        } else mView.hideConfButton();
 
         if (needRefresh) {
             mView.showProgressMain();

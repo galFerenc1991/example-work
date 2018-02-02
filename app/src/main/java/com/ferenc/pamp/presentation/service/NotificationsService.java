@@ -28,11 +28,11 @@ public class NotificationsService extends FirebaseMessagingService {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channelId")
-                .setSmallIcon(R.drawable.ic_pamp_logo)
-                .setContentTitle(remoteMessage.getNotification().getTitle())
-                .setContentText(remoteMessage.getNotification().getBody())
-                .setContentIntent(pendingIntent);
-//                .setAutoCancel(true);
+                .setSmallIcon(R.drawable.pamp_logo_smaller)
+                .setContentTitle(remoteMessage.getNotification() != null ? remoteMessage.getNotification().getTitle() : "")
+                .setContentText(remoteMessage.getNotification() != null ? remoteMessage.getNotification().getBody() : "")
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());

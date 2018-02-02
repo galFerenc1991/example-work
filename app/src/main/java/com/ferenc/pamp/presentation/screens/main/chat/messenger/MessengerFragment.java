@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -55,12 +56,15 @@ import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static android.app.Activity.RESULT_OK;
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 
 /**
@@ -140,6 +144,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
                 mSocketRepository, signedUserManager,
                 mContext, mGoodDealResponseManager, mGoodDealManager);
         avatarManager.attach(this);
+
     }
 
     @AfterViews
@@ -275,6 +280,16 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     }
 
     @Override
+    public List<MessagesDH> getMessagesDHs() {
+        return mMessengerAdapter.getListDH();
+    }
+
+    @Override
+    public void updateItem(int _position) {
+        mMessengerAdapter.updateItem(_position);
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == Constants.REQUEST_CODE_CAMERA) {
@@ -376,6 +391,11 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     }
 
     @Override
+    public void changeItem(MessagesDH _item, int _position) {
+        mMessengerAdapter.changeItem(_item, _position);
+    }
+
+    @Override
     public void addMessagesList(List<MessagesDH> _list) {
         mMessengerAdapter.addListDH(_list);
     }
@@ -393,6 +413,12 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         etInputText.setText("");
     }
 
+    @Override
+    public void changeRecyclerViewLayoutParams(boolean _isChange) {
+        ViewGroup.LayoutParams params=rvMessages.getLayoutParams();
+        params.height= _isChange ? WRAP_CONTENT : MATCH_PARENT;
+        rvMessages.setLayoutParams(params);
+    }
 
     @Override
     public void onDestroy() {

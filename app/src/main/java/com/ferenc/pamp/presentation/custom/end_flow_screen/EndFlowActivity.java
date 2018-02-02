@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.screens.main.chat.ChatActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.participants.ParticipantsActivity_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -59,6 +60,9 @@ public class EndFlowActivity extends AppCompatActivity {
             case Constants.ATTACH_BANK_ACCOUNT_FLOW:
                 tvEndFlowMassage.setText(R.string.text_bank_account_attached);
                 break;
+            case Constants.ADD_PARTICIPANT_FLOW:
+                tvEndFlowMassage.setText(R.string.text_participant_added);
+                break;
         }
 //        if (!mIsCreatedFlow) {
 //            ivSuccess.setImageResource(R.drawable.ic_close_big_red);
@@ -79,6 +83,9 @@ public class EndFlowActivity extends AppCompatActivity {
                             finish();
                             break;
                         case Constants.ATTACH_BANK_ACCOUNT_FLOW:
+                            finish();
+                            break;
+                        case Constants.ADD_PARTICIPANT_FLOW:
                             finish();
                             break;
                     }

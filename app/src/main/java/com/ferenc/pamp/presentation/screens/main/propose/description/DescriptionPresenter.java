@@ -80,7 +80,7 @@ public class DescriptionPresenter implements DescriptionContract.Presenter {
     public void saveQuantity(String _quantity) {
         mGoodDeal = mGoodDealManager.getGoodDeal();
         if (!_quantity.equals("")) {
-            mGoodDeal.setQuantity(Integer.valueOf(_quantity));
+            mGoodDeal.setQuantity(Double.valueOf(_quantity));
             mView.setQuantity(String.valueOf(_quantity));
         } else {
             mGoodDeal.setQuantity(0);

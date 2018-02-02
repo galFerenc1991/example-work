@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.screens.main.chat.orders.producer;
 
 
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
+import com.ferenc.pamp.data.model.home.orders.SendPDFRequest;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.jakewharton.rxrelay2.PublishRelay;
 
@@ -56,7 +57,7 @@ public class SendOrderListPresenter implements SendOrderListContract.Presenter {
     @Override
     public void clickValider(String _id, String _dealId, int _quantity, String _producerEmail) {
         PDFPreviewRequest pdfPreviewRequest = new PDFPreviewRequest(_id, _dealId, _quantity);
-        mView.openSendOrderListFlow(pdfPreviewRequest, _producerEmail);
+        mView.openSendOrderListFlow(pdfPreviewRequest, _producerEmail, new SendPDFRequest(_dealId, _id));
     }
 
     @Override

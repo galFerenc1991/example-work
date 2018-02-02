@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewResponse;
+import com.ferenc.pamp.data.model.home.orders.SendPDFRequest;
 import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -62,6 +63,9 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     protected PDFPreviewRequest mPDFPreviewRequest;
 
     @Extra
+    protected SendPDFRequest mSendPDFRequest;
+
+    @Extra
     protected String mProducerEmail;
 
     @Extra
@@ -74,7 +78,7 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     @Override
     public void initPresenter() {
         mIsFromOrderList = TextUtils.isEmpty(mOrderId);
-        new PreviewPDFPresenter(this, mOrderRepository, mPDFPreviewRequest, this, mProducerEmail, mOrderId, mIsFromOrderList);
+        new PreviewPDFPresenter(this, mOrderRepository, mPDFPreviewRequest, this, mProducerEmail, mOrderId, mIsFromOrderList, mSendPDFRequest);
     }
 
     @AfterViews

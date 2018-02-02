@@ -7,6 +7,7 @@ import com.ferenc.pamp.data.model.home.orders.OrderRequest;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewResponse;
 import com.ferenc.pamp.data.model.home.orders.Producer;
+import com.ferenc.pamp.data.model.home.orders.SendPDFRequest;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -55,6 +56,10 @@ public interface OrderService {
                                              @Query("limit") int limit);
     @POST("/producer/{id}")
     Observable<PDFPreviewResponse> sendPurchase(@Path("id") String _producerID, @Body PDFPreviewRequest _requestBody);
+
+    @PUT("/producer/sent")
+    Observable<Object> sendPDFToProducer(@Body SendPDFRequest _requestBody);
+
 
     @GET("/order/{id}")
     Observable<PDFPreviewResponse> getOrderDetails(@Path("id") String _orderId);

@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.screens.main.propose.share;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -23,6 +24,7 @@ import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
 import com.ferenc.pamp.presentation.custom.end_flow_screen.EndFlowActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.participants.ParticipantsActivity;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -154,7 +156,15 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
                         .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .start();
             } else {
-                getActivity().finish();
+                //лишив на случай кіть захочуть обратно вернути...
+//                EndFlowActivity_
+//                        .intent(this)
+//                        .mFlow(Constants.ADD_PARTICIPANT_FLOW)
+//                        .fromWhere(Constants.ITEM_TYPE_REUSE)
+//                        .mGoodDealResponse(mGoodDealResponse)
+//                        .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        .start();
+
             }
         }
     }

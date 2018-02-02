@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.preview_p
 
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewResponse;
+import com.ferenc.pamp.data.model.home.orders.SendPDFRequest;
 import com.ferenc.pamp.presentation.base.BaseModel;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.BaseView;
@@ -54,6 +55,8 @@ public interface PreviewPDFContract {
         Observable<PDFPreviewResponse> getPDFPreview(String _producerId, PDFPreviewRequest _requestBody);
 
         Observable<PDFPreviewResponse> getPDFPreview(String _orderId);
+
+        Observable<Object> sendPDFToProducer(SendPDFRequest _requestBody);
 
     }
 
