@@ -44,7 +44,7 @@ public class MessagesDH implements RecyclerDH {
         return mContext;
     }
 
-    int getMsgGroupType() {
+    public int getMsgGroupType() {
         return mCode;
     }
 }

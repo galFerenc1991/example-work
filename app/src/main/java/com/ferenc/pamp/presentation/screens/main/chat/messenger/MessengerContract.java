@@ -2,10 +2,8 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 
 import com.ferenc.pamp.data.model.base.ListResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealCancelResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
-import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.presentation.base.BaseModel;
 import com.ferenc.pamp.presentation.base.BaseView;
@@ -14,6 +12,7 @@ import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -64,6 +63,14 @@ public interface MessengerContract {
         void hideOrderBtn();
 
         void openDeliveryDateChangedNotif(String _title);
+
+        List<MessagesDH> getMessagesDHs();
+
+        void updateItem(int _position);
+
+        void changeItem(MessagesDH _messagesDH, int _position);
+
+        void changeRecyclerViewLayoutParams(boolean _isChange);
     }
 
     interface Presenter extends RefreshablePresenter {

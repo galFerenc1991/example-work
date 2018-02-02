@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders.producer;
 
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
+import com.ferenc.pamp.data.model.home.orders.SendPDFRequest;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.BaseView;
 
@@ -16,7 +17,7 @@ public interface SendOrderListContract {
 
         void setProducer(String name);
 
-        void openSendOrderListFlow(PDFPreviewRequest _pdfPreviewRequest, String _producerEmail);
+        void openSendOrderListFlow(PDFPreviewRequest _pdfPreviewRequest, String _producerEmail, SendPDFRequest _sendPDFRequest);
 
         void setValidateButtonEnabled(boolean _isEnabled);
 

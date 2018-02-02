@@ -258,6 +258,7 @@
     <string name="type_a_message">Type a message..</string>
     <string name="bon_plan">BON PLAN</string>
     <string name="text_bank_account_attached">Vos données bancaires ont été enregistrées</string>
+    <string name="text_participant_added">Le bon plan a été envoyé\naux nouveaux destinataires</string>
     <string name="text_message_good_deal_diffusion_quant_max">Quantité max. : </string>
     <string name="text_message_good_deal_diffusion_no_quant_max">pas de quantité max</string>
 
@@ -301,5 +302,6 @@
     <string name="text_about_cgu">CGU</string>
     <string name="text_about_rules">Charte de confidentialité</string>
     <string name="text_about_about_us">Nos mission, nos valeurs</string>
+    <string name="text_send_pdf_to_producer">Commande envoyée au producteur le:</string>
 
 </resources>

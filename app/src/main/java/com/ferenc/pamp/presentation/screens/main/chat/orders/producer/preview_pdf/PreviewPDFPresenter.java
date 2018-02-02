@@ -5,11 +5,13 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewResponse;
+import com.ferenc.pamp.data.model.home.orders.SendPDFRequest;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 
@@ -42,6 +44,7 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
     private String mProducerEmail;
     private String mOrderId;
     private boolean isFromOrderList;
+    private SendPDFRequest mSendPDFRequest;
 
     public PreviewPDFPresenter(PreviewPDFContract.View _view,
                                PreviewPDFContract.Model _model,
@@ -49,7 +52,8 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
                                PreviewPDFActivity _activity,
                                String _producerEmail,
                                String _orderId,
-                               boolean _isFromOrderList) {
+                               boolean _isFromOrderList,
+                               SendPDFRequest _sendPDFRequest) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
@@ -58,6 +62,7 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
         this.mProducerEmail = _producerEmail;
         this.mOrderId = _orderId;
         this.isFromOrderList = _isFromOrderList;
+        this.mSendPDFRequest = _sendPDFRequest;
         mView.setPresenter(this);
     }
 
@@ -126,6 +131,7 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
                 .subscribe(file ->{
                     mView.hideProgress(false);
                     sharePDF(file);
+                    sendPDFToProducer();
                 }, throwableConsumer));
     }
 
@@ -149,5 +155,12 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
                 .addStream(fileUri)
                 .getIntent();
         mActivity.startActivity(shareIntent);
+    }
+
+    private void sendPDFToProducer() {
+        mCompositeDisposable.add(mModel.sendPDFToProducer(mSendPDFRequest)
+                .subscribe(object -> {
+                    Log.d("sendPDFToProducer", "Success");
+                }, throwableConsumer));
     }
 }

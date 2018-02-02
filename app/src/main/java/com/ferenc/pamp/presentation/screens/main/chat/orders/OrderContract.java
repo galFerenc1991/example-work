@@ -51,6 +51,8 @@ public interface OrderContract {
         void hideChangeDeliveryProgress();
 
         void updateOrder(OrderDH _changedDeliveryStatusOrder, int position);
+
+        void initSendPdfInfo(boolean isSentEmpty);
     }
 
     interface Presenter extends RefreshablePresenter {

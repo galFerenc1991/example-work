@@ -11,6 +11,7 @@ import com.ferenc.pamp.data.model.home.orders.OrderRequest;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewResponse;
 import com.ferenc.pamp.data.model.home.orders.Producer;
+import com.ferenc.pamp.data.model.home.orders.SendPDFRequest;
 import com.ferenc.pamp.data.service.OrderService;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_pop_up.CreateOrderPopUpContract;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.save_card.SaveCardContract;
@@ -98,6 +99,11 @@ public class OrderRepository extends NetworkRepository implements
     @Override
     public Observable<PDFPreviewResponse> getPDFPreview(String _producerId, PDFPreviewRequest _requestBody) {
         return getNetworkObservable(orderService.sendPurchase(_producerId, _requestBody));
+    }
+
+    @Override
+    public Observable<Object> sendPDFToProducer(SendPDFRequest _requestBody) {
+        return getNetworkObservable(orderService.sendPDFToProducer(_requestBody));
     }
 
     @Override

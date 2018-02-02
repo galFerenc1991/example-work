@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -98,7 +99,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         initCreateOrderButton();
         connectSocket();
         getMessage();
-
+        mView.getMessagesDHs();
         loadData(mPage, false);
     }
 
@@ -126,7 +127,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 .subscribe(messageResponse -> {
                     mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
                     mView.addItem(mMessagesDH);
-                    changeGoodDealState(messageResponse.code);
+                    changeGoodDeal(messageResponse.code, messageResponse);
                 }, throwable -> {
                     Log.d("MessengerPresenter", "Error while getting new message " + throwable.getMessage());
                 }));
@@ -149,6 +150,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                     }
 
                     Collections.reverse(mMessagesDH);
+
+                    mView.changeRecyclerViewLayoutParams(mMessagesDH.size() == 1);
 
                     if (!isLoadMoreList)
                         mView.setMessagesList(mMessagesDH);
@@ -240,6 +243,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 .setClosingDate(_changedCloseDate.getTimeInMillis())
                 .build())
                 .subscribe(goodDealResponse -> {
+                    saveGoodDeal(goodDealResponse);
                     mView.hideProgress();
                 }, throwable -> {
                     mView.hideProgress();
@@ -256,6 +260,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 .setDeliveryEndDate(mGoodDealManager.getGoodDeal().getDeliveryEndDate())
                 .build())
                 .subscribe(goodDealResponse -> {
+                    saveGoodDeal(goodDealResponse);
+                    changeDeliveryDateItem();
                     mView.hideProgress();
                 }, throwable -> {
                     mView.hideProgress();
@@ -360,9 +366,14 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         }
     }
 
-    private void changeGoodDealState(String _code) {
+    private void changeGoodDeal(String _code, MessageResponse _messageResponse) {
         GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
         switch (_code) {
+            case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
+                goodDealResponse.deliveryStartDate = _messageResponse.description.deliveryStartDate;
+                goodDealResponse.deliveryEndDate = _messageResponse.description.deliveryEndDate;
+                changeDeliveryDateItem();
+                break;
             case Constants.M8_GOOD_DEAL_CANCELLATION:
                 goodDealResponse.state = Constants.STATE_CANCELED;
                 mView.hideOrderBtn();
@@ -376,7 +387,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 mView.hideOrderBtn();
                 break;
         }
-        mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
+        saveGoodDeal(goodDealResponse);
     }
 
     private String getBase64(File _croppedFile) {
@@ -406,5 +417,23 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     public void unsubscribe() {
         disconnectSocket();
         mCompositeDisposable.clear();
+    }
+
+    private void changeDeliveryDateItem() {
+        for (MessagesDH messagesDH:mView.getMessagesDHs())
+            if (messagesDH.getMsgGroupType() == Constants.M1_MSG_GROUP_TYPE) {
+                mView.changeItem(new MessagesDH(
+                                null,
+                                mGoodDealResponse,
+                                mSignedUserManager.getCurrentUser(),
+                                mContext,
+                                Constants.M1_MSG_GROUP_TYPE),
+                        mView.getMessagesDHs().size() - 1
+                );
+            }
+    }
+    private void saveGoodDeal(GoodDealResponse _goodDeal) {
+        mGoodDealResponse = _goodDeal;
+        mGoodDealResponseManager.saveGoodDealResponse(_goodDeal);
     }
 }
