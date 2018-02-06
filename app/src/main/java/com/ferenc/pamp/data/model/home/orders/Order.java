@@ -12,13 +12,14 @@ import com.google.gson.annotations.SerializedName;
  * Ferenc on 2017.12.20..
  */
 
-public class Order implements Parcelable{
+public class Order implements Parcelable {
     @SerializedName("_id")
     private String id;
     private String state;
     private double price;
     private boolean delivered;
     private double quantity;
+    private int rank;
     private User user;
     private GoodDealResponse deal;
 
@@ -74,11 +75,16 @@ public class Order implements Parcelable{
         return deal;
     }
 
+    public int getRank() {
+        return rank;
+    }
+
     public Order() {
     }
 
     public Order(double price, double quantity) {
         this.price = price;
+        this.quantity = quantity;
     }
 
     @Override
@@ -93,6 +99,7 @@ public class Order implements Parcelable{
         dest.writeDouble(this.price);
         dest.writeByte(this.delivered ? (byte) 1 : (byte) 0);
         dest.writeDouble(this.quantity);
+        dest.writeInt(this.rank);
         dest.writeParcelable(this.user, flags);
         dest.writeParcelable(this.deal, flags);
     }
@@ -103,6 +110,7 @@ public class Order implements Parcelable{
         this.price = in.readDouble();
         this.delivered = in.readByte() != 0;
         this.quantity = in.readDouble();
+        this.rank = in.readInt();
         this.user = in.readParcelable(User.class.getClassLoader());
         this.deal = in.readParcelable(GoodDealResponse.class.getClassLoader());
     }

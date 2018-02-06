@@ -4,6 +4,7 @@ import com.ferenc.pamp.data.api.Rest;
 import com.ferenc.pamp.data.api.RestConst;
 import com.ferenc.pamp.data.model.base.ListResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.data.model.home.orders.ChangeOrderDeliveryStateRequest;
 import com.ferenc.pamp.data.model.home.orders.MessageOrderResponse;
 import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.home.orders.OrderRequest;
@@ -129,5 +130,10 @@ public class OrderRepository extends NetworkRepository implements
     @Override
     public Observable<ListResponse<Order>> getMyOrders(int _page) {
         return getNetworkObservable(orderService.getMyOrders(_page, 20));
+    }
+
+    @Override
+    public Observable<MessageOrderResponse> changeDeliveryState(String _orderId, ChangeOrderDeliveryStateRequest _request) {
+        return getNetworkObservable(orderService.changeDeliveryState(_orderId, _request));
     }
 }

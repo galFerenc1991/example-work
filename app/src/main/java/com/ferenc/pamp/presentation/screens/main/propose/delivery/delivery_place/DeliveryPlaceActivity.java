@@ -28,6 +28,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 
@@ -63,10 +64,13 @@ public class DeliveryPlaceActivity extends AppCompatActivity implements Delivery
     @Bean
     protected DeliveryPlaceAdapter mDeliveryPlaceAdapter;
 
+    @Extra
+    protected boolean isRebroadcast;
+
     @AfterInject
     @Override
     public void initPresenter() {
-        new DeliveryPlacePresenter(this, mGoodDealRepository);
+        new DeliveryPlacePresenter(this, mGoodDealRepository, isRebroadcast);
         mDeliveryPlaceAdapter.setOnCardClickListener((view, position, viewType) ->
                 mPresenter.selectItem(mDeliveryPlaceAdapter.getItem(position), position)
         );
@@ -83,7 +87,7 @@ public class DeliveryPlaceActivity extends AppCompatActivity implements Delivery
         rvCountries.setLayoutManager(new LinearLayoutManager(this));
         rvCountries.setAdapter(mDeliveryPlaceAdapter);
 
-        if (getIntent().getBooleanExtra(Constants.KEY_IS_REBROADCAST, false)){
+        if (isRebroadcast){
             setTheme(R.style.ReBroadcastTheme);
             ivBack.setImageResource(R.drawable.ic_arrow_back_yellow);
             tvAddress.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_add_circle_yellow, 0, 0, 0);

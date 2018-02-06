@@ -1,5 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders;
 
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
+import com.ferenc.pamp.data.model.home.orders.ChangeOrderDeliveryStateRequest;
 import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.home.orders.OrdersList;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.order_adapter.OrderAdapter;
@@ -8,8 +10,11 @@ import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -74,7 +79,19 @@ public class OrderPresenter implements OrderContract.Presenter {
     }
 
     private void setDealInfo() {
-        mView.setDealInfo(mGoodDealResponseManager.getGoodDealResponse().product, mGoodDealResponseManager.getGoodDealResponse().unit);
+        GoodDealResponse currentDeal = mGoodDealResponseManager.getGoodDealResponse();
+        mView.setDealInfo(currentDeal.product, currentDeal.unit, convertServerDateToString(currentDeal.closingDate));
+    }
+
+    private String getCloseDateInString(Calendar calendar) {
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy", Locale.FRANCE);
+        return sdf.format(calendar.getTime());
+    }
+
+    private String convertServerDateToString(long _dateInMillis) {
+        Calendar date = Calendar.getInstance();
+        date.setTimeInMillis(_dateInMillis);
+        return getCloseDateInString(date);
     }
 
     private void loadData(int _page) {
@@ -88,8 +105,10 @@ public class OrderPresenter implements OrderContract.Presenter {
                     if (page == 1) {
                         mView.setOrdersList(createOrderList(orderListResponse.data));
                         needRefresh = orderListResponse.data.isEmpty();
-                        if (orderListResponse.data.isEmpty())
+                        if (orderListResponse.data.isEmpty()) {
                             mView.showPlaceHolderText();
+                            mView.hideConfButton();
+                        }
                     } else {
                         mView.addOrder(createOrderList(orderListResponse.data));
                     }
@@ -176,10 +195,28 @@ public class OrderPresenter implements OrderContract.Presenter {
                         ToastManager.showToast("Confirm deal error");
                     }));
         } else {
-            ToastManager.showToast("Don't selected any order");
+            ToastManager.showToast("Vous devez confirmer au moins 1 commande");
         }
     }
 
+    @Override
+    public void changeDeliveryState(OrderDH _orderDH, int position) {
+        boolean delivered = !_orderDH.getmOrder().isDelivered();
+        mView.showChangeDeliveryProgress();
+        ChangeOrderDeliveryStateRequest request = new ChangeOrderDeliveryStateRequest();
+        request.setDealId(mGoodDealResponseManager.getGoodDealResponse().id);
+        request.setDelivered(delivered);
+        mCompositeDisposable.add(mModel.changeDeliveryState(_orderDH.getmOrder().getId(), request)
+                .subscribe(messageOrderResponse -> {
+                    mView.hideChangeDeliveryProgress();
+                    OrderDH changedDeliveredStatusOrder = _orderDH;
+                    changedDeliveredStatusOrder.getmOrder().setDelivered(delivered);
+                    mView.updateOrder(changedDeliveredStatusOrder, position);
+                }, throwable -> {
+                    mView.hideChangeDeliveryProgress();
+                    mView.updateOrder(_orderDH, position);
+                }));
+    }
 
     @Override
     public void openCreateBankAccountFlow() {

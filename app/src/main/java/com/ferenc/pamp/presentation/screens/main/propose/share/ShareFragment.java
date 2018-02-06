@@ -136,10 +136,6 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
         it.putExtra(Constants.KEY_SMS_BODY, R.string.msg_send_good_deal + _dynamicLink.toString());
         startActivityForResult(it, Constants.REQUEST_CODE_SEND_SMS_DONE);
-
-
-//        SmsManager smsManager = SmsManager.getDefault();
-//        smsManager.sendTextMessage(TextUtils.join(", ", selectedContacts),null, R.string.msg_send_good_deal + _dynamicLink.toString(),null, null);
     }
 
     @Override

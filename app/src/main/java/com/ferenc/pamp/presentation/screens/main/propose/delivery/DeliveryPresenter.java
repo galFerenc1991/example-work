@@ -40,8 +40,14 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
                 mView.setDeliveryPlace(reUseGoodDeal.getDeliveryAddress());
             } else {
                 mView.setProductDescription(reUseGoodDeal.getDescription());
+                mView.setHelpToDeliveryDateText("Du " + convertServerDateToString(reUseGoodDeal.getDeliveryStartDate()) + " au " + convertServerDateToString(reUseGoodDeal.getDeliveryEndDate()));
             }
         }
+    }
+    private String convertServerDateToString(long _dateInMillis) {
+        Calendar date = Calendar.getInstance();
+        date.setTimeInMillis(_dateInMillis);
+        return getCloseDateInString(date);
     }
 
     @Override
@@ -97,12 +103,6 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
     private String getCloseDateInString(Calendar calendar) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM 'at' HH:mm", Locale.getDefault());
         return sdf.format(calendar.getTime());
-    }
-
-    private String convertServerDateToString(long _dateInMillis) {
-        Calendar date = Calendar.getInstance();
-        date.setTimeInMillis(_dateInMillis);
-        return getCloseDateInString(date);
     }
 
     @NonNull

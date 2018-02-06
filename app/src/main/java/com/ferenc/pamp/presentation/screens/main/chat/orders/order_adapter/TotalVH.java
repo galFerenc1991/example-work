@@ -36,10 +36,7 @@ public class TotalVH extends RecyclerVH<OrderDH> {
         Context context = tvName.getContext();
         Order order = data.getmOrder();
         tvName.setText("Total");
-        tvName.setTextColor(context.getResources().getColor(R.color.textColorGreen));
         tvQuantity.setText(String.valueOf(order.getQuantity()));
-        tvQuantity.setTextColor(context.getResources().getColor(R.color.textColorGreen));
         tvPrice.setText(String.valueOf(order.getPrice()) + " €");
-        tvPrice.setTextColor(context.getResources().getColor(R.color.textColorGreen));
     }
 }

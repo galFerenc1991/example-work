@@ -13,7 +13,7 @@ public abstract class GoodDealValidateManager {
     public static boolean validate(GoodDealRequest _goodDeal, List<String> selectedContacts) {
         int errCodeName = ValidationManager.validateText(_goodDeal.getProduct());
         int errCodeDescription = ValidationManager.validateText(_goodDeal.getDescription());
-        int errCodePrice = ValidationManager.validateDooble(String.valueOf(_goodDeal.getPrice()));
+        int errCodePrice = ValidationManager.validateDouble(String.valueOf(_goodDeal.getPrice()));
         int errCodeCloseDate = ValidationManager.validateLongNumber(String.valueOf(_goodDeal.getClosingDate()));
         int errCodeDeliveryPlace = ValidationManager.validateText(_goodDeal.getDeliveryAddress());
         int errCodeStartEndDate = ValidationManager.validateLongNumber(String.valueOf(_goodDeal.getDeliveryStartDate()));

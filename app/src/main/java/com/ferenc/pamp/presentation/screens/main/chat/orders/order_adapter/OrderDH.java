@@ -13,7 +13,7 @@ public class OrderDH implements RecyclerDH {
     private Order mOrder;
     private boolean isOriginal;
     private String dealStatus;
-    private boolean isSelected;
+    private boolean isSelected = true;
     private int mItemType;
 
     public OrderDH(Order mOrder, boolean isOriginal, String dealStatus, int _itemType) {

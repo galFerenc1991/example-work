@@ -11,8 +11,11 @@ import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshableFragment;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.screens.main.MainActivity;
+import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ProposeRefreshRelay;
+import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ReceivedRefreshRelay;
 import com.ferenc.pamp.presentation.screens.main.good_plan.good_plan_adapter.GoodPlanAdapter;
 import com.ferenc.pamp.presentation.screens.main.good_plan.proposed.propose_relay.ProposeRelay;
+import com.ferenc.pamp.presentation.screens.main.good_plan.warning_relay.WarningRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -59,11 +62,16 @@ public class ProposedPlansFragment extends RefreshableFragment implements Propos
     protected GoodPlanAdapter mGoodPlanAdapter;
     @Bean
     protected ProposeRelay mProposeRelay;
+    @Bean
+    protected WarningRelay mWarningRelay;
+
+    @Bean
+    protected ProposeRefreshRelay mProposeRefreshRelay;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new ProposedPlansPresenter(this, mGoodDealRepository, mProposeRelay);
+        new ProposedPlansPresenter(this, mGoodDealRepository, mProposeRelay, mProposeRefreshRelay, mWarningRelay);
     }
 
     @AfterViews
@@ -107,12 +115,6 @@ public class ProposedPlansFragment extends RefreshableFragment implements Propos
             btnPlaceholderAction_VC.setVisibility(View.VISIBLE);
             btnPlaceholderAction_VC.setText(R.string.button_propose);
         }
-    }
-
-    @Override
-    public void openProposerFragment() {
-        MainActivity activity = (MainActivity) getActivity();
-        activity.openProposedFlow();
     }
 
     @Override

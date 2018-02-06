@@ -27,7 +27,43 @@
             android:id="@+id/tvCountry_FBA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Select country"
+            android:hint="Pays de residence"
+            android:textColor="@color/textColorGray"
+            android:textColorHint="@color/textColorGray"
+            android:textSize="@dimen/text_size_default" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llAddress_FBA"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llCountrySpinner_FBA"
+        android:layout_marginTop="@dimen/margin_default">
+
+        <TextView
+            android:id="@+id/tvAddress_FBA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Adresse de residence"
+            android:textColor="@color/textColorGray"
+            android:textColorHint="@color/textColorGray"
+            android:textSize="@dimen/text_size_default" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llBirthDate_FBA"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llAddress_FBA"
+        android:layout_marginTop="@dimen/margin_default">
+
+        <TextView
+            android:id="@+id/tvBirthDate_FBA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date de naissance"
             android:textColor="@color/textColorGray"
             android:textColorHint="@color/textColorGray"
             android:textSize="@dimen/text_size_default" />
@@ -38,7 +74,7 @@
         style="@style/TILStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/llCountrySpinner_FBA"
+        android:layout_below="@+id/llBirthDate_FBA"
         android:hint="@string/hint_iban">
 
         <EditText

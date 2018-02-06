@@ -21,6 +21,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.Calendar;
@@ -35,7 +36,9 @@ import java.util.concurrent.TimeUnit;
 public class DeliveryDateActivity extends AppCompatActivity implements DeliveryDateContract.View {
 
     private DeliveryDateContract.Presenter mPresenter;
-    private boolean isRebroadcast;
+
+    @Extra
+    protected boolean isRebroadcast;
 
     @ViewById(R.id.ivBack_ADD)
     protected ImageView btnBack;
@@ -61,8 +64,8 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
     @AfterInject
     @Override
     public void initPresenter() {
-        new DeliveryDatePresenter(this, mGoodDealManager);
-        isRebroadcast = getIntent().getBooleanExtra(Constants.KEY_IS_REBROADCAST, false);
+        new DeliveryDatePresenter(this, mGoodDealManager, isRebroadcast);
+//        isRebroadcast = getIntent().getBooleanExtra(Constants.KEY_IS_REBROADCAST, false);
     }
 
     @AfterViews
@@ -73,9 +76,12 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
             btnValidate.setBackground(getResources().getDrawable(R.drawable.bg_confirm_button_yellow));
             tvStartDateItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_yelow, 0, 0, 0);
             tvEndDateItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar_yelow, 0, 0, 0);
+            tvEndDate.setTextColor(getResources().getColor(R.color.textColorReBroadcastIndicator));
+            tvStartDate.setTextColor(getResources().getColor(R.color.textColorReBroadcastIndicator));
         }
 
         setClickListeners();
+        mPresenter.subscribe();
     }
 
     private void setClickListeners() {
@@ -152,7 +158,7 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
         }, _endDate.get(Calendar.HOUR_OF_DAY), _endDate.get(Calendar.MINUTE), true);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this
-                ,  isRebroadcast ? R.style.DialogThemeReBroadcast : R.style.DialogTheme
+                , isRebroadcast ? R.style.DialogThemeReBroadcast : R.style.DialogTheme
                 , (view, year, month, dayOfMonth) -> {
             result.set(year, month, dayOfMonth);
             timePickerDialog.show();

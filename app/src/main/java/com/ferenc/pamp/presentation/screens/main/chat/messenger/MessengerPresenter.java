@@ -87,6 +87,15 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
     @Override
     public void subscribe() {
+        if (mGoodDealResponse.getAttention() != null) {
+            mView.openDeliveryDateChangedNotif("Attention la de livraison de "
+                    + mGoodDealResponse.getAttention().getFirstName() +
+                    " est fixée le "
+                    + convertServerDateToString(mGoodDealResponse.getAttention().getDeliveryStartDate())
+                    + " de "
+                    + convertServerDateToString(mGoodDealResponse.getAttention().getDeliveryEndDate())
+            );
+        }
         initCreateOrderButton();
         connectSocket();
         getMessage();
@@ -178,7 +187,18 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     @Override
     public void cancelDealAction() {
         mView.openCloseGoodDealPopUp();
+    }
 
+
+    private String getCloseDateInString(Calendar calendar) {
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy mm:hh", Locale.FRANCE);
+        return sdf.format(calendar.getTime());
+    }
+
+    private String convertServerDateToString(long _dateInMillis) {
+        Calendar date = Calendar.getInstance();
+        date.setTimeInMillis(_dateInMillis);
+        return getCloseDateInString(date);
     }
 
     @Override
@@ -303,7 +323,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     public void sendImage(File croppedFile) {
 
         mCompositeDisposable.add(mSocketModel.sendImage(mGoodDealResponse.id, getBase64(croppedFile))
-                .subscribe(aVoid -> {}));
+                .subscribe(aVoid -> {
+                }));
 
         MessageResponse messageResponse = new MessageResponse();
 

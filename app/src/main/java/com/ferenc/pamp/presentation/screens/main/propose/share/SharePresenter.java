@@ -1,14 +1,6 @@
 package com.ferenc.pamp.presentation.screens.main.propose.share;
 
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.provider.ContactsContract;
-import android.util.Log;
-
-import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
-import com.ferenc.pamp.presentation.base.models.UserContact;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -20,7 +12,6 @@ import com.ferenc.pamp.presentation.utils.GoodDealValidateManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -45,7 +36,7 @@ public class SharePresenter implements ShareContract.Presenter {
     private boolean mIsUpdateGoodDeal;
     private ContactManager mContactManager;
 
-    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager, GoodDealResponseManager _goodDealResponseManager,  boolean _isReBroadcastFlow, boolean _isUpdateGoodDeal, ContactManager _contactManager) {
+    public SharePresenter(ShareContract.View _view, ShareContract.Model _model, GoodDealManager _goodDealManager, GoodDealResponseManager _goodDealResponseManager, boolean _isReBroadcastFlow, boolean _isUpdateGoodDeal, ContactManager _contactManager) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
@@ -104,7 +95,8 @@ public class SharePresenter implements ShareContract.Presenter {
                             mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
                         }, throwable -> {
                             mView.hideProgress();
-                            mView.showErrorMessage(Constants.MessageType.ERROR_WHILE_SELECT_ADDRESS);
+//                            mView.showErrorMessage(Constants.MessageType.ERROR_WHILE_SELECT_ADDRESS);
+                            ToastManager.showToast(throwable.getLocalizedMessage());
                         }));
             } else {
                 mView.openVerificationErrorPopUP();

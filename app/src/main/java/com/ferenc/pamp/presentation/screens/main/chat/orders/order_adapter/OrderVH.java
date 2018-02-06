@@ -24,6 +24,7 @@ public class OrderVH extends RecyclerVH<OrderDH> {
     private RelativeLayout rlConfirmationContainer;
     private TextView tvStatus;
     private Switch swDelivery;
+    private OnCardClickListener mOnCardClickListener;
 
     public OrderVH(View itemView) {
         super(itemView);
@@ -37,13 +38,16 @@ public class OrderVH extends RecyclerVH<OrderDH> {
 
     @Override
     public void setListeners(OnCardClickListener listener) {
-
+        mOnCardClickListener = listener;
+//        swDelivery.setOnClickListener(view -> listener.onClick(itemView, getAdapterPosition(), getItemViewType()));
     }
 
     @Override
     public void bindData(OrderDH data) {
         Order order = data.getmOrder();
-        tvName.setText(order.getUser().getFirstName());
+        if (order.getRank() > 1)
+            tvName.setText(order.getUser().getFirstName() + "(" + order.getRank() + ")");
+        else tvName.setText(order.getUser().getFirstName());
         tvQuantity.setText(String.valueOf(order.getQuantity()));
         tvPrice.setText(String.valueOf(order.getPrice()) + " €");
         if (data.isOriginal()) {
@@ -51,6 +55,13 @@ public class OrderVH extends RecyclerVH<OrderDH> {
                 case Constants.STATE_CLOSED:
                     rlConfirmationContainer.setVisibility(View.VISIBLE);
                     swDelivery.setChecked(data.isSelected());
+                    if (swDelivery.isChecked()) {
+                        tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGreen));
+                        tvStatus.setText(Constants.STATUS_CONFIRMED_TEXT);//Confirmé
+                    } else {
+                        tvStatus.setText(Constants.STATUS_CANCELED_TEXT);//Annulé
+                        tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
+                    }
                     swDelivery.setOnClickListener(view -> {
                         data.setSelected(swDelivery.isChecked());
                         if (swDelivery.isChecked()) {
@@ -63,26 +74,26 @@ public class OrderVH extends RecyclerVH<OrderDH> {
                     });
                     break;
                 case Constants.STATE_CONFIRM:
-                    if (order.getState().equals(Constants.STATE_CONFIRM)) {
-                        rlConfirmationContainer.setVisibility(View.VISIBLE);
-                        swDelivery.setChecked(order.isDelivered());
-                        swDelivery.setOnClickListener(view -> {
-                            data.setSelected(swDelivery.isChecked());
-                            if (swDelivery.isChecked()) {
-                                tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGreen));
-                                tvStatus.setText(Constants.STATUS_DELIVER_TEXT);//LIVRER
-                            } else {
-                                tvStatus.setText(Constants.STATUS_TO_DELIVER_TEXT);//À LIVRER
-                                tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
-                            }
-                        });
-                    } else {
-                        rlConfirmationContainer.setVisibility(View.VISIBLE);
-                        swDelivery.setVisibility(View.GONE);
-                        tvStatus.setText(Constants.STATUS_CANCEL_TEXT);///ANNULER
-                        tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
-                    }
-                    break;
+//                    if (order.getState().equals(Constants.STATE_CONFIRM)) {
+//                        rlConfirmationContainer.setVisibility(View.VISIBLE);
+//                        swDelivery.setChecked(order.isDelivered());
+//                        swDelivery.setOnClickListener(view -> {
+//                            data.setSelected(swDelivery.isChecked());
+//                            if (swDelivery.isChecked()) {
+//                                tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGreen));
+//                                tvStatus.setText(Constants.STATUS_DELIVER_TEXT);//LIVRER
+//                            } else {
+//                                tvStatus.setText(Constants.STATUS_TO_DELIVER_TEXT);//À LIVRER
+//                                tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
+//                            }
+//                        });
+//                    } else {
+//                        rlConfirmationContainer.setVisibility(View.VISIBLE);
+//                        swDelivery.setVisibility(View.GONE);
+//                        tvStatus.setText(Constants.STATUS_CANCEL_TEXT);///ANNULER
+//                        tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
+//                    }
+//                    break;
             }
         } else {
             switch (data.getDealStatus()) {
@@ -93,25 +104,54 @@ public class OrderVH extends RecyclerVH<OrderDH> {
                     tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.msgYellowColor));
                     break;
                 case Constants.STATE_CONFIRM:
-                    if (data.getmOrder().getState().equals(Constants.STATE_CONFIRM)) {
-                        rlConfirmationContainer.setVisibility(View.VISIBLE);
-                        swDelivery.setOnClickListener(view -> {
-                            data.setSelected(swDelivery.isChecked());
-                            if (swDelivery.isChecked()) {
-                                tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGreen));
-                                tvStatus.setText(Constants.STATUS_DELIVER_TEXT);//LIVRER
-                            } else {
-                                tvStatus.setText(Constants.STATUS_TO_DELIVER_TEXT);//À LIVRER
-                                tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
-                            }
-                        });
-                    } else {
-                        rlConfirmationContainer.setVisibility(View.VISIBLE);
-                        swDelivery.setVisibility(View.GONE);
-                        tvStatus.setText(Constants.STATUS_CANCEL_TEXT);///ANNULER
-                        tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
-                    }
+//                    if (data.getmOrder().getState().equals(Constants.STATE_CONFIRM)) {
+//                        rlConfirmationContainer.setVisibility(View.VISIBLE);
+//                        swDelivery.setOnClickListener(view -> {
+//                            data.setSelected(swDelivery.isChecked());
+//                            if (swDelivery.isChecked()) {
+//                                tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGreen));
+//                                tvStatus.setText(Constants.STATUS_DELIVER_TEXT);//LIVRER
+//                            } else {
+//                                tvStatus.setText(Constants.STATUS_TO_DELIVER_TEXT);//À LIVRER
+//                                tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
+//                            }
+//                        });
+//                    } else {
+//                        rlConfirmationContainer.setVisibility(View.VISIBLE);
+//                        swDelivery.setVisibility(View.GONE);
+//                        tvStatus.setText(Constants.STATUS_CANCEL_TEXT);///ANNULER
+//                        tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
+//                    }
                     break;
+            }
+        }
+        if (data.getDealStatus().equals(Constants.STATE_CONFIRM)) {
+            if (data.getmOrder().getState().equals(Constants.STATE_CONFIRM)) {
+                rlConfirmationContainer.setVisibility(View.VISIBLE);
+                swDelivery.setChecked(order.isDelivered());
+                if (swDelivery.isChecked()) {
+                    tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGreen));
+                    tvStatus.setText(Constants.STATUS_DELIVER_TEXT);//LIVRER
+                } else {
+                    tvStatus.setText(Constants.STATUS_TO_DELIVER_TEXT);//À LIVRER
+                    tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
+                }
+                swDelivery.setOnClickListener(view -> {
+                    mOnCardClickListener.onClick(swDelivery, getAdapterPosition(), getItemViewType());
+//                    data.setSelected(swDelivery.isChecked());
+//                    if (swDelivery.isChecked()) {
+//                        tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGreen));
+//                        tvStatus.setText(Constants.STATUS_DELIVER_TEXT);//LIVRER
+//                    } else {
+//                        tvStatus.setText(Constants.STATUS_TO_DELIVER_TEXT);//À LIVRER
+//                        tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
+//                    }
+                });
+            } else {
+                rlConfirmationContainer.setVisibility(View.VISIBLE);
+                swDelivery.setVisibility(View.GONE);
+                tvStatus.setText(Constants.STATUS_CANCEL_TEXT);///ANNULER
+                tvStatus.setTextColor(tvStatus.getContext().getResources().getColor(R.color.textColorGray));
             }
         }
     }

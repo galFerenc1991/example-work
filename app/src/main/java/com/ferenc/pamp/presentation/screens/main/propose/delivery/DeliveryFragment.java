@@ -9,6 +9,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -73,6 +74,10 @@ public class DeliveryFragment extends ContentFragment implements DeliveryContrac
     protected RelativeLayout rlProductDescription;
     @ViewById(R.id.rlBackground_FDel)
     protected RelativeLayout rlBackground;
+    @ViewById(R.id.llHelpToDeliveryDate_FDel)
+    protected LinearLayout llHelpToDeliveryDate;
+    @ViewById(R.id.tvHelpToDeliveryDate_FDel)
+    protected TextView tvHelpToDeliveryDate;
     @Bean
     protected GoodDealManager mGoodDealManager;
 
@@ -91,6 +96,7 @@ public class DeliveryFragment extends ContentFragment implements DeliveryContrac
             rlProductDescription.setVisibility(View.GONE);
         } else {
             rlCloseDate.setVisibility(View.GONE);
+            llHelpToDeliveryDate.setVisibility(View.VISIBLE);
             rlBackground.setBackgroundColor(getResources().getColor(R.color.color_re_broadcast_tab_indicator));
             tvProductDescription.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_description_yelow, 0, 0, 0);
             tvDeliveryPlace.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_location_yelow, 0, 0, 0);
@@ -203,5 +209,10 @@ public class DeliveryFragment extends ContentFragment implements DeliveryContrac
     @Override
     public void setDeliveryPlace(String _deliveryPlace) {
         tvDeliveryPlace.setText(_deliveryPlace);
+    }
+
+    @Override
+    public void setHelpToDeliveryDateText(String _help) {
+        tvHelpToDeliveryDate.setText(_help);
     }
 }

@@ -35,7 +35,6 @@ public class MainPresenter implements MainContract.Presenter {
     public void subscribe() {
         mCompositeDisposable.add(mUserRepository.setNotifToken(new TokenRequest(FirebaseInstanceId.getInstance().getToken()))
                 .subscribe(generalMessageResponse -> {
-//            ToastManager.showToast("Token saved");
                 }, throwable -> {
                     ToastManager.showToast("Firebase token save error:" + throwable.getMessage());
                 }));
@@ -49,7 +48,8 @@ public class MainPresenter implements MainContract.Presenter {
         mCompositeDisposable.add(mModel.connectGoodDeal(_id)
                 .subscribe(connectGoodDealResponse -> {
                     ToastManager.showToast(" GoodDeal : " + _id + "connected! \nif you don't see it in received list, please do refresh");
-                    mView.openChat(_id);
+//                    mView.openChat(_id);
+                    mView.refreshReceivedList();
                 }, throwable -> {
 
                 }));

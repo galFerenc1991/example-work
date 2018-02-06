@@ -24,17 +24,23 @@ public class DeliveryDatePresenter implements DeliveryDateContract.Presenter {
     private Calendar mEndDate;
     private GoodDealManager mGoodDealManager;
     private GoodDealRequest mGoodDeal;
+    private boolean mIsRebroadcast;
 
-    public DeliveryDatePresenter(DeliveryDateContract.View _view, GoodDealManager _goodDealManager) {
+    public DeliveryDatePresenter(DeliveryDateContract.View _view, GoodDealManager _goodDealManager, boolean _isRebroadcast) {
         this.mView = _view;
         this.mGoodDealManager = _goodDealManager;
+        this.mIsRebroadcast = _isRebroadcast;
 
         mView.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
-
+        if (!mIsRebroadcast) {
+//            mGoodDeal = mGoodDealManager.getGoodDeal();
+//            mView.setStartDate(convertServerDateToString(mGoodDeal.getDeliveryStartDate()));
+//            mView.setEndDate(convertServerDateToString(mGoodDeal.getDeliveryEndDate()));
+        }
     }
 
     @Override
@@ -61,7 +67,7 @@ public class DeliveryDatePresenter implements DeliveryDateContract.Presenter {
             mGoodDeal.setDeliveryStartDate(getDateForServer(_startDate));
             mGoodDealManager.saveGoodDeal(mGoodDeal);
             mView.setStartDate(getDateTOString(_startDate));
-        } else{
+        } else {
             Toast.makeText(PampApp_.getInstance(), "Please select Start Delivery Date later Close Date", Toast.LENGTH_SHORT).show();
         }
     }
@@ -91,6 +97,12 @@ public class DeliveryDatePresenter implements DeliveryDateContract.Presenter {
     private String getDateTOString(Calendar calendar) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM 'at' HH:mm", Locale.getDefault());
         return sdf.format(calendar.getTime());
+    }
+
+    private String convertServerDateToString(long _dateInMillis) {
+        Calendar date = Calendar.getInstance();
+        date.setTimeInMillis(_dateInMillis);
+        return getDateTOString(date);
     }
 
     private Long getDateForServer(Calendar calendar) {

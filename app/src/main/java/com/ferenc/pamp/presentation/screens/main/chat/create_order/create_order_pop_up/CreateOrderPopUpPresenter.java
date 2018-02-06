@@ -29,6 +29,9 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
     private boolean mIsSendOrderListFlow;
     private GoodDealResponse mGoodDealResponse;
     private int mSendOrderListQuantity;
+    private String mCleanPrice;
+    private String mHonorar;
+    private String mTotalPrice;
 
 
     public CreateOrderPopUpPresenter(CreateOrderPopUpContract.View _view,
@@ -52,7 +55,7 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
     public void subscribe() {
         mView.showProductName(mGoodDealResponse.product);
         mView.showPriceDescription(mGoodDealResponse.unit);
-        mView.showPrice(String.valueOf(mGoodDealResponse.price) + " €");
+        calculateTotal();
         if (!mIsSendOrderListFlow) {
             if (mHasOrder) {
                 mView.showProgress();
@@ -70,45 +73,20 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
     private void setLocalOrder(int _quantity) {
         mQuantity = _quantity;
         mView.showQuantity(String.valueOf(_quantity));
-        mView.showTotal(calculateTotal());
+        calculateTotal();
     }
 
     private void setOrder(Order _order) {
         mOrder = _order;
         mQuantity = _order.getQuantity();
-        mView.showQuantity(String.valueOf(_order.getQuantity()));
-        mView.showTotal(calculateTotal());
+        if (mQuantity == 0 || mQuantity >= 1) {
+            DecimalFormat df = new DecimalFormat("#");
+            mView.showQuantity(df.format(mQuantity));
+        } else {
+            mView.showQuantity(String.valueOf(_order.getQuantity()));
+        }
+        calculateTotal();
     }
-
-//    @Override
-//    public void clickedAddQuantity() {
-//        if (mQuantity < 1) {
-//            DecimalFormat df = new DecimalFormat("#.#");
-//            mQuantity = mQuantity + 0.1;
-//            mView.showQuantity(df.format(mQuantity));
-//        } else {
-//            DecimalFormat df = new DecimalFormat("#");
-//            mQuantity = mQuantity + 1;
-//            mView.showQuantity(df.format(mQuantity));
-//        }
-//        mView.setQuantityColorToRed(false);
-//        mView.showTotal(calculateTotal());
-//    }
-//
-//    @Override
-//    public void clickedRemoveQuantity() {
-//        if (mQuantity > 0 && mQuantity <= 1) {
-//            DecimalFormat df = new DecimalFormat("#.#");
-//            mQuantity = mQuantity - 0.1;
-//            mView.showQuantity(df.format(mQuantity));
-//        } else if (mQuantity > 1) {
-//            DecimalFormat df = new DecimalFormat("#");
-//            mQuantity = mQuantity - 1;
-//            mView.showQuantity(df.format(mQuantity));
-//        }
-//        if (mHasOrder && mQuantity == 0) mView.setQuantityColorToRed(true);
-//        mView.showTotal(calculateTotal());
-//    }
 
     @Override
     public void clickedAddQuantity() {
@@ -125,7 +103,7 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
             mView.showQuantity(String.valueOf(mQuantity));
         }
         mView.setQuantityColorToRed(false);
-        mView.showTotal(calculateTotal());
+        calculateTotal();
     }
 
     @Override
@@ -135,20 +113,25 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
         } else if (mQuantity > 1) {
             mQuantity = mQuantity - 1;
         }
-        if (mQuantity == 0) {
+        if (mQuantity == 0 || mQuantity >= 1) {
             DecimalFormat df = new DecimalFormat("#");
             mView.showQuantity(df.format(mQuantity));
         } else {
             mView.showQuantity(String.valueOf(mQuantity));
         }
         if (mHasOrder && mQuantity == 0) mView.setQuantityColorToRed(true);
-        mView.showTotal(calculateTotal());
+        calculateTotal();
     }
 
-    private String calculateTotal() {
-        double totalInDouble = mGoodDealResponse.price * mQuantity + ((mGoodDealResponse.price * mQuantity / 100) * 3.5) + 0.75;
+    private void calculateTotal() {
         DecimalFormat df = new DecimalFormat("#.##");
-        return String.valueOf(df.format(totalInDouble)) + " €";
+        double cleanPrice = mGoodDealResponse.price * mQuantity;
+        mCleanPrice = df.format(cleanPrice) + " €";
+        double honorar = ((mGoodDealResponse.price * mQuantity / 100) * 3.5) + 0.75;
+        mHonorar = df.format(honorar) + " €";
+        double totalInDouble = cleanPrice + honorar;
+        mTotalPrice = df.format(totalInDouble) + " €";
+        mView.showPrices(mTotalPrice, mCleanPrice, mHonorar);
     }
 
     @Override

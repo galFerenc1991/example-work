@@ -3,7 +3,7 @@
     android:id="@+id/rlReBroadcast_VRB"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorRebroadcast">
+    android:background="@color/textColorReBroadcastIndicator">
 
     <ImageView
         android:id="@+id/ivReBroadcast"

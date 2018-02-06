@@ -8,6 +8,7 @@ import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
+import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.ferenc.pamp.presentation.utils.ValidationManager;
 
@@ -29,12 +30,14 @@ public class ChatPresenter implements ChatContract.Presenter {
     private CompositeDisposable mCompositeDisposable;
     private ChatContract.Model mModel;
     private String mDealId;
+    private SignedUserManager mSignedUserManager;
 
     public ChatPresenter(ChatContract.View _view,
                          GoodDealManager _goodDealManager,
                          GoodDealResponseManager _goodDealResponseManager,
                          ChatContract.Model _model,
-                         String _dealId) {
+                         String _dealId,
+                         SignedUserManager _signedUserManager) {
         this.mView = _view;
         this.mGoodDealManager = _goodDealManager;
         this.mGoodDealResponse = _goodDealResponseManager.getGoodDealResponse();
@@ -42,18 +45,28 @@ public class ChatPresenter implements ChatContract.Presenter {
         this.mGoodDealResponseManager = _goodDealResponseManager;
         this.mModel = _model;
         this.mDealId = _dealId;
+        this.mSignedUserManager = _signedUserManager;
 
         mView.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
-        mView.setTitle(mGoodDealResponseManager.getGoodDealResponse().title);
         if (mDealId != null) {
             mView.showProgress();
             mCompositeDisposable.add(mModel.getDialId(mDealId)
                     .subscribe(goodDealResponse -> {
+                        mGoodDealResponse = goodDealResponse;
+                        mView.setTitle(mGoodDealResponse.title);
                         mView.hideProgress();
+                        if (mSignedUserManager.getCurrentUser().getId().equals(goodDealResponse.owner.getId()))
+                            mView.initFromWhere(Constants.ITEM_TYPE_REUSE);
+                        else {
+                            mView.initFromWhere(Constants.ITEM_TYPE_RE_BROADCAST);
+                            if (!mGoodDealResponse.state.equals(Constants.STATE_PROGRESS)) {
+                                mView.hideShareButton();
+                            }
+                        }
                         setParticipants();
                         mView.showChat();
                     }, throwable -> {
@@ -61,6 +74,7 @@ public class ChatPresenter implements ChatContract.Presenter {
                         ToastManager.showToast("Deal load error");
                     }));
         } else {
+            mView.initFromWhere(7777);
             setParticipants();
             mView.showChat();
         }
@@ -69,18 +83,23 @@ public class ChatPresenter implements ChatContract.Presenter {
 
     @Override
     public void clickedShare() {
-        mGoodDealManager.saveGoodDeal(new GoodDealRequest.Builder()
-                .setProduct(mGoodDealResponse.product)
-                .setDescription(mGoodDealResponse.description)
-                .setPrice(mGoodDealResponse.price)
-                .setUnit(mGoodDealResponse.unit)
-                .setQuantity(mGoodDealResponse.quantity)
-                .setClosingDate(mGoodDealResponse.closingDate)
-                .setDeliveryAddress(mGoodDealResponse.deliveryAddress)
-                .setDeliveryStartDate(mGoodDealResponse.deliveryStartDate)
-                .setDeliveryEndDate(mGoodDealResponse.deliveryEndDate)
-                .build());
-        mView.shareGoodDeal();
+        if (mGoodDealResponse.state.equals(Constants.STATE_PROGRESS)) {
+            mGoodDealManager.saveGoodDeal(new GoodDealRequest.Builder()
+                    .setID(mGoodDealResponse.id)
+                    .setProduct(mGoodDealResponse.product)
+                    .setDescription(mGoodDealResponse.description)
+                    .setPrice(mGoodDealResponse.price)
+                    .setUnit(mGoodDealResponse.unit)
+                    .setQuantity(mGoodDealResponse.quantity)
+                    .setClosingDate(mGoodDealResponse.closingDate)
+                    .setDeliveryStartDate(mGoodDealResponse.deliveryStartDate)
+                    .setDeliveryEndDate(mGoodDealResponse.deliveryEndDate)
+                    .build());
+            mView.shareGoodDeal();
+        } else {
+            ToastManager.showToast("Good Deal CLOSED! You can not resend CLOSED GOOD DEAL!!!");
+            mView.hideShareButton();
+        }
     }
 
     @Override

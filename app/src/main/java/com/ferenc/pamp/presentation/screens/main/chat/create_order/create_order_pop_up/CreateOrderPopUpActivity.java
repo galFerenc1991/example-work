@@ -53,6 +53,8 @@ public class CreateOrderPopUpActivity extends AppCompatActivity implements Creat
     protected TextView tvQuantity;
     @ViewById(R.id.tvPrice_ACOPU)
     protected TextView tvPrice;
+    @ViewById(R.id.tvPampHonorar_ACOPU)
+    protected TextView tvPampHonorar;
     @ViewById(R.id.tvTotalPrice_ACOPU)
     protected TextView tvTotalPrice;
     @ViewById(R.id.tvDeleteOrder_ACOPU)
@@ -131,13 +133,10 @@ public class CreateOrderPopUpActivity extends AppCompatActivity implements Creat
     }
 
     @Override
-    public void showPrice(String _price) {
+    public void showPrices(String _total, String _price, String _honorar) {
         tvPrice.setText(_price);
-    }
-
-    @Override
-    public void showTotal(String _total) {
         tvTotalPrice.setText(_total);
+        tvPampHonorar.setText(_honorar);
     }
 
     @AfterInject

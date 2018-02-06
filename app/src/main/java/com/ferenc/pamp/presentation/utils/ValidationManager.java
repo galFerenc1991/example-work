@@ -78,7 +78,7 @@ public abstract class ValidationManager {
         return Double.valueOf(_number) > 0 ? OK : INVALID;
     }
 
-    public static int validateDooble(String _number) {
+    public static int validateDouble(String _number) {
         if(TextUtils.isEmpty(_number)) return EMPTY;
         return Double.valueOf(_number) > 0 ? OK : INVALID;
     }

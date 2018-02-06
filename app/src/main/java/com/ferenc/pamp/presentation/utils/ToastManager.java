@@ -12,7 +12,7 @@ import com.ferenc.pamp.PampApp_;
 
 public class ToastManager {
 
-    private static Toast mToast = Toast.makeText(PampApp_.getInstance().getApplicationContext(), "", Toast.LENGTH_SHORT);
+    private static Toast mToast = Toast.makeText(PampApp_.getInstance().getApplicationContext(), "", Toast.LENGTH_LONG);
 
     public static void showToast(CharSequence message) {
         mToast.setText(message);

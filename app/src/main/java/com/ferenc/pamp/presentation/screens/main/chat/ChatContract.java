@@ -25,11 +25,15 @@ public interface ChatContract {
 
         void hideSettings();
 
+        void hideShareButton();
+
         void showChat();
 
         void showProgress();
 
         void hideProgress();
+
+        void initFromWhere(int _fromWhere);
 
         void setTitle(String _title);
     }

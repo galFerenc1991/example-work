@@ -28,13 +28,13 @@
         style="@style/ValidateErrorDialogTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_good_plan_price" />
+        android:text="@string/text_good_plan_price_description" />
 
     <TextView
         style="@style/ValidateErrorDialogTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_good_plan_price_description" />
+        android:text="@string/text_good_plan_closing_date" />
 
     <TextView
         style="@style/ValidateErrorDialogTextStyle"
