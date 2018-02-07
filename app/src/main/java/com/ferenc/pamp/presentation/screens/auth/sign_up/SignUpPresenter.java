@@ -43,7 +43,7 @@ public class SignUpPresenter implements SignUpContract.Presenter {
         int errCodeEmail = ValidationManager.validateEmail(_email);
         int errCodeCountry = ValidationManager.validateName(_country);
 
-        if (errCodeEmail == ValidationManager.OK && errCodeSurname == ValidationManager.OK && errCodeName == ValidationManager.OK && errCodeCountry == ValidationManager.OK) {
+        if (errCodeEmail == ValidationManager.OK && errCodeSurname == ValidationManager.OK && errCodeName == ValidationManager.OK) {
             mView.openCreatePasswordScreen(textRefactor(_firstName)
                     , textRefactor(_lastName)
                     , textRefactor(_email)

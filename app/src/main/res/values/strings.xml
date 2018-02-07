@@ -78,7 +78,7 @@
     <string name="hint_good_plan_name">Nom du produit</string>
     <string name="hint_good_plan_description">Décrire votre bon plan</string>
     <string name="hint_good_plan_price">Prix</string>
-    <string name="hint_good_plan_price_description">Quoi? (unité)</string>
+    <string name="hint_good_plan_price_description">Quoi? (unité : la bouteille, le pot, le Kg, les 100 gr., la part, …)</string>
     <string name="hint_good_plan_quantity">Quantité maximum (optionnel)</string>
     <string name="hint_good_plan_closing_date">Date de clôture du bon plan</string>
     <string name="hint_good_plan_delivery_place">Lieu de livraison</string>
@@ -201,18 +201,18 @@
 
 
     <!--Splash texts-->
-    <string name="text_splash_title">Bienvenue sur</string>
-    <string name="text_splash_subtext">Partager avec mes proches</string>
+    <string name="text_splash_title">Bienvenue</string>
+    <string name="text_splash_subtext">#partageravecmesproches</string>
 
     <!--Tutorial texts-->
-    <string name="text_first_tutorial_title_text">"Lu systeme D n'aura jamais été aussi facile"</string>
+    <string name="text_first_tutorial_title_text">Le partage de vos bons plans devient enfin simple (et gratuit)… \nFini les plans compliqués à gérer</string>
     <string name="text_first_tutorial_second_text">Pour partager et accéder directement à toutes les meilleures spécialités régionales de petits producteurs locaux</string>
-    <string name="text_second_tutorial_title_text">"100% gratuit pour envoyer des produits coupe de coeur á vos proches"</string>
-    <string name="text_second_tutorial_second_text">"Aussi simple qu'envoyer un SMS"</string>
-    <string name="text_second_tutorial_third_text">"Récolter vos commandes en un temps limité"</string>
+    <string name="text_second_tutorial_title_text">Tout l’esprit des bons plans dans une appli !</string>
+    <string name="text_second_tutorial_second_text">"Aussi facile qu'envoyer un SMS"</string>
+    <string name="text_second_tutorial_third_text">"Récoltez et gérez vos commandes en un temps limité"</string>
     <string name="text_second_tutorial_fourth_text">"Ne vous souciez plus du paiement"</string>
-    <string name="text_third_tutorial_title_text">"Créez des liens directs avec les meilleurs produits de nos terroirs"</string>
-    <string name="text_third_tutorial_second_text">"Commander á plusieurs directement á la source"</string>
+    <string name="text_third_tutorial_title_text">"Le système D n’aura\njamais été aussi facile"</string>
+    <string name="text_third_tutorial_second_text">Pour partager et accéder\ndirectement à toutes les\nmeilleures spécialités\nrégionales de petits\nproducteurs locaux</string>
     <string name="text_third_tutorial_third_text">"Recever des bons plans et commander en 1 clic"</string>
     <string name="text_third_tutorial_fourth_text">"Soutener les petits producteurs par une juste rémunération sans intermédiaire"</string>
 
@@ -246,16 +246,16 @@
     <!--Messenger texts-->
     <string name="text_bon_plan_close">BON PLAN CLOS</string>
     <string name="text_bon_plan_annule">BON PLAN ANNULE</string>
-    <string name="text_bon_plan_confirme">Bon plan confirme</string>
-    <string name="text_commande_annule">Commande annulee</string>
-    <string name="text_commande_confirmee">Commande confirme</string>
+    <string name="text_bon_plan_confirme">Bon plan confirmé</string>
+    <string name="text_commande_annule">Commande annulé</string>
+    <string name="text_commande_confirmee">Commande confirmée</string>
 
     <string name="text_change_date">Changement date de livraison:</string>
     <string name="text_change_closing_date">Changement date de clôture du bon plan:</string>
     <string name="text_closing_date">Attention plus qu`i jour avant la clôture du bon plan</string>
     <string name="text_delivery_date">Noubliez pas derecuperer votre bon plan</string>
-    <string name="text_name_a_change">a change:</string>
-    <string name="type_a_message">Type a message..</string>
+    <string name="text_name_a_change">a changé:</string>
+    <string name="type_a_message">Ecrivez un message</string>
     <string name="bon_plan">BON PLAN</string>
     <string name="text_bank_account_attached">Vos données bancaires ont été enregistrées</string>
     <string name="text_participant_added">Le bon plan a été envoyé\naux nouveaux destinataires</string>
@@ -295,13 +295,14 @@
 
     <!--Orders Confirm Dialog-->
     <string name="orders_confirm_dialog_title">Vous voulez confirmer définitivement votre bon plan ?</string>
-    <string name="orders_confirm_dialog_message1">En confirmant votre bon plan, les commandes seront débitées puis seront versés sur votre compte bancaire.</string>
+    <string name="orders_confirm_dialog_message1">En confirmant votre bon plan, les commandes seront débitées puis seront versées sur votre compte bancaire.</string>
     <string name="orders_confirm_dialog_message2">Il ne vous restera plus qu’à livrer vos proches…</string>
-    <string name="orders_confirm_dialog_message3">Assurez vous avant que tout est bien calé avec le producteur… pensez à utiliser la fonctionalité « envoyer votre commande au producteur »</string>
+    <string name="orders_confirm_dialog_message3">Assurez-vous avant que tout est bien calé avec le producteur… pensez à utiliser la fonctionalité « envoyer votre commande au producteur »</string>
     <string name="bank_account_error_message">Pour recevoir sur votre compte le virement correspondant aux commandes, vous devez enregistrer vos données bancaires»</string>
     <string name="text_about_cgu">CGU</string>
     <string name="text_about_rules">Charte de confidentialité</string>
     <string name="text_about_about_us">Nos mission, nos valeurs</string>
     <string name="text_send_pdf_to_producer">Commande envoyée au producteur le:</string>
+    <string name="text_add_card_owner_name">Votre compte sera débité uniquement á la confirmation définitive de</string>
 
 </resources>

@@ -60,6 +60,8 @@ public class SelectCardFragment extends ContentFragment implements SelectCardCon
     protected Button btnValidate;
     @ViewById(R.id.tvCardNumber_FSC)
     protected TextView tvCardNumber;
+    @ViewById(R.id.tvDealOwner_FSC)
+    protected TextView tvDealOwner;
 
     @FragmentArg
     protected double mQuantity;
@@ -82,7 +84,6 @@ public class SelectCardFragment extends ContentFragment implements SelectCardCon
     @AfterViews
     protected void initUI() {
         initClickListeners();
-
         mPresenter.subscribe();
     }
 
@@ -90,6 +91,11 @@ public class SelectCardFragment extends ContentFragment implements SelectCardCon
     public void showEndFlowCreateOrder() {
         mActivity.setResult(Activity.RESULT_OK);
         mActivity.finish();
+    }
+
+    @Override
+    public void setOwnerName(String _title) {
+        tvDealOwner.setText(_title);
     }
 
     @Override

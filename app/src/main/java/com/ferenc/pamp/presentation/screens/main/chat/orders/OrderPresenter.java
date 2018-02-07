@@ -13,6 +13,7 @@ import com.ferenc.pamp.presentation.utils.ToastManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -84,7 +85,7 @@ public class OrderPresenter implements OrderContract.Presenter {
     }
 
     private String getCloseDateInString(Calendar calendar) {
-        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy", Locale.FRANCE);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE);
         return sdf.format(calendar.getTime());
     }
 

@@ -44,6 +44,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
     private TextView tvDealAuthorName;
     private TextView tvDealDescription;
     private TextView tvDealPriceDescription;
+    private TextView tvProductName;
     private TextView tvDealAmountItems;
     private TextView tvDealStartDate;
     private TextView tvDealEndDate;
@@ -59,6 +60,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         cvDealBackground = itemView.findViewById(R.id.cvDealBackground_IMGDD);
         tvDealAuthorName = itemView.findViewById(R.id.tvDealAuthorName_IMGDD);
         tvDealDescription = itemView.findViewById(R.id.tvDealDescription_IMGDD);
+        tvProductName = itemView.findViewById(R.id.tvProductName_IMGDD);
         tvDealPriceDescription = itemView.findViewById(R.id.tvDealPriceDescription_IMGDD);
         tvDealAmountItems = itemView.findViewById(R.id.tvDealAmountItems_IMGDD);
         tvDealStartDate = itemView.findViewById(R.id.tvDealStartDate_IMGDD);
@@ -81,7 +83,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         User user = data.getMyUser();
         String deliveryStartDate = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryStartDate));
         String deliveryEndDate = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(new Date(goodDealResponse.deliveryEndDate));
-        String dealPriceDescription = String.valueOf(goodDealResponse.price) + " € " + " la " + goodDealResponse.product + " de " + goodDealResponse.unit;
+        String dealPriceDescription = String.valueOf(goodDealResponse.price) + " € " + " " + goodDealResponse.unit;
         String dealQuantityMax = context.getString(R.string.text_message_good_deal_diffusion_quant_max)
                 + (goodDealResponse.quantity != 0
                 ? String.valueOf(goodDealResponse.quantity)
@@ -108,6 +110,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
         }
 
         tvDealDescription.setText(goodDealResponse.description);
+        tvProductName.setText(goodDealResponse.product);
         tvDealPriceDescription.setText(dealPriceDescription);
         tvDealAmountItems.setText(dealQuantityMax);
         tvDealStartDate.setText(deliveryStartDate);

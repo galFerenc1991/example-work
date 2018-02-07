@@ -127,7 +127,7 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
         DecimalFormat df = new DecimalFormat("#.##");
         double cleanPrice = mGoodDealResponse.price * mQuantity;
         mCleanPrice = df.format(cleanPrice) + " €";
-        double honorar = ((mGoodDealResponse.price * mQuantity / 100) * 3.5) + 0.75;
+        double honorar = mQuantity != 0 ? ((mGoodDealResponse.price * mQuantity / 100) * 3.5) + 0.75 : 0;
         mHonorar = df.format(honorar) + " €";
         double totalInDouble = cleanPrice + honorar;
         mTotalPrice = df.format(totalInDouble) + " €";

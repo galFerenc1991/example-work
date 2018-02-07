@@ -83,7 +83,8 @@
             style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_default">
+            android:layout_marginTop="@dimen/margin_default"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tvCountry_FSU"

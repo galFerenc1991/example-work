@@ -57,43 +57,48 @@ public class InputActivity extends AppCompatActivity {
     private void setInputIndicatorIcon(int _requestCode) {
         switch (_requestCode) {
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_NAME:
+                etContent.setHint(getString(R.string.hint_good_plan_name));
                 etContent.setText(mGoodDealManager.getGoodDeal().getProduct());
                 ivContentIndicator.setImageResource(R.drawable.ic_good_plan_name);
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_DESCRIPTION:
+                etContent.setHint(getString(R.string.hint_good_plan_description));
                 etContent.setText(mGoodDealManager.getGoodDeal().getDescription());
                 ivContentIndicator.setImageResource(R.drawable.ic_description);
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_DESCRIPTION_FROM_RE_BROADCAST_FLOW:
+                etContent.setHint(getString(R.string.hint_good_plan_description));
                 btnOk.setBackground(getResources().getDrawable(R.drawable.bg_confirm_button_yellow));
                 etContent.setText(mGoodDealManager.getGoodDeal().getDescription());
                 ivContentIndicator.setImageResource(R.drawable.ic_description_yelow);
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_PRICE:
-                String priceFromCash = String.valueOf(mGoodDealManager.getGoodDeal().getPrice());
+                etContent.setHint(getString(R.string.hint_good_plan_price));
+                double priceFromCash = mGoodDealManager.getGoodDeal().getPrice();
                 etContent.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 etContent.setKeyListener(DigitsKeyListener.getInstance(false,true));
-                if (priceFromCash.equals("0")) {
+                if (priceFromCash == 0) {
                     etContent.setText("");
                 } else {
-                    etContent.setText(priceFromCash);
+                    etContent.setText(String.valueOf(priceFromCash));
                 }
-
                 ivContentIndicator.setImageResource(R.drawable.ic_price);
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_PRICE_DESCRIPTION:
+                etContent.setHint(getString(R.string.hint_good_plan_price_description));
                 etContent.setText(mGoodDealManager.getGoodDeal().getUnit());
                 ivContentIndicator.setImageResource(R.drawable.ic_help);
                 break;
             case Constants.REQUEST_CODE_INPUT_ACTIVITY_QUANTITY:
+                etContent.setHint(getString(R.string.hint_good_plan_quantity));
                 etContent.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 etContent.setKeyListener(DigitsKeyListener.getInstance(false,true));
-                String quantityFromCash = String.valueOf(mGoodDealManager.getGoodDeal().getQuantity());
+                double quantityFromCash = mGoodDealManager.getGoodDeal().getQuantity();
 
-                if (quantityFromCash.equals("0")) {
+                if (quantityFromCash == 0.0) {
                     etContent.setText("");
                 } else {
-                    etContent.setText(quantityFromCash);
+                    etContent.setText(String.valueOf(quantityFromCash));
                 }
                 ivContentIndicator.setImageResource(R.drawable.ic_payment);
                 break;
