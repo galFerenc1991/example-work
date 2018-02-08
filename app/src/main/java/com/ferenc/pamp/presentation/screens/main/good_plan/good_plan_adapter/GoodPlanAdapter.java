@@ -138,6 +138,10 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
         if (goodDealResponse.hasOrders) viewHolder.tvOrderStatus.setVisibility(View.VISIBLE);
         else viewHolder.tvOrderStatus.setVisibility(View.GONE);
 
+        if (mSignedUserManager.getCurrentUser().getId().equals(goodDealResponse.owner.getId())){
+            viewHolder.tvOrderStatus.setText(R.string.my_order_status);
+        }
+
         String state = goodDealResponse.state;
         switch (state) {
             case Constants.STATE_PROGRESS:

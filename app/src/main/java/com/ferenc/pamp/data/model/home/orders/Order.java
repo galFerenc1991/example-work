@@ -21,6 +21,7 @@ public class Order implements Parcelable {
     private double quantity;
     private int rank;
     private User user;
+    private long createdAt;
     private GoodDealResponse deal;
 
     public String getId() {
@@ -77,6 +78,10 @@ public class Order implements Parcelable {
 
     public int getRank() {
         return rank;
+    }
+
+    public long getCreatedAt() {
+        return createdAt;
     }
 
     public Order() {

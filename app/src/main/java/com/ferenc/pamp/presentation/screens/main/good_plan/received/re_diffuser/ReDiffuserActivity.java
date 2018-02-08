@@ -36,13 +36,10 @@ public class ReDiffuserActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null)
             initFragment();
-
-        toolbarManager.setIconHome(R.drawable.ic_arrow_back_yellow);
     }
 
     private void initFragment() {
         replaceFragment(ProposeFragment_.builder().isReBroadcastFlow(true).build());
-
     }
 
     @Override
