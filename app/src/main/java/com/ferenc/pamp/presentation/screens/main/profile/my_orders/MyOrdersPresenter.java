@@ -56,7 +56,7 @@ public class MyOrdersPresenter implements MyOrdersContract.Presenter {
                     ArrayList<MyOrderDH> orders = new ArrayList<>();
 
                     for (Order order : orderListResponse.data)
-                        orders.add(new MyOrderDH(order.getId(), order.getDeal().product, order.getDeal().title, order.getDeal().createdAt!=null ? order.getDeal().createdAt : 0));
+                        orders.add(new MyOrderDH(order.getId(), order.getDeal().product, order.getDeal().title, order.getDeal().createdAt));
 
                     if (!isLoadMore) {
                         mView.hideProgressBar();

@@ -6,9 +6,11 @@ import android.widget.TextView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.Fullscreen;
@@ -35,6 +37,9 @@ public class EndFlowOrderActivity extends AppCompatActivity {
     @Extra
     protected boolean mIsCreatedFlow;
 
+    @Bean
+    protected GoodDealResponseManager mGoodDealResponseManager;
+
 
     @AfterViews
     protected void initUI() {
@@ -45,6 +50,9 @@ public class EndFlowOrderActivity extends AppCompatActivity {
             tvEndFlowMassage.setTextColor(getResources().getColor(R.color.textColorRed));
             tvEndFlowSubtitle.setText(R.string.title_order_canceled_subtitle);
             tvEndFlowSubtitle.setTextColor(getResources().getColor(R.color.textColorRed));
+        } else {
+            String textWithTitle = getString(R.string.title_order_created_subtitle) + " de "  + mGoodDealResponseManager.getGoodDealResponse().title;
+            tvEndFlowSubtitle.setText(textWithTitle);
         }
     }
 

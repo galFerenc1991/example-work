@@ -6,8 +6,7 @@
     <FrameLayout
         android:id="@+id/flContainer_AEP"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:backgroundTint="@android:color/white" />
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -137,7 +136,8 @@
                     style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_medium">
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tvCountry_AEP"

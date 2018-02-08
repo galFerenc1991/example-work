@@ -37,8 +37,7 @@ public class ReDiffuserActivity extends BaseActivity{
         if (savedInstanceState == null)
             initFragment();
 
-        if (getSupportActionBar()!=null)
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_yellow);
+        toolbarManager.setIconHome(R.drawable.ic_arrow_back_yellow);
     }
 
     private void initFragment() {

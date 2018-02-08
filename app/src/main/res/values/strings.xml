@@ -194,8 +194,8 @@
 
     <!--End flow Texts-->
     <string name="title_order_created">Vorte commande est validée</string>
-    <string name="title_order_created_subtitle">Vorte commandesera débité uniquement á la confirmation définitive.</string>
-    <string name="title_order_created_text">Retrouvez á tous moment vorte rácapitulatif de comande dans vorte " compte"</string>
+    <string name="title_order_created_subtitle">Votre compte sera débité uniquement à la confirmation définitive</string>
+    <string name="title_order_created_text">Retrouvez à tout moment votre récapitulatif de commande dans votre " compte"</string>
     <string name="title_order_canceled">Votre commande a été annulée</string>
     <string name="title_order_canceled_subtitle">Votre compte ne sera pas débité</string>
 
