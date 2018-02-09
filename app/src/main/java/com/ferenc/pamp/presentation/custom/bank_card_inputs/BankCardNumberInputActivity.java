@@ -2,16 +2,19 @@ package com.ferenc.pamp.presentation.custom.bank_card_inputs;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import com.ferenc.pamp.R;
+import com.ferenc.pamp.presentation.base.models.BankCardNumber;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import org.androidannotations.annotations.AfterViews;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 /**
@@ -30,9 +33,30 @@ public class BankCardNumberInputActivity extends AppCompatActivity {
     @ViewById(R.id.etFourth_ABCII)
     protected EditText etFourth;
 
+    @Extra
+    protected BankCardNumber mBankCardNumber;
+
+//    private static String first4;
+//    private static String second4;
+//    private static String third4;
+//    private static String fourth4;
+
     @AfterViews
     protected void initUI() {
         initEditTextListeners();
+//        if (!TextUtils.isEmpty(first4)) {
+//            etFirst.setText(first4);
+//            etSecond.setText(second4);
+//            etThird.setText(third4);
+//            etFourth.setText(fourth4);
+//        }
+
+        if (mBankCardNumber != null) {
+            etFirst.setText(mBankCardNumber.getFirst4());
+            etSecond.setText(mBankCardNumber.getSecond4());
+            etThird.setText(mBankCardNumber.getThird4());
+            etFourth.setText(mBankCardNumber.getFourth4());
+        }
     }
 
     private void initEditTextListeners() {
@@ -124,7 +148,19 @@ public class BankCardNumberInputActivity extends AppCompatActivity {
 
     void setResult() {
         Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_INPUT_RESULT, etFirst.getText().toString() + etSecond.getText().toString() + etThird.getText().toString() + etFourth.getText().toString());
+//        first4 =;
+//        second4 = etSecond.getText().toString();
+//        third4 =;
+//        fourth4 =;
+
+        mBankCardNumber = new BankCardNumber.Builder()
+                .setFirst4(etFirst.getText().toString())
+                .setSecond4(etSecond.getText().toString())
+                .setThird4(etThird.getText().toString())
+                .setFourth4(etFourth.getText().toString())
+                .build();
+
+        intent.putExtra(Constants.KEY_INPUT_RESULT, mBankCardNumber);
         setResult(RESULT_OK, intent);
         finish();
     }

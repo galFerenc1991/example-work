@@ -1,16 +1,19 @@
 package com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_pop_up;
 
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
+import com.ferenc.pamp.data.model.base.GeneralMessageResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.model.home.orders.Order;
 import com.ferenc.pamp.data.model.home.orders.OrderRequest;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
+import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
+import retrofit2.HttpException;
 
 /**
  * Created by
@@ -24,6 +27,7 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
     private CreateOrderPopUpContract.OrderModel mOrderModel;
     private CompositeDisposable mCompositeDisposable;
     private double mQuantity;
+    private double mMaxQuantity;
     private Order mOrder;
     private boolean mHasOrder;
     private boolean mIsSendOrderListFlow;
@@ -45,6 +49,7 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
         this.mCompositeDisposable = new CompositeDisposable();
         this.mQuantity = 1.0d;
         this.mGoodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
+        this.mMaxQuantity = mGoodDealResponse.quantity;
         this.mHasOrder = mGoodDealResponse.hasOrders;
         this.mIsSendOrderListFlow = _isSendOrderListFlow;
         this.mSendOrderListQuantity = _sendOrderListQuantity;
@@ -92,7 +97,7 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
     public void clickedAddQuantity() {
         if (mQuantity < 1) {
             mQuantity = (mQuantity * 10 + 1) / 10;
-        } else {
+        } else if (mQuantity < mMaxQuantity) {
             mQuantity = mQuantity + 1;
         }
 
@@ -180,11 +185,17 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
 
     private Consumer<Throwable> throwableConsumer = throwable -> {
         throwable.printStackTrace();
+        mView.hideProgress(true);
         if (throwable instanceof ConnectionLostException) {
-            mView.hideProgress(true);
             ToastManager.showToast("Connection Lost");
+        } else if (throwable instanceof HttpException) {
+            int errorCode = ((HttpException) throwable).response().code();
+            switch (errorCode) {
+                case 400:
+                    Gson gson = new Gson();
+                    GeneralMessageResponse _data = gson.fromJson( ((HttpException) throwable).response().errorBody().string(), GeneralMessageResponse.class);
+                    ToastManager.showToast(_data.getMessage());            }
         } else {
-            mView.hideProgress(true);
             ToastManager.showToast("Something went wrong");
         }
     };

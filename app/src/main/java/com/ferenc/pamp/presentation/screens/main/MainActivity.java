@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.screens.main;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
@@ -188,6 +189,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mPresenter.unsubscribe();
         mGoodDealManager.clearGoodDeal();
     }
 }

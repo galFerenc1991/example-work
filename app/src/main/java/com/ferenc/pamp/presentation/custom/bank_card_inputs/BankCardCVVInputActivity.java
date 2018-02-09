@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.custom.bank_card_inputs;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
@@ -12,6 +13,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 /**
@@ -23,8 +25,12 @@ public class BankCardCVVInputActivity extends AppCompatActivity {
     @ViewById(R.id.etCVV_ABCCVVI)
     protected EditText etCVV;
 
+    @Extra
+    protected String mCardCVV;
+
     @AfterViews
     protected void initUI() {
+        if (!TextUtils.isEmpty(mCardCVV)) etCVV.setText(mCardCVV);
         initEditTextListeners();
     }
 

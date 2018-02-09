@@ -61,11 +61,15 @@ public class DeliveryDateActivity extends AppCompatActivity implements DeliveryD
     @Bean
     protected GoodDealManager mGoodDealManager;
 
+    @Extra
+    protected long mStartDeliveryDate;
+    @Extra
+    protected long mEndDeliveryDate;
+
     @AfterInject
     @Override
     public void initPresenter() {
-        new DeliveryDatePresenter(this, mGoodDealManager, isRebroadcast);
-//        isRebroadcast = getIntent().getBooleanExtra(Constants.KEY_IS_REBROADCAST, false);
+        new DeliveryDatePresenter(this, mGoodDealManager, isRebroadcast, mStartDeliveryDate, mEndDeliveryDate);
     }
 
     @AfterViews

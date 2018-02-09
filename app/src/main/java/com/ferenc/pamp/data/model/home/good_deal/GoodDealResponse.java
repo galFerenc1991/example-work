@@ -19,7 +19,7 @@ public class GoodDealResponse implements Parcelable {
 
     public double price;
     public String product;
-    public int quantity;
+    public double quantity;
     public long closingDate;
     public String description;
     public long deliveryStartDate;
@@ -56,7 +56,7 @@ public class GoodDealResponse implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeDouble(this.price);
         dest.writeString(this.product);
-        dest.writeInt(this.quantity);
+        dest.writeDouble(this.quantity);
         dest.writeLong(this.closingDate);
         dest.writeString(this.description);
         dest.writeLong(this.deliveryStartDate);
@@ -79,7 +79,7 @@ public class GoodDealResponse implements Parcelable {
     protected GoodDealResponse(Parcel in) {
         this.price = in.readDouble();
         this.product = in.readString();
-        this.quantity = in.readInt();
+        this.quantity = in.readDouble();
         this.closingDate = in.readLong();
         this.description = in.readString();
         this.deliveryStartDate = in.readLong();

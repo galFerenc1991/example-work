@@ -49,6 +49,32 @@
                         android:src="@drawable/ic_add_photo" />
                 </RelativeLayout>
 
+                <LinearLayout
+                    android:id="@+id/llEmail_AEP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_quart"
+                    android:layout_marginStart="@dimen/margin_quart"
+                    android:layout_marginTop="@dimen/margin_half"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvEmail_AEP"
+                        style="@style/DescriptionGoodPlanTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_default"
+                        android:enabled="false"
+                        android:hint="@string/hint_email"
+                        android:textColor="@color/textColorGraySendOrderList"
+                        android:textColorHint="@color/textColorGray" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/textColorGrayTransparent" />
+                </LinearLayout>
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tilName_AEP"
                     style="@style/TILStyle"
@@ -107,37 +133,12 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/llEmail_AEP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_quart"
-                    android:layout_marginStart="@dimen/margin_quart"
-                    android:layout_marginTop="@dimen/margin_half"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvEmail_AEP"
-                        style="@style/DescriptionGoodPlanTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_default"
-                        android:textColor="@color/textColorGraySendOrderList"
-                        android:enabled="false"
-                        android:hint="@string/hint_email"
-                        android:textColorHint="@color/textColorGray" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/textColorGrayTransparent" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/llCountrySpinner_AEP"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_medium">
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tvCountry_AEP"
@@ -229,7 +230,6 @@
                     android:id="@+id/llChangePassword_AEP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_double"
                     android:layout_marginEnd="@dimen/margin_quart"
                     android:layout_marginStart="@dimen/margin_quart"
                     android:layout_marginTop="@dimen/margin_half"
@@ -258,6 +258,7 @@
                     android:layout_height="@dimen/ok_button_height"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="@dimen/margin_double"
+                    android:layout_marginTop="@dimen/margin_double"
                     android:background="@drawable/bg_confirm_button"
                     android:paddingEnd="@dimen/padding_double"
                     android:paddingStart="@dimen/padding_double"

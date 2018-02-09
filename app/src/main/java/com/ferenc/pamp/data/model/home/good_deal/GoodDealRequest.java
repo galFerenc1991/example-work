@@ -140,7 +140,7 @@ public class GoodDealRequest implements Parcelable {
             return this;
         }
 
-        public Builder setQuantity(int _quantity) {
+        public Builder setQuantity(double _quantity) {
             goodDealRequest.quantity = _quantity;
             return this;
         }
