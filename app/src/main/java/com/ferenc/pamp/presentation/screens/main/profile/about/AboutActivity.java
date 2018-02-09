@@ -5,6 +5,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.domain.UserRepository;
@@ -104,6 +105,7 @@ public class AboutActivity  extends BaseActivity implements AboutContract.View {
         toolbarManager.setTitle(titleAbout);
         toolbarManager.showHomeAsUp(true);
         toolbarManager.superBackWhenBackArrowPressed(this,true);
+        toolbarManager.setIconHome(R.drawable.ic_arrow_back_green);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.domain.OrderRepository;
@@ -53,6 +54,9 @@ public class MyOrdersActivity extends BaseActivity implements MyOrdersContract.V
 
     @ViewById(R.id.rvMyOrders_AMO)
     protected RecyclerView rvMyOrders;
+
+    @ViewById(R.id.tvPlaceholder_AMO)
+    protected TextView tvPlaceholder;
 
 
     @Override
@@ -148,6 +152,11 @@ public class MyOrdersActivity extends BaseActivity implements MyOrdersContract.V
     @Override
     public void openOrderPreview(String _orderId) {
         PreviewPDFActivity_.intent(this).mOrderId(_orderId).start();
+    }
+
+    @Override
+    public void setPlaceholderVisibility(boolean _isVisible) {
+        tvPlaceholder.setVisibility(_isVisible ? View.VISIBLE : View.GONE);
     }
 
 

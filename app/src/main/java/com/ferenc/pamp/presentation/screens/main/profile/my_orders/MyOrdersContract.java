@@ -30,6 +30,8 @@ public interface MyOrdersContract {
         void addOrdersList(List<MyOrderDH> _orders);
 
         void openOrderPreview(String _orderId);
+
+        void setPlaceholderVisibility(boolean isVisible);
     }
 
     interface Presenter extends BasePresenter {

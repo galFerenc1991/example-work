@@ -13,14 +13,13 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/shadow_height"
+        android:layout_height="@dimen/toolbar_shadow_height"
         android:background="@drawable/shadow"/>
 
     <FrameLayout
         android:id="@+id/flContainer_AABC"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         />
 
 </LinearLayout>

@@ -307,5 +307,6 @@
     <string name="text_send_pdf_to_producer">Commande envoyée au producteur le:</string>
     <string name="text_add_card_owner_name">Votre compte sera débité uniquement á la confirmation définitive de</string>
     <string name="my_order_status">Il y a des commandes</string>
+    <string name="placeholder_no_orders">Vous n\'avez pas encore de commande</string>
 
 </resources>
