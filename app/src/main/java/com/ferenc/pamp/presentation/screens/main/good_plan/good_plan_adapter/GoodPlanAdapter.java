@@ -190,7 +190,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
                 if (goodDealResponse.state.equals(Constants.STATE_PROGRESS)) {
                     mGoodDealManager.saveGoodDeal(getGoodDealFromReSend(goodDealResponse));
                     mReceiveRelay.receiveRelay.accept(true);
-                } else ToastManager.showToast("You can not resend CLOSED GOOD DEAL!!!");
+                } else ToastManager.showToast("You can not resend CLOSED GOOD DEAL!");
             });
         } else {
             viewHolder.rlReuse.setOnClickListener(view -> {
