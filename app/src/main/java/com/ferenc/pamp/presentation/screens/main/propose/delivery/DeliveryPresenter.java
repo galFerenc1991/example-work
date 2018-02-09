@@ -41,9 +41,13 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
             } else {
                 mView.setProductDescription(reUseGoodDeal.getDescription());
                 mView.setHelpToDeliveryDateText("Du " + convertServerDateToString(reUseGoodDeal.getDeliveryStartDate()) + " au " + convertServerDateToString(reUseGoodDeal.getDeliveryEndDate()));
+                reUseGoodDeal.setDeliveryStartDate(0);
+                reUseGoodDeal.setDeliveryEndDate(0);
+                mGoodDealManager.saveGoodDeal(reUseGoodDeal);
             }
         }
     }
+
     private String convertServerDateToString(long _dateInMillis) {
         Calendar date = Calendar.getInstance();
         date.setTimeInMillis(_dateInMillis);

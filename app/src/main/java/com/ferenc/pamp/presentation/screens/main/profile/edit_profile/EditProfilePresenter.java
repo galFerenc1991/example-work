@@ -56,13 +56,15 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
             mView.setUserName(signedUser.getFirstName());
             mView.setUserSurName(signedUser.getLastName());
             mView.setUserEmail(signedUser.getEmail());
-            mView.setUserCountry(signedUser.getCountry());
+//            mView.setUserCountry(signedUser.getCountry());
             if (signedUser.getBankAccount() != null) {
                 mView.setIban(signedUser.getBankAccount().getCountry() + " ***** " + signedUser.getBankAccount().getLast4());
             }
             if (signedUser.getCard() != null) {
                 mView.setCardNumber(" **** " + signedUser.getCard().getLast4(), signedUser.getCard().getBrand());
             }
+            if (signedUser.isSocial())
+                mView.hideChangePasswordField();
         }
     }
 

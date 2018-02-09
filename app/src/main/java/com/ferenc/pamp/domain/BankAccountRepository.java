@@ -44,16 +44,18 @@ public class BankAccountRepository extends NetworkRepository implements BankAcco
                 .flatMap(bankAccount -> {
                     User user = mSignedUserManager.getCurrentUser();
                     user.setBankAccount(bankAccount);
+                    mSignedUserManager.saveUser(user);
                     return Observable.just(bankAccount);
                 }));
     }
 
     @Override
     public Observable<BankAccount> updateBankAccount(BankAccountRequest request) {
-        return getNetworkObservable(bankAccountService.attachBankAccount(request)
+        return getNetworkObservable(bankAccountService.updateBankAccount(request)
                 .flatMap(bankAccount -> {
                     User user = mSignedUserManager.getCurrentUser();
                     user.setBankAccount(bankAccount);
+                    mSignedUserManager.saveUser(user);
                     return Observable.just(bankAccount);
                 }));
     }

@@ -62,6 +62,8 @@ public interface EditProfileContract {
 
         void openChangePasswordScreen();
 
+        void hideChangePasswordField();
+
     }
 
     interface Presenter extends BasePresenter {

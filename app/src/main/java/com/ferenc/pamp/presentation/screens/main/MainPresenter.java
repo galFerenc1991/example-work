@@ -38,9 +38,9 @@ public class MainPresenter implements MainContract.Presenter {
                 }, throwable -> {
                     ToastManager.showToast("Firebase token save error:" + throwable.getMessage());
                 }));
-        mProposeRelay.proposeRelay.subscribe(aBoolean -> {
+        mCompositeDisposable.add(mProposeRelay.proposeRelay.subscribe(aBoolean -> {
             mView.openProposedFlow();
-        });
+        }));
     }
 
     @Override

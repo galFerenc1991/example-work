@@ -25,21 +25,33 @@ public class DeliveryDatePresenter implements DeliveryDateContract.Presenter {
     private GoodDealManager mGoodDealManager;
     private GoodDealRequest mGoodDeal;
     private boolean mIsRebroadcast;
+    private long mStartDeliveryDate;
+    private long mEndDeliveryDate;
 
-    public DeliveryDatePresenter(DeliveryDateContract.View _view, GoodDealManager _goodDealManager, boolean _isRebroadcast) {
+    public DeliveryDatePresenter(DeliveryDateContract.View _view,
+                                 GoodDealManager _goodDealManager,
+                                 boolean _isRebroadcast,
+                                 long _startDeliveryDate,
+                                 long _endDeliveryDate) {
         this.mView = _view;
         this.mGoodDealManager = _goodDealManager;
         this.mIsRebroadcast = _isRebroadcast;
+        this.mStartDeliveryDate = _startDeliveryDate;
+        this.mEndDeliveryDate = _endDeliveryDate;
 
         mView.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
-        if (!mIsRebroadcast) {
-//            mGoodDeal = mGoodDealManager.getGoodDeal();
-//            mView.setStartDate(convertServerDateToString(mGoodDeal.getDeliveryStartDate()));
-//            mView.setEndDate(convertServerDateToString(mGoodDeal.getDeliveryEndDate()));
+        mGoodDeal = mGoodDealManager.getGoodDeal();
+        if (mGoodDeal.getDeliveryStartDate() != 0) {
+            mView.setStartDate(convertServerDateToString(mGoodDeal.getDeliveryStartDate()));
+            mView.setEndDate(convertServerDateToString(mGoodDeal.getDeliveryEndDate()));
+        }
+        if (mEndDeliveryDate != 0) {
+            mView.setStartDate(convertServerDateToString(mStartDeliveryDate));
+            mView.setEndDate(convertServerDateToString(mEndDeliveryDate));
         }
     }
 

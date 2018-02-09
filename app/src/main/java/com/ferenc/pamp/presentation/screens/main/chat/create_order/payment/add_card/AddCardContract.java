@@ -9,6 +9,7 @@ import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.BaseView;
 import com.ferenc.pamp.presentation.base.content.ContentView;
 import com.ferenc.pamp.presentation.base.models.BankCard;
+import com.ferenc.pamp.presentation.base.models.BankCardNumber;
 import com.ferenc.pamp.presentation.base.models.ExpDate;
 
 import io.reactivex.Observable;
@@ -22,11 +23,11 @@ import retrofit2.http.Body;
 public interface AddCardContract {
 
     interface View extends ContentView, BaseView<Presenter> {
-        void openCardNumberInputScreen(int _requestCode);
+        void openCardNumberInputScreen(int _requestCode, BankCardNumber _bankCardNumber);
 
-        void openCardExpirationInputScreen(int _requestCode);
+        void openCardExpirationInputScreen(int _requestCode, ExpDate _expDate);
 
-        void openCardCVVInputScreen(int _requestCode);
+        void openCardCVVInputScreen(int _requestCode, String _cardCVV);
 
         void setCardNumber(String _cardNumber);
 
@@ -48,7 +49,7 @@ public interface AddCardContract {
 
         void clickedCardCVV(int _requestCode);
 
-        void saveCardNumber(String _number);
+        void saveCardNumber(BankCardNumber _number);
 
         void saveExpirationDate(ExpDate _expDate);
 

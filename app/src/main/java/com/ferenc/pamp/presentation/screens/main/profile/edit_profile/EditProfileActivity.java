@@ -10,6 +10,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -364,6 +365,11 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
                 ToastManager.showToast("Please, allow for PAMP access to Camera.");
             }
         }
+    }
+
+    @Override
+    public void hideChangePasswordField() {
+        llChangePassword.setVisibility(View.GONE);
     }
 
     @Override

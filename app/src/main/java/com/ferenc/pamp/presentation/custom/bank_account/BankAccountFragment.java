@@ -108,6 +108,8 @@ public class BankAccountFragment extends ContentFragment implements BankAccountC
         RxView.clicks(llBirthDate)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickedBirthDay());
+
+        mPresenter.subscribe();
     }
 
     @Override
@@ -205,7 +207,7 @@ public class BankAccountFragment extends ContentFragment implements BankAccountC
 
     @Override
     public void setIBan(String _iBan) {
-        etIban.setText(_iBan);
+        etIban.setHint(_iBan);
     }
 
     @Override

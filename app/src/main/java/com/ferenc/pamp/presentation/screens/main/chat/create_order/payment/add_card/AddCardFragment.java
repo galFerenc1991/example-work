@@ -11,6 +11,8 @@ import com.ferenc.pamp.domain.CardRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
 import com.ferenc.pamp.presentation.base.models.BankCard;
+import com.ferenc.pamp.presentation.base.models.BankCardNumber;
+import com.ferenc.pamp.presentation.base.models.ExpDate;
 import com.ferenc.pamp.presentation.custom.bank_card_inputs.BankCardCVVInputActivity_;
 import com.ferenc.pamp.presentation.custom.bank_card_inputs.BankCardExpirationInputActivity_;
 import com.ferenc.pamp.presentation.custom.bank_card_inputs.BankCardNumberInputActivity_;
@@ -112,22 +114,24 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
     }
 
 
-
     @Override
-    public void openCardNumberInputScreen(int _requestCode) {
+    public void openCardNumberInputScreen(int _requestCode, BankCardNumber _bankCardNumber) {
         BankCardNumberInputActivity_.intent(this)
+                .mBankCardNumber(_bankCardNumber)
                 .startForResult(_requestCode);
     }
 
     @Override
-    public void openCardExpirationInputScreen(int _requestCode) {
+    public void openCardExpirationInputScreen(int _requestCode, ExpDate _expDate) {
         BankCardExpirationInputActivity_.intent(this)
+                .mExpDate(_expDate)
                 .startForResult(_requestCode);
     }
 
     @Override
-    public void openCardCVVInputScreen(int _requestCode) {
+    public void openCardCVVInputScreen(int _requestCode, String _cardCVV) {
         BankCardCVVInputActivity_.intent(this)
+                .mCardCVV(_cardCVV)
                 .startForResult(_requestCode);
     }
 
@@ -137,7 +141,7 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
             String result = data.getStringExtra(Constants.KEY_INPUT_RESULT);
             switch (requestCode) {
                 case Constants.REQUEST_CODE_ACTIVITY_CARD_NUMBER:
-                    mPresenter.saveCardNumber(result);
+                    mPresenter.saveCardNumber(data.getParcelableExtra(Constants.KEY_INPUT_RESULT));
                     break;
                 case Constants.REQUEST_CODE_ACTIVITY_EXPIRATION:
                     mPresenter.saveExpirationDate(data.getParcelableExtra(Constants.KEY_INPUT_RESULT));
