@@ -105,7 +105,7 @@ public class DeliveryPresenter implements DeliveryContract.Presenter {
     }
 
     private String getCloseDateInString(Calendar calendar) {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM 'at' HH:mm", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM 'à' HH:mm", Locale.getDefault());
         return sdf.format(calendar.getTime());
     }
 

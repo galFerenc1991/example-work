@@ -67,6 +67,7 @@ public class ProposeFragment extends ContentTabsFragment {
             adapter.addFragment(DeliveryFragment_.builder().isReBroadcastFlow(isReBroadcastFlow).build(), mDeliveryTabName);
             adapter.addFragment(ShareFragment_.builder().isReBroadcastFlow(isReBroadcastFlow).isUpdateGoodDeal(false).build(), mShareTabName);
         } else {
+
             adapter.addFragment(DeliveryFragment_.builder().isReBroadcastFlow(isReBroadcastFlow).build(), mDeliveryTabName);
             adapter.addFragment(ShareFragment_.builder().isReBroadcastFlow(isReBroadcastFlow).isUpdateGoodDeal(false).build(), mReBroadcastName);
         }

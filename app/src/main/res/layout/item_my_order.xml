@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -14,23 +14,29 @@
 
         <TextView
             android:id="@+id/tvOrderName_IMO"
-            android:layout_width="@dimen/default_my_order_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_default"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/tvOrderDate_IMO"
+            android:ellipsize="end"
             android:fontFamily="sans-serif-light"
             android:gravity="start"
-            android:textColor="@color/textColorBlack"/>
+            android:maxLines="1"
+            android:textColor="@color/textColorBlack"
+            android:textSize="@dimen/text_size_default" />
 
         <TextView
             android:id="@+id/tvOrderDate_IMO"
-            android:layout_width="@dimen/default_my_order_date"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_very_small"
             android:fontFamily="sans-serif-light"
             android:gravity="end"
-            android:textColor="@color/textColorOrangeMyOrderList"/>
+            android:textColor="@color/textColorOrangeMyOrderList"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

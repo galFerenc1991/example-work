@@ -20,6 +20,8 @@ public interface SelectCardContract {
         void setCardNumber(String _cardNumber, String _brand);
 
         void showEndFlowCreateOrder();
+
+        void setOwnerName(String _title);
     }
 
     interface Presenter extends BasePresenter {

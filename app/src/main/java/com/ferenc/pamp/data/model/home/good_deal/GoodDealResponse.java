@@ -26,7 +26,7 @@ public class GoodDealResponse implements Parcelable {
     public long deliveryEndDate;
     public String deliveryAddress;
     public String title;
-    public Long createdAt;
+    public long createdAt;
     public boolean isResend;
     public boolean hasOrders;
     public int rank;
@@ -63,7 +63,7 @@ public class GoodDealResponse implements Parcelable {
         dest.writeLong(this.deliveryEndDate);
         dest.writeString(this.deliveryAddress);
         dest.writeString(this.title);
-        dest.writeValue(this.createdAt);
+        dest.writeLong(this.createdAt);
         dest.writeByte(this.isResend ? (byte) 1 : (byte) 0);
         dest.writeByte(this.hasOrders ? (byte) 1 : (byte) 0);
         dest.writeInt(this.rank);
@@ -86,7 +86,7 @@ public class GoodDealResponse implements Parcelable {
         this.deliveryEndDate = in.readLong();
         this.deliveryAddress = in.readString();
         this.title = in.readString();
-        this.createdAt = (Long) in.readValue(Long.class.getClassLoader());
+        this.createdAt = in.readLong();
         this.isResend = in.readByte() != 0;
         this.hasOrders = in.readByte() != 0;
         this.rank = in.readInt();

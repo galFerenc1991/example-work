@@ -57,6 +57,11 @@ public class ToolbarManager {
         }
     }
 
+    public void setIconHome(int _resource) {
+        if (actionBar != null)
+            actionBar.setHomeAsUpIndicator(_resource);
+    }
+
     public void hideToolbar(boolean isHide) {
         actionBar.hide();
     }

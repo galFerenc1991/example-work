@@ -108,10 +108,10 @@ public class DeliveryPlaceActivity extends AppCompatActivity implements Delivery
     public void openAutocompletePlaceScreen() {
         if (playServiceUtils.checkPlayServices(this)) {
             AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
-                    .setTypeFilter(AutocompleteFilter.TYPE_FILTER_NONE)
+                    .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
                     .build();
             try {
-                Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
                         .setFilter(typeFilter)
                         .build(this);
                 startActivityForResult(intent, Constants.REQUEST_CODE_ACTIVITY_AUTOCOMPLETE_PLACE);

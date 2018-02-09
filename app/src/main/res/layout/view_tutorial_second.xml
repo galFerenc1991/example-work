@@ -8,8 +8,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_centerInParent="true"
-        android:layout_marginEnd="60dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
@@ -26,32 +26,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal"
-            android:text="@string/text_second_tutorial_second_text"
+            android:text="Pour tous, partout, tout le temps : sur un marché, à la ferme, lors d’une dégustation, en week-end, en déplacement,… "
             android:textColor="@color/textColorGray"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_marginTop="60dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal"
-            android:text="@string/text_second_tutorial_third_text"
+            android:text="Une nouvelle façon de rapprocher les petits producteurs locaux et les consommateurs."
             android:textColor="@color/textColorGray"
             android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center_horizontal"
-            android:text="@string/text_second_tutorial_fourth_text"
-            android:textColor="@color/textColorGray"
-            android:textSize="20sp" />
 
     </LinearLayout>
 </RelativeLayout>

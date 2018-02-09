@@ -6,8 +6,7 @@
     <FrameLayout
         android:id="@+id/flContainer_AEP"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:backgroundTint="@android:color/white" />
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ivOrderBonPlan_FCO"
             android:layout_marginStart="@dimen/margin_default"
-            android:text="Bon Plan N°8278 du 26 mai 2017" />
+            android:text="Bon Plan clos le 26 mai 2017" />
     </RelativeLayout>
 
     <TextView

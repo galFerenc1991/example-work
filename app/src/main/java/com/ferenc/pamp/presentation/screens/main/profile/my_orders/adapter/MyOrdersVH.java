@@ -35,7 +35,7 @@ public class MyOrdersVH extends RecyclerVH<MyOrderDH> {
 
     @Override
     public void bindData(MyOrderDH data) {
-        String deliveryStartDate = new SimpleDateFormat("MM/dd/yyyy", Locale.FRANCE).format(new Date(data.getCreatedAt()));
+        String deliveryStartDate = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE).format(new Date(data.getCreatedAt()));
         String orderTitle = "<b>" + data.getProductName() + "</b> " + "/" + data.getOrderTitle();
         String orderDate = itemView.getContext().getString(R.string.text_my_order_list_date) + deliveryStartDate;
 
