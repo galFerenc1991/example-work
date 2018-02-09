@@ -104,6 +104,24 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
         }
         mView.setQuantityColorToRed(false);
         calculateTotal();
+
+//        if (mQuantity < 1) {
+//            mQuantity = (mQuantity * 10 + 1) / 10;
+//        } else if (mMaxQuantity != 0 && mQuantity < mMaxQuantity) {
+//            mQuantity = mQuantity + 1;
+//        } else if (mMaxQuantity == 0 )             mQuantity = mQuantity + 1;
+//
+//
+//
+//
+//        if (mQuantity >= 1) {
+//            DecimalFormat df = new DecimalFormat("#");
+//            mView.showQuantity(df.format(mQuantity));
+//        } else {
+//            mView.showQuantity(String.valueOf(mQuantity));
+//        }
+//        mView.setQuantityColorToRed(false);
+//        calculateTotal();
     }
 
     @Override

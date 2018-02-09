@@ -3,6 +3,8 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -81,7 +83,6 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         this.mGoodDealResponse = _goodDealResponseManager.getGoodDealResponse();
         this.mGoodDealResponseManager = _goodDealResponseManager;
         this.mGoodDealManager = _goodDealManager;
-
         mView.setPresenter(this);
     }
 
@@ -122,12 +123,14 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
     private void getMessage() {
         mCompositeDisposable.add(mSocketModel.getNewMessage()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(messageResponse -> {
-                    mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
-                    mView.addItem(mMessagesDH);
-                    changeGoodDeal(messageResponse.code, messageResponse);
+
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
+                        mView.addItem(mMessagesDH);
+                        changeGoodDeal(messageResponse.code, messageResponse);
+                    });
+
                 }, throwable -> {
                     Log.d("MessengerPresenter", "Error while getting new message " + throwable.getMessage());
                 }));
@@ -368,24 +371,26 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
     private void changeGoodDeal(String _code, MessageResponse _messageResponse) {
         GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
-        switch (_code) {
-            case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
-                goodDealResponse.deliveryStartDate = _messageResponse.description.deliveryStartDate;
-                goodDealResponse.deliveryEndDate = _messageResponse.description.deliveryEndDate;
-                changeDeliveryDateItem();
-                break;
-            case Constants.M8_GOOD_DEAL_CANCELLATION:
-                goodDealResponse.state = Constants.STATE_CANCELED;
-                mView.hideOrderBtn();
-                break;
-            case Constants.M10_GOOD_DEAL_CLOSING:
-                goodDealResponse.state = Constants.STATE_CLOSED;
-                mView.hideOrderBtn();
-                break;
-            case Constants.M11_1_GOOD_DEAL_CONFIRMATION:
-                goodDealResponse.state = Constants.STATE_CONFIRM;
-                mView.hideOrderBtn();
-                break;
+        if (_code !=null) {
+            switch (_code) {
+                case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
+                    goodDealResponse.deliveryStartDate = _messageResponse.description.deliveryStartDate;
+                    goodDealResponse.deliveryEndDate = _messageResponse.description.deliveryEndDate;
+                    changeDeliveryDateItem();
+                    break;
+                case Constants.M8_GOOD_DEAL_CANCELLATION:
+                    goodDealResponse.state = Constants.STATE_CANCELED;
+                    mView.hideOrderBtn();
+                    break;
+                case Constants.M10_GOOD_DEAL_CLOSING:
+                    goodDealResponse.state = Constants.STATE_CLOSED;
+                    mView.hideOrderBtn();
+                    break;
+                case Constants.M11_1_GOOD_DEAL_CONFIRMATION:
+                    goodDealResponse.state = Constants.STATE_CONFIRM;
+                    mView.hideOrderBtn();
+                    break;
+            }
         }
         saveGoodDeal(goodDealResponse);
     }
@@ -433,6 +438,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
             }
     }
     private void saveGoodDeal(GoodDealResponse _goodDeal) {
+
         mGoodDealResponse = _goodDeal;
         mGoodDealResponseManager.saveGoodDealResponse(_goodDeal);
     }

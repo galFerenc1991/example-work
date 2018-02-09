@@ -31,6 +31,7 @@
     <string name="title_add_participants">Ajouter Des Destinataries</string>
     <string name="title_payment">Paiement</string>
     <string name="title_select_payment_information">Saisissez vos informations de paiement</string>
+    <string name="title_add_card">Paiement</string>
     <string name="title_send_order_list">Envoyer Votre Liste de Commande au Producteur</string>
     <string name="title_bank_account">Enregistrer vos donnees bancaires</string>
     <string name="title_create_bank_account">Cela nous permettra de virer sur votre compte les sommes liées à vos commandes</string>
@@ -43,7 +44,7 @@
     <string name="button_login_google">Google</string>
     <string name="button_login_pamp">Se connecter</string>
     <string name="button_confirm">Valider</string>
-    <string name="button_start_using">Commencer à utiliser</string>
+    <string name="button_start_using">Commencez à utiliser</string>
     <string name="button_ok">OK</string>
     <string name="button_send">ENVOYER</string>
     <string name="button_cancel">ANNULER</string>
@@ -221,7 +222,7 @@
     <string name="text_already_registered">déjà inscrit ?</string>
 
     <!--Create Password texts-->
-    <string name="text_create_password_first">"Nous nous engageons à protéger votre vie privée et ne vendrons ou ne louerons jamais votre adresse e-mail ni aucune autre données.En poursuivant, vous acceptez nos conditions d’utilisation et notre politique de confidentialité"</string>
+    <string name="text_create_password_first">"En poursuivant, vous acceptez nos conditions d’utilisation et notre politique de confidentialité"</string>
     <string name="text_create_password_second">Conditions d’utilisation (et politique de confidentialité)</string>
     <string name="text_forgot_password">mot de passe oublié ?</string>
     <string name="text_or">ou</string>

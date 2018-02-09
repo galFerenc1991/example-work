@@ -8,10 +8,12 @@ import com.ferenc.pamp.data.model.message.Description;
 import com.ferenc.pamp.data.model.message.MessageResponse;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.MessengerContract;
 import com.ferenc.pamp.presentation.utils.SharedPrefManager_;
+import com.jakewharton.rxrelay2.BehaviorRelay;
 import com.jakewharton.rxrelay2.PublishRelay;
 import com.jakewharton.rxrelay2.Relay;
 
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.json.JSONException;
@@ -198,7 +200,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
         return voidRelay;
     }
 
-    public Relay<MessageResponse> getNewMessage = PublishRelay.create();
+    public BehaviorRelay<MessageResponse> getNewMessage = BehaviorRelay.create();
 
     public Relay<Void> voidRelay = PublishRelay.create();
 

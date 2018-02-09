@@ -4,9 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_AABC"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"
+        >
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shadow_height"
+        android:background="@drawable/shadow"/>
+
     <FrameLayout
         android:id="@+id/flContainer_AABC"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+
+        />
 
 </LinearLayout>
