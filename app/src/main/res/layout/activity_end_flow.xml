@@ -26,5 +26,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivSuccess_AEF"
         android:layout_centerHorizontal="true"
-        android:text="@string/title_good_deal_created" />
+        android:text="@string/title_good_deal_created"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/margin_double_upper_medium"
+        android:layout_marginTop="@dimen/margin_double_upper_medium"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvEndFlowMassage_AEF"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="@string/title_good_deal_created_body"
+        android:layout_marginTop="@dimen/margin_upper_medium"/>
+
 </RelativeLayout>

@@ -51,6 +51,15 @@
                     android:text="Je retourne ce week-end dans mon village dans la région bordelaise et je vous ai dégoter 2 vins de producteurs que je connais très bien ….. alors profitez en :-) Entre-Deux-Mer"
                     android:textColor="@color/textColorBlack"
                     android:layout_marginBottom="@dimen/margin_double_upper_medium"/>
+
+                <TextView
+                    android:id="@+id/tvProductName_IMGDD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:text="Product Name"
+                    android:layout_marginBottom="@dimen/margin_double_upper_medium"/>
+
                 <TextView
                     android:id="@+id/tvDealPriceDescription_IMGDD"
                     android:layout_width="wrap_content"

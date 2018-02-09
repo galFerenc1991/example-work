@@ -91,6 +91,7 @@ public class MyOrdersActivity extends BaseActivity implements MyOrdersContract.V
         toolbarManager.setTitle(titleMyOrders);
         toolbarManager.showHomeAsUp(true);
         toolbarManager.closeActivityWhenBackArrowPressed(this);
+        toolbarManager.setIconHome(R.drawable.ic_arrow_back_green);
     }
 
     private void initAdapter() {

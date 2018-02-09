@@ -1,5 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.select_card;
 
+import com.ferenc.pamp.PampApp_;
+import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.orders.OrderRequest;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
@@ -37,6 +39,7 @@ public class SelectCardPresenter implements SelectCardContract.Presenter {
 
     @Override
     public void subscribe() {
+        mView.setOwnerName(PampApp_.getInstance().getString(R.string.text_add_card_owner_name) + " " + mGoodDealResponseManager.getGoodDealResponse().title);
         mView.showProgressMain();
         mCompositeDisposable.add(mModel.getUserProfile()
                 .subscribe(user -> {
