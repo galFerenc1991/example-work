@@ -276,7 +276,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
     @Override
     public void changeDeliveryDateAction() {
-        mView.openDeliveryDateScreen();
+        GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
+        mView.openDeliveryDateScreen(goodDealResponse.deliveryStartDate, goodDealResponse.deliveryEndDate);
     }
 
     @Override
@@ -425,7 +426,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     }
 
     private void changeDeliveryDateItem() {
-        for (MessagesDH messagesDH:mView.getMessagesDHs())
+        for (MessagesDH messagesDH : mView.getMessagesDHs())
             if (messagesDH.getMsgGroupType() == Constants.M1_MSG_GROUP_TYPE) {
                 mView.changeItem(new MessagesDH(
                                 null,
@@ -437,6 +438,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                 );
             }
     }
+
     private void saveGoodDeal(GoodDealResponse _goodDeal) {
 
         mGoodDealResponse = _goodDeal;

@@ -17,18 +17,31 @@ public abstract class ValidationManager {
     public static final int NOT_MATCHES = 13;
 
     private static final Pattern regExPhoneNumber = Pattern.compile("^[0-9]{12,15}$");   //12-15 digits
+    private static final Pattern regExBankCardNumber = Pattern.compile("^[0-9]{16}$");   //16 digits
     private static final Pattern regExLicenceId = Pattern.compile("^([A-Z]{3})(\\040)(\\d{6})$");   //3 upper case letter and 6 digits
 //    private static final Pattern regExPassword = Pattern.compile("^(?=\\S*[a-z])(?=\\S*[A-Z])(?=\\S*[^a-zA-Z\\d])\\S{6,24}$");   //6-24, lower, upper, special
     private static final Pattern regExPassword = Pattern.compile("^\\S{6,24}$");   //6-24, lower, upper, special
+    private static final Pattern regExIban = Pattern.compile("^([A-Z]{2})(\\040)(\\d{16})$");  //2 upper case letter and 16 digits
+
 
     public static int validatePhoneNumber(String phoneNumber) {
         if(TextUtils.isEmpty(phoneNumber)) return EMPTY;
         return regExPhoneNumber.matcher(phoneNumber).matches() ? OK : INVALID;
     }
 
+    public static int validateBankCardNumber(String bankCardNumber) {
+        if(TextUtils.isEmpty(bankCardNumber)) return EMPTY;
+        return regExBankCardNumber.matcher(bankCardNumber).matches() ? OK : INVALID;
+    }
+
     public static int validatePassword(String password) {
         if(TextUtils.isEmpty(password)) return EMPTY;
         return regExPassword.matcher(password).matches() ? OK : INVALID;
+    }
+
+    public static int validateIban(String iBan) {
+        if(TextUtils.isEmpty(iBan)) return EMPTY;
+        return regExIban.matcher(iBan).matches() ? OK : INVALID;
     }
 
     public static int isPasswordsMatches(String pass1, String pass2) {

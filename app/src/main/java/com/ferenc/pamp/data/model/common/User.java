@@ -19,7 +19,7 @@ public class User implements Parcelable {
     @SerializedName("createdAt")
     private String createdTime;
     private String email;
-    private String country;
+    private boolean isSocial;
     private String lastName;
     private String firstName;
     private String token;
@@ -48,9 +48,6 @@ public class User implements Parcelable {
         return email;
     }
 
-    public String getCountry() {
-        return country;
-    }
 
     public String getLastName() {
         return lastName;
@@ -74,6 +71,10 @@ public class User implements Parcelable {
 
     public String getAvatarUrl() {
         return RestConst.BASE_URL + "/" + avatar;
+    }
+
+    public boolean isSocial() {
+        return isSocial;
     }
 
     public Card getCard() {
@@ -119,7 +120,7 @@ public class User implements Parcelable {
         dest.writeString(this.updatedTime);
         dest.writeString(this.createdTime);
         dest.writeString(this.email);
-        dest.writeString(this.country);
+        dest.writeByte(this.isSocial ? (byte) 1 : (byte) 0);
         dest.writeString(this.lastName);
         dest.writeString(this.firstName);
         dest.writeString(this.token);
@@ -133,7 +134,7 @@ public class User implements Parcelable {
         this.updatedTime = in.readString();
         this.createdTime = in.readString();
         this.email = in.readString();
-        this.country = in.readString();
+        this.isSocial = in.readByte() != 0;
         this.lastName = in.readString();
         this.firstName = in.readString();
         this.token = in.readString();

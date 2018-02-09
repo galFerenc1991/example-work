@@ -33,11 +33,10 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
     private CompositeDisposable mCompositeDisposable;
     private String mCountryCode;
     private Calendar mBirthDate;
-    private String mIban;
-    private String mCountryFromAddress;
-    private String mCity;
-    private String mStreet;
-    private String mPostalCode;
+    private String mCountryFromAddress = "";
+    private String mCity = "";
+    private String mStreet = "";
+    private String mPostalCode = "";
     private boolean isUpdate;
 
     public BankAccountPresenter(BankAccountContract.View _view,
@@ -56,20 +55,20 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
         com.ferenc.pamp.data.model.common.BankAccount bankAccount = mSignedUserManager.getCurrentUser().getBankAccount();
         if (bankAccount != null) {
             Address address = bankAccount.getAddress();
-            mCountryFromAddress = address.getCountry();
-            mCity = address.getCity();
-            mStreet = address.getLine1();
-            mPostalCode = address.getPostalCode();
+//            mCountryFromAddress = address.getCountry();
+//            mCity = address.getCity();
+//            mStreet = address.getLine1();
+//            mPostalCode = address.getPostalCode();
 
-            mView.setCountry(mCountryFromAddress);
+            mView.setCountry(bankAccount.getCountry());
             mView.setUserBirthDay(convertServerDateToString(bankAccount.getDateOfBirthday()));
-            mView.setSelectedAddress(mPostalCode + ", " + mStreet + ", " + mCity + ", " + mCountryFromAddress);
+            mView.setSelectedAddress(address.getPostalCode() + ", " + address.getLine1() + ", " + address.getCity() + ", " + address.getCountry());
             mView.setIBan(bankAccount.getCountry() + "*****" + bankAccount.getLast4());
         }
     }
 
     private String getDateInString(Calendar calendar) {
-        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy mm:hh", Locale.FRANCE);
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy", Locale.FRANCE);
         return sdf.format(calendar.getTime());
     }
 
@@ -81,38 +80,62 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
 
     @Override
     public void clickedValidate(String _iban) {
-        mIban = _iban;
-        int errCodeIban = ValidationManager.validateText(mIban);
+//        int errCodeIban = ValidationManager.validateIban(_iban);
+//        int errCodeCountryCode = ValidationManager.validateText(mCountryCode);
+//        int errCodeCity = ValidationManager.validateName(mCity);
+//        if (errCodeIban == ValidationManager.OK &&
+//                errCodeCountryCode == ValidationManager.OK &&
+//                errCodeCity == ValidationManager.OK &&
+//                mBirthDate != null) {
+//
+//            mView.showProgressMain();
+//
+//        } else {
+//            ToastManager.showToast("Please fill all required field");
+//        }
+
+        int errCodeIban = ValidationManager.validateIban(_iban);
         int errCodeCountryCode = ValidationManager.validateText(mCountryCode);
         int errCodeCity = ValidationManager.validateName(mCity);
-        if (errCodeIban == ValidationManager.OK &&
-                errCodeCountryCode == ValidationManager.OK &&
-                errCodeCity == ValidationManager.OK &&
-                mBirthDate != null) {
-            mView.showProgressMain();
-            Stripe stripe = new Stripe(PampApp_.getInstance());
-            stripe.setDefaultPublishableKey("pk_test_JjnCq5JreSkRqrcqgInmTDAn");
-//        BankAccount bankAccount = new BankAccount("DE89370400440532013000", "de", "eur", "");
-            BankAccount bankAccount = new BankAccount(mIban, mCountryCode, "eur", "");
-            stripe.createBankAccountToken(bankAccount, new TokenCallback() {
-                @Override
-                public void onError(Exception error) {
-                    mView.hideProgress();
-//                Log.e("Stripe Error",error.getMessage());
-                    ToastManager.showToast("Error" + error.getMessage());
-                    Log.d("Error", error.getLocalizedMessage());
-                }
 
-                @Override
-                public void onSuccess(Token token) {
-                    ToastManager.showToast("Success");
-                    attachBankAccount(token.getId());
-                }
-            });
+        if (mSignedUserManager.getCurrentUser().getBankAccount() != null) {
+            if (errCodeIban == ValidationManager.OK && errCodeCountryCode == ValidationManager.OK) {
+                getStripeToken(_iban, true);
+            } else updateBankAccount("");
+
         } else {
-            ToastManager.showToast("Please fill all required field");
+            if (errCodeIban == ValidationManager.OK &&
+                    errCodeCountryCode == ValidationManager.OK &&
+                    errCodeCity == ValidationManager.OK &&
+                    mBirthDate != null) {
+                getStripeToken(_iban, false);
+            } else {
+                ToastManager.showToast("Please fill all required fields");
+            }
         }
 
+    }
+
+    private void getStripeToken(String _iban, boolean isUpdate) {
+        Stripe stripe = new Stripe(PampApp_.getInstance());
+        stripe.setDefaultPublishableKey("pk_test_JjnCq5JreSkRqrcqgInmTDAn");
+//        BankAccount bankAccount = new BankAccount("DE89370400440532013000", "de", "eur", "");
+        BankAccount bankAccount = new BankAccount(_iban, mCountryCode, "eur", "");
+        stripe.createBankAccountToken(bankAccount, new TokenCallback() {
+            @Override
+            public void onError(Exception error) {
+                mView.hideProgress();
+                ToastManager.showToast("Error" + error.getMessage());
+                Log.d("Error", error.getLocalizedMessage());
+            }
+
+            @Override
+            public void onSuccess(Token token) {
+                ToastManager.showToast("Success");
+                if (isUpdate) updateBankAccount(token.getId());
+                else attachBankAccount(token.getId());
+            }
+        });
     }
 
     @Override
@@ -125,7 +148,38 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
     }
 
     private void attachBankAccount(String _token) {
-        if (mSignedUserManager.getCurrentUser().getBankAccount() != null) {
+        mCompositeDisposable.add(mBankAccountModel.updateBankAccount(new BankAccountRequest(_token, mBirthDate.getTimeInMillis(),
+                new Address.Builder()
+                        .setCountry(mCountryFromAddress)
+                        .setCity(mCity)
+                        .setStreet(mStreet)
+                        .setPostalCode(mPostalCode)
+                        .build()))
+                .subscribe(bankAccount -> {
+                    mView.hideProgress();
+                    mView.showSuccessEndFlowScreen();
+                    ToastManager.showToast("Attach Bank Account Success:");
+                }, throwable -> {
+                    mView.hideProgress();
+                    ToastManager.showToast("Attach bank Account Error");
+                }));
+
+    }
+
+    private void updateBankAccount(String _token) {
+        int errCodeToken = ValidationManager.validateName(_token);
+        int errCodeCity = ValidationManager.validateName(mCity);
+
+        if (errCodeToken == ValidationManager.EMPTY &&
+                errCodeCity == ValidationManager.EMPTY &&
+                mBirthDate == null) {
+            ToastManager.showToast("You do not change any parameter");
+        } else {
+//            BankAccountRequest bankAccountRequest = new BankAccountRequest();
+//                bankAccountRequest.setDateOfBirthday(mBirthDate.getTimeInMillis());
+//                bankAccountRequest.setToken(_token);
+//                bankAccountRequest.setAddress();
+
             mCompositeDisposable.add(mBankAccountModel.updateBankAccount(new BankAccountRequest(_token, mBirthDate.getTimeInMillis(),
                     new Address.Builder()
                             .setCountry(mCountryFromAddress)
@@ -142,27 +196,11 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
                         ToastManager.showToast("Attach bank Account Error");
                     }));
         }
-        mCompositeDisposable.add(mBankAccountModel.attachBankAccount(new BankAccountRequest(_token, mBirthDate.getTimeInMillis(),
-                new Address.Builder()
-                        .setCountry(mCountryFromAddress)
-                        .setCity(mCity)
-                        .setStreet(mStreet)
-                        .setPostalCode(mPostalCode)
-                        .build()))
-                .subscribe(bankAccount -> {
-                    mView.hideProgress();
-                    mView.showSuccessEndFlowScreen();
-                    ToastManager.showToast("Attach Bank Account Success:");
-                }, throwable -> {
-                    mView.hideProgress();
-                    ToastManager.showToast("Attach bank Account Error");
-                }));
     }
 
     @Override
     public void setSelectedCountry(String country) {
         mCountry = country;
-        mView.setCountry(country);
 
         String[] isoCountries = Locale.getISOCountries();
         for (String _country : isoCountries) {
@@ -175,6 +213,7 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
                     isUpdate = true;
                 }
                 mCountryCode = name;
+                mView.setCountry(mCountryCode);
             }
 
         }
@@ -198,7 +237,7 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
     @Override
     public void setBirthDay(Calendar _calendar) {
 //        if (_calendar.getTimeInMillis() != mBirthDate.getTimeInMillis())
-            mBirthDate = _calendar;
+        mBirthDate = _calendar;
         mView.setUserBirthDay(getCloseDateInString(_calendar));
 
     }

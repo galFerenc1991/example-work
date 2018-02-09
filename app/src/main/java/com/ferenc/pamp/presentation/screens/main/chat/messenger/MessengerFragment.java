@@ -337,9 +337,11 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     }
 
     @Override
-    public void openDeliveryDateScreen() {
+    public void openDeliveryDateScreen(long _currentStartDeliveryDate, long _currentEndDeliveryDate) {
         DeliveryDateActivity_.intent(this)
                 .extra(Constants.KEY_IS_REBROADCAST, false)
+                .mStartDeliveryDate(_currentStartDeliveryDate)
+                .mEndDeliveryDate(_currentEndDeliveryDate)
                 .startForResult(Constants.REQUEST_CODE_ACTIVITY_DELIVERY_DATE);
     }
 
@@ -432,8 +434,8 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void changeRecyclerViewLayoutParams(boolean _isChange) {
-        ViewGroup.LayoutParams params=rvMessages.getLayoutParams();
-        params.height= _isChange ? WRAP_CONTENT : MATCH_PARENT;
+        ViewGroup.LayoutParams params = rvMessages.getLayoutParams();
+        params.height = _isChange ? WRAP_CONTENT : MATCH_PARENT;
         rvMessages.setLayoutParams(params);
     }
 

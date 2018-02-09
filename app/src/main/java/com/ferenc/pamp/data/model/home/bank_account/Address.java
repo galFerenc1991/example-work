@@ -3,6 +3,8 @@ package com.ferenc.pamp.data.model.home.bank_account;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by
  * Ferenc on 2018.02.02..
@@ -12,6 +14,7 @@ public class Address implements Parcelable {
     private String country;
     private String city;
     private String line1;
+    @SerializedName("postal_code")
     private String postalCode;
 
     public String getCountry() {

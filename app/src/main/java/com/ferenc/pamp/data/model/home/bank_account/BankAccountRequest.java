@@ -19,6 +19,20 @@ public class BankAccountRequest implements Parcelable {
         this.address = address;
     }
 
+    public BankAccountRequest() {
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setDateOfBirthday(long dateOfBirthday) {
+        this.dateOfBirthday = dateOfBirthday;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     @Override
     public int describeContents() {

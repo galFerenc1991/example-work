@@ -38,7 +38,7 @@ public interface MessengerContract {
 
         void openCloseDatePicker(Calendar _calendar, long _startDeliveryDate);
 
-        void openDeliveryDateScreen();
+        void openDeliveryDateScreen(long _currentStartDeliveryDate, long _currentEndDeliveryDate);
 
         void openCloseGoodDealPopUp();
 

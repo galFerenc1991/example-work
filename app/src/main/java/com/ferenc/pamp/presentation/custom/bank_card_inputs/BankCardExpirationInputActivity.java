@@ -13,6 +13,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.Calendar;
@@ -29,12 +30,19 @@ public class BankCardExpirationInputActivity extends AppCompatActivity {
     @ViewById(R.id.etYear_ABCII)
     protected EditText etYear;
 
+    @Extra
+    protected ExpDate mExpDate;
+
     private int mMonth;
     private int mYear;
 
 
     @AfterViews
     protected void initUI() {
+        if (mExpDate != null) {
+            etMonth.setText(String.valueOf(mExpDate.getCardExpMonth()));
+            etYear.setText(String.valueOf(mExpDate.getCardExpYear()));
+        }
         initEditTextListeners();
     }
 

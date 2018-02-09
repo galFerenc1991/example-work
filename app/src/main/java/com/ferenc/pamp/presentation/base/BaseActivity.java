@@ -70,6 +70,14 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .commit();
     }
 
+    public void replaceFragmentAllowingStateLoss(BaseFragment fragment) {
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(getContainer(), fragment)
+                .commitAllowingStateLoss();
+    }
+
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
