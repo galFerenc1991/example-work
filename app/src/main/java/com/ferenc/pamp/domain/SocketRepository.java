@@ -194,13 +194,14 @@ public class SocketRepository implements MessengerContract.SocketModel {
             mSocket.off(Socket.EVENT_CONNECT);
             mSocket.off(Socket.EVENT_MESSAGE);
             mSocket.disconnect();
+
             Log.d(TAG, "Emitting: leave room");
             Log.d(TAG, "Disconnect");
         }
         return voidRelay;
     }
 
-    public BehaviorRelay<MessageResponse> getNewMessage = BehaviorRelay.create();
+    public Relay<MessageResponse> getNewMessage = PublishRelay.create();
 
     public Relay<Void> voidRelay = PublishRelay.create();
 

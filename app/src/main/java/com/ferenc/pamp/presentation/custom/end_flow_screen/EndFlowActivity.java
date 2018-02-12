@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.custom.end_flow_screen;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +35,8 @@ public class EndFlowActivity extends AppCompatActivity {
     protected ImageView ivSuccess;
     @ViewById(R.id.tvEndFlowMassage_AEF)
     protected TextView tvEndFlowMassage;
+    @ViewById(R.id.tvResentTextBody_AEF)
+    protected TextView tvResentTextBody;
 
 //    @Extra
 //    protected boolean mIsCreatedFlow;
@@ -63,6 +66,10 @@ public class EndFlowActivity extends AppCompatActivity {
             case Constants.ADD_PARTICIPANT_FLOW:
                 tvEndFlowMassage.setText(R.string.text_participant_added);
                 break;
+            case Constants.RESENT_FLOW:
+                tvEndFlowMassage.setText(R.string.title_good_deal_resent);
+                tvResentTextBody.setVisibility(View.VISIBLE);
+                break;
         }
 //        if (!mIsCreatedFlow) {
 //            ivSuccess.setImageResource(R.drawable.ic_close_big_red);
@@ -88,6 +95,9 @@ public class EndFlowActivity extends AppCompatActivity {
                         case Constants.ADD_PARTICIPANT_FLOW:
                             finish();
                             break;
+                        case Constants.RESENT_FLOW:
+                            startChatScreen();
+                            break;
                     }
 //                    if (!mIsCreatedFlow) finish();
 //                    else startChatScreen();
@@ -98,6 +108,7 @@ public class EndFlowActivity extends AppCompatActivity {
         ChatActivity_
                 .intent(this)
                 .fromWhere(fromWhere)
+                .mDealId(mGoodDealResponse.id)
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
         finish();

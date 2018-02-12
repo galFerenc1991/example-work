@@ -70,6 +70,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
 
     private ShareContract.Presenter mPresenter;
     private GoodDealResponse mGoodDealResponse;
+    private boolean isResentFlow = false;
 
     @ViewById(R.id.rvContactList_FSGP)
     protected RecyclerView rvContactList;
@@ -133,7 +134,10 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
 
         Uri uri = Uri.parse(Constants.KEY_SENDTO_SMS + TextUtils.join(", ", selectedContacts));
         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-        it.putExtra(Constants.KEY_SMS_BODY, R.string.msg_send_good_deal + _dynamicLink.toString());
+
+        String textToSMSIntent = getString(R.string.msg_send_good_deal_without_account) + "\n" + _dynamicLink.toString();
+
+        it.putExtra(Constants.KEY_SMS_BODY, textToSMSIntent);
         startActivityForResult(it, Constants.REQUEST_CODE_SEND_SMS_DONE);
     }
 
@@ -144,7 +148,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
             if (!isUpdateGoodDeal) {
                 EndFlowActivity_
                         .intent(this)
-                        .mFlow(Constants.CREATE_FLOW)
+                        .mFlow(isReBroadcastFlow ? Constants.RESENT_FLOW : Constants.CREATE_FLOW)
 //                        .mIsCreatedFlow(true)
                         .fromWhere(Constants.ITEM_TYPE_REUSE)
                         .mGoodDealResponse(mGoodDealResponse)

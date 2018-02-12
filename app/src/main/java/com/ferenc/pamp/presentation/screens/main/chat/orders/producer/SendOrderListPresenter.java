@@ -41,7 +41,7 @@ public class SendOrderListPresenter implements SendOrderListContract.Presenter {
     }
 
     @Override
-    public void setQuantity(int _quantity) {
+    public void setQuantity(double _quantity) {
 
         String bonPlanInfo = mGoodDealResponseManager.getGoodDealResponse().title
                 + " : "
@@ -51,17 +51,17 @@ public class SendOrderListPresenter implements SendOrderListContract.Presenter {
 
         mView.setBonPlanInfo(bonPlanInfo);
 
-        mView.setBonPlanInfoVisibility(_quantity >= 1);
+        mView.setBonPlanInfoVisibility(_quantity > 0.0);
     }
 
     @Override
-    public void clickValider(String _id, String _dealId, int _quantity, String _producerEmail) {
+    public void clickValider(String _id, String _dealId, double _quantity, String _producerEmail) {
         PDFPreviewRequest pdfPreviewRequest = new PDFPreviewRequest(_id, _dealId, _quantity);
         mView.openSendOrderListFlow(pdfPreviewRequest, _producerEmail, new SendPDFRequest(_dealId, _id));
     }
 
     @Override
-    public void validateData(int _quantity, String _producerId) {
+    public void validateData(double _quantity, String _producerId) {
          validateData.accept(_producerId != null);
     }
 
