@@ -36,6 +36,8 @@ public interface ChatContract {
         void initFromWhere(int _fromWhere);
 
         void setTitle(String _title);
+
+        void hideParticipantTextView();
     }
 
     interface Presenter extends BasePresenter {

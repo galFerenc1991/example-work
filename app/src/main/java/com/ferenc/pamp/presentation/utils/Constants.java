@@ -55,6 +55,7 @@ public abstract class Constants {
     public static final int REQUEST_CODE_ACTIVITY_BANK_ACCOUNT = 24;
     public static final int REQUEST_CODE_ACTIVITY_BANK_CARD = 24;
     public static final int REQUEST_CODE_ACTIVITY_UPDATE_PRODUCER = 25;
+    public static final int REQUEST_CODE_ACTIVITY_SEND_PDF = 26;
 
 
     /*PERMISSIONS REQUEST CODES*/

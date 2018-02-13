@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.preview_p
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -30,6 +31,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
@@ -42,7 +44,7 @@ import java.util.concurrent.TimeUnit;
 public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContract.View{
 
     private PreviewPDFContract.Presenter mPresenter;
-    private boolean mIsFromOrderList;
+    private boolean mIsFromSendOrderListAct;
 
     @ViewById(R.id.btnConfirm_APPDF)
     protected Button btnConfirm;
@@ -77,8 +79,8 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     @AfterInject
     @Override
     public void initPresenter() {
-        mIsFromOrderList = TextUtils.isEmpty(mOrderId);
-        new PreviewPDFPresenter(this, mOrderRepository, mPDFPreviewRequest, this, mProducerEmail, mOrderId, mIsFromOrderList, mSendPDFRequest);
+        mIsFromSendOrderListAct = TextUtils.isEmpty(mOrderId);
+        new PreviewPDFPresenter(this, mOrderRepository, mPDFPreviewRequest, this, mProducerEmail, mOrderId, mIsFromSendOrderListAct, mSendPDFRequest);
     }
 
     @AfterViews
@@ -89,7 +91,7 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     }
 
     private void initBar() {
-        toolbarManager.setTitle(mIsFromOrderList ? titlePDFPreview : titleSendMyOrder);
+        toolbarManager.setTitle(mIsFromSendOrderListAct ? titlePDFPreview : titleSendMyOrder);
         toolbarManager.showHomeAsUp(true);
         toolbarManager.closeActivityWhenBackArrowPressed(this);
         toolbarManager.setIconHome(R.drawable.ic_arrow_back_green);
@@ -199,5 +201,11 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_ACTIVITY_SEND_PDF)
+    void pdfSent(int resultCode) {
+        if (resultCode == Activity.RESULT_OK)
+            finish();
     }
 }

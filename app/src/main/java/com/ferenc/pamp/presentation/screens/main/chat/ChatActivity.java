@@ -148,6 +148,11 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     }
 
     @Override
+    public void hideParticipantTextView() {
+        tvParticipants.setVisibility(View.GONE);
+    }
+
+    @Override
     public void showChat() {
         replaceFragment(ChatFragment_.builder().fromWhere(fromWhere).build());
     }
@@ -235,11 +240,7 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     public void onBackPressed() {
         mReceiveRefreshRelay.receivedRefreshRelay.accept(true);
         mProposeRefreshRelay.proposeRefreshRelay.accept(true);
-//        finish();
-        MainActivity_
-                .intent(this)
-                .flags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                .start();
+        finish();
     }
 
     @Override
