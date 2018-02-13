@@ -51,6 +51,7 @@ public class MyOrdersPresenter implements MyOrdersContract.Presenter {
         mCompositeDisposable.add(mModel.getMyOrders(_page)
                 .subscribe(orderListResponse -> {
 
+                    mView.setPlaceholderVisibility(orderListResponse.data.size() == 0);
                     Log.d("getMyOrders", "successfully");
 
                     ArrayList<MyOrderDH> orders = new ArrayList<>();

@@ -23,7 +23,8 @@
         android:paddingStart="@dimen/margin_triple"
         android:paddingTop="@dimen/margin_half"
         android:text="@string/button_start_using"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:textAllCaps="false"/>
 
     <com.rd.PageIndicatorView
         android:id="@+id/indicator_AT"

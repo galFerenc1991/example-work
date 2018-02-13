@@ -161,7 +161,7 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     public void setDealInfo(String _productName, String _util, String _closeDate) {
         tvProductName.setText(_productName);
         tvUnit.setText(_util);
-        tvOrderCreatedAt.setText("Bon Plan clos le" + _closeDate);
+        tvOrderCreatedAt.setText("Bon Plan clos le " + _closeDate);
     }
 
     @Override

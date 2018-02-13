@@ -97,10 +97,10 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
     public void clickedAddQuantity() {
         if (mQuantity < 1) {
             mQuantity = (mQuantity * 10 + 1) / 10;
-        } else if (mQuantity < mMaxQuantity) {
+        } else if (mMaxQuantity != 0 && mQuantity < mMaxQuantity) {
             mQuantity = mQuantity + 1;
-        }
-
+        } else if (mMaxQuantity == 0 )
+            mQuantity = mQuantity + 1;
         if (mQuantity >= 1) {
             DecimalFormat df = new DecimalFormat("#");
             mView.showQuantity(df.format(mQuantity));
