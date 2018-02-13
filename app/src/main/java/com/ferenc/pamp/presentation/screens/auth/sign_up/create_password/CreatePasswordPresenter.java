@@ -1,11 +1,17 @@
 package com.ferenc.pamp.presentation.screens.auth.sign_up.create_password;
 
 
+import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.model.auth.SignUpRequest;
+import com.ferenc.pamp.data.model.base.GeneralMessageResponse;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.ferenc.pamp.presentation.utils.ValidationManager;
+import com.google.gson.Gson;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import retrofit2.HttpException;
 
 /**
  * Created by
@@ -44,14 +50,29 @@ public class CreatePasswordPresenter implements CreatePasswordContract.Presenter
                     .subscribe(signUpResponse -> {
                         mView.hideProgress();
                         mView.openVerificationPopUpDialog();
-                    }, throwable -> {
-                        mView.hideProgress();
-                        mView.showCustomMessage(throwable.getMessage(), true);
-                    }));
+                    }, throwableConsumer));
         } else
             mView.showErrorMessage(Constants.MessageType.EMPTY_FIELDS_OR_NOT_MATCHES_PASSWORDS);
 
     }
+
+    private Consumer<Throwable> throwableConsumer = throwable -> {
+        throwable.printStackTrace();
+        mView.hideProgress();
+        if (throwable instanceof ConnectionLostException) {
+            ToastManager.showToast("Connection Lost");
+        } else if (throwable instanceof HttpException) {
+            int errorCode = ((HttpException) throwable).response().code();
+            switch (errorCode) {
+                case 400:
+                    Gson gson = new Gson();
+                    GeneralMessageResponse _data = gson.fromJson(((HttpException) throwable).response().errorBody().string(), GeneralMessageResponse.class);
+                    ToastManager.showToast(_data.getMessage());
+            }
+        } else {
+            ToastManager.showToast("Something went wrong");
+        }
+    };
 
     @Override
     public void openLoginScreen() {

@@ -53,6 +53,8 @@ public interface OrderContract {
         void updateOrder(OrderDH _changedDeliveryStatusOrder, int position);
 
         void initSendPdfInfo(boolean isSentEmpty);
+
+        void setResendTitle(String _resendTitle);
     }
 
     interface Presenter extends RefreshablePresenter {

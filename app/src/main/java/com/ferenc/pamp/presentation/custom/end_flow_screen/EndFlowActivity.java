@@ -35,7 +35,7 @@ public class EndFlowActivity extends AppCompatActivity {
     @ViewById(R.id.tvEndFlowMassage_AEF)
     protected TextView tvEndFlowMassage;
 
-//    @Extra
+    //    @Extra
 //    protected boolean mIsCreatedFlow;
     @Extra
     int mFlow;
@@ -97,7 +97,8 @@ public class EndFlowActivity extends AppCompatActivity {
     private void startChatScreen() {
         ChatActivity_
                 .intent(this)
-                .fromWhere(fromWhere)
+                .mDealId(mGoodDealResponse.id)
+//                .fromWhere(fromWhere)
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
         finish();

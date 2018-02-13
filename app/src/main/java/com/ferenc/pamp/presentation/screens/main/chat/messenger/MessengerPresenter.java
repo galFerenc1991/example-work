@@ -191,7 +191,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
 
     private String getCloseDateInString(Calendar calendar) {
-        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy mm:hh", Locale.FRANCE);
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy HH:mm", Locale.FRANCE);
         return sdf.format(calendar.getTime());
     }
 

@@ -6,7 +6,7 @@
     <FrameLayout
         android:id="@+id/flContainer_AEP"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,22 +75,6 @@
                 </LinearLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tilName_AEP"
-                    style="@style/TILStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_name">
-
-                    <EditText
-                        android:id="@+id/etName_AEP"
-                        style="@style/AuthEditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/ic_edit" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
                     android:id="@+id/tilSurname_AEP"
                     style="@style/TILStyle"
                     android:layout_width="match_parent"
@@ -99,6 +83,22 @@
 
                     <EditText
                         android:id="@+id/etSurname_AEP"
+                        style="@style/AuthEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_edit" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilName_AEP"
+                    style="@style/TILStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_name">
+
+                    <EditText
+                        android:id="@+id/etName_AEP"
                         style="@style/AuthEditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

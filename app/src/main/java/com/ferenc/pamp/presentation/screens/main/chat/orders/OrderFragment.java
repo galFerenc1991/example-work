@@ -78,6 +78,8 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     protected TextView tvTitleOrderStatus;
     @ViewById(R.id.rlChangeOrderStatusProgress_FCO)
     protected RelativeLayout rlChangeOrderStatusProgress;
+    @ViewById(R.id.tvResendTitle_FCO)
+    protected TextView tvResendTitle;
 
     @Bean
     protected OrderAdapter mOrderAdapter;
@@ -161,7 +163,7 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     public void setDealInfo(String _productName, String _util, String _closeDate) {
         tvProductName.setText(_productName);
         tvUnit.setText(_util);
-        tvOrderCreatedAt.setText("Bon Plan clos le" + _closeDate);
+        tvOrderCreatedAt.setText("Bon Plan clos le " + _closeDate);
     }
 
     @Override
@@ -222,6 +224,12 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
 
 
         tvSendPdfToProducer.setText(sendPdfToProducerText);
+    }
+
+    @Override
+    public void setResendTitle(String _resendTitle) {
+        tvResendTitle.setVisibility(View.VISIBLE);
+        tvResendTitle.setText(_resendTitle);
     }
 
     @Override

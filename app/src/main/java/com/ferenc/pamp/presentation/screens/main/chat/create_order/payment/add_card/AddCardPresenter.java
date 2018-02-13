@@ -1,9 +1,11 @@
 package com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.add_card;
 
 import com.ferenc.pamp.data.model.auth.TokenRequest;
+import com.ferenc.pamp.data.model.common.Card;
 import com.ferenc.pamp.presentation.base.models.BankCard;
 import com.ferenc.pamp.presentation.base.models.BankCardNumber;
 import com.ferenc.pamp.presentation.base.models.ExpDate;
+import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.ferenc.pamp.presentation.utils.ValidationManager;
 
@@ -28,25 +30,32 @@ public class AddCardPresenter implements AddCardContract.Presenter {
     private boolean mWithEditProfile;
     private BankCardNumber mBankCardNumber;
     private ExpDate mExpDate;
+    private SignedUserManager mSignedUserManager;
 
 
     public AddCardPresenter(AddCardContract.View _view,
                             double _quantity,
                             AddCardContract.Model _model,
-                            boolean _withEditProfile) {
+                            boolean _withEditProfile,
+                            SignedUserManager _signedUserManager) {
         this.mView = _view;
         this.mModel = _model;
         this.mCompositeDisposable = new CompositeDisposable();
         this.mQuantity = _quantity;
         mCardCVV = "";
         mWithEditProfile = _withEditProfile;
+        this.mSignedUserManager = _signedUserManager;
 
         mView.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
-
+        Card card = mSignedUserManager.getCurrentUser().getCard();
+        if (card != null) {
+            mView.setCardNumber(card.getBrand() +" **** " + card.getLast4());
+            mView.setExpirationDate(card.getExpMonth() + "/" + card.getExpYear());
+        }
     }
 
     @Override

@@ -87,11 +87,14 @@ public class LoginPresenter implements LoginContract.Presenter {
             mCompositeDisposable.add(mModel.forgotPassword(new ForgotPasswordRequest(_email.replaceAll("\\s+$", "")))
                     .subscribe(signUpResponse -> {
                         mView.hideProgress();
-                        mView.showCustomMessage("Try to login with the new password", false);
+                        mView.showCustomMessage("Regardez vos emails", false);
                     }, throwable -> {
                         mView.hideProgress();
-                        mView.showCustomMessage(throwable.getMessage(), true);
+                        mView.showCustomMessage("Incorrect email", true);
                     }));
+        } else {
+            mView.hideProgress();
+            mView.showCustomMessage("Invalid email", true);
         }
     }
 

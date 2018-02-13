@@ -94,7 +94,7 @@ public abstract class Constants {
     public static final String STATUS_CANCELED_TEXT = "Annulé";
     public static final String STATUS_TO_DELIVER_TEXT = "A livrer";
     public static final String STATUS_DELIVER_TEXT = "LIVRER";
-    public static final String STATUS_CANCEL_TEXT = "ANNULER";
+    public static final String STATUS_CANCEL_TEXT = "ANNULEE";
     public static final String STATUS_IN_PROGRESS_TEXT = "EN COURS";
 
 

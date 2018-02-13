@@ -73,9 +73,9 @@
     <string name="hint_bank_card">Carte de crédit</string>
     <string name="hint_change_password">Mot de passe</string>
     <string name="hint_password">Mot de passe</string>
-    <string name="hint_current_password">Mot de actuel passe</string>
-    <string name="hint_new_password">Mot de nouveau passe</string>
-    <string name="hint_confirm_password">Confirmer le mot de passe</string>
+    <string name="hint_current_password">Votre mot de passe</string>
+    <string name="hint_new_password">Nouveau mot de	passe</string>
+    <string name="hint_confirm_password">Confirmer</string>
     <string name="hint_good_plan_name">Nom du produit</string>
     <string name="hint_good_plan_description">Décrire votre bon plan</string>
     <string name="hint_good_plan_price">Prix</string>
@@ -157,7 +157,7 @@
     <string name="text_good_plan_name">- nom du produit</string>
     <string name="text_good_plan_description">- décrire votre bon plan</string>
     <string name="text_good_plan_price">- prix</string>
-    <string name="text_good_plan_price_description">- prix quoi? (unité)</string>
+    <string name="text_good_plan_price_description">- quoi? (unité)</string>
     <string name="text_good_plan_closing_date">- date de clôture du bon plan</string>
     <string name="text_good_plan_delivery_place">- lieu de livraison</string>
     <string name="text_good_plan_delivery_date">- date de livraison</string>
@@ -262,7 +262,6 @@
     <string name="text_participant_added">Le bon plan a été envoyé\naux nouveaux destinataires</string>
     <string name="text_message_good_deal_diffusion_quant_max">Quantité max. : </string>
     <string name="text_message_good_deal_diffusion_no_quant_max">pas de quantité max</string>
-
 
 
     <!--Settings Good Deal texts-->
