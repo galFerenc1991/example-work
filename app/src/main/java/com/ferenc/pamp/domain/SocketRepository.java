@@ -187,7 +187,6 @@ public class SocketRepository implements MessengerContract.SocketModel {
         }
         mSocket.emit(emitJoinRoom, obj);
         Log.d(TAG, "Emitting: join to room " + obj.toString());
-
     }
 
 

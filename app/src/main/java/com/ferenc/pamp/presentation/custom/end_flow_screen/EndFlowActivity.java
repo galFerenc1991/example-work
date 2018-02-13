@@ -96,6 +96,7 @@ public class EndFlowActivity extends AppCompatActivity {
                             finish();
                             break;
                         case Constants.RESENT_FLOW:
+//                            finishActivity(Constants.REQUEST_CODE_ACTIVITY_FROM_RESENT_FLOW);
                             startChatScreen();
                             break;
                     }
