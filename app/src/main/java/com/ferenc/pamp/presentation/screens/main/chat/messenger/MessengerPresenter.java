@@ -31,14 +31,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 
@@ -99,9 +96,9 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         }
         initCreateOrderButton();
         connectSocket();
-        getMessage();
         mView.getMessagesDHs();
         loadData(mPage, false);
+
     }
 
     @Override
@@ -121,16 +118,14 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         );
     }
 
-    private void getMessage() {
+    private void initMessageListener() {
         mCompositeDisposable.add(mSocketModel.getNewMessage()
                 .subscribe(messageResponse -> {
-
                     new Handler(Looper.getMainLooper()).post(() -> {
                         mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
                         mView.addItem(mMessagesDH);
                         changeGoodDeal(messageResponse.code, messageResponse);
                     });
-
                 }, throwable -> {
                     Log.d("MessengerPresenter", "Error while getting new message " + throwable.getMessage());
                 }));
@@ -163,6 +158,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
                     mTotalPages = model.meta.pages;
                     mPage++;
+
+                    initMessageListener();
 
                 }, throwable -> {
                     mView.hideProgress();

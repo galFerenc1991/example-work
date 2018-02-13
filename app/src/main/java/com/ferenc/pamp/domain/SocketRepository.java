@@ -61,7 +61,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
     protected SharedPrefManager_ mSharedPrefManager;
 
     @AfterInject
-    protected void initSocket() {
+    void initSocket() {
         try {
             mSocket = IO.socket(RestConst.BASE_URL);
             Log.d(TAG, "Initialized");
@@ -135,18 +135,20 @@ public class SocketRepository implements MessengerContract.SocketModel {
     @Override
     public Observable<Void> sendMessage(String _dealId, String _messageText) {
 
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put(valToken, mUserToken);
-            obj.put(valDealID, _dealId);
-            obj.put(valText, _messageText);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        if (mSocket.connected()) {
+            JSONObject obj = new JSONObject();
+            try {
+                obj.put(valToken, mUserToken);
+                obj.put(valDealID, _dealId);
+                obj.put(valText, _messageText);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-        Log.d(TAG, "Emitting: send message" + obj.toString());
+            mSocket.emit(Socket.EVENT_MESSAGE, obj);
+           Log.d(TAG, "Emitting: send message" + obj.toString());
 
-        mSocket.emit(Socket.EVENT_MESSAGE, obj);
+        } else Log.d(TAG, "Emitting error, not connected to socket");
 
         return voidRelay;
     }
@@ -154,24 +156,27 @@ public class SocketRepository implements MessengerContract.SocketModel {
     @Override
     public Observable<Void> sendImage(String _dealId, String _imageBase64) {
 
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put(valToken, mUserToken);
-            obj.put(valDealID, _dealId);
-            obj.put(valContent, _imageBase64);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        if (mSocket.connected()) {
 
-        Log.d(TAG, "Emitting: send image" + obj.toString());
+            JSONObject obj = new JSONObject();
+            try {
+                obj.put(valToken, mUserToken);
+                obj.put(valDealID, _dealId);
+                obj.put(valContent, _imageBase64);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-        mSocket.emit(Socket.EVENT_MESSAGE, obj);
+            mSocket.emit(Socket.EVENT_MESSAGE, obj);
+            Log.d(TAG, "Emitting: send image" + obj.toString());
+
+        } else Log.d(TAG, "Emitting error, not connected to socket");
 
         return voidRelay;
     }
 
 
-    public void joinRoom(String _userToken, String _roomID) {
+    private void joinRoom(String _userToken, String _roomID) {
 
         JSONObject obj = new JSONObject();
         try {
@@ -182,9 +187,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
         }
         mSocket.emit(emitJoinRoom, obj);
         Log.d(TAG, "Emitting: join to room " + obj.toString());
-
     }
-
 
 
     @Override
@@ -194,17 +197,18 @@ public class SocketRepository implements MessengerContract.SocketModel {
             mSocket.off(Socket.EVENT_CONNECT);
             mSocket.off(Socket.EVENT_MESSAGE);
             mSocket.disconnect();
+
             Log.d(TAG, "Emitting: leave room");
             Log.d(TAG, "Disconnect");
         }
         return voidRelay;
     }
 
-    public BehaviorRelay<MessageResponse> getNewMessage = BehaviorRelay.create();
+    private Relay<MessageResponse> getNewMessage = PublishRelay.create();
 
-    public Relay<Void> voidRelay = PublishRelay.create();
+    private Relay<Void> voidRelay = PublishRelay.create();
 
-    public Relay<Void> connectSocketVoidRelay = PublishRelay.create();
+    private Relay<Void> connectSocketVoidRelay = PublishRelay.create();
 
 
 }

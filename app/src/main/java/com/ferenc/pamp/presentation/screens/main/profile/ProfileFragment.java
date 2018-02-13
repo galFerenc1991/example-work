@@ -157,16 +157,14 @@ public class ProfileFragment extends ContentFragment implements ProfileContract.
 
     @Override
     public void openMailSender() {
-        String bodyText = "Some body text";
-        String subjectText = "Some subject text";
+        Intent send = new Intent(Intent.ACTION_SENDTO);
+        String uriText = "mailto:" + Uri.encode("email@gmail.com") +
+                "?subject=" + Uri.encode("the subject") +
+                "&body=" + Uri.encode("the body of the message");
+        Uri uri = Uri.parse(uriText);
 
-        Intent shareIntent = ShareCompat.IntentBuilder.from(mActivity)
-                .setSubject(subjectText)
-                .setText(bodyText)
-                .setEmailTo(new String[]{"someone@gmail.com"})
-                .setType(Constants.MIME_TYPE_PDF)
-                .getIntent();
-        mActivity.startActivity(shareIntent);
+        send.setData(uri);
+        startActivity(Intent.createChooser(send, "Send mail..."));
     }
 
     @Override

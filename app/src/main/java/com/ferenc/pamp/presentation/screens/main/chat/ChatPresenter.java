@@ -116,10 +116,11 @@ public class ChatPresenter implements ChatContract.Presenter {
     public void setParticipants() {
         ArrayList<String> recipients = new ArrayList<>();
         if (mGoodDealResponse.recipients != null) {
-            for (User user : mGoodDealResponse.recipients) {
-                recipients.add(user.getFirstName());
-            }
-            mView.setParticipants(TextUtils.join(", ", recipients));
+            if (mGoodDealResponse.recipients.size() > 0) {
+                for (User user : mGoodDealResponse.recipients)
+                    recipients.add(user.getFirstName());
+                mView.setParticipants(TextUtils.join(", ", recipients));
+            } else  mView.hideParticipantTextView();
         }
     }
 

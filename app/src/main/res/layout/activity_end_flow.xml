@@ -34,13 +34,15 @@
         />
 
     <TextView
+        android:id="@+id/tvResentTextBody_AEF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvEndFlowMassage_AEF"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textStyle="bold"
-        android:text="@string/title_good_deal_created_body"
-        android:layout_marginTop="@dimen/margin_upper_medium"/>
+        android:text="@string/title_good_deal_resent_body"
+        android:layout_marginTop="@dimen/margin_upper_medium"
+        android:visibility="gone"/>
 
 </RelativeLayout>

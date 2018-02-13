@@ -13,6 +13,7 @@ import com.ferenc.pamp.R;
 import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.custom.SettingsActivity_;
+import com.ferenc.pamp.presentation.screens.main.MainActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ProposeRefreshRelay;
 import com.ferenc.pamp.presentation.screens.main.chat.chat_relay.ReceivedRefreshRelay;
 import com.ferenc.pamp.presentation.screens.main.chat.participants.ParticipantsActivity_;
@@ -144,6 +145,11 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     @Override
     public void setTitle(String _title) {
         tvToolBarName.setText(_title);
+    }
+
+    @Override
+    public void hideParticipantTextView() {
+        tvParticipants.setVisibility(View.GONE);
     }
 
     @Override

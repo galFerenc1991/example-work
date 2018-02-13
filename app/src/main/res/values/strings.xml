@@ -23,8 +23,9 @@
     <string name="title_messenger">Messagerie</string>
     <string name="title_orders">Commandes</string>
     <string name="title_edit_profile">Vos informations de profil</string>
-    <string name="title_good_deal_created">Le bon plan a été re-diffusé</string>
-    <string name="title_good_deal_created_body">Votre nouveau bon plan \na été envoyé à vos proches</string>
+    <string name="title_good_deal_created">Bon plan envoyé</string>
+    <string name="title_good_deal_resent">Le bon plan a été re-diffusé</string>
+    <string name="title_good_deal_resent_body">Votre nouveau bon plan \na été envoyé à vos proches</string>
     <string name="title_good_deal_canceled">Votre bon plan a été annulé</string>
     <string name="title_settings">Vous pouvez gérer automatiquement certains paramètres de votre bon plan :</string>
     <string name="title_participants_list">Les participants au bon plan</string>
@@ -47,6 +48,7 @@
     <string name="button_start_using">Commencez à utiliser</string>
     <string name="button_ok">OK</string>
     <string name="button_send">ENVOYER</string>
+    <string name="button_send_low_case">Envoyer</string>
     <string name="button_cancel">ANNULER</string>
     <string name="button_retry">recommencez</string>
     <string name="button_propose">PROPOSER</string>
@@ -142,7 +144,6 @@
     <string name="msg_share">Je vous recommande \ncet appli: PAMP ... nous \npourrons partager \nfacilement tous nos \nbons plans de petits \nproducteurs.\nHttps//:AppStore.pamp .com</string>
     <string name="msg_send_good_deal">"Je vous envoi bon plan ... á retrouver sur PAMP en téléchargeant I'appli"</string>
     <string name="msg_send_good_deal_without_account">Je vous envoi un bon plan à retrouver sur PAMP. Si vous n\'avez pas l\'appli (ou de compte), telechargez là, créez-vous un compte et revenez ensuite sur ce lien pour récuperer votre bon plan.</string>
-
 
     <!--Menu-->
     <string name="menu_share">Share</string>

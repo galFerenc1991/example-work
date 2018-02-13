@@ -30,11 +30,11 @@ public interface SendOrderListContract {
 
     interface Presenter extends BasePresenter {
 
-        void setQuantity(int _quantity);
+        void setQuantity(double _quantity);
 
-        void clickValider(String _id, String _dealId, int _quantity, String _producerEmail);
+        void clickValider(String _id, String _dealId, double _quantity, String _producerEmail);
 
-        void validateData(int _quantity, String _producerId);
+        void validateData(double _quantity, String _producerId);
 
         void clickToOpenCreateOrderPopUp();
 

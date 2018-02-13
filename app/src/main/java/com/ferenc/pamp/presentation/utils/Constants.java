@@ -25,6 +25,7 @@ public abstract class Constants {
     public static final String UPDATE_COUNTRY_KEY = "counry";
     public static final String MIME_TYPE_HTML = "text/html";
     public static final String MIME_TYPE_PDF = "application/pdf";
+    public static final String MIME_TYPE_TEXT = "plain/text";
     public static final String DEFAULT_UNCODING = "UTF-8";
     public static final String AUTHORITY = "com.ferenc.pamp.provider";
 
@@ -54,6 +55,7 @@ public abstract class Constants {
     public static final int REQUEST_CODE_ACTIVITY_BANK_ACCOUNT = 24;
     public static final int REQUEST_CODE_ACTIVITY_BANK_CARD = 24;
     public static final int REQUEST_CODE_ACTIVITY_UPDATE_PRODUCER = 25;
+    public static final int REQUEST_CODE_ACTIVITY_SEND_PDF = 26;
 
 
     /*PERMISSIONS REQUEST CODES*/
@@ -155,6 +157,7 @@ public abstract class Constants {
     public static final int NOT_CREATE_FLOW = 502;
     public static final int ATTACH_BANK_ACCOUNT_FLOW = 503;
     public static final int ADD_PARTICIPANT_FLOW = 504;
+    public static final int RESENT_FLOW = 505;
 
 
 
