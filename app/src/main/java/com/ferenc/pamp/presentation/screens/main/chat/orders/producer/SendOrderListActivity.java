@@ -60,7 +60,7 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
 
     @Nullable
     private String mProducerId;
-    private int mQuantity;
+    private double mQuantity;
     private String mProducerEmail;
 
     private SendOrderListContract.Presenter mPresenter;
@@ -100,8 +100,8 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     @OnActivityResult(Constants.REQUEST_CODE_CREATE_ORDER_POP_UP_ACTIVITY)
     protected void createOrderResult(int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            mQuantity = data.getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1);
-            mPresenter.setQuantity(data.getIntExtra(Constants.KEY_PRODUCT_QUANTITY, -1));
+            mQuantity = data.getDoubleExtra(Constants.KEY_PRODUCT_QUANTITY, -1);
+            mPresenter.setQuantity(mQuantity);
             mPresenter.validateData(mQuantity, mProducerId);
         }
     }
@@ -110,6 +110,7 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
         toolbarManager.setTitle(titleSendOrderList);
         toolbarManager.showHomeAsUp(true);
         toolbarManager.closeActivityWhenBackArrowPressed(this);
+        toolbarManager.setIconHome(R.drawable.ic_arrow_back_green);
     }
 
     private void initClickListeners() {

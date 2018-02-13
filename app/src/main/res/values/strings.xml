@@ -23,14 +23,16 @@
     <string name="title_messenger">Messagerie</string>
     <string name="title_orders">Commandes</string>
     <string name="title_edit_profile">Vos informations de profil</string>
-    <string name="title_good_deal_created">Le bon plan a été re-diffusé</string>
-    <string name="title_good_deal_created_body">Votre nouveau bon plan \na été envoyé à vos proches</string>
+    <string name="title_good_deal_created">Bon plan envoyé</string>
+    <string name="title_good_deal_resent">Le bon plan a été re-diffusé</string>
+    <string name="title_good_deal_resent_body">Votre nouveau bon plan \na été envoyé à vos proches</string>
     <string name="title_good_deal_canceled">Votre bon plan a été annulé</string>
     <string name="title_settings">Vous pouvez gérer automatiquement certains paramètres de votre bon plan :</string>
     <string name="title_participants_list">Les participants au bon plan</string>
     <string name="title_add_participants">Ajouter Des Destinataries</string>
     <string name="title_payment">Paiement</string>
     <string name="title_select_payment_information">Saisissez vos informations de paiement</string>
+    <string name="title_add_card">Paiement</string>
     <string name="title_send_order_list">Envoyer Votre Liste de Commande au Producteur</string>
     <string name="title_bank_account">Enregistrer vos donnees bancaires</string>
     <string name="title_create_bank_account">Cela nous permettra de virer sur votre compte les sommes liées à vos commandes</string>
@@ -43,9 +45,10 @@
     <string name="button_login_google">Google</string>
     <string name="button_login_pamp">Se connecter</string>
     <string name="button_confirm">Valider</string>
-    <string name="button_start_using">Commencer à utiliser</string>
+    <string name="button_start_using">Commencez à utiliser</string>
     <string name="button_ok">OK</string>
     <string name="button_send">ENVOYER</string>
+    <string name="button_send_low_case">Envoyer</string>
     <string name="button_cancel">ANNULER</string>
     <string name="button_retry">recommencez</string>
     <string name="button_propose">PROPOSER</string>
@@ -142,7 +145,6 @@
     <string name="msg_send_good_deal">"Je vous envoi bon plan ... á retrouver sur PAMP en téléchargeant I'appli"</string>
     <string name="msg_send_good_deal_without_account">Je vous envoi un bon plan à retrouver sur PAMP. Si vous n\'avez pas l\'appli (ou de compte), telechargez là, créez-vous un compte et revenez ensuite sur ce lien pour récuperer votre bon plan.</string>
 
-
     <!--Menu-->
     <string name="menu_share">Share</string>
     <string name="menu_notifications">Notifications</string>
@@ -221,7 +223,7 @@
     <string name="text_already_registered">déjà inscrit ?</string>
 
     <!--Create Password texts-->
-    <string name="text_create_password_first">"Nous nous engageons à protéger votre vie privée et ne vendrons ou ne louerons jamais votre adresse e-mail ni aucune autre données.En poursuivant, vous acceptez nos conditions d’utilisation et notre politique de confidentialité"</string>
+    <string name="text_create_password_first">"En poursuivant, vous acceptez nos conditions d’utilisation et notre politique de confidentialité"</string>
     <string name="text_create_password_second">Conditions d’utilisation (et politique de confidentialité)</string>
     <string name="text_forgot_password">mot de passe oublié ?</string>
     <string name="text_or">ou</string>
@@ -305,5 +307,6 @@
     <string name="text_send_pdf_to_producer">Commande envoyée au producteur le:</string>
     <string name="text_add_card_owner_name">Votre compte sera débité uniquement á la confirmation définitive de</string>
     <string name="my_order_status">Il y a des commandes</string>
+    <string name="placeholder_no_orders">Vous n\'avez pas encore de commande</string>
 
 </resources>

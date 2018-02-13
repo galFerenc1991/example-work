@@ -43,7 +43,7 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
     private PreviewPDFActivity mActivity;
     private String mProducerEmail;
     private String mOrderId;
-    private boolean isFromOrderList;
+    private boolean isFromSendOrderListAct;
     private SendPDFRequest mSendPDFRequest;
 
     public PreviewPDFPresenter(PreviewPDFContract.View _view,
@@ -61,7 +61,7 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
         this.mActivity = _activity;
         this.mProducerEmail = _producerEmail;
         this.mOrderId = _orderId;
-        this.isFromOrderList = _isFromOrderList;
+        this.isFromSendOrderListAct = _isFromOrderList;
         this.mSendPDFRequest = _sendPDFRequest;
         mView.setPresenter(this);
     }
@@ -69,14 +69,14 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
 
     public void getPDFPreview() {
         mView.showProgress();
-        mCompositeDisposable.add((isFromOrderList
+        mCompositeDisposable.add((isFromSendOrderListAct
                 ? mModel.getPDFPreview(mPDFPreviewRequest.id, mPDFPreviewRequest)
                 : mModel.getPDFPreview(mOrderId))
                 .subscribe(pdfPreviewResponse -> {
                     mView.hideProgress(false);
                     mPDFPreviewResponse = pdfPreviewResponse;
                     mView.showPDFInWebView(getPDFPreviewResponse());
-                    if (isFromOrderList) {
+                    if (isFromSendOrderListAct) {
                         mView.showValiderButton();
                         mView.hideSendMyOrderButton();
                     } else {
@@ -104,6 +104,7 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
             ToastManager.showToast("Connection Lost");
         } else {
             mView.hideProgress(true);
+            Log.d("PreviewPDF", "Error: "+ throwable.getMessage());
             ToastManager.showToast("Something went wrong");
         }
     };
@@ -131,7 +132,8 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
                 .subscribe(file ->{
                     mView.hideProgress(false);
                     sharePDF(file);
-                    sendPDFToProducer();
+                    if (isFromSendOrderListAct)
+                        sendPDFToProducer();
                 }, throwableConsumer));
     }
 
@@ -142,19 +144,19 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
 
     private void sharePDF(File _file) {
         Uri fileUri = FileProvider.getUriForFile(PampApp_.getInstance(), Constants.AUTHORITY, _file);
-        String bodyText = "Some body text";
-        String subjectText = "Some subject text";
+        String bodyText = "Important pdf";
+        String subjectText = "PDF";
 
 
 
         Intent shareIntent = ShareCompat.IntentBuilder.from(mActivity)
                 .setSubject(subjectText)
                 .setText(bodyText)
-                .setEmailTo(isFromOrderList ? new String[]{mProducerEmail} : new String[]{"someones.email@gmail.com"})
+                .setEmailTo(isFromSendOrderListAct ? new String[]{mProducerEmail} : new String[]{"someones.email@gmail.com"})
                 .setType(Constants.MIME_TYPE_PDF)
                 .addStream(fileUri)
                 .getIntent();
-        mActivity.startActivity(shareIntent);
+        mActivity.startActivityForResult(shareIntent, Constants.REQUEST_CODE_ACTIVITY_SEND_PDF);
     }
 
     private void sendPDFToProducer() {

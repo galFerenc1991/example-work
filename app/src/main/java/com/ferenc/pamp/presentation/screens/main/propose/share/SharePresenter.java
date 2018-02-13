@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.propose.share;
 
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -86,11 +87,6 @@ public class SharePresenter implements ShareContract.Presenter {
                         ? mModel.updateGoodDeal(mGoodDealManager.getGoodDeal().getId(), createRequestParameter(contactDHList))
                         : mModel.createGoodDeal(createRequestParameter(contactDHList)))
                         .subscribe(goodDealResponse -> {
-
-                            if (mIsUpdateGoodDeal)
-                                goodDealResponse.recipients = mGoodDealResponseManager.getGoodDealResponse().recipients;
-
-                            mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                             mView.hideProgress();
                             mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
                         }, throwable -> {

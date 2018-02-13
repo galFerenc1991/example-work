@@ -55,6 +55,7 @@
                     android:layout_marginEnd="@dimen/margin_quart"
                     android:layout_marginStart="@dimen/margin_quart"
                     android:layout_marginTop="@dimen/margin_half"
+                    android:layout_marginBottom="@dimen/margin_half"
                     android:orientation="vertical">
 
                     <TextView

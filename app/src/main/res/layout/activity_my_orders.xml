@@ -40,4 +40,14 @@
         android:layout_alignParentBottom="true"
         android:indeterminate="true"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvPlaceholder_AMO"
+        style="@style/DeliveryDateTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/placeholder_no_orders"
+        android:visibility="gone"/>
 </RelativeLayout>

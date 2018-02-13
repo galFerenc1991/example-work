@@ -44,7 +44,8 @@
         android:paddingEnd="@dimen/margin_triple"
         android:paddingStart="@dimen/margin_triple"
         android:paddingTop="@dimen/margin_half"
-        android:text="@string/button_confirm"
+        android:textAllCaps="false"
+        android:text="@string/button_send_low_case"
         android:visibility="gone"/>
 
     <RelativeLayout

@@ -63,7 +63,7 @@ public class CreateOrderPopUpActivity extends AppCompatActivity implements Creat
     @Extra
     protected boolean isSendOrderListFlow;
     @Extra
-    protected int mSendOrderListQuantity;
+    protected double mSendOrderListQuantity;
 
     @Bean
     protected GoodDealResponseManager mGoodDealResponseManager;

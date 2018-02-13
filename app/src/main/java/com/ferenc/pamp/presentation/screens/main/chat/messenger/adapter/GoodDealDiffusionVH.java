@@ -129,7 +129,7 @@ public class GoodDealDiffusionVH extends RecyclerVH<MessagesDH> {
 
                     intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime);
                     intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime);
-                    intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
 
                     intent.putExtra(CalendarContract.Events.TITLE, goodDealResponse.title);
                     intent.putExtra(CalendarContract.Events.DESCRIPTION, "Bon Plan delivery date");

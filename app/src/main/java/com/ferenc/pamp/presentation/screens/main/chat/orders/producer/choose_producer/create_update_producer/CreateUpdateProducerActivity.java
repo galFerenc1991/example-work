@@ -120,6 +120,7 @@ public class CreateUpdateProducerActivity extends BaseActivity
         toolbarManager.setTitle(titleProducer);
         toolbarManager.showHomeAsUp(true);
         toolbarManager.closeActivityWhenBackArrowPressed(this);
+        toolbarManager.setIconHome(R.drawable.ic_arrow_back_green);
     }
 
     private void initClickListeners() {

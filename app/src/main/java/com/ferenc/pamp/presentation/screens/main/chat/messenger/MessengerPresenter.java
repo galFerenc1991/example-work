@@ -3,6 +3,8 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -29,14 +31,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 
@@ -81,7 +80,6 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         this.mGoodDealResponse = _goodDealResponseManager.getGoodDealResponse();
         this.mGoodDealResponseManager = _goodDealResponseManager;
         this.mGoodDealManager = _goodDealManager;
-
         mView.setPresenter(this);
     }
 
@@ -98,9 +96,9 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         }
         initCreateOrderButton();
         connectSocket();
-        getMessage();
         mView.getMessagesDHs();
         loadData(mPage, false);
+
     }
 
     @Override
@@ -120,14 +118,14 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         );
     }
 
-    private void getMessage() {
+    private void initMessageListener() {
         mCompositeDisposable.add(mSocketModel.getNewMessage()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(messageResponse -> {
-                    mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
-                    mView.addItem(mMessagesDH);
-                    changeGoodDeal(messageResponse.code, messageResponse);
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
+                        mView.addItem(mMessagesDH);
+                        changeGoodDeal(messageResponse.code, messageResponse);
+                    });
                 }, throwable -> {
                     Log.d("MessengerPresenter", "Error while getting new message " + throwable.getMessage());
                 }));
@@ -160,6 +158,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
                     mTotalPages = model.meta.pages;
                     mPage++;
+
+                    initMessageListener();
 
                 }, throwable -> {
                     mView.hideProgress();
@@ -369,24 +369,26 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
     private void changeGoodDeal(String _code, MessageResponse _messageResponse) {
         GoodDealResponse goodDealResponse = mGoodDealResponseManager.getGoodDealResponse();
-        switch (_code) {
-            case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
-                goodDealResponse.deliveryStartDate = _messageResponse.description.deliveryStartDate;
-                goodDealResponse.deliveryEndDate = _messageResponse.description.deliveryEndDate;
-                changeDeliveryDateItem();
-                break;
-            case Constants.M8_GOOD_DEAL_CANCELLATION:
-                goodDealResponse.state = Constants.STATE_CANCELED;
-                mView.hideOrderBtn();
-                break;
-            case Constants.M10_GOOD_DEAL_CLOSING:
-                goodDealResponse.state = Constants.STATE_CLOSED;
-                mView.hideOrderBtn();
-                break;
-            case Constants.M11_1_GOOD_DEAL_CONFIRMATION:
-                goodDealResponse.state = Constants.STATE_CONFIRM;
-                mView.hideOrderBtn();
-                break;
+        if (_code !=null) {
+            switch (_code) {
+                case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
+                    goodDealResponse.deliveryStartDate = _messageResponse.description.deliveryStartDate;
+                    goodDealResponse.deliveryEndDate = _messageResponse.description.deliveryEndDate;
+                    changeDeliveryDateItem();
+                    break;
+                case Constants.M8_GOOD_DEAL_CANCELLATION:
+                    goodDealResponse.state = Constants.STATE_CANCELED;
+                    mView.hideOrderBtn();
+                    break;
+                case Constants.M10_GOOD_DEAL_CLOSING:
+                    goodDealResponse.state = Constants.STATE_CLOSED;
+                    mView.hideOrderBtn();
+                    break;
+                case Constants.M11_1_GOOD_DEAL_CONFIRMATION:
+                    goodDealResponse.state = Constants.STATE_CONFIRM;
+                    mView.hideOrderBtn();
+                    break;
+            }
         }
         saveGoodDeal(goodDealResponse);
     }
@@ -435,6 +437,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     }
 
     private void saveGoodDeal(GoodDealResponse _goodDeal) {
+
         mGoodDealResponse = _goodDeal;
         mGoodDealResponseManager.saveGoodDealResponse(_goodDeal);
     }

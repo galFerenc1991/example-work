@@ -11,15 +11,15 @@ public class PDFPreviewRequest implements Parcelable{
 
     public String id;
     public String dealId;
-    public int quantity;
+    public double quantity;
 
     protected PDFPreviewRequest(Parcel in) {
         id = in.readString();
         dealId = in.readString();
-        quantity = in.readInt();
+        quantity = in.readDouble();
     }
 
-    public PDFPreviewRequest(String _id, String _dealId, int _quantity) {
+    public PDFPreviewRequest(String _id, String _dealId, double _quantity) {
         id = _id;
         dealId = _dealId;
         quantity = _quantity;
@@ -46,6 +46,6 @@ public class PDFPreviewRequest implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);
         parcel.writeString(dealId);
-        parcel.writeInt(quantity);
+        parcel.writeDouble(quantity);
     }
 }
