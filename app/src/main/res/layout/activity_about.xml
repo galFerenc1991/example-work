@@ -11,13 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_bar_height" />
 
-    <View
-        android:id="@+id/viewShadow"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_elevation"
-        android:background="@drawable/shadow"
-        android:layout_below="@+id/toolbar_AA"/>
-
     <ProgressBar
         android:id="@+id/progressBar_AA"
         android:layout_width="wrap_content"
@@ -25,8 +18,6 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="gone"/>
-
-
 
     <LinearLayout
         android:id="@+id/llAboutBtns_AA"
@@ -126,7 +117,14 @@
         android:id="@+id/wvHtml_AA"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/viewShadow"
+        android:layout_below="@+id/toolbar_AA"
         android:visibility="gone"/>
+
+    <View
+        android:id="@+id/viewShadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_elevation"
+        android:background="@drawable/shadow"
+        android:layout_below="@+id/toolbar_AA"/>
 
 </RelativeLayout>
