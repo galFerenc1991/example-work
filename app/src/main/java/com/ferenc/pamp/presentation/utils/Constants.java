@@ -23,7 +23,7 @@ public abstract class Constants {
     public static final String UPDATE_FIRST_NAME_KEY = "firstName";
     public static final String UPDATE_LAST_NAME_KEY = "lastName";
     public static final String UPDATE_COUNTRY_KEY = "counry";
-    public static final String MIME_TYPE_HTML = "text/html";
+    public static final String MIME_TYPE_HTML = "text/html; charset=UTF-8";
     public static final String MIME_TYPE_PDF = "application/pdf";
     public static final String MIME_TYPE_TEXT = "plain/text";
     public static final String DEFAULT_UNCODING = "UTF-8";

@@ -13,7 +13,7 @@
     <application
         android:name=".PampApp_"
         android:allowBackup="true"
-        android:icon="@drawable/pamp_icon_app"
+        android:icon="@drawable/pamp_logo_smaller"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

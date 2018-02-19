@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -138,9 +139,9 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
 
     @Override
     public void showPDFInWebView(PDFPreviewResponse pdfPreviewResponse) {
-        final String mimeType = Constants.MIME_TYPE_HTML;
-        final String encoding = Constants.DEFAULT_UNCODING;
-        wvHtmlPage.loadData(pdfPreviewResponse.template, mimeType, encoding);
+        wvHtmlPage.getSettings().setBuiltInZoomControls(true);
+        wvHtmlPage.getSettings().setDisplayZoomControls(false);
+        wvHtmlPage.loadData(pdfPreviewResponse.template, Constants.MIME_TYPE_HTML, null);
     }
 
     @Override
