@@ -110,7 +110,9 @@ public class AboutActivity  extends BaseActivity implements AboutContract.View {
 
     @Override
     public void showHTML(String html) {
-        wvHtmlPage.loadData(html, Constants.MIME_TYPE_HTML, Constants.DEFAULT_UNCODING);
+        wvHtmlPage.getSettings().setBuiltInZoomControls(true);
+        wvHtmlPage.getSettings().setDisplayZoomControls(false);
+        wvHtmlPage.loadData(html, Constants.MIME_TYPE_HTML, null);
         showWebPage(true);
     }
 
