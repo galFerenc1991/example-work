@@ -38,6 +38,8 @@ public interface ChatContract {
         void setTitle(String _title);
 
         void hideParticipantTextView();
+
+        void showSharePopUp();
     }
 
     interface Presenter extends BasePresenter {

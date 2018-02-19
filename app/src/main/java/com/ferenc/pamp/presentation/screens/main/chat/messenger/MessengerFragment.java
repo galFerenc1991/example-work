@@ -33,6 +33,7 @@ import com.ferenc.pamp.presentation.base.refreshable.RefreshableFragment;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
 import com.ferenc.pamp.presentation.custom.end_flow_screen.EndFlowActivity_;
 import com.ferenc.pamp.presentation.custom.end_flow_screen.EndFlowOrderActivity_;
+import com.ferenc.pamp.presentation.screens.main.chat.ChatActivity;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.create_order_pop_up.CreateOrderPopUpActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.PaymentActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.messenger.adapter.MessagesDH;
@@ -278,6 +279,8 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void hideOrderBtn() {
         btnOrder.setVisibility(View.GONE);
+        ChatActivity chatActivity = (ChatActivity) getActivity();
+        chatActivity.hideShareButton();
     }
 
     @Override

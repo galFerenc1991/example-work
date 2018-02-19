@@ -80,6 +80,8 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
 
     @Override
     public void clickedValidate(String _iban) {
+        mView.showProgressMain();
+
 //        int errCodeIban = ValidationManager.validateIban(_iban);
 //        int errCodeCountryCode = ValidationManager.validateText(mCountryCode);
 //        int errCodeCity = ValidationManager.validateName(mCity);
@@ -94,7 +96,7 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
 //            ToastManager.showToast("Please fill all required field");
 //        }
 
-        int errCodeIban = ValidationManager.validateIban(_iban);
+        int errCodeIban = ValidationManager.validateText(_iban);
         int errCodeCountryCode = ValidationManager.validateText(mCountryCode);
         int errCodeCity = ValidationManager.validateName(mCity);
 
@@ -110,6 +112,7 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
                     mBirthDate != null) {
                 getStripeToken(_iban, false);
             } else {
+                mView.hideProgress();
                 ToastManager.showToast("Please fill all required fields");
             }
         }
@@ -148,7 +151,7 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
     }
 
     private void attachBankAccount(String _token) {
-        mCompositeDisposable.add(mBankAccountModel.updateBankAccount(new BankAccountRequest(_token, mBirthDate.getTimeInMillis(),
+        mCompositeDisposable.add(mBankAccountModel.attachBankAccount(new BankAccountRequest(_token, mBirthDate.getTimeInMillis(),
                 new Address.Builder()
                         .setCountry(mCountryFromAddress)
                         .setCity(mCity)
@@ -180,7 +183,7 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
 //                bankAccountRequest.setToken(_token);
 //                bankAccountRequest.setAddress();
 
-            mCompositeDisposable.add(mBankAccountModel.updateBankAccount(new BankAccountRequest(_token, mBirthDate.getTimeInMillis(),
+            mCompositeDisposable.add(mBankAccountModel.updateBankAccount(new BankAccountRequest(_token, mBirthDate != null ? mBirthDate.getTimeInMillis() : null,
                     new Address.Builder()
                             .setCountry(mCountryFromAddress)
                             .setCity(mCity)
@@ -190,10 +193,10 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
                     .subscribe(bankAccount -> {
                         mView.hideProgress();
                         mView.showSuccessEndFlowScreen();
-                        ToastManager.showToast("Attach Bank Account Success:");
+                        ToastManager.showToast("Update Bank Account Success:");
                     }, throwable -> {
                         mView.hideProgress();
-                        ToastManager.showToast("Attach bank Account Error");
+                        ToastManager.showToast("Update bank Account Error");
                     }));
         }
     }

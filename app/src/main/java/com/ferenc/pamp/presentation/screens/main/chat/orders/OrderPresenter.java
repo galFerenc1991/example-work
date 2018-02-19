@@ -88,7 +88,7 @@ public class OrderPresenter implements OrderContract.Presenter {
     }
 
     private String getCloseDateInString(Calendar calendar) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM HH:mm", Locale.FRANCE);
+        SimpleDateFormat sdf = new SimpleDateFormat(" EEE dd MMM HH:mm", Locale.FRANCE);
         return sdf.format(calendar.getTime());
     }
 
@@ -193,6 +193,7 @@ public class OrderPresenter implements OrderContract.Presenter {
                     .subscribe(goodDealCancelResponse -> {
                         mView.hideProgress();
                         mView.hideConfButton();
+                        mDealStatus = Constants.STATE_CONFIRM;
                         ToastManager.showToast("Confirm deal success");
                         onRefresh();
                     }, throwable -> {

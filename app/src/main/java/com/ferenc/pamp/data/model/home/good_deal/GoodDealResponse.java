@@ -40,6 +40,7 @@ public class GoodDealResponse implements Parcelable {
     @SerializedName("_id")
     public String id;
     public String originalTitle;
+    public boolean reviewed;
 
     public Attention getAttention() {
         return attention;
@@ -76,6 +77,7 @@ public class GoodDealResponse implements Parcelable {
         dest.writeString(this.state);
         dest.writeString(this.id);
         dest.writeString(this.originalTitle);
+        dest.writeByte(this.reviewed ? (byte) 1 : (byte) 0);
     }
 
     protected GoodDealResponse(Parcel in) {
@@ -100,6 +102,7 @@ public class GoodDealResponse implements Parcelable {
         this.state = in.readString();
         this.id = in.readString();
         this.originalTitle = in.readString();
+        this.reviewed = in.readByte() != 0;
     }
 
     public static final Creator<GoodDealResponse> CREATOR = new Creator<GoodDealResponse>() {
