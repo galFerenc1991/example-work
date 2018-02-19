@@ -53,8 +53,8 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
         User signedUser = mUserManager.getCurrentUser();
         if (signedUser != null) {
             mView.setUserAvatar(signedUser.getAvatar());
-            mView.setUserName(signedUser.getFirstName());
-            mView.setUserSurName(signedUser.getLastName());
+            mView.setUserName(signedUser.getLastName());
+            mView.setUserSurName(signedUser.getFirstName());
             mView.setUserEmail(signedUser.getEmail());
 //            mView.setUserCountry(signedUser.getCountry());
             if (signedUser.getBankAccount() != null) {

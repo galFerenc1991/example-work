@@ -20,8 +20,8 @@ public abstract class ValidationManager {
     private static final Pattern regExBankCardNumber = Pattern.compile("^[0-9]{16}$");   //16 digits
     private static final Pattern regExLicenceId = Pattern.compile("^([A-Z]{3})(\\040)(\\d{6})$");   //3 upper case letter and 6 digits
 //    private static final Pattern regExPassword = Pattern.compile("^(?=\\S*[a-z])(?=\\S*[A-Z])(?=\\S*[^a-zA-Z\\d])\\S{6,24}$");   //6-24, lower, upper, special
-    private static final Pattern regExPassword = Pattern.compile("^\\S{6,24}$");   //6-24, lower, upper, special
-    private static final Pattern regExIban = Pattern.compile("^([A-Z]{2})(\\040)(\\d{16})$");  //2 upper case letter and 16 digits
+    private static final Pattern regExPassword = Pattern.compile("^\\S{6,20}$");   //6-20, lower, upper, special
+    private static final Pattern regExIban = Pattern.compile("^([A-Z]{2})(\\040)(\\d{20})$");  //2 upper case letter and 16 digits
 
 
     public static int validatePhoneNumber(String phoneNumber) {

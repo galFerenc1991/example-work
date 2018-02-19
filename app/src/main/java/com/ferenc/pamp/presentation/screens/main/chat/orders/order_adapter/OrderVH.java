@@ -45,8 +45,8 @@ public class OrderVH extends RecyclerVH<OrderDH> {
     @Override
     public void bindData(OrderDH data) {
         Order order = data.getmOrder();
-        if (order.getRank() > 1)
-            tvName.setText(order.getUser().getFirstName() + "(" + order.getRank() + ")");
+        if (order.getRank() > 0)
+            tvName.setText(order.getUser().getFirstName() + "(Redif. " + order.getRank() + ")");
         else tvName.setText(order.getUser().getFirstName());
         tvQuantity.setText(String.valueOf(order.getQuantity()));
         tvPrice.setText(String.valueOf(order.getPrice()) + " €");

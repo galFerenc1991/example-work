@@ -138,7 +138,7 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
         if (goodDealResponse.hasOrders) viewHolder.tvOrderStatus.setVisibility(View.VISIBLE);
         else viewHolder.tvOrderStatus.setVisibility(View.GONE);
 
-        if (mSignedUserManager.getCurrentUser().getId().equals(goodDealResponse.owner.getId())){
+        if (mSignedUserManager.getCurrentUser().getId().equals(goodDealResponse.owner.getId())) {
             viewHolder.tvOrderStatus.setText(R.string.my_order_status);
         }
 
@@ -188,8 +188,10 @@ public class GoodPlanAdapter extends RecyclerSwipeAdapter<GoodPlanAdapter.Simple
         if (mGoodPlanItemType == Constants.ITEM_TYPE_RE_BROADCAST) {
             viewHolder.rlReBroadcast.setOnClickListener(view -> {
                 if (goodDealResponse.state.equals(Constants.STATE_PROGRESS)) {
-                    mGoodDealManager.saveGoodDeal(getGoodDealFromReSend(goodDealResponse));
-                    mReceiveRelay.receiveRelay.accept(true);
+                    if (!goodDealResponse.isResend) {
+                        mGoodDealManager.saveGoodDeal(getGoodDealFromReSend(goodDealResponse));
+                        mReceiveRelay.receiveRelay.accept(true);
+                    } else ToastManager.showToast("Vous avez re-diffusé le bon plan");
                 } else ToastManager.showToast("You can not resend CLOSED GOOD DEAL!");
             });
         } else {

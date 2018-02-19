@@ -82,10 +82,13 @@ public class OrderPresenter implements OrderContract.Presenter {
     private void setDealInfo() {
         GoodDealResponse currentDeal = mGoodDealResponseManager.getGoodDealResponse();
         mView.setDealInfo(currentDeal.product, currentDeal.unit, convertServerDateToString(currentDeal.closingDate));
+        if (currentDeal.isResend) {
+            mView.setResendTitle("Re-diffusion rattachée à : " + currentDeal.originalTitle + "/dim. " + convertServerDateToString(currentDeal.closingDate));
+        }
     }
 
     private String getCloseDateInString(Calendar calendar) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRANCE);
+        SimpleDateFormat sdf = new SimpleDateFormat(" EEE dd MMM HH:mm", Locale.FRANCE);
         return sdf.format(calendar.getTime());
     }
 
@@ -189,6 +192,8 @@ public class OrderPresenter implements OrderContract.Presenter {
             mCompositeDisposable.add(mGoodDealModel.confirmDeal(mGoodDealResponseManager.getGoodDealResponse().id, new OrdersList(confirmedOrderIdsList))
                     .subscribe(goodDealCancelResponse -> {
                         mView.hideProgress();
+                        mView.hideConfButton();
+                        mDealStatus = Constants.STATE_CONFIRM;
                         ToastManager.showToast("Confirm deal success");
                         onRefresh();
                     }, throwable -> {

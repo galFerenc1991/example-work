@@ -18,6 +18,7 @@ import com.ferenc.pamp.presentation.custom.bank_card_inputs.BankCardExpirationIn
 import com.ferenc.pamp.presentation.custom.bank_card_inputs.BankCardNumberInputActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.save_card.SaveCardFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.stripe.android.Stripe;
@@ -79,6 +80,9 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
     @Bean
     protected CardRepository mCardRepository;
 
+    @Bean
+    protected SignedUserManager mSignedUserManager;
+
     @FragmentArg
     protected boolean withEditProfile;
 
@@ -88,13 +92,13 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
     @AfterInject
     @Override
     public void initPresenter() {
-        new AddCardPresenter(this, mQuantity, mCardRepository, withEditProfile);
+        new AddCardPresenter(this, mQuantity, mCardRepository, withEditProfile, mSignedUserManager);
     }
 
     @AfterViews
     protected void initUI() {
         initClickListeners();
-
+        mPresenter.subscribe();
     }
 
     private void initClickListeners() {

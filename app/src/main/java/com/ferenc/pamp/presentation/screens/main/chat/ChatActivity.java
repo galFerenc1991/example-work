@@ -1,8 +1,10 @@
 package com.ferenc.pamp.presentation.screens.main.chat;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -93,21 +95,6 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     @AfterViews
     protected void initFragment() {
         initClickListeners();
-
-//        mPresenter.setParticipants();
-
-//        switch (fromWhere) {
-//            case Constants.ITEM_TYPE_RE_BROADCAST:
-//                ivShareBonPlan.setVisibility(View.VISIBLE);
-//                break;
-//            case Constants.ITEM_TYPE_REUSE:
-//                ivSettings.setVisibility(View.VISIBLE);
-//                break;
-//            default:
-//                throw new RuntimeException("ChatActivity :: initFragment [Can find fromWhere]");
-//        }
-//        replaceFragment(ChatFragment_.builder().fromWhere(fromWhere).build());
-
         mPresenter.subscribe();
     }
 
@@ -183,6 +170,23 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     @Override
     public void hideShareButton() {
         ivShareBonPlan.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showSharePopUp() {
+        View dialogViewTitle = LayoutInflater.from(this)
+                .inflate(R.layout.view_resend_pop_up_title, null, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.DialogTheme);
+        builder.setCustomTitle(dialogViewTitle)
+                .setView(R.layout.view_resend_pop_up_message)
+                .setPositiveButton(R.string.button_ok, (dialog, which) -> {
+                    mPresenter.clickedShare();
+                })
+                .setNegativeButton(R.string.button_cancel, (dialogInterface, i) -> {
+                })
+                .setCancelable(false)
+                .create()
+                .show();
     }
 
     @AfterInject

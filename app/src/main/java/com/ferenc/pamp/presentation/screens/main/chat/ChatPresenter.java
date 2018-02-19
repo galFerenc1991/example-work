@@ -10,11 +10,15 @@ import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
-import com.ferenc.pamp.presentation.utils.ValidationManager;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by
@@ -54,7 +58,9 @@ public class ChatPresenter implements ChatContract.Presenter {
     public void subscribe() {
         if (mDealId != null) {
             mView.showProgress();
-            mCompositeDisposable.add(mModel.getDialId(mDealId)
+            mCompositeDisposable.add(mModel.getDialId(mDealId).
+                    subscribeOn(Schedulers.io()).
+                    observeOn(AndroidSchedulers.mainThread())
                     .subscribe(goodDealResponse -> {
                         mGoodDealResponse = goodDealResponse;
                         mView.setTitle(mGoodDealResponse.title);
@@ -63,9 +69,9 @@ public class ChatPresenter implements ChatContract.Presenter {
                             mView.initFromWhere(Constants.ITEM_TYPE_REUSE);
                         else {
                             mView.initFromWhere(Constants.ITEM_TYPE_RE_BROADCAST);
-                            if (!mGoodDealResponse.state.equals(Constants.STATE_PROGRESS)) {
-                                mView.hideShareButton();
-                            }
+                            if (mGoodDealResponse.state.equals(Constants.STATE_PROGRESS))
+                                doTimeoutFiveSecond(goodDealResponse.reviewed);
+                            else mView.hideShareButton();
                         }
                         setParticipants();
                         mView.showChat();
@@ -78,6 +84,15 @@ public class ChatPresenter implements ChatContract.Presenter {
             setParticipants();
             mView.showChat();
         }
+    }
+
+    private void doTimeoutFiveSecond(boolean reviewed) {
+        mCompositeDisposable.add(Observable.just(reviewed)
+                .delay(5, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                    if (!aBoolean) mView.showSharePopUp();
+                }));
     }
 
 
@@ -120,7 +135,7 @@ public class ChatPresenter implements ChatContract.Presenter {
                 for (User user : mGoodDealResponse.recipients)
                     recipients.add(user.getFirstName());
                 mView.setParticipants(TextUtils.join(", ", recipients));
-            } else  mView.hideParticipantTextView();
+            } else mView.hideParticipantTextView();
         }
     }
 
