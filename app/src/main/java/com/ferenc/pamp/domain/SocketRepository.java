@@ -99,6 +99,8 @@ public class SocketRepository implements MessengerContract.SocketModel {
                     messageResponse.text = data.has(valText) ? data.getString(valText) : "";
                     messageResponse.user = user;
                 }
+
+                messageResponse.text = data.has(valText) ? data.getString(valText) : "";
                 messageResponse.content = data.has(valContent) ? data.getString(valContent) : "";
                 messageResponse.code = data.has(valCode) ? data.getString(valCode) : null;
                 messageResponse._id = data.getString(valId);
