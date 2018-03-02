@@ -3,6 +3,7 @@
     <string name="app_code" translatable="false">ra5v9</string>
     <string name="facebook_app_id">871957926301011</string>
     <string name="fb_login_protocol_scheme">fb145956836131010</string>
+
     <!-- Titles -->
     <string name="title_auth">Pamp</string>
     <string name="title_sign_up">Créer un compte</string>
@@ -23,13 +24,9 @@
     <string name="title_edit_profile">Vos informations de profil</string>
     <string name="title_good_deal_created">Bon plan envoyé</string>
     <string name="title_good_deal_resent">Le bon plan a été re-diffusé</string>
-    <string name="title_good_deal_resent_body">
-Votre nouveau bon plan \na été envoyé à vos proches
-</string>
+    <string name="title_good_deal_resent_body">Votre nouveau bon plan \na été envoyé à vos proches</string>
     <string name="title_good_deal_canceled">Votre bon plan a été annulé</string>
-    <string name="title_settings">
-Vous pouvez gérer automatiquement certains paramètres de votre bon plan :
-</string>
+    <string name="title_settings">Vous pouvez gérer automatiquement certains paramètres de votre bon plan :</string>
     <string name="title_participants_list">Les participants au bon plan</string>
     <string name="title_add_participants">Ajouter des destinataires</string>
     <string name="title_payment">Paiement</string>
@@ -37,9 +34,7 @@ Vous pouvez gérer automatiquement certains paramètres de votre bon plan :
     <string name="title_add_card">Paiement</string>
     <string name="title_send_order_list">Envoyer votre liste de commande au producteur</string>
     <string name="title_bank_account">Enregistrer vos données bancaires</string>
-    <string name="title_create_bank_account">
-Cela nous permettra de virer sur votre compte les sommes liées à vos commandes
-</string>
+    <string name="title_create_bank_account">Cela nous permettra de virer sur votre compte les sommes liées à vos commandes</string>
     <string name="title_change_password">Changer le mot de passe</string>
     <!-- Buttons -->
     <string name="button_sign_in">S\'inscrire</string>
@@ -82,9 +77,7 @@ Cela nous permettra de virer sur votre compte les sommes liées à vos commandes
     <string name="hint_good_plan_name">Nom du produit</string>
     <string name="hint_good_plan_description">Décrire votre bon plan</string>
     <string name="hint_good_plan_price">Prix</string>
-    <string name="hint_good_plan_price_description">
-Quoi? (unité : la bouteille, le pot, le kg, les 100 gr., la part, …)
-</string>
+    <string name="hint_good_plan_price_description">Quoi? (unité : la bouteille, le pot, le kg, les 100 gr., la part, …)</string>
     <string name="hint_good_plan_quantity">Quantité maximum (optionnel)</string>
     <string name="hint_good_plan_closing_date">Date de clôture du bon plan</string>
     <string name="hint_good_plan_delivery_place">Lieu de livraison</string>
@@ -127,52 +120,30 @@ Quoi? (unité : la bouteille, le pot, le kg, les 100 gr., la part, …)
     <string name="err_msg_select_start_point">Select start point</string>
     <string name="err_msg_select_destination">Select destination</string>
     <string name="err_msg_select_route">Select your route</string>
-    <string name="err_msg_request_is_sent">
-Your Request has been sent successfully.\nTrack status in the Requests Screen.
-</string>
+    <string name="err_msg_request_is_sent">Your Request has been sent successfully.\nTrack status in the Requests Screen.</string>
     <string name="err_msg_specify_departure_time">Specify departure time</string>
     <string name="err_msg_specify_ride_flexibility">Specify ride flexibility</string>
-    <string name="err_msg_user_not_driver">
-Please complete your driver profile by inserting a vehicle
-</string>
+    <string name="err_msg_user_not_driver">Please complete your driver profile by inserting a vehicle</string>
     <string name="err_msg_select_date_in_future">Sélectionnez une date dans le futur</string>
     <string name="err_msg_title_no_travel">No Travel on your route</string>
-    <string name="err_msg_no_route">
-Follow this route to get alerts about new trip or\noffer a trip yourself and find passengers
-</string>
+    <string name="err_msg_no_route">Follow this route to get alerts about new trip or\noffer a trip yourself and find passengers</string>
     <string name="err_msg_title_no_result_for_request">No any result on your request</string>
-    <string name="err_msg_no_result_for_request">
-Follow this route to get alerts about new trip,\noffer a trip yourself and find passengers\nor try another search options.
-</string>
+    <string name="err_msg_no_result_for_request">Follow this route to get alerts about new trip,\noffer a trip yourself and find passengers\nor try another search options.</string>
     <!-- Messages -->
-    <string name="msg_try_login_with_new_password">
-Essayez de vous connecter avec le nouveau mot de passe
-</string>
+    <string name="msg_try_login_with_new_password">Essayez de vous connecter avec le nouveau mot de passe</string>
     <string name="msg_empty_received_good_plans">Partager l’appli \npour + de \nbons plans !</string>
-    <string name="msg_empty_proposed_good_plans">
-Proposer votre \npremier bon plan… \nC’est tellement bon !
-</string>
-    <string name="msg_share">
-Je vous recommande \ncet appli: PAMP ... nous \npourrons partager \nfacilement tous nos \nbons plans de petits \nproducteurs.\nHttps//:AppStore.pamp .com
-</string>
-    <string name="msg_send_good_deal">
-"Je vous envoie un bon plan ... à retrouver sur PAMP en téléchargeant l'appli"
-</string>
-    <string name="msg_send_good_deal_without_account">
-Je vous envoie un bon plan à retrouver sur PAMP. Si vous n\'avez pas l\'appli (ou de compte), telechargez là, créez-vous un compte et revenez ensuite sur ce lien pour récuperer votre bon plan.
-</string>
+    <string name="msg_empty_proposed_good_plans">Proposer votre \npremier bon plan… \nC’est tellement bon !</string>
+    <string name="msg_share">Je vous recommande \ncet appli: PAMP ... nous \npourrons partager \nfacilement tous nos \nbons plans de petits \nproducteurs.\nHttps//:AppStore.pamp .com</string>
+    <string name="msg_send_good_deal">"Je vous envoie un bon plan ... à retrouver sur PAMP en téléchargeant l'appli"</string>
+    <string name="msg_send_good_deal_without_account">Je vous envoie un bon plan à retrouver sur PAMP. Si vous n\'avez pas l\'appli (ou de compte), telechargez là, créez-vous un compte et revenez ensuite sur ce lien pour récuperer votre bon plan.</string>
     <!-- Menu -->
     <string name="menu_share">Share</string>
     <string name="menu_notifications">Notifications</string>
     <!-- Verification Dialog -->
     <string name="verification_dialog_title">Vérification de votre email</string>
-    <string name="verification_dialog_message">
-Pour finaliser votre création de compte un email vous a été envoyé
-</string>
+    <string name="verification_dialog_message">Pour finaliser votre création de compte un email vous a été envoyé</string>
     <!-- Verification Error Dialog -->
-    <string name="verification_error_dialog_title">
-Pour diffuser votre bon plan \nvous devez remplir les champs \nobligatoires suivants :
-</string>
+    <string name="verification_error_dialog_title">Pour diffuser votre bon plan \nvous devez remplir les champs \nobligatoires suivants :</string>
     <string name="text_good_plan_name">- nom du produit</string>
     <string name="text_good_plan_description">- décrire votre bon plan</string>
     <string name="text_good_plan_price">- prix</string>
@@ -182,9 +153,7 @@ Pour diffuser votre bon plan \nvous devez remplir les champs \nobligatoires suiv
     <string name="text_good_plan_delivery_date">- date de livraison</string>
     <!-- Forgot password Dialog -->
     <string name="forgot_password_dialog_title">Mot de passe oublié ?</string>
-    <string name="forgot_password__message">
-"S'il vous plaît entrer votre adresse mail enregistré sur votre compte."
-</string>
+    <string name="forgot_password__message">"S'il vous plaît entrer votre adresse mail enregistré sur votre compte."</string>
     <!-- Date PickerDialog -->
     <string name="close_date_dialog_title">Date de clôture</string>
     <string name="start_delivery_date_dialog_title">Date de livraison (début)</string>
@@ -211,60 +180,36 @@ Pour diffuser votre bon plan \nvous devez remplir les champs \nobligatoires suiv
     </string-array>
     <!-- End flow Texts -->
     <string name="title_order_created">Votre commande est validée</string>
-    <string name="title_order_created_subtitle">
-Votre compte sera débité uniquement à la confirmation définitive
-</string>
-    <string name="title_order_created_text">
-Retrouvez à tout moment votre récapitulatif de commande dans votre " compte"
-</string>
+    <string name="title_order_created_subtitle">Votre compte sera débité uniquement à la confirmation définitive</string>
+    <string name="title_order_created_text">Retrouvez à tout moment votre récapitulatif de commande dans votre " compte"</string>
     <string name="title_order_canceled">Votre commande a été annulée</string>
     <string name="title_order_canceled_subtitle">Votre compte ne sera pas débité</string>
     <!-- Splash texts -->
     <string name="text_splash_title">Bienvenue</string>
     <string name="text_splash_subtext">#partageravecmesproches</string>
     <!-- Tutorial texts -->
-    <string name="text_first_tutorial_title_text">
-Le partage de vos bons plans devient enfin simple (et gratuit)… \nFini les plans compliqués à gérer
-</string>
-    <string name="text_first_tutorial_second_text">
-Pour partager et accéder directement à toutes les meilleures spécialités régionales de petits producteurs locaux
-</string>
+    <string name="text_first_tutorial_title_text">Le partage de vos bons plans devient enfin simple (et gratuit)… \nFini les plans compliqués à gérer</string>
+    <string name="text_first_tutorial_second_text">Pour partager et accéder directement à toutes les meilleures spécialités régionales de petits producteurs locaux</string>
     <string name="text_second_tutorial_title_text">Tout l’esprit des bons plans dans une appli !</string>
     <string name="text_second_tutorial_second_text">"Aussi facile qu'envoyer un SMS"</string>
-    <string name="text_second_tutorial_third_text">
-"Récoltez et gérez vos commandes en un temps limité"
-</string>
+    <string name="text_second_tutorial_third_text">"Récoltez et gérez vos commandes en un temps limité"</string>
     <string name="text_second_tutorial_fourth_text">"Ne vous souciez plus du paiement"</string>
     <string name="text_third_tutorial_title_text">"Le système D n’aura\njamais été aussi facile"</string>
-    <string name="text_third_tutorial_second_text">
-Pour partager et accéder\ndirectement à toutes les\nmeilleures spécialités\nrégionales de petits\nproducteurs locaux
-</string>
+    <string name="text_third_tutorial_second_text">Pour partager et accéder\ndirectement à toutes les\nmeilleures spécialités\nrégionales de petits\nproducteurs locaux</string>
     <string name="text_third_tutorial_third_text">"Recever des bons plans et commander en 1 clic"</string>
-    <string name="text_third_tutorial_fourth_text">
-"Soutener les petits producteurs par une juste rémunération sans intermédiaire"
-</string>
+    <string name="text_third_tutorial_fourth_text">"Soutener les petits producteurs par une juste rémunération sans intermédiaire"</string>
     <!-- Auth texts -->
     <string name="text_already_registered">déjà inscrit ?</string>
     <!-- Create Password texts -->
-    <string name="text_create_password_first">
-"En poursuivant, vous acceptez nos conditions d’utilisation et notre politique de confidentialité"
-</string>
-    <string name="text_create_password_second">
-Conditions d’utilisation (et politique de confidentialité)
-</string>
+    <string name="text_create_password_first">"En poursuivant, vous acceptez nos conditions d’utilisation et notre politique de confidentialité"</string>
+    <string name="text_create_password_second">Conditions d’utilisation (et politique de confidentialité)</string>
     <string name="text_forgot_password">mot de passe oublié ?</string>
     <string name="text_or">ou</string>
     <!-- Description propose -->
-    <string name="text_description_quantity">
-Si vous êtes limités pour le transport ou si votre producteur produit en quantité limitée, pensez à bloquer automatiquement les commandes quand la limite est atteinte
-</string>
+    <string name="text_description_quantity">Si vous êtes limités pour le transport ou si votre producteur produit en quantité limitée, pensez à bloquer automatiquement les commandes quand la limite est atteinte</string>
     <!-- Delivery propose -->
-    <string name="text_title_delivery">
-Paramétrer les conditions pour répondre et récupérer les produits
-</string>
-    <string name="text_description_delivery">
-Vous pourrez la changer à tout moment, tout au long du bon plan
-</string>
+    <string name="text_title_delivery">Paramétrer les conditions pour répondre et récupérer les produits</string>
+    <string name="text_description_delivery">Vous pourrez la changer à tout moment, tout au long du bon plan</string>
     <string name="text_help_to_delivery_date">Date de livraison du bon plan rediffusé :</string>
     <!-- Profile texts -->
     <string name="text_profile_information">Vos informations de profil</string>
@@ -273,9 +218,7 @@ Vous pourrez la changer à tout moment, tout au long du bon plan
     <string name="text_share">Partagez cette appli</string>
     <string name="text_connect">Nous contacter</string>
     <string name="text_logout">Déconnexion</string>
-    <string name="text_connect_description">
-Posez vos questions, faites nous des suggestions, donnez nous votre avis, signalez un bug…
-</string>
+    <string name="text_connect_description">Posez vos questions, faites nous des suggestions, donnez nous votre avis, signalez un bug…</string>
     <!-- Messenger texts -->
     <string name="text_bon_plan_close">BON PLAN CLOS</string>
     <string name="text_bon_plan_annule">BON PLAN ANNULE</string>
@@ -284,17 +227,13 @@ Posez vos questions, faites nous des suggestions, donnez nous votre avis, signal
     <string name="text_commande_confirmee">Commande confirmée</string>
     <string name="text_change_date">Changement date de livraison:</string>
     <string name="text_change_closing_date">Changement date de clôture du bon plan:</string>
-    <string name="text_closing_date">
-"Attention plus qu'1 jour avant la clôture du bon plan"
-</string>
+    <string name="text_closing_date">"Attention plus qu'1 jour avant la clôture du bon plan"</string>
     <string name="text_delivery_date">Noubliez pas derecuperer votre bon plan</string>
     <string name="text_name_a_change">a changé:</string>
     <string name="type_a_message">Ecrivez un message</string>
     <string name="bon_plan">BON PLAN</string>
     <string name="text_bank_account_attached">Vos données bancaires ont été enregistrées</string>
-    <string name="text_participant_added">
-Le bon plan a été envoyé\naux nouveaux destinataires
-</string>
+    <string name="text_participant_added">Le bon plan a été envoyé\naux nouveaux destinataires</string>
     <string name="text_message_good_deal_diffusion_quant_max">Quantité max. :</string>
     <string name="text_message_good_deal_diffusion_no_quant_max">pas de quantité max</string>
     <!-- Settings Good Deal texts -->
@@ -304,19 +243,11 @@ Le bon plan a été envoyé\naux nouveaux destinataires
     <string name="text_cancel_good_deal">Annuler votre bon plan</string>
     <!-- Cancel Good Deal PopUP -->
     <string name="cancel_good_deal_pop_up_title">Vous voulez annuler votre bon plan ?</string>
-    <string name="cancel_good_deal_pop_up_text">
-Un message sera envoyé à votre liste de diffusion… \nAucune commande ne pourra être passé, mais vous pourrez communiquer avec vos proches via la messagerie
-</string>
+    <string name="cancel_good_deal_pop_up_text">Un message sera envoyé à votre liste de diffusion… \nAucune commande ne pourra être passé, mais vous pourrez communiquer avec vos proches via la messagerie</string>
     <string name="button_ajouter">AJOUTER</string>
-    <string name="send_order_list_header_text">
-Pour lui envoyer directement la commande et gagner du temps \n\nPour gérer votre bon plan à distance et se faire livrer
-</string>
-    <string name="send_order_list_commander_header_text">
-N’oubliez pas d’inscrire aussi votre propre commande :
-</string>
-    <string name="send_order_list_commander_footer_text">
-Votre commande sera enregistrée à la liste des commandes mais aucune transaction ne sera effectuée
-</string>
+    <string name="send_order_list_header_text">Pour lui envoyer directement la commande et gagner du temps \n\nPour gérer votre bon plan à distance et se faire livrer</string>
+    <string name="send_order_list_commander_header_text">N’oubliez pas d’inscrire aussi votre propre commande :</string>
+    <string name="send_order_list_commander_footer_text">Votre commande sera enregistrée à la liste des commandes mais aucune transaction ne sera effectuée</string>
     <string name="send_order_list_producer_header_text">Enregistrez les coordonnées de votre producteur :</string>
     <string name="send_order_list_producer">Producteur</string>
     <string name="send_my_order">Detail Commande</string>
