@@ -54,20 +54,21 @@ public class GoodDealStateVH extends RecyclerVH<MessagesDH> {
         switch (messageResponse.code) {
             case Constants.M5_GOOD_DEAL_DELIVERY_DATE_CHANGED:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_date_msg));
-                tvStateDescription.setText(context.getString(R.string.text_change_date) + "\n" + deliveryStartDate + "\n" + deliveryEndDate);
+//                tvStateDescription.setText(context.getString(R.string.text_change_date) + "\n" + deliveryStartDate + "\n" + deliveryEndDate);
                 break;
             case Constants.M12_DELIVERY_DATE:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_date_msg));
-                tvStateDescription.setText(context.getString(R.string.text_delivery_date));
+//                tvStateDescription.setText(context.getString(R.string.text_delivery_date));
                 break;
             case Constants.M6_GOOD_DEAL_CLOSING_DATE_CHANGED:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_hourglass_msg));
-                tvStateDescription.setText(context.getString(R.string.text_change_closing_date) + "\n" + deliveryClosingDate);
+//                tvStateDescription.setText(context.getString(R.string.text_change_closing_date) + "\n" + deliveryClosingDate);
                 break;
             case Constants.M9_CLOSING_DATE:
                 ivGoodDealState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_hourglass_msg));
-                tvStateDescription.setText(context.getString(R.string.text_closing_date));
+//                tvStateDescription.setText(context.getString(R.string.text_closing_date));
                 break;
         }
+        tvStateDescription.setText(messageResponse.text);
     }
 }

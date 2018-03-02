@@ -45,31 +45,17 @@ public class GoodDealConfirmationVH extends RecyclerVH<MessagesDH> {
             case Constants.M11_1_GOOD_DEAL_CONFIRMATION:
                 rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_green));
                 ivGoodDealConfirmationState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_gift_msg));
-                tvStateConfirmationDescription.setText(context.getString(R.string.text_bon_plan_confirme));
+                tvStateConfirmationDescription.setText(messageResponse.text);
                 break;
             case Constants.M11_3_GOOD_DEAL_CONFIRMATION_REJECTED:
                 rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_red));
                 ivGoodDealConfirmationState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_finger_down_msg));
-                tvStateConfirmationDescription.setText(
-                        messageResponse.description != null
-                                ? messageResponse.description.firstName
-                                + " : "
-                                + context.getString(R.string.text_commande_annule)
-                                : " : "
-                                + context.getString(R.string.text_commande_annule)
-                );
+                tvStateConfirmationDescription.setText(messageResponse.text);
                 break;
             case Constants.M11_2_GOOD_DEAL_CONFIRMATION_APPLYED:
                 rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_good_deal_confirmation_green));
                 ivGoodDealConfirmationState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_finger_up_msg));
-                tvStateConfirmationDescription.setText(
-                        messageResponse.description != null
-                                ? messageResponse.description.firstName
-                                + " : "
-                                + context.getString(R.string.text_commande_confirmee)
-                                : " : "
-                                + context.getString(R.string.text_commande_confirmee)
-                );
+                tvStateConfirmationDescription.setText(messageResponse.text);
                 break;
         }
 
