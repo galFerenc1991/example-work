@@ -51,24 +51,24 @@ public class OrderingStateVH extends RecyclerVH<MessagesDH> {
             case Constants.M2_PRODUCT_ORDERING:
                 ivOrderState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_msg));
                 rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_product_ordering));
-                tvOrderOwnerName.setText(messageResponse.description != null ? messageResponse.description.firstName : "user == null");
-
-
-                tvPriceDescription.setText(messageResponse.description.getStringQuantity() + "/" + goodDealResponse.unit);
+//                tvOrderOwnerName.setText(messageResponse.description != null ? messageResponse.description.firstName : "user == null");
+//                tvPriceDescription.setText(messageResponse.description.getStringQuantity() + "/" + goodDealResponse.unit);
                 break;
             case Constants.M3_ORDER_CHANGING:
                 ivOrderState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_msg));
                 rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_product_ordering));
-                tvOrderOwnerName.setText(messageResponse.description != null ? messageResponse.description.firstName + " " + context.getString(R.string.text_name_a_change) : "user == null");
-                tvPriceDescription.setText(messageResponse.description.getStringQuantity() + "/" + goodDealResponse.unit);
+//                tvOrderOwnerName.setText(messageResponse.description != null ? messageResponse.description.firstName + " " + context.getString(R.string.text_name_a_change) : "user == null");
+//                tvPriceDescription.setText(messageResponse.description.getStringQuantity() + "/" + goodDealResponse.unit);
                 break;
             case Constants.M4_ORDER_CANCELLATION:
                 ivOrderState.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_close_msg));
                 rlBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_msg_cancel_ordering));
-                tvOrderOwnerName.setText(messageResponse.description != null ? messageResponse.description.firstName + ":" : "user == null" );
-                tvPriceDescription.setText(context.getString(R.string.text_commande_annule).toLowerCase());
+//                tvOrderOwnerName.setText(messageResponse.description != null ? messageResponse.description.firstName + ":" : "user == null" );
+//                tvPriceDescription.setText(context.getString(R.string.text_commande_annule).toLowerCase());
                 break;
         }
+
+        tvPriceDescription.setText(messageResponse.text);
 
     }
 }
