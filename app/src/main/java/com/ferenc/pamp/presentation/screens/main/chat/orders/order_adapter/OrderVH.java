@@ -11,6 +11,8 @@ import com.ferenc.pamp.presentation.utils.Constants;
 import com.michenko.simpleadapter.OnCardClickListener;
 import com.michenko.simpleadapter.RecyclerVH;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by
  * Ferenc on 2018.01.03..
@@ -48,7 +50,8 @@ public class OrderVH extends RecyclerVH<OrderDH> {
         if (order.getRank() > 0)
             tvName.setText(order.getUser().getFirstName() + "(Redif. " + order.getRank() + ")");
         else tvName.setText(order.getUser().getFirstName());
-        tvQuantity.setText(String.valueOf(order.getQuantity()));
+        DecimalFormat df = new DecimalFormat("#.##");
+        tvQuantity.setText(String.valueOf(df.format(order.getQuantity())));
         tvPrice.setText(String.valueOf(order.getPrice()) + " €");
         if (data.isOriginal()) {
             switch (data.getDealStatus()) {
