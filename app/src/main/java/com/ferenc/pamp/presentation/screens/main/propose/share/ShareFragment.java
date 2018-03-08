@@ -233,8 +233,6 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
         } else {
             mPresenter.share(mContactAdapter.getListDH());
         }
-
-//       getShortLink();
     }
 
     @Override
@@ -258,32 +256,26 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     }
 
     public void getShortLink(List<String> _selectedContacts, GoodDealResponse _goodDealResponse) {
-
+        showProgressMain();
         Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
                 .setLink(getDynamicLink(_goodDealResponse.id))
                 .setDynamicLinkDomain(PampApp_.getInstance().getString(R.string.app_code) + ".app.goo.gl")
                 .buildShortDynamicLink()
-                .addOnCompleteListener(mActivity, new OnCompleteListener<ShortDynamicLink>() {
-                    @Override
-                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
-                        if (task.isSuccessful()) {
-                            // Short link created
-                            createdShort = task.getResult().getShortLink();
-                            sendSmsWith(createdShort,_selectedContacts, _goodDealResponse);
-                            Toast.makeText(mActivity, String.valueOf(createdShort), Toast.LENGTH_SHORT).show();
-                            Uri flowchartLink = task.getResult().getPreviewLink();
-                        } else {
-                            // Error
-                            // ...
-                        }
-                    }
+                .addOnCompleteListener(mActivity, task -> {
+                    if (task.isSuccessful()) {
+
+                        createdShort = task.getResult().getShortLink();
+                        sendSmsWith(createdShort,_selectedContacts, _goodDealResponse);
+
+                    } else hideProgress();
+
                 });
 
     }
 
     public static Uri getDynamicLink(String _id) {
         String appCode = PampApp_.getInstance().getString(R.string.app_code);
-//        String link = "https://pampconnect.com/?id=" +_id + "&apn=com.ferenc.pamp" + "&ibi=com.1kubator.pamp";
+
         Uri.Builder builder = new Uri.Builder()
                 .scheme("https")
                 .authority(appCode + ".app.goo.gl")
@@ -291,11 +283,6 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
                 .appendQueryParameter("link", "http://pampconnect.com/?id="+_id)
                 .appendQueryParameter("apn", "com.ferenc.pamp")
                 .appendQueryParameter("ibi", "com.1kubator.pamp");
-//
-//        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-//                .setLink(builder.build())
-//                .setDynamicLinkDomain("abc123.app.goo.gl")
-//                .buildDynamicLink();
 
         DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
                 .setLink(builder.build())
@@ -306,25 +293,12 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
                 .setIosParameters(new DynamicLink.IosParameters.Builder("com.example.ios").build())
                 .buildDynamicLink();
 
-        Uri dynamicLinkUri = dynamicLink.getUri();
-
-
-
         return dynamicLink.getUri();
     }
 
-
-    private void dynamoLink() {
-
-        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("https://example.com/"))
-                .setDynamicLinkDomain("abc123.app.goo.gl")
-                // Open links with this app on Android
-                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
-                // Open links with com.example.ios on iOS
-                .setIosParameters(new DynamicLink.IosParameters.Builder("com.example.ios").build())
-                .buildDynamicLink();
-
-        Uri dynamicLinkUri = dynamicLink.getUri();
+    @Override
+    public void onPause() {
+        super.onPause();
+        hideProgress();
     }
 }
