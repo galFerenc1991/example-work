@@ -122,6 +122,8 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
 
     @StringRes(R.string.title_edit_profile)
     protected String mTitle;
+    @StringRes(R.string.err_msg_invalid_name_surname)
+    protected String errInvalid;
 
     @Bean
     protected SignedUserManager mUserManager;
@@ -370,6 +372,26 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     @Override
     public void hideChangePasswordField() {
         llChangePassword.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void toggleNameError(boolean visibility) {
+        if (visibility)
+            tilName.setError(errInvalid);
+        else {
+            tilName.setErrorEnabled(false);
+            tilName.setError(null);
+        }
+    }
+
+    @Override
+    public void toggleSurNameError(boolean visibility) {
+        if (visibility)
+            tilSurname.setError(errInvalid);
+        else {
+            tilSurname.setErrorEnabled(false);
+            tilSurname.setError(null);
+        }
     }
 
     @Override

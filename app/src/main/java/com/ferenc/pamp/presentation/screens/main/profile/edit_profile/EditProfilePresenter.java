@@ -5,6 +5,7 @@ import com.ferenc.pamp.presentation.screens.main.profile.UserRelay;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.SignedUserManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
+import com.ferenc.pamp.presentation.utils.ValidationManager;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -136,14 +137,42 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
     @Override
     public void clickedSave(String _firstName, String _lastName, String _country) {
 
-        mCompositeDisposable.add(mModel.updateUser(
-                getUpdatedBody(_firstName, _lastName, _country),
-                getUpdatedAvatar(mAvatarFile))
-                .subscribe(user -> {
-                    mUserRelay.userRelay.accept(user);
-                    mView.finishActivity();
-                }, throwable -> ToastManager.showToast(throwable.getMessage()))
-        );
+        int errCodeName = ValidationManager.firstLastName(_firstName);
+        int errCodeSurname = ValidationManager.firstLastName(_lastName);
+
+        switch (errCodeName) {
+            case ValidationManager.EMPTY:
+                mView.toggleNameError(true);
+                break;
+            case ValidationManager.INVALID:
+                mView.toggleNameError(true);
+                break;
+            case ValidationManager.OK:
+                mView.toggleNameError(false);
+                break;
+        }
+        switch (errCodeSurname) {
+            case ValidationManager.EMPTY:
+                mView.toggleSurNameError(true);
+                break;
+            case ValidationManager.INVALID:
+                mView.toggleSurNameError(true);
+                break;
+            case ValidationManager.OK:
+                mView.toggleSurNameError(false);
+                break;
+        }
+
+        if (errCodeSurname == ValidationManager.OK && errCodeName == ValidationManager.OK) {
+            mCompositeDisposable.add(mModel.updateUser(
+                    getUpdatedBody(_firstName, _lastName, _country),
+                    getUpdatedAvatar(mAvatarFile))
+                    .subscribe(user -> {
+                        mUserRelay.userRelay.accept(user);
+                        mView.finishActivity();
+                    }, throwable -> ToastManager.showToast(throwable.getMessage()))
+            );
+        }
 
     }
 
