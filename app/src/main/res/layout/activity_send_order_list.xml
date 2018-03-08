@@ -57,7 +57,20 @@
                 android:gravity="center"
                 android:drawablePadding="@dimen/padding_upper_large"
                 android:text="@string/send_order_list_producer"
-                android:drawableStart="@drawable/ic_producer"/>
+                android:drawableStart="@drawable/ic_producer"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btnProducer_ASOL"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/confirm_button_height"
+                android:background="@drawable/bg_confirm_button"
+                android:paddingEnd="@dimen/padding_double"
+                android:paddingStart="@dimen/padding_double"
+                android:text="@string/send_order_list_producer"
+                android:textAllCaps="false"
+                android:layout_gravity="center_horizontal"/>
 
             <TextView
                 android:layout_width="@dimen/default_producer_text_width_smaller"

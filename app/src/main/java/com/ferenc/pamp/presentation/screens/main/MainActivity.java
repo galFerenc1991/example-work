@@ -1,11 +1,14 @@
 package com.ferenc.pamp.presentation.screens.main;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,8 +26,12 @@ import com.ferenc.pamp.presentation.screens.main.profile.ProfileFragment_;
 import com.ferenc.pamp.presentation.screens.main.propose.ProposeFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
+import com.google.android.gms.appinvite.AppInvite;
+import com.google.android.gms.appinvite.AppInviteInvitationResult;
+import com.google.android.gms.appinvite.AppInviteReferral;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -36,6 +43,10 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 @EActivity(R.layout.activity_main)
@@ -118,8 +129,22 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                     Uri deepLink = null;
                     if (pendingDynamicLinkData != null) {
                         deepLink = pendingDynamicLinkData.getLink();
-                        String id = deepLink.getQueryParameter("id");
+                        String id = "";
+                        if (deepLink.getQueryParameter("id") != null) {
+                            id = deepLink.getQueryParameter("id");
+                        } else {
+                            try {
+                                id = new URI(deepLink.getQueryParameter("link"))
+                                        .getQuery()
+                                        .replace("id","")
+                                        .replace("=","");
+                            } catch (URISyntaxException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                         mPresenter.connectGoodDeal(id);
+
                     }
                 });
 

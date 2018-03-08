@@ -1,5 +1,8 @@
 package com.ferenc.pamp.presentation.screens.main.propose.share;
 
+import android.net.Uri;
+import android.support.annotation.NonNull;
+
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
@@ -11,6 +14,10 @@ import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.GoodDealValidateManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +95,8 @@ public class SharePresenter implements ShareContract.Presenter {
                         : mModel.createGoodDeal(createRequestParameter(contactDHList)))
                         .subscribe(goodDealResponse -> {
                             mView.hideProgress();
-                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
+//                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
+                            mView.getShortLink(getSelectedContacts(contactDHList), goodDealResponse);
                         }, throwable -> {
                             mView.hideProgress();
 //                            mView.showErrorMessage(Constants.MessageType.ERROR_WHILE_SELECT_ADDRESS);
@@ -108,7 +116,8 @@ public class SharePresenter implements ShareContract.Presenter {
 
                             mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                             mView.hideProgress();
-                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
+//                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
+                            mView.getShortLink(getSelectedContacts(contactDHList), goodDealResponse);
                         }, throwable -> {
                             mView.hideProgress();
                             mView.showErrorMessage(Constants.MessageType.UNKNOWN);
@@ -141,5 +150,4 @@ public class SharePresenter implements ShareContract.Presenter {
     public void unsubscribe() {
         mCompositeDisposable.clear();
     }
-
 }

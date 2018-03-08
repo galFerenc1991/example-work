@@ -74,7 +74,8 @@
                 style="@style/AuthEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_edit" />
+                android:drawableEnd="@drawable/ic_edit"
+                android:inputType="textEmailAddress"/>
 
         </android.support.design.widget.TextInputLayout>
 

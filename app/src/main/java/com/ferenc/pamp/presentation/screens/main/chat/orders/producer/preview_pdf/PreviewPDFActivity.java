@@ -17,6 +17,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.ferenc.pamp.R;
 import com.ferenc.pamp.data.model.home.orders.PDFPreviewRequest;
@@ -188,13 +189,8 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mPresenter.subscribe();
             } else {
-                Snackbar.make(
-                        getWindow().getDecorView(),
-                        "Please, allow for PAMP access to read storage.",
-                        BaseTransientBottomBar.LENGTH_INDEFINITE)
-                        .setAction("OK", click -> checkStoragePermission())
-                        .show();
-
+                finish();
+                Toast.makeText(this, "Please, allow for PAMP access to read storage.",Toast.LENGTH_LONG).show();
             }
         }
     }

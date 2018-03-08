@@ -53,6 +53,9 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
     @ViewById(R.id.btnValider_ASOL)
     protected Button btnValider;
 
+    @ViewById(R.id.btnProducer_ASOL)
+    protected Button btnProducer;
+
     @StringRes(R.string.title_send_order_list)
     protected String titleSendOrderList;
 
@@ -123,6 +126,10 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickToOpenCreateOrderPopUp());
 
+        RxView.clicks(btnProducer)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> mPresenter.clickToChooseProducer());
+
         RxView.clicks(tvProducer)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mPresenter.clickToChooseProducer());
@@ -189,6 +196,8 @@ public class SendOrderListActivity extends BaseActivity implements SendOrderList
                    }
                }
                tvProducer.setText(mProducerName);
+               btnProducer.setVisibility(View.GONE);
+               tvProducer.setVisibility(View.VISIBLE);
                mPresenter.validateData(mQuantity, mProducerId);
            }
         }
