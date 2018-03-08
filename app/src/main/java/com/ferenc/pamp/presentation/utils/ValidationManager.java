@@ -20,7 +20,7 @@ public abstract class ValidationManager {
     private static final Pattern regExBankCardNumber = Pattern.compile("^[0-9]{16}$");   //16 digits
     private static final Pattern regExLicenceId = Pattern.compile("^([A-Z]{3})(\\040)(\\d{6})$");   //3 upper case letter and 6 digits
 //    private static final Pattern regExPassword = Pattern.compile("^(?=\\S*[a-z])(?=\\S*[A-Z])(?=\\S*[^a-zA-Z\\d])\\S{6,24}$");   //6-24, lower, upper, special
-    private static final Pattern regExPassword = Pattern.compile("^\\S{6,20}$");   //6-20, lower, upper, special
+    private static final Pattern regExPassword = Pattern.compile("^\\S{8,16}$");   //6-20, lower, upper, special
     private static final Pattern regExIban = Pattern.compile("^([A-Z]{2})(\\040)(\\d{20})$");  //2 upper case letter and 16 digits
 
 
@@ -39,6 +39,11 @@ public abstract class ValidationManager {
         return regExPassword.matcher(password).matches() ? OK : INVALID;
     }
 
+    public static int validatePasswordLength(String password) {
+
+        return !TextUtils.isEmpty(password) ? password.length() > 7 ? OK : INVALID : EMPTY;
+    }
+
     public static int validateIban(String iBan) {
         if(TextUtils.isEmpty(iBan)) return EMPTY;
         return regExIban.matcher(iBan).matches() ? OK : INVALID;
@@ -52,6 +57,11 @@ public abstract class ValidationManager {
     public static int validateName(String name) {
         String result = name.replaceAll("\\s+$", "");
         return TextUtils.isEmpty(result) ? EMPTY : OK;
+    }
+
+    public static int firstLastName(String name) {
+        String result = name.replaceAll("\\s+$", "");
+        return !TextUtils.isEmpty(result) ? name.length() > 0 && name.length() < 26 ? OK : INVALID : EMPTY;
     }
 
     public static  int validateSurname(String surname) {

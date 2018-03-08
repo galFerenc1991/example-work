@@ -1,7 +1,6 @@
 package com.ferenc.pamp.presentation.screens.auth.sign_up;
 
 import com.ferenc.pamp.data.model.auth.TokenRequest;
-import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.ValidationManager;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -38,19 +37,58 @@ public class SignUpPresenter implements SignUpContract.Presenter {
 
     @Override
     public void openCreatePasswordScreen(String _firstName, String _lastName, String _email, String _country) {
-        int errCodeName = ValidationManager.validateName(_firstName);
-        int errCodeSurname = ValidationManager.validateSurname(_lastName);
+        int errCodeName = ValidationManager.firstLastName(_firstName);
+        int errCodeSurname = ValidationManager.firstLastName(_lastName);
         int errCodeEmail = ValidationManager.validateEmail(_email);
         int errCodeCountry = ValidationManager.validateName(_country);
+
+
+
+        switch (errCodeName) {
+            case ValidationManager.EMPTY:
+                mView.toggleNameError(true);
+                break;
+            case ValidationManager.INVALID:
+                mView.toggleNameError(true);
+                break;
+            case ValidationManager.OK:
+                mView.toggleNameError(false);
+                break;
+        }
+        switch (errCodeSurname) {
+            case ValidationManager.EMPTY:
+                mView.toggleSurNameError(true);
+                break;
+            case ValidationManager.INVALID:
+                mView.toggleSurNameError(true);
+                break;
+            case ValidationManager.OK:
+                mView.toggleSurNameError(false);
+                break;
+        }
+
+        switch (errCodeEmail) {
+            case ValidationManager.EMPTY:
+                mView.toggleEmailError(true);
+                break;
+            case ValidationManager.INVALID:
+                mView.toggleEmailError(true);
+                break;
+            case ValidationManager.OK:
+                mView.toggleEmailError(false);
+                break;
+        }
+
 
         if (errCodeEmail == ValidationManager.OK && errCodeSurname == ValidationManager.OK && errCodeName == ValidationManager.OK) {
             mView.openCreatePasswordScreen(textRefactor(_firstName)
                     , textRefactor(_lastName)
                     , textRefactor(_email)
                     , textRefactor(_country));
-        } else {
-            mView.showErrorMessage(Constants.MessageType.INVALID_EMAIL_OR_SOME_FIELDS_EMPTY);
         }
+//        else {
+//            mView.showErrorMessage(Constants.MessageType.INVALID_EMAIL_OR_SOME_FIELDS_EMPTY);
+//        }
     }
 
     private String textRefactor(String text) {

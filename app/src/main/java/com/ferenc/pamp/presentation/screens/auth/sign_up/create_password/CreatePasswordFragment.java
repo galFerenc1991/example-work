@@ -3,6 +3,7 @@ package com.ferenc.pamp.presentation.screens.auth.sign_up.create_password;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.design.widget.TextInputLayout;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -63,6 +64,8 @@ public class CreatePasswordFragment extends ContentFragment implements CreatePas
     protected EditText etPassword;
     @ViewById(R.id.etConfPassword_FCP)
     protected EditText etConfPassword;
+    @ViewById(R.id.tilPassword_FCP)
+    protected TextInputLayout tilPassword;
 
     @FragmentArg
     protected String mFirstName;
@@ -79,6 +82,8 @@ public class CreatePasswordFragment extends ContentFragment implements CreatePas
     protected String mDialogTitle;
     @StringRes(R.string.verification_dialog_message)
     protected String mDialogMessage;
+    @StringRes(R.string.err_msg_invalid_password_new)
+    protected String errInvalidPassword;
 
     @Bean
     protected AuthRepository mAuthRepository;
@@ -140,6 +145,16 @@ public class CreatePasswordFragment extends ContentFragment implements CreatePas
     @Override
     public void openLoginScreen() {
         mActivity.replaceFragmentClearBackstack(LoginFragment_.builder().build());
+    }
+
+    @Override
+    public void togglePasswordError(boolean visibility) {
+        if (visibility)
+            tilPassword.setError(errInvalidPassword);
+        else {
+            tilPassword.setErrorEnabled(false);
+            tilPassword.setError(null);
+        }
     }
 
     @Override

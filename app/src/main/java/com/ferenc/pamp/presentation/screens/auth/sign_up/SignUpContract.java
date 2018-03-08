@@ -27,6 +27,12 @@ public interface SignUpContract {
         void startSelectCountryScreen(String _selectedCountry);
 
         void setCountry(String _selectedCountry);
+
+        void toggleNameError(boolean visibility);
+
+        void toggleSurNameError(boolean visibility);
+
+        void toggleEmailError(boolean visibility);
     }
 
     interface Presenter extends BasePresenter {

@@ -166,7 +166,7 @@ public abstract class Constants {
         USER_NOT_REGISTERED(R.string.err_msg_user_not_registered, true),
         BAD_CREDENTIALS(R.string.err_msg_bad_credentials, true),
         INVALID_EMAIL_OR_SOME_FIELDS_EMPTY(R.string.err_msg_invalid_email_or_empty_fields, true),
-        EMPTY_FIELDS_OR_NOT_MATCHES_PASSWORDS(R.string.err_msg_invalid_email_or_empty_fields, true),
+        EMPTY_FIELDS_OR_NOT_MATCHES_PASSWORDS(R.string.err_msg_empty_fields_or_passwords_not_matches, true),
         UNKNOWN(R.string.err_msg_something_goes_wrong, true),
         PLAY_SERVICES_UNAVAILABLE(R.string.err_msg_play_services_unavailable, true),
         ERROR_WHILE_SELECT_ADDRESS(R.string.err_msg_select_address_fail, true),

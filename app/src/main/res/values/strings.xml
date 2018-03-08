@@ -96,13 +96,15 @@
     <!-- Error messages -->
     <string name="err_msg_required">Champs requis</string>
     <string name="err_msg_invalid_number">Numéro incorrect</string>
+    <string name="err_msg_invalid_name_surname">Attention 1 à 25 caractères maximum</string>
     <string name="err_msg_already_registered">Déjà enregistré</string>
     <string name="err_msg_invalid_password">Mot de passe incorrect</string>
+    <string name="err_msg_invalid_password_new">Vous devez entrer au minimum 8 caractères</string>
     <string name="err_msg_invalid_email">Email incorrect</string>
     <string name="err_msg_entered_password_is_incorrect">Le mot de passe que vous avez saisi est incorrect</string>
     <string name="err_msg_invalid_email_or_empty_fields">Invalid email or some fields is empty</string>
-    <string name="err_msg_empty_fields_or_passwords_not_matches">Empty fields or passwords not matches</string>
-    <string name="err_msg_passwords_not_matches">Passwords don\'t match</string>
+    <string name="err_msg_empty_fields_or_passwords_not_matches">Les champs vides ou les mots de passe ne correspondent pas</string>
+    <string name="err_msg_passwords_not_matches">Les mots de passe ne correspondent pas</string>
     <string name="err_msg_invalid_code">Incorrect code</string>
     <string name="err_msg_invalid_licence">Invalid licence ID</string>
     <string name="err_msg_bad_credentials">Incorrect email or password</string>
