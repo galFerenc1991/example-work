@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -126,6 +127,8 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     protected RelativeLayout rlSendMsg;
     @ViewById(R.id.btnOrder_FCM)
     protected Button btnOrder;
+    @ViewById(R.id.pbPagination_FCM)
+    protected ProgressBar pbPaginationProgress;
 
     @StringRes(R.string.button_cancel_deal)
     protected String mCancelDeal;
@@ -440,6 +443,11 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         ViewGroup.LayoutParams params = rvMessages.getLayoutParams();
         params.height = _isChange ? WRAP_CONTENT : MATCH_PARENT;
         rvMessages.setLayoutParams(params);
+    }
+
+    @Override
+    public void togglePaginationProgress(boolean visibility) {
+        pbPaginationProgress.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 
     @Override

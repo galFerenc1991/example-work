@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
@@ -32,6 +33,11 @@ import com.ferenc.pamp.presentation.utils.ContactManager;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import org.androidannotations.annotations.AfterInject;
@@ -52,6 +58,8 @@ import java.util.concurrent.TimeUnit;
  */
 @EFragment
 public class ShareFragment extends ContentFragment implements ShareContract.View {
+
+    static Uri createdShort;
 
     @Override
     public void setPresenter(ShareContract.Presenter presenter) {
@@ -125,7 +133,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
         }
     }
 
-    @Override
+//    @Override
     public void sendSmsWith(Uri _dynamicLink
             , List<String> _selectedContacts
             , GoodDealResponse _goodDealResponse) {
@@ -225,6 +233,8 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
         } else {
             mPresenter.share(mContactAdapter.getListDH());
         }
+
+//       getShortLink();
     }
 
     @Override
@@ -245,5 +255,76 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     public void onDestroy() {
         super.onDestroy();
         mPresenter.unsubscribe();
+    }
+
+    public void getShortLink(List<String> _selectedContacts, GoodDealResponse _goodDealResponse) {
+
+        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(getDynamicLink(_goodDealResponse.id))
+                .setDynamicLinkDomain(PampApp_.getInstance().getString(R.string.app_code) + ".app.goo.gl")
+                .buildShortDynamicLink()
+                .addOnCompleteListener(mActivity, new OnCompleteListener<ShortDynamicLink>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
+                        if (task.isSuccessful()) {
+                            // Short link created
+                            createdShort = task.getResult().getShortLink();
+                            sendSmsWith(createdShort,_selectedContacts, _goodDealResponse);
+                            Toast.makeText(mActivity, String.valueOf(createdShort), Toast.LENGTH_SHORT).show();
+                            Uri flowchartLink = task.getResult().getPreviewLink();
+                        } else {
+                            // Error
+                            // ...
+                        }
+                    }
+                });
+
+    }
+
+    public static Uri getDynamicLink(String _id) {
+        String appCode = PampApp_.getInstance().getString(R.string.app_code);
+//        String link = "https://pampconnect.com/?id=" +_id + "&apn=com.ferenc.pamp" + "&ibi=com.1kubator.pamp";
+        Uri.Builder builder = new Uri.Builder()
+                .scheme("https")
+                .authority(appCode + ".app.goo.gl")
+                .path("/")
+                .appendQueryParameter("link", "http://pampconnect.com/?id="+_id)
+                .appendQueryParameter("apn", "com.ferenc.pamp")
+                .appendQueryParameter("ibi", "com.1kubator.pamp");
+//
+//        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+//                .setLink(builder.build())
+//                .setDynamicLinkDomain("abc123.app.goo.gl")
+//                .buildDynamicLink();
+
+        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(builder.build())
+                .setDynamicLinkDomain(appCode + ".app.goo.gl")
+                // Open links with this app on Android
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+                // Open links with com.example.ios on iOS
+                .setIosParameters(new DynamicLink.IosParameters.Builder("com.example.ios").build())
+                .buildDynamicLink();
+
+        Uri dynamicLinkUri = dynamicLink.getUri();
+
+
+
+        return dynamicLink.getUri();
+    }
+
+
+    private void dynamoLink() {
+
+        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse("https://example.com/"))
+                .setDynamicLinkDomain("abc123.app.goo.gl")
+                // Open links with this app on Android
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+                // Open links with com.example.ios on iOS
+                .setIosParameters(new DynamicLink.IosParameters.Builder("com.example.ios").build())
+                .buildDynamicLink();
+
+        Uri dynamicLinkUri = dynamicLink.getUri();
     }
 }

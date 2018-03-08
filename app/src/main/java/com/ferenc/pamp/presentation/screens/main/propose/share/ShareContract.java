@@ -37,6 +37,8 @@ public interface ShareContract {
         void sendSmsWith(Uri _dynamicLink, List<String> _selectedContacts, GoodDealResponse _goodDealResponse);
 
         void openVerificationErrorPopUP();
+
+        void getShortLink(List<String> _selectedContacts, GoodDealResponse _goodDealResponse);
     }
 
     interface Presenter extends BasePresenter {

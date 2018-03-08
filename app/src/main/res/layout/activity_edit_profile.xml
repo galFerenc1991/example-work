@@ -87,7 +87,7 @@
                         style="@style/AuthEditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/ic_edit" />
+                         />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -103,7 +103,7 @@
                         style="@style/AuthEditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/ic_edit" />
+                        />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -190,7 +190,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_default"
-                        android:drawableEnd="@drawable/ic_edit"
+
                         android:drawableStart="@drawable/ic_iban_info"
                         android:hint="@string/hint_iban"
                         android:textColorHint="@color/textColorGray" />
@@ -216,7 +216,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_default"
-                        android:drawableEnd="@drawable/ic_edit"
                         android:hint="@string/hint_bank_card"
                         android:textColorHint="@color/textColorGray" />
 
@@ -241,7 +240,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_default"
-                        android:drawableEnd="@drawable/ic_edit"
                         android:hint="@string/hint_change_password"
                         android:textColorHint="@color/textColorGray" />
 

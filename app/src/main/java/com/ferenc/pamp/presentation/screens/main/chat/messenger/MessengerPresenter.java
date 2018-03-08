@@ -135,11 +135,12 @@ public class MessengerPresenter implements MessengerContract.Presenter {
         if (!isLoadMoreList) {
             mView.showProgressMain();
         } else {
-            mView.showProgressPagination();
+            mView.togglePaginationProgress(true);
         }
         mCompositeDisposable.add(mModel.getMessages(mGoodDealResponse.id, _page)
                 .subscribe(model -> {
                     mView.hideProgress();
+                    mView.togglePaginationProgress(false);
                     Log.d("MessengerPresenter", "getMessages Successfully");
                     mMessagesDH = new ArrayList<>();
 
@@ -163,6 +164,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
                 }, throwable -> {
                     mView.hideProgress();
+                    mView.togglePaginationProgress(false);
                     Log.d("MessengerPresenter", "Error " + throwable.getMessage());
                 }));
     }
@@ -170,6 +172,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     @Override
     public void onRefresh() {
         mView.hideProgress();
+        mView.togglePaginationProgress(false);
     }
 
     @Override
@@ -214,6 +217,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     private Consumer<Throwable> throwableConsumer = throwable -> {
         throwable.printStackTrace();
         mView.hideProgress();
+        mView.togglePaginationProgress(false);
         if (throwable instanceof ConnectionLostException) {
             ToastManager.showToast(R.string.err_msg_connection_problem);
 //            mView.showErrorMessage(Constants.MessageType.CONNECTION_PROBLEMS);

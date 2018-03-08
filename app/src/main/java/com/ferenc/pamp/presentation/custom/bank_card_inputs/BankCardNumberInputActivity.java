@@ -61,9 +61,6 @@ public class BankCardNumberInputActivity extends AppCompatActivity {
 
     private void initEditTextListeners() {
 
-//        etFirst.setFocusableInTouchMode(true);
-//        etFirst.requestFocus();
-
         RxTextView.editorActionEvents(etFirst).subscribe(textViewEditorActionEvent -> {
             if (textViewEditorActionEvent.actionId() == EditorInfo.IME_ACTION_NEXT) {
                 etSecond.setEnabled(true);
@@ -144,6 +141,7 @@ public class BankCardNumberInputActivity extends AppCompatActivity {
             }
         });
 
+        etFirst.requestFocus();
     }
 
     void setResult() {
