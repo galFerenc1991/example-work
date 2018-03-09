@@ -52,7 +52,7 @@ public class AddCardPresenter implements AddCardContract.Presenter {
     @Override
     public void subscribe() {
         Card card = mSignedUserManager.getCurrentUser().getCard();
-        if (card != null) {
+        if (card != null && mWithEditProfile) {
             mView.setCardNumber(card.getBrand() +" **** " + card.getLast4());
             mView.setExpirationDate(card.getExpMonth() + "/" + card.getExpYear());
         }
