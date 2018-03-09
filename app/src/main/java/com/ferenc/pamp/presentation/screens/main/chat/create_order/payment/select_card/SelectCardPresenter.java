@@ -51,6 +51,7 @@ public class SelectCardPresenter implements SelectCardContract.Presenter {
                     mView.hideProgress();
                     if (user.getCard() != null)
                         mView.setCardNumber("**** " + user.getCard().getLast4(), user.getCard().getBrand());
+                    else mView.setValidateButtonEnabled();
                 }, throwable -> {
                     mView.hideProgress();
                     ToastManager.showToast("GEtUSer: " + throwable.getMessage());
@@ -80,7 +81,7 @@ public class SelectCardPresenter implements SelectCardContract.Presenter {
             switch (errorCode) {
                 case 400:
                     Gson gson = new Gson();
-                    GeneralMessageResponse _data = gson.fromJson( ((HttpException) throwable).response().errorBody().string(), GeneralMessageResponse.class);
+                    GeneralMessageResponse _data = gson.fromJson(((HttpException) throwable).response().errorBody().string(), GeneralMessageResponse.class);
                     ToastManager.showToast(_data.getMessage());
             }
         } else {

@@ -22,6 +22,7 @@ public interface SelectCardContract {
         void showEndFlowCreateOrder();
 
         void setOwnerName(String _title);
+        void setValidateButtonEnabled();
     }
 
     interface Presenter extends BasePresenter {
