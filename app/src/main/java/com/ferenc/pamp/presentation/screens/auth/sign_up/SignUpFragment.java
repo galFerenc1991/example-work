@@ -125,8 +125,8 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
                 .subscribe(o -> mPresenter.backToAuthScreen());
         RxView.clicks(btnCreatePamp)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.openCreatePasswordScreen(etName.getText().toString()
-                        , etSurname.getText().toString()
+                .subscribe(o -> mPresenter.openCreatePasswordScreen(etSurname.getText().toString()
+                        , etName.getText().toString()
                         , etEmail.getText().toString()
                         , tvCountry.getText().toString()));
 

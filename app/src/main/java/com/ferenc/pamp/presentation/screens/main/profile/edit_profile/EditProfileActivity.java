@@ -170,7 +170,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
                 .subscribe(o -> mPresenter.clickedAddress());
         RxView.clicks(btnSave)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.clickedSave(etName.getText().toString(), etSurname.getText().toString(), tvCountry.getText().toString()));
+                .subscribe(o -> mPresenter.clickedSave(etSurname.getText().toString(), etName.getText().toString(), tvCountry.getText().toString()));
 
         RxView.clicks(llBankCard)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
