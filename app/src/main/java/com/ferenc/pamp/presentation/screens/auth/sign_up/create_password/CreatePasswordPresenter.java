@@ -39,19 +39,31 @@ public class CreatePasswordPresenter implements CreatePasswordContract.Presenter
 
     @Override
     public void signUp(String _firstName, String _lastName, String _email, String _country, String _password, String _confPassword) {
-        int errCodePassword = ValidationManager.validatePassword(_password);
+        int errCodePassword = ValidationManager.validatePasswordLength(_password);
         int errCodePasswordMatches = ValidationManager.isPasswordsMatches(_password, _confPassword);
 
-//        if (errCodePassword == ValidationManager.OK && errCodePasswordMatches == ValidationManager.OK) {
-        if (errCodePasswordMatches == ValidationManager.OK) {
 
+        switch (errCodePassword) {
+            case ValidationManager.EMPTY:
+                mView.togglePasswordError(true);
+                break;
+            case ValidationManager.INVALID:
+                mView.togglePasswordError(true);
+                break;
+            case ValidationManager.OK:
+                mView.togglePasswordError(false);
+                break;
+        }
+
+
+        if (errCodePassword == ValidationManager.OK && errCodePasswordMatches == ValidationManager.OK) {
             mView.showProgressMain();
             mCompositeDisposable.add(mModel.signUp(new SignUpRequest(_firstName, _lastName, _email, _country, _password, _confPassword))
                     .subscribe(signUpResponse -> {
                         mView.hideProgress();
                         mView.openVerificationPopUpDialog();
                     }, throwableConsumer));
-        } else
+        } else if (errCodePassword == ValidationManager.OK)
             mView.showErrorMessage(Constants.MessageType.EMPTY_FIELDS_OR_NOT_MATCHES_PASSWORDS);
 
     }

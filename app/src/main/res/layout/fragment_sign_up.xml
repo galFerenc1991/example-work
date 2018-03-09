@@ -30,11 +30,27 @@
         </RelativeLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tilName_FSU"
+            android:id="@+id/tilSurname_FSU"
             style="@style/TILStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_double"
+            android:hint="@string/hint_surname">
+
+            <EditText
+                android:id="@+id/etSurname_FSU"
+                style="@style/AuthEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_edit" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilName_FSU"
+            style="@style/TILStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="@string/hint_name">
 
             <EditText
@@ -46,21 +62,6 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/tilSurname_FSU"
-            style="@style/TILStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_surname">
-
-            <EditText
-                android:id="@+id/etSurname_FSU"
-                style="@style/AuthEditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_edit" />
-
-        </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/tilEmail_FSU"

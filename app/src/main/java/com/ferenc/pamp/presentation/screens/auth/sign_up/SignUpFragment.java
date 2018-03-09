@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.screens.auth.sign_up;
 
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -35,6 +36,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -77,6 +79,13 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
     @ViewById(R.id.llCountrySpinner_FSU)
     protected LinearLayout btnCountrySpinner;
 
+    @ViewById(R.id.tilName_FSU)
+    protected TextInputLayout tilName;
+    @ViewById(R.id.tilSurname_FSU)
+    protected TextInputLayout tilSurname;
+    @ViewById(R.id.tilEmail_FSU)
+    protected TextInputLayout tilEmail;
+
     @ViewById(R.id.etSurname_FSU)
     protected EditText etSurname;
     @ViewById(R.id.etName_FSU)
@@ -85,6 +94,11 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
     protected EditText etEmail;
     @ViewById(R.id.tvCountry_FSU)
     protected TextView tvCountry;
+
+    @StringRes(R.string.err_msg_invalid_name_surname)
+    protected String errInvalid;
+    @StringRes(R.string.err_msg_invalid_email)
+    protected String errMsgInvalidEmail;
 
     @Bean
     protected AuthRepository mAuthRepository;
@@ -111,8 +125,8 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
                 .subscribe(o -> mPresenter.backToAuthScreen());
         RxView.clicks(btnCreatePamp)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.openCreatePasswordScreen(etName.getText().toString()
-                        , etSurname.getText().toString()
+                .subscribe(o -> mPresenter.openCreatePasswordScreen(etSurname.getText().toString()
+                        , etName.getText().toString()
                         , etEmail.getText().toString()
                         , tvCountry.getText().toString()));
 
@@ -182,6 +196,36 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
     @Override
     public void setCountry(String _selectedCountry) {
         tvCountry.setText(_selectedCountry);
+    }
+
+    @Override
+    public void toggleNameError(boolean visibility) {
+        if (visibility)
+            tilName.setError(errInvalid);
+        else {
+            tilName.setErrorEnabled(false);
+            tilName.setError(null);
+        }
+    }
+
+    @Override
+    public void toggleSurNameError(boolean visibility) {
+        if (visibility)
+            tilSurname.setError(errInvalid);
+        else {
+            tilSurname.setErrorEnabled(false);
+            tilSurname.setError(null);
+        }
+    }
+
+    @Override
+    public void toggleEmailError(boolean visibility) {
+        if (visibility)
+            tilEmail.setError(errMsgInvalidEmail);
+        else {
+            tilEmail.setErrorEnabled(false);
+            tilEmail.setError(null);
+        }
     }
 
     @Override

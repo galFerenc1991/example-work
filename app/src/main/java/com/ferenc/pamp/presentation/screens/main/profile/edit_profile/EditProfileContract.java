@@ -64,6 +64,10 @@ public interface EditProfileContract {
 
         void hideChangePasswordField();
 
+        void toggleNameError(boolean visibility);
+
+        void toggleSurNameError(boolean visibility);
+
     }
 
     interface Presenter extends BasePresenter {

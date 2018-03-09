@@ -88,7 +88,7 @@ public class ChatPresenter implements ChatContract.Presenter {
 
     private void doTimeoutFiveSecond(boolean reviewed) {
         mCompositeDisposable.add(Observable.just(reviewed)
-                .delay(5, TimeUnit.SECONDS)
+                .delay(15, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
                     if (!aBoolean) mView.showSharePopUp();

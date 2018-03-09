@@ -57,6 +57,7 @@ public class GoodPlanFragment extends ContentTabsFragment {
         mCompositeDisposable = new CompositeDisposable();
         rlTitle.setVisibility(View.GONE);
         vpContent.setPagingEnabled(false);
+        vpContent.setCurrentItem(1);
         setWarningBadge();
     }
 

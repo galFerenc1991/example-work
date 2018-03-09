@@ -22,6 +22,8 @@ public interface CreatePasswordContract {
         void openVerificationPopUpDialog();
 
         void openLoginScreen();
+
+        void togglePasswordError(boolean visibility);
     }
 
     interface Presenter extends BasePresenter {
