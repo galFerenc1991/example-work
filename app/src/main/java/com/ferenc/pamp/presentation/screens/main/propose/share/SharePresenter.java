@@ -123,7 +123,8 @@ public class SharePresenter implements ShareContract.Presenter {
                             mView.showErrorMessage(Constants.MessageType.UNKNOWN);
                         }));
             } else {
-                ToastManager.showToast("Please set all required fields");
+                mView.openResendVerificationErrorPopUP();
+//                ToastManager.showToast("Please set all required fields");
             }
         }
 

@@ -38,6 +38,8 @@ public interface ShareContract {
 
         void openVerificationErrorPopUP();
 
+        void openResendVerificationErrorPopUP();
+
         void getShortLink(List<String> _selectedContacts, GoodDealResponse _goodDealResponse);
     }
 
