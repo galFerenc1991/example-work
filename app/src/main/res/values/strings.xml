@@ -61,8 +61,8 @@
     <string name="button_add_payment">Ajouter un moyen de paiement</string>
     <string name="button_confirm_orders">Verser l’argent sur mon compte</string>
     <!-- Hints -->
-    <string name="hint_name">Nom</string>
-    <string name="hint_surname">Prénom</string>
+    <string name="hint_name">Prénom</string>
+    <string name="hint_surname">Nom</string>
     <string name="hint_birth_date">Date de naissance</string>
     <string name="hint_email">Email</string>
     <string name="hint_country">Pays de résidence</string>
@@ -102,24 +102,24 @@
     <string name="err_msg_invalid_password_new">Vous devez entrer au minimum 8 caractères</string>
     <string name="err_msg_invalid_email">Email incorrect</string>
     <string name="err_msg_entered_password_is_incorrect">Le mot de passe que vous avez saisi est incorrect</string>
-    <string name="err_msg_invalid_email_or_empty_fields">Invalid email or some fields is empty</string>
-    <string name="err_msg_empty_fields_or_passwords_not_matches">Les champs vides ou les mots de passe ne correspondent pas</string>
+    <string name="err_msg_invalid_email_or_empty_fields">Email invalide ou certains champs sont vides</string>
+    <string name="err_msg_empty_fields_or_passwords_not_matches">Des champs sont vides ou les mots de passe de correspondent pas</string>
     <string name="err_msg_passwords_not_matches">Les mots de passe ne correspondent pas</string>
-    <string name="err_msg_invalid_code">Incorrect code</string>
-    <string name="err_msg_invalid_licence">Invalid licence ID</string>
-    <string name="err_msg_bad_credentials">Incorrect email or password</string>
-    <string name="err_msg_something_goes_wrong">Something went wrong</string>
-    <string name="err_msg_no_data">No data</string>
-    <string name="err_msg_no_requests">You Have No Requesy</string>
-    <string name="err_msg_connection_problem">Connection lost</string>
+    <string name="err_msg_invalid_code">Code incorrect</string>
+    <string name="err_msg_invalid_licence">Invalid licence ID</string>///do not used
+    <string name="err_msg_bad_credentials">Email ou mot de passe incorrect</string>
+    <string name="err_msg_something_goes_wrong">"Quelque chose s'est mal passé"</string>
+    <string name="err_msg_no_data">Pas de données</string>
+    <string name="err_msg_no_requests">You Have No Requesy</string>///do not used
+    <string name="err_msg_connection_problem">Connexion perdue</string>
     <string name="err_msg_user_not_registered">Utilisateur non enregistré</string>
-    <string name="err_msg_email_invalid">Invalid email</string>
-    <string name="err_msg_play_services_unavailable">Google Play Services is not available.</string>
-    <string name="err_msg_select_address_fail">Error while select address. Try again</string>
+    <string name="err_msg_email_invalid">Email invalide</string>
+    <string name="err_msg_play_services_unavailable">"Google Play Services n'est pas disponible."</string>
+    <string name="err_msg_select_address_fail">"Erreur lors de la sélection de l'adresse. Réessayer"</string>
     <string name="err_msg_avatar_is_required">Avatar is required for Driver</string>
-    <string name="err_msg_set_rating">Set user rating</string>
-    <string name="err_msg_token_expired">Token expired</string>
-    <string name="err_msg_select_start_point">Select start point</string>
+    <string name="err_msg_set_rating">"Définir l'évaluation des utilisateurs"</string>
+    <string name="err_msg_token_expired">Le jeton a expiré</string>
+    <string name="err_msg_select_start_point">Sélectionnez le point de départ</string>
     <string name="err_msg_select_destination">Select destination</string>
     <string name="err_msg_select_route">Select your route</string>
     <string name="err_msg_request_is_sent">Your Request has been sent successfully.\nTrack status in the Requests Screen.</string>
@@ -137,7 +137,7 @@
     <string name="msg_empty_proposed_good_plans">Proposer votre \npremier bon plan… \nC’est tellement bon !</string>
     <string name="msg_share">Je vous recommande \ncet appli: PAMP ... nous \npourrons partager \nfacilement tous nos \nbons plans de petits \nproducteurs.\nHttps//:AppStore.pamp .com</string>
     <string name="msg_send_good_deal">"Je vous envoie un bon plan ... à retrouver sur PAMP en téléchargeant l'appli"</string>
-    <string name="msg_send_good_deal_without_account">Je vous envoie un bon plan à retrouver sur PAMP. Si vous n\'avez pas l\'appli (ou de compte), telechargez là, créez-vous un compte et revenez ensuite sur ce lien pour récuperer votre bon plan.</string>
+    <string name="msg_send_good_deal_without_account">Je vous envoie un bon plan à retrouver sur PAMP. Si vous n\'avez pas l\'appli (ou de compte), téléchargez là, créez-vous un compte et revenez ensuite sur ce lien pour récuperer votre bon plan.</string>
     <!-- Menu -->
     <string name="menu_share">Share</string>
     <string name="menu_notifications">Notifications</string>
@@ -230,7 +230,7 @@
     <string name="text_change_date">Changement date de livraison:</string>
     <string name="text_change_closing_date">Changement date de clôture du bon plan:</string>
     <string name="text_closing_date">"Attention plus qu'1 jour avant la clôture du bon plan"</string>
-    <string name="text_delivery_date">Noubliez pas derecuperer votre bon plan</string>
+    <string name="text_delivery_date">"N'oubliez pas de récupérer votre bon plan"</string>
     <string name="text_name_a_change">a changé:</string>
     <string name="type_a_message">Ecrivez un message</string>
     <string name="bon_plan">BON PLAN</string>
@@ -245,14 +245,14 @@
     <string name="text_cancel_good_deal">Annuler votre bon plan</string>
     <!-- Cancel Good Deal PopUP -->
     <string name="cancel_good_deal_pop_up_title">Vous voulez annuler votre bon plan ?</string>
-    <string name="cancel_good_deal_pop_up_text">Un message sera envoyé à votre liste de diffusion… \nAucune commande ne pourra être passé, mais vous pourrez communiquer avec vos proches via la messagerie</string>
+    <string name="cancel_good_deal_pop_up_text">Un message sera envoyé à votre liste de diffusion… \nAucune commande ne pourra être passée, mais vous pourrez communiquer avec vos proches via la messagerie</string>
     <string name="button_ajouter">AJOUTER</string>
     <string name="send_order_list_header_text">Pour lui envoyer directement la commande et gagner du temps \n\nPour gérer votre bon plan à distance et se faire livrer</string>
     <string name="send_order_list_commander_header_text">N’oubliez pas d’inscrire aussi votre propre commande :</string>
     <string name="send_order_list_commander_footer_text">Votre commande sera enregistrée à la liste des commandes mais aucune transaction ne sera effectuée</string>
     <string name="send_order_list_producer_header_text">Enregistrez les coordonnées de votre producteur :</string>
     <string name="send_order_list_producer">Producteur</string>
-    <string name="send_my_order">Detail Commande</string>
+    <string name="send_my_order">Détail de la commande</string>
     <!-- Changed Delivery Date Notification PopUP -->
     <string name="text_change_delivery_date_notif_first_message">
         Vérifiez bien votre capacité à organiser votre propre livraison par rapport à cette date</string>

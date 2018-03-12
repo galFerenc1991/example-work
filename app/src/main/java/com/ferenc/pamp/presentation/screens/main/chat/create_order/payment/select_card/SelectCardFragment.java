@@ -105,13 +105,18 @@ public class SelectCardFragment extends ContentFragment implements SelectCardCon
         tvCardNumber.setCompoundDrawablesWithIntrinsicBounds(CreditCardImageManager.getBrandImage(_brand), 0, 0, 0);
     }
 
+    @Override
+    public void setValidateButtonEnabled() {
+        btnValidate.setEnabled(false);
+    }
+
     private void initClickListeners() {
-        RxView.clicks(cvSelectBankCard)
-                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> {
-                    btnValidate.setEnabled(true);
-                    cvSelectBankCard.setCardBackgroundColor(getResources().getColor(R.color.textColorGreen));
-                });
+//        RxView.clicks(cvSelectBankCard)
+//                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+//                .subscribe(o -> {
+//                    btnValidate.setEnabled(true);
+//                    cvSelectBankCard.setCardBackgroundColor(getResources().getColor(R.color.textColorGreen));
+//                });
         RxView.clicks(cvAddBankCard)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(o -> mActivity.replaceFragment(AddCardFragment_.builder().mQuantity(mQuantity).build()));
