@@ -133,7 +133,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
         }
     }
 
-//    @Override
+    //    @Override
     public void sendSmsWith(Uri _dynamicLink
             , List<String> _selectedContacts
             , GoodDealResponse _goodDealResponse) {
@@ -250,6 +250,20 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     }
 
     @Override
+    public void openResendVerificationErrorPopUP() {
+        View dialogViewTitle = LayoutInflater.from(getContext())
+                .inflate(R.layout.view_good_deal_verification_error_dialog_title, null, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity, R.style.DialogTheme);
+        builder.setCustomTitle(dialogViewTitle)
+                .setView(R.layout.view_good_deal_resend_verification_error_dialog  )
+                .setPositiveButton(mOk, (dialog, which) -> {
+                })
+                .setCancelable(false)
+                .create()
+                .show();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         mPresenter.unsubscribe();
@@ -265,7 +279,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
                     if (task.isSuccessful()) {
 
                         createdShort = task.getResult().getShortLink();
-                        sendSmsWith(createdShort,_selectedContacts, _goodDealResponse);
+                        sendSmsWith(createdShort, _selectedContacts, _goodDealResponse);
 
                     } else hideProgress();
 
@@ -280,7 +294,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
                 .scheme("https")
                 .authority(appCode + ".app.goo.gl")
                 .path("/")
-                .appendQueryParameter("link", "http://pampconnect.com/?id="+_id)
+                .appendQueryParameter("link", "http://pampconnect.com/?id=" + _id)
                 .appendQueryParameter("apn", "com.ferenc.pamp")
                 .appendQueryParameter("ibi", "com.1kubator.pamp");
 
