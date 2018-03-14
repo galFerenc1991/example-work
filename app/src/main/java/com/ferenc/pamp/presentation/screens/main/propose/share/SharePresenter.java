@@ -3,6 +3,8 @@ package com.ferenc.pamp.presentation.screens.main.propose.share;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
+import com.ferenc.pamp.data.model.base.GeneralMessageResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
@@ -18,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,9 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 /**
  * Created by
@@ -97,11 +102,7 @@ public class SharePresenter implements ShareContract.Presenter {
                             mView.hideProgress();
 //                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
                             mView.getShortLink(getSelectedContacts(contactDHList), goodDealResponse);
-                        }, throwable -> {
-                            mView.hideProgress();
-//                            mView.showErrorMessage(Constants.MessageType.ERROR_WHILE_SELECT_ADDRESS);
-                            ToastManager.showToast(throwable.getLocalizedMessage());
-                        }));
+                        }, throwableConsumer));
             } else {
                 mView.openVerificationErrorPopUP();
             }
@@ -118,10 +119,7 @@ public class SharePresenter implements ShareContract.Presenter {
                             mView.hideProgress();
 //                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
                             mView.getShortLink(getSelectedContacts(contactDHList), goodDealResponse);
-                        }, throwable -> {
-                            mView.hideProgress();
-                            mView.showErrorMessage(Constants.MessageType.UNKNOWN);
-                        }));
+                        }, throwableConsumer));
             } else {
                 mView.openResendVerificationErrorPopUP();
 //                ToastManager.showToast("Please set all required fields");
@@ -130,6 +128,24 @@ public class SharePresenter implements ShareContract.Presenter {
 
 
     }
+
+    private Consumer<Throwable> throwableConsumer = throwable -> {
+        throwable.printStackTrace();
+        mView.hideProgress();
+        if (throwable instanceof ConnectionLostException) {
+            ToastManager.showToast("Connection Lost");
+        } else if (throwable instanceof HttpException) {
+            int errorCode = ((HttpException) throwable).response().code();
+            switch (errorCode) {
+                case 400:
+                    Gson gson = new Gson();
+                    GeneralMessageResponse _data = gson.fromJson(((HttpException) throwable).response().errorBody().string(), GeneralMessageResponse.class);
+                    ToastManager.showToast(_data.getMessage());
+            }
+        } else {
+            ToastManager.showToast("Something went wrong");
+        }
+    };
 
     private GoodDealRequest createRequestParameter(List<ContactDH> contactDHList) {
         GoodDealRequest savedGoodDeal = mGoodDealManager.getGoodDeal();
