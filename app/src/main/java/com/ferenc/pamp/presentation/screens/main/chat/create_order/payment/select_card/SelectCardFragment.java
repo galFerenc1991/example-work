@@ -11,8 +11,6 @@ import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.domain.UserRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
-import com.ferenc.pamp.presentation.base.content.ContentView;
-import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.add_card.AddCardFragment;
 import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.add_card.AddCardFragment_;
 import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.CreditCardImageManager;

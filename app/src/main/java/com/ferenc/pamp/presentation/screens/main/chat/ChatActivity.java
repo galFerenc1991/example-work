@@ -210,13 +210,13 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
         SettingsActivity_.intent(this).startForResult(Constants.REQUEST_CODE_SETTINGS_ACTIVITY);
     }
 
-    @OnActivityResult(Constants.REQUEST_CODE_SETTINGS_ACTIVITY)
-    protected void settingsActionResult(int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (getSupportFragmentManager().getFragments() == null)
             return;
 
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            fragment.onActivityResult(Constants.REQUEST_CODE_SETTINGS_ACTIVITY, resultCode, data);
+            fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 

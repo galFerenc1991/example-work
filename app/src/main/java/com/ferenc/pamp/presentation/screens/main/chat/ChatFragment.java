@@ -71,7 +71,7 @@ public class ChatFragment extends ContentTabsFragment {
             return;
 
         for (Fragment fragment : getChildFragmentManager().getFragments()) {
-            fragment.onActivityResult(Constants.REQUEST_CODE_SETTINGS_ACTIVITY, resultCode, data);
+            fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 

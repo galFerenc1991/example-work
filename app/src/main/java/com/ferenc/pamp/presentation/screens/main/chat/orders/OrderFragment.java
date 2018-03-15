@@ -1,6 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import com.ferenc.pamp.domain.UserRepository;
 import com.ferenc.pamp.presentation.base.list.EndlessScrollListener;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshableFragment;
 import com.ferenc.pamp.presentation.base.refreshable.RefreshablePresenter;
-import com.ferenc.pamp.presentation.custom.bank_account.BankAccountActivity;
 import com.ferenc.pamp.presentation.custom.bank_account.BankAccountActivity_;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.order_adapter.OrderAdapter;
 import com.ferenc.pamp.presentation.screens.main.chat.orders.order_adapter.OrderDH;
@@ -28,6 +28,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
@@ -36,6 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by shonliu on 12/13/17.
@@ -156,7 +159,14 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
 
     @Override
     public void openCreateBankAccountFlow() {
-        BankAccountActivity_.intent(this).start();
+        BankAccountActivity_.intent(mActivity).startForResult(Constants.REQUEST_CODE_ACTIVITY_BANK_ACCOUNT);
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_ACTIVITY_BANK_ACCOUNT)
+    protected void bankAccountCreated(int resultCode) {
+        if (resultCode == RESULT_OK) {
+            mPresenter.doConfirm();
+        }
     }
 
     @Override
