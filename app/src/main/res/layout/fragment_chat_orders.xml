@@ -76,19 +76,11 @@
         android:id="@+id/rvOrders_FCO"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tvSendPdfToProducer_FCO"
+        android:layout_above="@+id/llBottomBlock"
         android:layout_below="@+id/tvTitleOrderStatus_FCO"
         android:layout_margin="@dimen/margin_medium" />
 
-    <TextView
-        android:id="@+id/tvSendPdfToProducer_FCO"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnConfirmOrders_FCO"
-        android:layout_below="@+id/tvPlaceHolder_FCO"
-        android:layout_margin="@dimen/margin_medium"
-        android:textColor="@color/textColorGreen"
-        android:visibility="gone" />
+
 
     <TextView
         android:id="@+id/tvPlaceHolder_FCO"
@@ -102,19 +94,42 @@
         android:text="Vous n’avez pas encore de commandes…."
         android:textColor="@color/textColorGreen" />
 
-    <Button
-        android:id="@+id/btnConfirmOrders_FCO"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/confirm_button_height"
+
+    <LinearLayout
+        android:id="@+id/llBottomBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/margin_large"
-        android:background="@drawable/bg_confirm_button"
-        android:paddingEnd="@dimen/padding_double"
-        android:paddingStart="@dimen/padding_double"
-        android:text="@string/button_confirm_orders"
-        android:visibility="gone" />
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/tvSendPdfToProducer_FCO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnConfirmOrders_FCO"
+            android:layout_margin="@dimen/margin_medium"
+            android:textColor="@color/textColorGreen"
+            android:text="asdasdasd"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/btnConfirmOrders_FCO"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/confirm_button_height"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:background="@drawable/bg_confirm_button"
+            android:layout_gravity="center"
+            android:paddingEnd="@dimen/padding_double"
+            android:paddingStart="@dimen/padding_double"
+            android:text="@string/button_confirm_orders"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/rlChangeOrderStatusProgress_FCO"
