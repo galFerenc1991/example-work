@@ -100,7 +100,7 @@ public abstract class DateManager {
     }
 
     public static boolean startDateIsBeforeEndDate(Calendar _startDate, Calendar _endDate) {
-        _startDate.add(Calendar.MINUTE, -1);   // correlation
+//        _startDate.add(Calendar.MINUTE, -1);   // correlation
         return _startDate.getTime().before(_endDate.getTime());
     }
 
