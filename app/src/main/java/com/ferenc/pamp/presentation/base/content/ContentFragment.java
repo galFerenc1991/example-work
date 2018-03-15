@@ -143,10 +143,15 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
 
     @Override
     public void hideProgress() {
-        pbMain_VC.setVisibility(View.GONE);
-        pbPagination_VC.setVisibility(View.GONE);
-        flContent_VC.setVisibility(View.VISIBLE);
-        rlPlaceholder_VC.setVisibility(View.GONE);
+        //needed code:
+        if (pbMain_VC != null)
+            pbMain_VC.setVisibility(View.GONE);
+        if (pbPagination_VC != null)
+            pbPagination_VC.setVisibility(View.GONE);
+        if (flContent_VC != null)
+            flContent_VC.setVisibility(View.VISIBLE);
+        if (rlPlaceholder_VC != null)
+            rlPlaceholder_VC.setVisibility(View.GONE);
     }
 
     private void dismissUI() {
