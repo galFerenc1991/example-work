@@ -1,25 +1,16 @@
 package com.ferenc.pamp.presentation.screens.main.propose.share;
 
-import android.net.Uri;
-import android.support.annotation.NonNull;
-
 import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.model.base.GeneralMessageResponse;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealRequest;
-import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
-import com.ferenc.pamp.presentation.utils.Constants;
 import com.ferenc.pamp.presentation.utils.ContactManager;
 import com.ferenc.pamp.presentation.utils.FirebaseDynamicLinkGenerator;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.GoodDealValidateManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
