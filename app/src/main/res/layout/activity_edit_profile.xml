@@ -75,21 +75,6 @@
                         android:background="@color/textColorGrayTransparent" />
                 </LinearLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tilSurname_AEP"
-                    style="@style/TILStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_surname">
-
-                    <EditText
-                        android:id="@+id/etSurname_AEP"
-                        style="@style/AuthEditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                         />
-
-                </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tilName_AEP"
@@ -106,6 +91,24 @@
                         />
 
                 </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilSurname_AEP"
+                    style="@style/TILStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_surname">
+
+                    <EditText
+                        android:id="@+id/etSurname_AEP"
+                        style="@style/AuthEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                         />
+
+                </android.support.design.widget.TextInputLayout>
+
+
 
                 <LinearLayout
                     android:id="@+id/llBirthDate_AEP"

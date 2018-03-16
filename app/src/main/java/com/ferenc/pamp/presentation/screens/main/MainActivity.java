@@ -217,4 +217,17 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         mPresenter.unsubscribe();
         mGoodDealManager.clearGoodDeal();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPresenter.unsubscribe();
+        mGoodDealManager.clearGoodDeal();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.subscribe();
+    }
 }

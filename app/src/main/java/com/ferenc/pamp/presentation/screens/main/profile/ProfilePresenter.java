@@ -42,7 +42,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         if (signedUser != null) {
             mView.setUserProfilePictureAndName(signedUser.getAvatarUrl(), signedUser.getFirstName());
             mCompositeDisposable.add(mUserRelay.userRelay.subscribe(user -> {
-                mView.setUserProfilePictureAndName(user.getAvatarUrl(), user.getFirstName());
+                mView.setUserProfilePictureAndName(user.getAvatarUrl(), user.getFullName());
             }));
         } else {
             mView.showProgressMain();
