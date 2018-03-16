@@ -210,7 +210,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void openCreateOrderPopUp() {
-        CreateOrderPopUpActivity_.intent(this).isSendOrderListFlow(false)
+        CreateOrderPopUpActivity_.intent(mActivity).isSendOrderListFlow(false)
                 .startForResult(Constants.REQUEST_CODE_CREATE_ORDER_POP_UP_ACTIVITY);
     }
 
