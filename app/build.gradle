@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        archivesBaseName = "walltree_pamp_v$versionName-${getDate()}"
     }
 
     signingConfigs {
@@ -43,6 +44,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+static def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('dd.MM.yyyy-HH_mm')
+    return formattedDate
 }
 
 def androidSupportVersion = '26.1.0'

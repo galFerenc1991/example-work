@@ -159,5 +159,8 @@ public class MyOrdersActivity extends BaseActivity implements MyOrdersContract.V
         tvPlaceholder.setVisibility(_isVisible ? View.VISIBLE : View.GONE);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

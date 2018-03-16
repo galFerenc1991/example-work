@@ -156,7 +156,7 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
     @Override
     public void checkStoragePermission() {
         if (isReedStoragePermissionNotGranted()) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.REQUEST_CODE_STORAGE);
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.REQUEST_CODE_STORAGE);
         } else {
             mPresenter.subscribe();
         }
