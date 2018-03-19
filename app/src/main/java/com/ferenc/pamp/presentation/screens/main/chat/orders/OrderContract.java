@@ -67,6 +67,8 @@ public interface OrderContract {
         void doConfirm();
 
         void changeDeliveryState(OrderDH _orderDH, int _orderPosition);
+
+        void initSendPdfInfo();
     }
 
     interface Model extends BaseModel {

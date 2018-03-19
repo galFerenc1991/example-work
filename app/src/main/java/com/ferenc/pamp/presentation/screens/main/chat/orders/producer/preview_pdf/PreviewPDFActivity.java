@@ -26,6 +26,7 @@ import com.ferenc.pamp.data.model.home.orders.SendPDFRequest;
 import com.ferenc.pamp.domain.OrderRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.utils.Constants;
+import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import org.androidannotations.annotations.AfterInject;
@@ -77,6 +78,9 @@ public class PreviewPDFActivity extends BaseActivity implements PreviewPDFContra
 
     @Bean
     protected OrderRepository mOrderRepository;
+
+    @Bean
+    protected GoodDealResponseManager goodDealResponseManager;
 
     @AfterInject
     @Override
