@@ -1,6 +1,7 @@
 package com.ferenc.pamp.data.service;
 
 import com.ferenc.pamp.data.model.base.ListResponse;
+import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.model.home.orders.ChangeOrderDeliveryStateRequest;
 import com.ferenc.pamp.data.model.home.orders.MessageOrderResponse;
 import com.ferenc.pamp.data.model.home.orders.Order;
@@ -74,4 +75,7 @@ public interface OrderService {
 
     @PUT("/order/{id}/delivered")
     Observable<MessageOrderResponse> changeDeliveryState(@Path("id") String _orderId, @Body ChangeOrderDeliveryStateRequest _request);
+
+    @GET("/deal/{id}")
+    Observable<GoodDealResponse> getDealById(@Path("id") String _dealId);
 }

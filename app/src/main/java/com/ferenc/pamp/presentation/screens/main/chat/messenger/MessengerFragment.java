@@ -2,7 +2,6 @@ package com.ferenc.pamp.presentation.screens.main.chat.messenger;
 
 import android.app.Activity;
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -148,7 +147,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
                 mChatRepository, mGoodDealRepository,
                 mSocketRepository, signedUserManager,
                 mContext, mGoodDealResponseManager, mGoodDealManager);
-        avatarManager.attach(this);
+        avatarManager.attach(mActivity);
 
     }
 

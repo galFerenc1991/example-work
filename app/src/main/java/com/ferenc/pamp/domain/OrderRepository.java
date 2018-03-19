@@ -136,4 +136,13 @@ public class OrderRepository extends NetworkRepository implements
     public Observable<MessageOrderResponse> changeDeliveryState(String _orderId, ChangeOrderDeliveryStateRequest _request) {
         return getNetworkObservable(orderService.changeDeliveryState(_orderId, _request));
     }
+
+    @Override
+    public Observable<GoodDealResponse> getDialId(String _dealId) {
+        return orderService.getDealById(_dealId)
+                .flatMap(goodDealResponse -> {
+                    mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
+                    return Observable.just(goodDealResponse);
+                });
+    }
 }

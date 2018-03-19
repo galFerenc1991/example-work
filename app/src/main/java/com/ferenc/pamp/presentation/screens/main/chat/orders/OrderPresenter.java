@@ -17,7 +17,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by
@@ -66,11 +68,6 @@ public class OrderPresenter implements OrderContract.Presenter {
     @Override
     public void subscribe() {
         setDealInfo();
-
-        if (mIsOriginal && mDealStatus.equals(Constants.STATE_CLOSED) && mGoodDealResponseManager.getGoodDealResponse().hasOrders) {
-            mView.initSendPdfInfo(mGoodDealResponseManager.getGoodDealResponse().sent != null);
-            mView.showConfButton();
-        } else mView.hideConfButton();
 
         if (needRefresh) {
             mView.showProgressMain();
@@ -233,4 +230,14 @@ public class OrderPresenter implements OrderContract.Presenter {
     public void unsubscribe() {
         mCompositeDisposable.clear();
     }
+
+    public void initSendPdfInfo() {
+        boolean dealStatus = mDealStatus.equals(Constants.STATE_CLOSED) || mDealStatus.equals(Constants.STATE_CONFIRM);
+
+        if (mIsOriginal && dealStatus && mGoodDealResponseManager.getGoodDealResponse().hasOrders) {
+            mView.initSendPdfInfo(mGoodDealResponseManager.getGoodDealResponse().sent != null);
+            mView.showConfButton();
+        } else mView.hideConfButton();
+    }
+
 }
