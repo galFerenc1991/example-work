@@ -344,7 +344,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void openDeliveryDateScreen(long _currentStartDeliveryDate, long _currentEndDeliveryDate) {
-        DeliveryDateActivity_.intent(this)
+        DeliveryDateActivity_.intent(mActivity)
                 .extra(Constants.KEY_IS_REBROADCAST, false)
                 .mStartDeliveryDate(_currentStartDeliveryDate)
                 .mEndDeliveryDate(_currentEndDeliveryDate)

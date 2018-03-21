@@ -1,8 +1,5 @@
 package com.ferenc.pamp.presentation.screens.main.profile.edit_profile.bank_card;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.ferenc.pamp.R;
