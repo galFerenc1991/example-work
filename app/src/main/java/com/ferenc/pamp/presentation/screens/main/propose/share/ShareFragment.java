@@ -347,6 +347,7 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
                 ivCancelSearch.setVisibility(View.VISIBLE);
                 mPresenter.search(etSearch.getText().toString().trim());
             } else {
+                mPresenter.search("");
                 ivCancelSearch.setVisibility(View.GONE);
             }
         });
