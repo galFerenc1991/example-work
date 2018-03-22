@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvContactList_FSGP"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/default_button_height"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/margin_big"
+        android:paddingBottom="@dimen/default_button_height" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvSearchBlock_FSGP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin_half"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite">
+            <EditText
+                android:id="@+id/etSearch_FSGP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textSize="14sp"
+                android:hint="Prénom ou Nom"
+                android:maxLines="1"
+                android:inputType="textPersonName"
+                android:padding="@dimen/padding_default"
+                android:drawablePadding="@dimen/padding_default"
+                android:drawableStart="@drawable/places_ic_search"
+                android:imeOptions="actionSearch"/>
+
+            <ImageView
+                android:id="@+id/ivCancelSearch_FSGP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close_ic"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
 
     <Button
         android:id="@+id/btnShare_FSGP"

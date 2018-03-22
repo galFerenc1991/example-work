@@ -243,6 +243,12 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.initSendPdfInfo();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         mPresenter.unsubscribe();

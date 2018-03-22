@@ -34,6 +34,7 @@ public class SharePresenter implements ShareContract.Presenter {
     private ShareContract.Model mModel;
     private CompositeDisposable mCompositeDisposable;
     private List<ContactDH> mPhoneContactList;
+    private List<ContactDH> mContactsList;
     private GoodDealManager mGoodDealManager;
     private GoodDealResponseManager mGoodDealResponseManager;
     private boolean mIsReBroadcastFlow;
@@ -118,6 +119,35 @@ public class SharePresenter implements ShareContract.Presenter {
         }
 
 
+    }
+
+    @Override
+    public void search(String searchText) {
+        List<ContactDH> searchedList = new ArrayList<>();
+
+        for (ContactDH contactDH : mPhoneContactList)
+            if (contactDH.getUserContact() != null)
+                if (contactDH.getUserContact().getName().toLowerCase().contains(searchText.toLowerCase())
+                        || contactDH.getUserContact().getPhoneNumber().contains(searchText.toLowerCase()))
+                    searchedList.add(contactDH);
+
+        Observable.just(searchText)
+                .flatMap(search -> {
+                    if (!search.equals("")) {
+                        for (ContactDH contactDH : mPhoneContactList)
+                            if (contactDH.getUserContact() != null)
+                                if (contactDH.getUserContact().getName().toLowerCase().contains(search.toLowerCase())
+                                    || contactDH.getUserContact().getPhoneNumber().contains(search.toLowerCase()))
+                                    searchedList.add(contactDH);
+
+                        return Observable.just(mContactManager.deleteAllDuplicateContactsDH(searchedList));
+                    } else return Observable.just(mPhoneContactList);
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(list-> {
+                    mView.setContactAdapterList(list);
+                }, throwable ->{});
     }
 
     private Consumer<Throwable> throwableConsumer = throwable -> {

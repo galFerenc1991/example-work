@@ -160,9 +160,21 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
     }
 
     private void sendPDFToProducer() {
+
         mCompositeDisposable.add(mModel.sendPDFToProducer(mSendPDFRequest)
                 .subscribe(object -> {
                     Log.d("sendPDFToProducer", "Success");
+                    getDealById();
                 }, throwableConsumer));
+    }
+
+    private void getDealById() {
+        mCompositeDisposable.add(mModel.getDialId(mSendPDFRequest.dealId).
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        goodDealResponse -> Log.d("getDealByID", "Success"),
+                        throwable -> Log.d("getDealByID", throwable.getLocalizedMessage())
+                ));
     }
 }

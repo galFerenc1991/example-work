@@ -129,4 +129,15 @@ public class ContactManager {
         return new ArrayList<>(set);
     }
 
+    public List<ContactDH> deleteAllDuplicateContactsDH(List<ContactDH> _phoneContactList) {
+        Set<ContactDH> set = new TreeSet<>((o1, o2) -> {
+            if (o1.getUserContact().getPhoneNumber().equalsIgnoreCase(o2.getUserContact().getPhoneNumber())) {
+                return 0;
+            }
+            return 1;
+        });
+        set.addAll(_phoneContactList);
+        return new ArrayList<>(set);
+    }
+
 }
