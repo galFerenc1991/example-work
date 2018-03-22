@@ -2,6 +2,7 @@ package com.ferenc.pamp.presentation.screens.main.propose;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -89,6 +90,23 @@ public class ProposeFragment extends ContentTabsFragment {
             tlTabLayout.setTabTextColors(ContextCompat.getColorStateList(mActivity,R.color.color_tab_text_indicator));
             tlTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.color_re_broadcast_tab_indicator));
         }
+
+        vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                hideKeyboard();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override

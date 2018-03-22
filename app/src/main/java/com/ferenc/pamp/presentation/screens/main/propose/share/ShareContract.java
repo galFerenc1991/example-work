@@ -47,6 +47,8 @@ public interface ShareContract {
         void selectItem(ContactDH item, int position);
 
         void share(List<ContactDH> contactDHList);
+
+        void search(String searchText);
     }
 
     interface Model extends BaseModel {
