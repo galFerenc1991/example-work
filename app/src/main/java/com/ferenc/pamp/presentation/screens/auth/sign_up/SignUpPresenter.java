@@ -40,9 +40,6 @@ public class SignUpPresenter implements SignUpContract.Presenter {
         int errCodeName = ValidationManager.firstLastName(_firstName);
         int errCodeSurname = ValidationManager.firstLastName(_lastName);
         int errCodeEmail = ValidationManager.validateEmail(_email);
-        int errCodeCountry = ValidationManager.validateName(_country);
-
-
 
         switch (errCodeName) {
             case ValidationManager.EMPTY:

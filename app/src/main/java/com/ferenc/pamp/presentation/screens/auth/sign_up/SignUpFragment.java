@@ -79,17 +79,17 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
     @ViewById(R.id.llCountrySpinner_FSU)
     protected LinearLayout btnCountrySpinner;
 
-    @ViewById(R.id.tilName_FSU)
-    protected TextInputLayout tilName;
-    @ViewById(R.id.tilSurname_FSU)
-    protected TextInputLayout tilSurname;
+    @ViewById(R.id.tilLastName_FSU)
+    protected TextInputLayout tilLastName;
+    @ViewById(R.id.tilFirstName_FSU)
+    protected TextInputLayout tilFirstName;
     @ViewById(R.id.tilEmail_FSU)
     protected TextInputLayout tilEmail;
 
-    @ViewById(R.id.etSurname_FSU)
-    protected EditText etSurname;
-    @ViewById(R.id.etName_FSU)
-    protected EditText etName;
+    @ViewById(R.id.etFirstName_FSU)
+    protected EditText etFirstName;
+    @ViewById(R.id.etLastName_FSU)
+    protected EditText etLastName;
     @ViewById(R.id.etEmail_FSU)
     protected EditText etEmail;
     @ViewById(R.id.tvCountry_FSU)
@@ -125,8 +125,8 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
                 .subscribe(o -> mPresenter.backToAuthScreen());
         RxView.clicks(btnCreatePamp)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.openCreatePasswordScreen(etSurname.getText().toString()
-                        , etName.getText().toString()
+                .subscribe(o -> mPresenter.openCreatePasswordScreen(etFirstName.getText().toString()
+                        , etLastName.getText().toString()
                         , etEmail.getText().toString()
                         , tvCountry.getText().toString()));
 
@@ -201,20 +201,20 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
     @Override
     public void toggleNameError(boolean visibility) {
         if (visibility)
-            tilName.setError(errInvalid);
+            tilLastName.setError(errInvalid);
         else {
-            tilName.setErrorEnabled(false);
-            tilName.setError(null);
+            tilLastName.setErrorEnabled(false);
+            tilLastName.setError(null);
         }
     }
 
     @Override
     public void toggleSurNameError(boolean visibility) {
         if (visibility)
-            tilSurname.setError(errInvalid);
+            tilFirstName.setError(errInvalid);
         else {
-            tilSurname.setErrorEnabled(false);
-            tilSurname.setError(null);
+            tilFirstName.setErrorEnabled(false);
+            tilFirstName.setError(null);
         }
     }
 

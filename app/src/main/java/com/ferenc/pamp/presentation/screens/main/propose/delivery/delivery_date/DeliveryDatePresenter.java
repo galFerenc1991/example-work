@@ -99,10 +99,10 @@ public class DeliveryDatePresenter implements DeliveryDateContract.Presenter {
             if (DateManager.startDateIsBeforeEndDate(mStartDate, mEndDate)) {
                 mView.setDeliveryDate(getDateTOString(mStartDate), getDateTOString(mEndDate));
             } else {
-                Toast.makeText(PampApp_.getInstance(), "Select a date in the future", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PampApp_.getInstance(), "Sélectionnez la date dans la futur", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(PampApp_.getInstance(), "Please select both date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PampApp_.getInstance(), "S'il vous plaît, sélectionnez les deux dates", Toast.LENGTH_SHORT).show();
         }
     }
 
