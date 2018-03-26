@@ -236,8 +236,10 @@ public class OrderPresenter implements OrderContract.Presenter {
 
         if (mIsOriginal && dealStatus && mGoodDealResponseManager.getGoodDealResponse().hasOrders) {
             mView.initSendPdfInfo(mGoodDealResponseManager.getGoodDealResponse().sent != null);
-            mView.showConfButton();
-        } else mView.hideConfButton();
+            if (mDealStatus.equals(Constants.STATE_CONFIRM))
+                mView.hideConfButton();
+            else
+                mView.showConfButton();
+        }
     }
-
 }

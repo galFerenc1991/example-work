@@ -58,7 +58,6 @@ import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -94,6 +93,8 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     protected EndlessScrollListener mScrollListener;
 
     private Context mContext;
+
+    private final static int START_POSITION = 0;
 
     @Bean
     protected MessengerAdapter mMessengerAdapter;
@@ -426,10 +427,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void addItem(List<MessagesDH> _list) {
-        mMessengerAdapter.insertItem(_list.get(0), 0);
-        if (rvMessages != null) {
-            rvMessages.scrollToPosition(0);
-        }
+        mMessengerAdapter.insertItem(_list.get(START_POSITION), START_POSITION);
     }
 
     @Override
@@ -447,6 +445,13 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void togglePaginationProgress(boolean visibility) {
         pbPaginationProgress.setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void scrollToStart() {
+        if (rvMessages != null) {
+            rvMessages.scrollToPosition(START_POSITION);
+        }
     }
 
     @Override

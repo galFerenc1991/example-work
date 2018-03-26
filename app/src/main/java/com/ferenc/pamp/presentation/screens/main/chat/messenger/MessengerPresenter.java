@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ferenc.pamp.PampApp_;
@@ -124,6 +125,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
                     new Handler(Looper.getMainLooper()).post(() -> {
                         mMessagesDH.add(0, new MessagesDH(messageResponse, mGoodDealResponse, mSignedUserManager.getCurrentUser(), mContext, typeDistributor(messageResponse.code)));
                         mView.addItem(mMessagesDH);
+//                        if (mPage < 2)
+                            mView.scrollToStart();
                         changeGoodDeal(messageResponse.code, messageResponse);
                     });
                 }, throwable -> {
@@ -299,6 +302,8 @@ public class MessengerPresenter implements MessengerContract.Presenter {
             mView.addItem(mMessagesDH);
 
             mView.clearInputText();
+
+            mView.scrollToStart();
         }
     }
 
@@ -340,6 +345,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
 
         mView.addItem(mMessagesDH);
 
+        mView.scrollToStart();
     }
 
     private int typeDistributor(String code) {

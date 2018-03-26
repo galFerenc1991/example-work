@@ -158,7 +158,7 @@ public class ProfileFragment extends ContentFragment implements ProfileContract.
     @Override
     public void openMailSender() {
         Intent send = new Intent(Intent.ACTION_SENDTO);
-        String uriText = "mailto:" + Uri.encode("email@gmail.com") +
+        String uriText = "mailto:" + Uri.encode("pamp.support@gmail.com") +
                 "?subject=" + Uri.encode("the subject") +
                 "&body=" + Uri.encode("the body of the message");
         Uri uri = Uri.parse(uriText);
