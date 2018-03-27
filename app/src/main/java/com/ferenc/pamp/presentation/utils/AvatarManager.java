@@ -36,7 +36,7 @@ public class AvatarManager {
 
     private static String CHOOSER_TITLE = "Take or select a photo";
     private static final String MIME_TYPE_IMAGE = "image/*";
-    private static final String TEMP_IMAGE_AVATAR_NAME = "temp_avatar.jpg";
+    private static String TEMP_IMAGE_AVATAR_NAME = "temp_avatar.jpg";
     private static int mRotationAttribute = ExifInterface.ORIENTATION_NORMAL;
     private static int IMAGE_SIDE = 256;  //px
     private static int IMAGE_SIDE_MSG = 768;  //px
@@ -243,6 +243,7 @@ public class AvatarManager {
 
     /*Save bitmap to file*/
     private void savePhoto(Bitmap b) {
+        TEMP_IMAGE_AVATAR_NAME = "temp_image_" + System.currentTimeMillis() + ".jpg";
         FileOutputStream fos = null;
         try {
             if (mTakePhotoTempFile == null)

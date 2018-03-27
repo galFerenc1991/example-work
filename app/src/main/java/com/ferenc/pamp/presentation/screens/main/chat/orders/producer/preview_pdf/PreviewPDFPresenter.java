@@ -1,8 +1,11 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders.producer.preview_pdf;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
@@ -17,6 +20,8 @@ import com.ferenc.pamp.presentation.utils.ToastManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -144,19 +149,55 @@ public class PreviewPDFPresenter implements PreviewPDFContract.Presenter {
 
     private void sharePDF(File _file) {
         Uri fileUri = FileProvider.getUriForFile(PampApp_.getInstance(), Constants.AUTHORITY, _file);
-        String bodyText = "Important pdf";
         String subjectText = "PDF";
+        String bodyText = "Important pdf";
+
+//        ShareCompat.IntentBuilder.from(mActivity)
+//                .setSubject(subjectText)
+//                .setText(bodyText)
+//                .setEmailTo(isFromSendOrderListAct ? new String[]{mProducerEmail} : new String[]{"someones.email@gmail.com"})
+//                .setType(Constants.MIME_TYPE_PDF)
+//                .addStream(fileUri)
+//                .startChooser();
+//        mActivity.finish();
 
 
+        boolean found = false;
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("image/jpeg");
 
-        Intent shareIntent = ShareCompat.IntentBuilder.from(mActivity)
-                .setSubject(subjectText)
-                .setText(bodyText)
-                .setEmailTo(isFromSendOrderListAct ? new String[]{mProducerEmail} : new String[]{"someones.email@gmail.com"})
-                .setType(Constants.MIME_TYPE_PDF)
-                .addStream(fileUri)
-                .getIntent();
-        mActivity.startActivityForResult(shareIntent, Constants.REQUEST_CODE_ACTIVITY_SEND_PDF);
+        // gets the list of intents that can be loaded.
+        List<ResolveInfo> resInfo = mActivity.getPackageManager().queryIntentActivities(share, 0);
+        if (!resInfo.isEmpty()){
+            for (ResolveInfo info : resInfo) {
+                if (info.activityInfo.packageName.toLowerCase().contains("mail") ||
+                        info.activityInfo.name.toLowerCase().contains("mail") ) {
+                    share.putExtra(Intent.EXTRA_SUBJECT,  subjectText);
+                    share.putExtra(Intent.EXTRA_TEXT,     bodyText);
+                    share.putExtra(Intent.EXTRA_EMAIL, isFromSendOrderListAct ? new String[]{mProducerEmail} : new String[]{"someones.email@gmail.com"});
+                    share.putExtra(Intent.EXTRA_STREAM, fileUri); // Optional, just if you wanna share an image.
+                    share.setPackage(info.activityInfo.packageName);
+                    found = true;
+                    break;
+                }
+//                else if (info.activityInfo.packageName.toLowerCase().contains("gmail") ||
+//                        info.activityInfo.name.toLowerCase().contains("gmail")) {
+//                    share.putExtra(Intent.EXTRA_SUBJECT,  subjectText);
+//                    share.putExtra(Intent.EXTRA_TEXT,     bodyText);
+//                    share.putExtra(Intent.EXTRA_EMAIL, isFromSendOrderListAct ? new String[]{mProducerEmail} : new String[]{"someones.email@gmail.com"});
+//                    share.putExtra(Intent.EXTRA_STREAM, fileUri); // Optional, just if you wanna share an image.
+//                    share.setPackage(info.activityInfo.packageName);
+//                    found = true;
+//                }
+            }
+            if (!found)
+                return;
+
+            mActivity.startActivity(Intent.createChooser(share, "Sélectionner"));
+
+            mActivity.finish();
+        }
+
     }
 
     private void sendPDFToProducer() {

@@ -280,11 +280,11 @@
 
     <string name="orders_confirm_dialog_message3">Assurez-vous avant que tout est bien calé avec le producteur… pensez à utiliser la fonctionalité « envoyer votre commande au producteur »</string>
     <string name="bank_account_error_message">Pour recevoir sur votre compte le virement correspondant aux commandes, vous devez enregistrer vos données bancaires»</string>
-    <string name="text_about_cgu">CGU</string>
-    <string name="text_about_rules">Charte de confidentialité</string>
+    <string name="text_about_cgu">CGVU</string>
+    <string name="text_about_rules">FAQ</string>
     <string name="text_about_about_us">Nos missions, nos valeurs</string>
     <string name="text_send_pdf_to_producer">Commande envoyée au producteur le:</string>
     <string name="text_add_card_owner_name">Votre compte sera débité uniquement à la confirmation définitive de</string>
     <string name="my_order_status">Il y a des commandes</string>
-    <string name="placeholder_no_orders">Vous n\'avez pas encore de commande</string>
+    <string name="placeholder_no_orders">Vous n\'avez pas encore commandé</string>
 </resources>
