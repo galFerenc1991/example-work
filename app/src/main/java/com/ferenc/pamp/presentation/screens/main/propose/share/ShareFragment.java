@@ -2,21 +2,25 @@ package com.ferenc.pamp.presentation.screens.main.propose.share;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ShareCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telephony.SmsManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.ferenc.pamp.PampApp_;
 import com.ferenc.pamp.R;
@@ -25,7 +29,6 @@ import com.ferenc.pamp.domain.GoodDealRepository;
 import com.ferenc.pamp.presentation.base.BasePresenter;
 import com.ferenc.pamp.presentation.base.content.ContentFragment;
 import com.ferenc.pamp.presentation.custom.end_flow_screen.EndFlowActivity_;
-import com.ferenc.pamp.presentation.screens.main.chat.participants.ParticipantsActivity;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactAdapter;
 import com.ferenc.pamp.presentation.screens.main.propose.share.adapter.ContactDH;
 import com.ferenc.pamp.presentation.utils.Constants;
@@ -33,12 +36,12 @@ import com.ferenc.pamp.presentation.utils.ContactManager;
 import com.ferenc.pamp.presentation.utils.GoodDealManager;
 import com.ferenc.pamp.presentation.utils.GoodDealResponseManager;
 import com.ferenc.pamp.presentation.utils.ToastManager;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -60,6 +63,9 @@ import java.util.concurrent.TimeUnit;
 public class ShareFragment extends ContentFragment implements ShareContract.View {
 
     static Uri createdShort;
+    private boolean isUp;
+    private Animation slideOut;
+    private Animation slideIn;
 
     @Override
     public void setPresenter(ShareContract.Presenter presenter) {
@@ -84,6 +90,12 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
     protected RecyclerView rvContactList;
     @ViewById(R.id.btnShare_FSGP)
     protected Button btnShare;
+    @ViewById(R.id.etSearch_FSGP)
+    protected EditText etSearch;
+    @ViewById(R.id.ivCancelSearch_FSGP)
+    protected ImageView ivCancelSearch;
+    @ViewById(R.id.cvSearchBlock_FSGP)
+    protected CardView cvSearchBlock;
 
     @StringRes(R.string.button_ok)
     protected String mOk;
@@ -115,15 +127,14 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
 
     @AfterViews
     protected void initUI() {
-        initStyle();
-        RxView.clicks(btnShare)
-                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> checkSendSMSPermission());
-
-        rvContactList.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvContactList.setAdapter(mContactAdapter);
 
         checkReedContactsPermission();
+
+        initStyle();
+        initListeners();
+        initAdapter();
+        initAnimations();
+
     }
 
     private void initStyle() {
@@ -308,6 +319,91 @@ public class ShareFragment extends ContentFragment implements ShareContract.View
                 .buildDynamicLink();
 
         return dynamicLink.getUri();
+    }
+
+    private void initListeners() {
+
+        RxView.clicks(btnShare)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> checkSendSMSPermission());
+
+        RxView.clicks(ivCancelSearch)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> {
+                    etSearch.setText("");
+                    mPresenter.search("");
+                    ivCancelSearch.setVisibility(View.GONE);
+                });
+
+        RxTextView.editorActionEvents(etSearch).subscribe(textViewEditorActionEvent -> {
+            if (textViewEditorActionEvent.actionId() == EditorInfo.IME_ACTION_SEARCH) {
+                mPresenter.search(etSearch.getText().toString().trim());
+                hideKeyboard();
+            }
+        });
+
+        RxTextView.textChangeEvents(etSearch).subscribe(textChangeEvents -> {
+            if (!textChangeEvents.text().toString().equals("")) {
+                ivCancelSearch.setVisibility(View.VISIBLE);
+                mPresenter.search(etSearch.getText().toString().trim());
+            } else {
+                ivCancelSearch.setVisibility(View.GONE);
+            }
+        });
+
+        rvContactList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    isUp = true;
+                    Log.i("Recycler view", "scrolling up");
+                } else {
+                    isUp = false;
+                    Log.i("Recycler view", "scrolling down");
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
+                    animateSearchBlock();
+                    Log.i("Recycler view ", "SCROLL_STATE_FLING");
+                } else if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    Log.i("Recycler view ", "SCROLL_STATE_TOUCH_SCROLL");
+                } else {
+                    animateSearchBlock();
+                    Log.i("Recycler view ", "SCROLL_STATE_STOPED");
+                }
+            }
+        });
+    }
+
+    private void initAdapter() {
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        rvContactList.setLayoutManager(llm);
+        rvContactList.setAdapter(mContactAdapter);
+    }
+
+    private void initAnimations() {
+        slideOut = AnimationUtils.loadAnimation(mActivity, R.anim.slide_out);
+        slideIn = AnimationUtils.loadAnimation(mActivity, R.anim.slide_in);
+    }
+
+    private void animateSearchBlock() {
+        if (cvSearchBlock != null) {
+            if (isUp) {
+                if (cvSearchBlock.getVisibility() == View.VISIBLE)
+                    cvSearchBlock.startAnimation(slideOut);
+                cvSearchBlock.setVisibility(View.GONE);
+            } else {
+                if (cvSearchBlock.getVisibility() == View.GONE)
+                    cvSearchBlock.startAnimation(slideIn);
+                cvSearchBlock.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
