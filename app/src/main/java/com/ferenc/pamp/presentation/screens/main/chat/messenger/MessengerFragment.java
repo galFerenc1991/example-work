@@ -225,7 +225,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void openDeleteOrderScreen() {
         EndFlowOrderActivity_
-                .intent(this)
+                .intent(mActivity)
                 .mIsCreatedFlow(false)
                 .start();
     }
@@ -233,7 +233,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void openCreateOrderFlow(double _quantity) {
         PaymentActivity_
-                .intent(this)
+                .intent(mActivity)
                 .extra(Constants.KEY_PRODUCT_QUANTITY, _quantity)
                 .startForResult(Constants.REQUEST_CODE_ACTIVITY_END_FLOW_ACTIVITY);
     }
@@ -241,7 +241,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void openSendOrderListFlow() {
         SendOrderListActivity_
-                .intent(this)
+                .intent(mActivity)
                 .flags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
     }
@@ -344,7 +344,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
 
     @Override
     public void openDeliveryDateScreen(long _currentStartDeliveryDate, long _currentEndDeliveryDate) {
-        DeliveryDateActivity_.intent(this)
+        DeliveryDateActivity_.intent(mActivity)
                 .extra(Constants.KEY_IS_REBROADCAST, false)
                 .mStartDeliveryDate(_currentStartDeliveryDate)
                 .mEndDeliveryDate(_currentEndDeliveryDate)
@@ -396,7 +396,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
     @Override
     public void openEndFlowScreen() {
         EndFlowActivity_
-                .intent(this)
+                .intent(mActivity)
                 .mFlow(Constants.NOT_CREATE_FLOW)
                 .fromWhere(Constants.ITEM_TYPE_REUSE)
                 .mGoodDealResponse(mGoodDealResponseManager.getGoodDealResponse())
