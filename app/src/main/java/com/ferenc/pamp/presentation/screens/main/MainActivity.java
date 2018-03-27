@@ -219,14 +219,14 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        mPresenter.unsubscribe();
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
         mPresenter.subscribe();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPresenter.unsubscribe();
     }
 }

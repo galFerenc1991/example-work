@@ -29,17 +29,16 @@
                 android:text="@string/title_sign_up" />
         </RelativeLayout>
 
-
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tilName_FSU"
+            android:id="@+id/tilFirstName_FSU"
             style="@style/TILStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_name"
-            android:layout_marginTop="@dimen/margin_double">
+            android:layout_marginTop="@dimen/margin_double"
+            android:hint="@string/hint_first_name">
 
             <EditText
-                android:id="@+id/etName_FSU"
+                android:id="@+id/etFirstName_FSU"
                 style="@style/AuthEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,23 +47,20 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tilSurname_FSU"
+            android:id="@+id/tilLastName_FSU"
             style="@style/TILStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:hint="@string/hint_surname">
+            android:hint="@string/hint_last_name">
 
             <EditText
-                android:id="@+id/etSurname_FSU"
+                android:id="@+id/etLastName_FSU"
                 style="@style/AuthEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_edit" />
 
         </android.support.design.widget.TextInputLayout>
-
-
 
 
         <android.support.design.widget.TextInputLayout

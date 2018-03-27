@@ -24,7 +24,6 @@ import com.ferenc.pamp.domain.UserRepository;
 import com.ferenc.pamp.presentation.base.BaseActivity;
 import com.ferenc.pamp.presentation.custom.bank_account.BankAccountActivity_;
 import com.ferenc.pamp.presentation.screens.auth.sign_up.country_picker.CountryPickerActivity_;
-import com.ferenc.pamp.presentation.screens.main.chat.create_order.payment.add_card.AddCardFragment_;
 import com.ferenc.pamp.presentation.screens.main.profile.UserRelay;
 import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.bank_card.AddBankCardActivity_;
 import com.ferenc.pamp.presentation.screens.main.profile.edit_profile.change_password.ChangePasswordActivity_;
@@ -84,14 +83,14 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     @ViewById(R.id.ivProfilePicture_AEP)
     protected ImageView ivProfilePicture;
 
-    @ViewById(R.id.tilName_AEP)
-    protected TextInputLayout tilName;
-    @ViewById(R.id.etName_AEP)
-    protected EditText etName;
-    @ViewById(R.id.tilSurname_AEP)
-    protected TextInputLayout tilSurname;
-    @ViewById(R.id.etSurname_AEP)
-    protected EditText etSurname;
+    @ViewById(R.id.tilLastName_AEP)
+    protected TextInputLayout tilLastName;
+    @ViewById(R.id.etLastName_AEP)
+    protected EditText etLastName;
+    @ViewById(R.id.tilFirstName_AEP)
+    protected TextInputLayout tilFirstName;
+    @ViewById(R.id.etFirstName_AEP)
+    protected EditText etFirstName;
     @ViewById(R.id.llBirthDate_AEP)
     protected LinearLayout llBirthDate;
     @ViewById(R.id.tvBirthDate_AEP)
@@ -170,7 +169,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
                 .subscribe(o -> mPresenter.clickedAddress());
         RxView.clicks(btnSave)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(o -> mPresenter.clickedSave(etName.getText().toString(), etSurname.getText().toString(), tvCountry.getText().toString()));
+                .subscribe(o -> mPresenter.clickedSave(etFirstName.getText().toString(), etLastName.getText().toString(), tvCountry.getText().toString()));
 
         RxView.clicks(llBankCard)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
@@ -303,12 +302,12 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
 
     @Override
     public void setUserName(String _name) {
-        etName.setText(_name);
+        etLastName.setText(_name);
     }
 
     @Override
     public void setUserSurName(String _surName) {
-        etSurname.setText(_surName);
+        etFirstName.setText(_surName);
     }
 
     @Override
@@ -377,20 +376,20 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     @Override
     public void toggleNameError(boolean visibility) {
         if (visibility)
-            tilName.setError(errInvalid);
+            tilLastName.setError(errInvalid);
         else {
-            tilName.setErrorEnabled(false);
-            tilName.setError(null);
+            tilLastName.setErrorEnabled(false);
+            tilLastName.setError(null);
         }
     }
 
     @Override
     public void toggleSurNameError(boolean visibility) {
         if (visibility)
-            tilSurname.setError(errInvalid);
+            tilFirstName.setError(errInvalid);
         else {
-            tilSurname.setErrorEnabled(false);
-            tilSurname.setError(null);
+            tilFirstName.setErrorEnabled(false);
+            tilFirstName.setError(null);
         }
     }
 

@@ -1,5 +1,7 @@
 package com.ferenc.pamp.presentation.screens.main.chat.orders;
 
+import com.ferenc.pamp.R;
+import com.ferenc.pamp.data.api.exceptions.ConnectionLostException;
 import com.ferenc.pamp.data.model.home.good_deal.GoodDealResponse;
 import com.ferenc.pamp.data.model.home.orders.ChangeOrderDeliveryStateRequest;
 import com.ferenc.pamp.data.model.home.orders.Order;
@@ -19,6 +21,8 @@ import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import retrofit2.HttpException;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -191,16 +195,29 @@ public class OrderPresenter implements OrderContract.Presenter {
                         mView.hideProgress();
                         mView.hideConfButton();
                         mDealStatus = Constants.STATE_CONFIRM;
-                        ToastManager.showToast("Confirm deal success");
+//                        ToastManager.showToast("Confirm deal success");
                         onRefresh();
-                    }, throwable -> {
-                        mView.hideProgress();
-                        ToastManager.showToast("Confirm deal error");
-                    }));
+                    }, throwableConsumer));
         } else {
             ToastManager.showToast("Vous devez confirmer au moins 1 commande");
         }
     }
+
+    private Consumer<Throwable> throwableConsumer = throwable -> {
+        throwable.printStackTrace();
+        mView.hideProgress();
+        if (throwable instanceof ConnectionLostException) {
+            ToastManager.showToast(R.string.err_msg_connection_problem);
+        } else if (throwable instanceof HttpException) {
+            HttpException e = (HttpException) throwable;
+            switch (e.code()) {
+                case 204:
+//                    mView.hideCreateOrderProgress(false);
+            }
+        } else {
+            ToastManager.showToast(R.string.err_msg_something_goes_wrong);
+        }
+    };
 
     @Override
     public void changeDeliveryState(OrderDH _orderDH, int position) {

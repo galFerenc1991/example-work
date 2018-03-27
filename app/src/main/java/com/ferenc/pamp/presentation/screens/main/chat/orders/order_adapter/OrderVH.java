@@ -52,7 +52,7 @@ public class OrderVH extends RecyclerVH<OrderDH> {
         else tvName.setText(order.getUser().getFirstName());
         DecimalFormat df = new DecimalFormat("#.##");
         tvQuantity.setText(String.valueOf(df.format(order.getQuantity())));
-        tvPrice.setText(String.valueOf(order.getPrice()) + " €");
+        tvPrice.setText(String.valueOf(df.format(order.getPrice())) + " €");
         if (data.isOriginal()) {
             switch (data.getDealStatus()) {
                 case Constants.STATE_CLOSED:

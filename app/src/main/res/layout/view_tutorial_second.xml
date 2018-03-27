@@ -39,7 +39,7 @@
             android:layout_marginTop="60dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal"
-            android:text="Une nouvelle façon de rapprocher les petits producteurs locaux et les consommateurs."
+            android:text="Une nouvelle façon de rapprocher les petits producteurs locaux des consommateurs."
             android:textColor="@color/textColorGray"
             android:textSize="20sp" />
 

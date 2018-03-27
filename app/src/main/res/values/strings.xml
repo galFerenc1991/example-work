@@ -61,8 +61,8 @@
     <string name="button_add_payment">Ajouter un moyen de paiement</string>
     <string name="button_confirm_orders">Verser l’argent sur mon compte</string>
     <!-- Hints -->
-    <string name="hint_name">Prénom</string>
-    <string name="hint_surname">Nom</string>
+    <string name="hint_first_name">Prénom</string>
+    <string name="hint_last_name">Nom</string>
     <string name="hint_birth_date">Date de naissance</string>
     <string name="hint_email">Email</string>
     <string name="hint_country">Pays de résidence</string>
@@ -97,6 +97,7 @@
     <string name="err_msg_required">Champs requis</string>
     <string name="err_msg_invalid_number">Numéro incorrect</string>
     <string name="err_msg_invalid_name_surname">Attention 1 à 25 caractères maximum</string>
+    <string name="err_msg_select_both_dates">Veuillez sélectionner les deux date</string>
     <string name="err_msg_already_registered">Déjà enregistré</string>
     <string name="err_msg_invalid_password">Mot de passe incorrect</string>
     <string name="err_msg_invalid_password_new">Vous devez entrer au minimum 8 caractères</string>
@@ -190,10 +191,10 @@
     <string name="text_splash_title">Bienvenue</string>
     <string name="text_splash_subtext">#partageravecmesproches</string>
     <!-- Tutorial texts -->
-    <string name="text_first_tutorial_title_text">Le partage de vos bons plans devient enfin simple (et gratuit)… \nFini les plans compliqués à gérer</string>
+    <string name="text_first_tutorial_title_text">Le partage de vos bons plans devient enfin simple (et gratuit)… \nFinies les plans compliqués à gérer</string>
     <string name="text_first_tutorial_second_text">Pour partager et accéder directement à toutes les meilleures spécialités régionales de petits producteurs locaux</string>
     <string name="text_second_tutorial_title_text">Tout l’esprit des bons plans dans une appli !</string>
-    <string name="text_second_tutorial_second_text">"Aussi facile qu'envoyer un SMS"</string>
+    <string name="text_second_tutorial_second_text">"Aussi facile qu'écrire un SMS"</string>
     <string name="text_second_tutorial_third_text">"Récoltez et gérez vos commandes en un temps limité"</string>
     <string name="text_second_tutorial_fourth_text">"Ne vous souciez plus du paiement"</string>
     <string name="text_third_tutorial_title_text">"Le système D n’aura\njamais été aussi facile"</string>
@@ -250,7 +251,7 @@
     <string name="send_order_list_header_text">Pour lui envoyer directement la commande et gagner du temps \n\nPour gérer votre bon plan à distance et se faire livrer</string>
     <string name="send_order_list_commander_header_text">N’oubliez pas d’inscrire aussi votre propre commande :</string>
     <string name="send_order_list_commander_footer_text">Votre commande sera enregistrée à la liste des commandes mais aucune transaction ne sera effectuée</string>
-    <string name="send_order_list_producer_header_text">Enregistrez les coordonnées de votre producteur :</string>
+    <string name="send_order_list_producer_header_text">Enregistrez les coordonnées :</string>
     <string name="send_order_list_producer">Producteur</string>
     <string name="send_my_order">Détail de la commande</string>
     <!-- Changed Delivery Date Notification PopUP -->

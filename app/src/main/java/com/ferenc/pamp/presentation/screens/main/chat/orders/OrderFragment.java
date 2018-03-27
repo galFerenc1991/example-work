@@ -165,7 +165,7 @@ public class OrderFragment extends RefreshableFragment implements OrderContract.
     @OnActivityResult(Constants.REQUEST_CODE_ACTIVITY_BANK_ACCOUNT)
     protected void bankAccountCreated(int resultCode) {
         if (resultCode == RESULT_OK) {
-            mPresenter.doConfirm();
+            mPresenter.clickedConfButton(mOrderAdapter.getListDH());
         }
     }
 
