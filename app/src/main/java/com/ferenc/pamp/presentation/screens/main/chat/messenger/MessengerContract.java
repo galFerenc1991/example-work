@@ -73,6 +73,8 @@ public interface MessengerContract {
         void changeRecyclerViewLayoutParams(boolean _isChange);
 
         void togglePaginationProgress(boolean visibility);
+
+        void scrollToStart();
     }
 
     interface Presenter extends RefreshablePresenter {
