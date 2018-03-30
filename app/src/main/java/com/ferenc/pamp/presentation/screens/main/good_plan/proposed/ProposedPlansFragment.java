@@ -96,6 +96,13 @@ public class ProposedPlansFragment extends RefreshableFragment implements Propos
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && mPresenter !=null)
+            mPresenter.onRefresh();
+    }
+
+    @Override
     public void setProposedGoodPlanList(List<GoodDealResponse> _proposedGoodPlansList) {
         mScrollListener.reset();
         mGoodPlanAdapter.setList(_proposedGoodPlansList);

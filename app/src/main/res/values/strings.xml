@@ -287,4 +287,7 @@
     <string name="text_add_card_owner_name">Votre compte sera débité uniquement à la confirmation définitive de</string>
     <string name="my_order_status">Il y a des commandes</string>
     <string name="placeholder_no_orders">Vous n\'avez pas encore commandé</string>
+
+    <!-- Create Order PopUP texts -->
+    <string name="text_create_order_info">"Votre commande sera enregistrée mais aucune transaction ne sera effectuée"</string>
 </resources>

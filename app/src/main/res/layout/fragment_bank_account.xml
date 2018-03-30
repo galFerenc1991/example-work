@@ -81,7 +81,8 @@
             android:id="@+id/etIban_FBA"
             style="@style/AuthEditTextStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textCapCharacters" />
 
     </android.support.design.widget.TextInputLayout>
 

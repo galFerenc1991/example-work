@@ -105,6 +105,13 @@ public class ReceivedPlansFragment extends RefreshableFragment implements Receiv
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && mPresenter !=null)
+            mPresenter.onRefresh();
+    }
+
+    @Override
     public void openReBroadcastFlow() {
         ReDiffuserActivity_.intent(mActivity).start();
     }

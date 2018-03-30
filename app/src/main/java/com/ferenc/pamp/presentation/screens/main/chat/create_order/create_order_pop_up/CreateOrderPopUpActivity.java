@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -60,6 +61,13 @@ public class CreateOrderPopUpActivity extends AppCompatActivity implements Creat
     @ViewById(R.id.tvDeleteOrder_ACOPU)
     protected TextView tvDeleteOrder;
 
+    @ViewById(R.id.tvInfoToMyOrder_ACOPU)
+    protected TextView tvInfoToMyOrder;
+    @ViewById(R.id.llHonorar_ACOPU)
+    protected LinearLayout llHonorar;
+    @ViewById(R.id.llTotal_ACOPU)
+    protected LinearLayout llTotal;
+
     @Extra
     protected boolean isSendOrderListFlow;
     @Extra
@@ -105,6 +113,12 @@ public class CreateOrderPopUpActivity extends AppCompatActivity implements Creat
         }
     }
 
+    @Override
+    public void setTotalAndHonorarInPopup() {
+        tvInfoToMyOrder.setVisibility(View.GONE);
+        llHonorar.setVisibility(View.VISIBLE);
+        llTotal.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void showProductName(String _productName) {

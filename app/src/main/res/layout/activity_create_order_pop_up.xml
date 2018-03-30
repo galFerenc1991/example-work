@@ -79,7 +79,7 @@
                 android:visibility="gone" />
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -94,15 +94,37 @@
                 android:id="@+id/tvPrice_ACOPU"
                 style="@style/CancelDialPopUpTextStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="2.44€" />
+
+            <View
+                android:id="@+id/vBottomLineACOPU"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tvPrice_ACOPU"
+                android:background="@color/colorGray" />
+
+            <TextView
+                android:id="@+id/tvInfoToMyOrder_ACOPU"
+                style="@style/CancelDialPopUpTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/vBottomLineACOPU"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:gravity="center_horizontal"
+                android:text="@string/text_create_order_info"
+                android:textColor="@color/textColorBlack" />
+        </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/llHonorar_ACOPU"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_half"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 style="@style/CancelDialPopUpTextStyle"
@@ -115,14 +137,16 @@
                 style="@style/CancelDialPopUpTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="25.25 €"/>
+                android:text="25.25 €" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llTotal_ACOPU"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 style="@style/CreateOrderPopUpProductNameTextStyle"
