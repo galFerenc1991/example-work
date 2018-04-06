@@ -41,7 +41,7 @@ public class OrderVH extends RecyclerVH<OrderDH> {
     @Override
     public void setListeners(OnCardClickListener listener) {
         mOnCardClickListener = listener;
-//        swDelivery.setOnClickListener(view -> listener.onClick(itemView, getAdapterPosition(), getItemViewType()));
+        swDelivery.setOnClickListener(view -> listener.onClick(itemView, getAdapterPosition(), getItemViewType()));
     }
 
     @Override
