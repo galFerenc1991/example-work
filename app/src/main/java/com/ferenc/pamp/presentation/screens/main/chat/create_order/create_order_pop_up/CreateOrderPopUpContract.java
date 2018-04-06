@@ -32,6 +32,8 @@ public interface CreateOrderPopUpContract {
 
         void closeActivityForResult(double _quantity);
 
+        void setTotalAndHonorarInPopup();
+
     }
 
     interface Presenter extends BasePresenter {

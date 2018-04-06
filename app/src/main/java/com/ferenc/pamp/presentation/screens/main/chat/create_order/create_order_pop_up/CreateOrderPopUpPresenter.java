@@ -62,6 +62,7 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
         mView.showPriceDescription(mGoodDealResponse.unit);
         calculateTotal();
         if (!mIsSendOrderListFlow) {
+            mView.setTotalAndHonorarInPopup();
             if (mHasOrder) {
                 mView.showProgress();
                 mCompositeDisposable.add(mOrderModel.getMyOrder(mGoodDealResponse.id)
@@ -99,7 +100,7 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
             mQuantity = (mQuantity * 10 + 1) / 10;
         } else if (mMaxQuantity != 0 && mQuantity < mMaxQuantity) {
             mQuantity = mQuantity + 1;
-        } else if (mMaxQuantity == 0 )
+        } else if (mMaxQuantity == 0)
             mQuantity = mQuantity + 1;
         if (mQuantity >= 1) {
             DecimalFormat df = new DecimalFormat("#");
@@ -165,7 +166,6 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
                     mView.hideProgress(false);
                     mGoodDealResponse.hasOrders = false;
                     mGoodDealResponseManager.saveGoodDealResponse(mGoodDealResponse);
-                    ToastManager.showToast(messageOrderResponse.getMessage());
                     mView.closeActivityForResult(mQuantity);
                 }, throwableConsumer));
     }
@@ -178,7 +178,6 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
                 .build())
                 .subscribe(messageOrderResponse -> {
                     mView.hideProgress(false);
-                    ToastManager.showToast(messageOrderResponse.getMessage());
                     mView.closeActivityForResult(mQuantity);
                 }, throwableConsumer));
     }
@@ -193,8 +192,9 @@ public class CreateOrderPopUpPresenter implements CreateOrderPopUpContract.Prese
             switch (errorCode) {
                 case 400:
                     Gson gson = new Gson();
-                    GeneralMessageResponse _data = gson.fromJson( ((HttpException) throwable).response().errorBody().string(), GeneralMessageResponse.class);
-                    ToastManager.showToast(_data.getMessage());            }
+                    GeneralMessageResponse _data = gson.fromJson(((HttpException) throwable).response().errorBody().string(), GeneralMessageResponse.class);
+                    ToastManager.showToast(_data.getMessage());
+            }
         } else {
             ToastManager.showToast("Something went wrong");
         }

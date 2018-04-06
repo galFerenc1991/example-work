@@ -386,7 +386,7 @@ public class MessengerFragment extends RefreshableFragment implements MessengerC
         builder.setCustomTitle(dialogViewTitle)
                 .setView(R.layout.view_delivery_date_changed_pop_up_message)
                 .setPositiveButton(R.string.button_ok, (dialog, which) -> {
-                    mPresenter.changeDeliveryDateAction();
+                  //  mPresenter.changeDeliveryDateAction();
                 })
                 .setCancelable(false)
                 .create()

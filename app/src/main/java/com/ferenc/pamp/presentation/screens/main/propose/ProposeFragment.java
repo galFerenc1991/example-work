@@ -78,7 +78,7 @@ public class ProposeFragment extends ContentTabsFragment {
     public void configViewPager() {
         rlTitle.setVisibility(View.VISIBLE);
         if (!isReBroadcastFlow) {
-            vpContent.setOffscreenPageLimit(3);
+            vpContent.setOffscreenPageLimit(2);
         } else {
             RxView.clicks(ivBack)
                     .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
