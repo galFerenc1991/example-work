@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:392469561251:android:e9f63a7f5ccacc33",
+        "mobilesdk_app_id": "1:392469561251:android:80b0c109c77d9dce",
         "android_client_info": {
-          "package_name": "com.ferenc.pamp"
+          "package_name": "com.kubator.pamp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "392469561251-uohkg06hkcfklunbt1ing1p20o3rhfm0.apps.googleusercontent.com",
+          "client_id": "392469561251-71c5d35ehnu0m0hun03gih4altglelbh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.ferenc.pamp",
+            "package_name": "com.kubator.pamp",
             "certificate_hash": "ced5a105d7eaf30680bf263d50c599857393466a"
           }
         },
@@ -40,16 +40,16 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
+              "client_id": "392469561251-kl0irng19cc3ne0vurejkb6fanu1tv3j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
               "client_id": "392469561251-1ht6vrcevbkvvbb3flvunscap3gefjdr.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.1kubator.pamp",
                 "app_store_id": "408709785"
               }
-            },
-            {
-              "client_id": "392469561251-kl0irng19cc3ne0vurejkb6fanu1tv3j.apps.googleusercontent.com",
-              "client_type": 3
             }
           ]
         },

@@ -54,7 +54,7 @@
             android:layout_below="@id/tlTabs_FCT"
             android:background="@color/colorWhite" />
 
-        <com.ferenc.pamp.presentation.custom.ScrollableViewPager
+        <com.kubator.pamp.presentation.custom.ScrollableViewPager
             android:id="@+id/vpContent_FCT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

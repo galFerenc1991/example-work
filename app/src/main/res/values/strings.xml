@@ -136,7 +136,7 @@
     <string name="msg_try_login_with_new_password">Essayez de vous connecter avec le nouveau mot de passe</string>
     <string name="msg_empty_received_good_plans">Partager l’appli \npour + de \nbons plans !</string>
     <string name="msg_empty_proposed_good_plans">Proposer votre \npremier bon plan… \nC’est tellement bon !</string>
-    <string name="msg_share">Je vous recommande \ncet appli: PAMP ... nous \npourrons partager \nfacilement tous nos \nbons plans de petits \nproducteurs.\nHttps//:AppStore.pamp .com</string>
+    <string name="msg_share">Je vous recommande cette appli: PAMP Nous pourrons partager facilement tous nos bons plans de petits producteurs \n\nhttps://www.pamp.fr/telecharger-application/</string>
     <string name="msg_send_good_deal">"Je vous envoie un bon plan ... à retrouver sur PAMP en téléchargeant l'appli"</string>
     <string name="msg_send_good_deal_without_account">Je vous envoie un bon plan à retrouver sur PAMP. Si vous n\'avez pas l\'appli (ou de compte), téléchargez là, créez-vous un compte et revenez ensuite sur ce lien pour récuperer votre bon plan.</string>
     <!-- Menu -->
