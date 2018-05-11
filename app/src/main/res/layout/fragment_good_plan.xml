@@ -19,7 +19,7 @@
             app:tabSelectedTextColor="@color/textColorGreen"
             app:tabTextColor="@color/textColorGray" />
 
-        <com.ferenc.pamp.presentation.custom.ScrollableViewPager
+        <com.kubator.pamp.presentation.custom.ScrollableViewPager
             android:id="@+id/vpContent_FGP"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@+id/switchSaveCard_FSC"
-                    android:text="Enrtegister vorte moyen de paiement pour les prochaines fois"
+                    android:text="Enregistrer vorte moyen de paiement pour les prochaines fois"
                     android:textColor="@color/textColorGray"
                     android:textSize="@dimen/text_size_small" />
 
