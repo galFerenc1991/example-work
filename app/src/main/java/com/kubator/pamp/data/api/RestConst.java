@@ -8,7 +8,7 @@ package com.kubator.pamp.data.api;
 public abstract class RestConst {
 
     public static final String BASE_URL = "https://app.pamp.fr";
-    // : "http://45.77.55.49:3031/"
+//    public static final String BASE_URL = "http://45.77.55.49:3031/";
 
     public static final String HEADER_AUTH = "authorization";
     public static final String HEADER_ACCEPT = "Accept";

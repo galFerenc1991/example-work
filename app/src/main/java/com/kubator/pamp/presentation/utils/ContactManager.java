@@ -40,7 +40,8 @@ public class ContactManager {
         String usedContactsHeader = "LES DESTINATAIRES DE VOS BONS PLANS";
         String myContactsHeader = "VOS CONTACTS";
 
-        contactDHList.add(new ContactDH(usedContactsHeader, ContactAdapter.TYPE_CONTACT_HEADER));
+        if (_usedContacts.size() > 0)
+            contactDHList.add(new ContactDH(usedContactsHeader, ContactAdapter.TYPE_CONTACT_HEADER));
 
         for (UserContact contact : mUsedContacts) {
             String contactName = contact.getName();
