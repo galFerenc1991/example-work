@@ -38,6 +38,8 @@ public class ParticipantsActivity extends BaseActivity {
     private boolean isShareReplaced = false;
     @Extra
     protected int fromWhere;
+    @Extra
+    protected boolean isDealClosed;
 
     @StringRes(R.string.title_participants_list)
     protected String mTitleParticipantsList;
@@ -114,6 +116,10 @@ public class ParticipantsActivity extends BaseActivity {
         }
         setToolbarTitle(mTitleParticipantsList);
         replaceFragmentClearBackstack(ParticipantsListFragment_.builder().build());
+
+        if (isDealClosed) {
+            btnAjouter.setVisibility(View.GONE);
+        }
     }
 
     private void setToolbarTitle(String toolbarTitle) {

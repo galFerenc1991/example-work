@@ -106,7 +106,7 @@ public class DeliveryDatePresenter implements DeliveryDateContract.Presenter {
     }
 
     private String getDateTOString(Calendar calendar) {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM 'at' HH:mm", Locale.FRANCE);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM 'à' HH:mm", Locale.FRANCE);
         return sdf.format(calendar.getTime());
     }
 
