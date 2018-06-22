@@ -122,8 +122,8 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
 
     private void getStripeToken(String _iban, boolean isUpdate) {
         Stripe stripe = new Stripe(PampApp_.getInstance());
-//        stripe.setDefaultPublishableKey(Constants.STRIPE_LIVE_KEY);
-        stripe.setDefaultPublishableKey(Constants.STRIPE_TEST_KEY);
+        stripe.setDefaultPublishableKey(Constants.STRIPE_LIVE_KEY);
+//        stripe.setDefaultPublishableKey(Constants.STRIPE_TEST_KEY);
 //        BankAccount bankAccount = new BankAccount("DE89370400440532013000", "de", "eur", "");
         BankAccount bankAccount = new BankAccount(_iban, mCountryCode, "eur", "");
         stripe.createBankAccountToken(bankAccount, new TokenCallback() {
