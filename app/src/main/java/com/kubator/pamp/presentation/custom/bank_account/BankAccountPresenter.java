@@ -122,7 +122,8 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
 
     private void getStripeToken(String _iban, boolean isUpdate) {
         Stripe stripe = new Stripe(PampApp_.getInstance());
-        stripe.setDefaultPublishableKey(Constants.STRIPE_LIVE_KEY);
+//        stripe.setDefaultPublishableKey(Constants.STRIPE_LIVE_KEY);
+        stripe.setDefaultPublishableKey(Constants.STRIPE_TEST_KEY);
 //        BankAccount bankAccount = new BankAccount("DE89370400440532013000", "de", "eur", "");
         BankAccount bankAccount = new BankAccount(_iban, mCountryCode, "eur", "");
         stripe.createBankAccountToken(bankAccount, new TokenCallback() {
@@ -184,13 +185,22 @@ public class BankAccountPresenter implements BankAccountContract.Presenter {
 //                bankAccountRequest.setToken(_token);
 //                bankAccountRequest.setAddress();
 
-            mCompositeDisposable.add(mBankAccountModel.updateBankAccount(new BankAccountRequest(_token, mBirthDate != null ? mBirthDate.getTimeInMillis() : null,
-                    new Address.Builder()
+            boolean isAddressOk = !mCountryFromAddress.equals("")
+                    && !mCity.equals("")
+                    && !mStreet.equals("")
+                    && !mPostalCode.equals("");
+
+            BankAccountRequest bankAccountRequest = new BankAccountRequest(
+                    !_token.equals("") ? _token : null,
+                    mBirthDate != null ? mBirthDate.getTimeInMillis() : -1,
+                    isAddressOk ? new Address.Builder()
                             .setCountry(mCountryFromAddress)
                             .setCity(mCity)
                             .setStreet(mStreet)
                             .setPostalCode(mPostalCode)
-                            .build()))
+                            .build() : null);
+
+            mCompositeDisposable.add(mBankAccountModel.updateBankAccount(bankAccountRequest)
                     .subscribe(bankAccount -> {
                         mView.hideProgress();
                         mView.showSuccessEndFlowScreen();

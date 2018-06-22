@@ -15,7 +15,8 @@ public class BankAccountRequest implements Parcelable {
 
     public BankAccountRequest(String token, long dateOfBirthday, Address address) {
         this.token = token;
-        this.dateOfBirthday = dateOfBirthday;
+        if (dateOfBirthday != -1)
+            this.dateOfBirthday = dateOfBirthday;
         this.address = address;
     }
 

@@ -185,7 +185,8 @@ public class AddCardFragment extends ContentFragment implements AddCardContract.
     @Override
     public void getTokenWithStripe(BankCard _bankCard) {
         showProgressMain();
-        Stripe stripe = new Stripe(mActivity, Constants.STRIPE_LIVE_KEY);
+//        Stripe stripe = new Stripe(mActivity, Constants.STRIPE_LIVE_KEY);
+        Stripe stripe = new Stripe(mActivity, Constants.STRIPE_TEST_KEY);
         Card card = new Card(_bankCard.getCardNumber(), _bankCard.getCardExpMonth(), _bankCard.getCardExpYear(), _bankCard.getCardCVC());
         stripe.createToken(card, new TokenCallback() {
             @Override

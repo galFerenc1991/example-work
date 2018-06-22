@@ -156,7 +156,7 @@
     <string name="text_good_plan_delivery_date">- date de livraison</string>
     <!-- Forgot password Dialog -->
     <string name="forgot_password_dialog_title">Mot de passe oublié ?</string>
-    <string name="forgot_password__message">"S'il vous plaît entrer votre adresse mail enregistré sur votre compte."</string>
+    <string name="forgot_password__message">Merci d\'entrer votre adresse mail enregistrée sur votre compte.</string>
     <!-- Date PickerDialog -->
     <string name="close_date_dialog_title">Date de clôture</string>
     <string name="start_delivery_date_dialog_title">Date de livraison (début)</string>
@@ -191,7 +191,7 @@
     <string name="text_splash_title">Bienvenue</string>
     <string name="text_splash_subtext">#partageravecmesproches</string>
     <!-- Tutorial texts -->
-    <string name="text_first_tutorial_title_text">Le partage de vos bons plans devient enfin simple (et gratuit)… \nFinies les plans compliqués à gérer</string>
+    <string name="text_first_tutorial_title_text">Le partage de vos bons plans devient enfin simple (et gratuit)… \nFinis les bons plans compliqués à gérer</string>
     <string name="text_first_tutorial_second_text">Pour partager et accéder directement à toutes les meilleures spécialités régionales de petits producteurs locaux</string>
     <string name="text_second_tutorial_title_text">Tout l’esprit des bons plans dans une appli !</string>
     <string name="text_second_tutorial_second_text">"Aussi facile qu'écrire un SMS"</string>
