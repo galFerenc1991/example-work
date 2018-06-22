@@ -92,7 +92,7 @@ public class SharePresenter implements ShareContract.Presenter {
                         : mModel.createGoodDeal(createRequestParameter(contactDHList)))
                         .subscribe(goodDealResponse -> {
                             mView.hideProgress();
-                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
+                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getShortDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
 //                            mView.getShortLink(getSelectedContacts(contactDHList), goodDealResponse);
                         }, throwableConsumer));
             } else {
@@ -109,7 +109,7 @@ public class SharePresenter implements ShareContract.Presenter {
 
                             mGoodDealResponseManager.saveGoodDealResponse(goodDealResponse);
                             mView.hideProgress();
-                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
+                            mView.sendSmsWith(FirebaseDynamicLinkGenerator.getShortDynamicLink(goodDealResponse.id), getSelectedContacts(contactDHList), goodDealResponse);
 //                            mView.getShortLink(getSelectedContacts(contactDHList), goodDealResponse);
                         }, throwableConsumer));
             } else {

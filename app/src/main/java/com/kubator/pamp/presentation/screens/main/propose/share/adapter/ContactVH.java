@@ -5,6 +5,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.kubator.pamp.R;
 import com.michenko.simpleadapter.OnCardClickListener;
 import com.michenko.simpleadapter.RecyclerVH;

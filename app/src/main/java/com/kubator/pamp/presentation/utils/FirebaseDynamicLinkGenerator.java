@@ -1,7 +1,11 @@
 package com.kubator.pamp.presentation.utils;
 
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.kubator.pamp.PampApp_;
 import com.kubator.pamp.R;
 import com.google.firebase.dynamiclinks.DynamicLink;
@@ -36,31 +40,23 @@ public abstract class FirebaseDynamicLinkGenerator {
         return dynamicLink.getUri();
     }
 
-    public static Uri getShortDynamicLink() {
-//        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-//                .setLongLink(Uri.parse(getDynamicLink().toString()))
-//                .buildShortDynamicLink()
-//                .addOnCompleteListener(new OnCompleteListener<ShortDynamicLink>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
-//                        if (task.isSuccessful()) {
-//                            // Short link created
-//                            shortLink = task.getResult().getShortLink();
-//                            Uri flowchartLink = task.getResult().getPreviewLink();
-//                        } else {
-//                            // Error
-//                            // ...
-//                        }
-//                    }
-//                });
-        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("http://pampconnect.com/deeplink"))
-                .setDynamicLinkDomain("appCode" + ".app.goo.gl")
-                // Open links with this app on Android
-                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
-                // Open links with com.example.ios on iOS
-                .setIosParameters(new DynamicLink.IosParameters.Builder("com.example.ios").build())
-                .buildDynamicLink();
+    public static Uri getShortDynamicLink(String _id) {
+        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLongLink(Uri.parse(getDynamicLink(_id).toString()))
+                .buildShortDynamicLink()
+                .addOnCompleteListener(new OnCompleteListener<ShortDynamicLink>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
+                        if (task.isSuccessful()) {
+                            // Short link created
+                            shortLink = task.getResult().getShortLink();
+                            Uri flowchartLink = task.getResult().getPreviewLink();
+                        } else {
+                            // Error
+                            // ...
+                        }
+                    }
+                });
         return shortLink;
     }
 }
