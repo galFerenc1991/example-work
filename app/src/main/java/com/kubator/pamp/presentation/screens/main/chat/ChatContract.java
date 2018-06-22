@@ -18,7 +18,7 @@ public interface ChatContract {
 
         void openSettingsDialog();
 
-        void showParticipants();
+        void showParticipants(boolean isDealClosed);
 
         void setParticipants(String participants);
 

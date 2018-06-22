@@ -54,6 +54,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
     private String valDeliveryStartDate = "deliveryStartDate";
     private String valClosingDate = "closingDate";
     private String mUserToken;
+    private boolean joined;
 
     @Pref
     protected SharedPrefManager_ mSharedPrefManager;
@@ -121,6 +122,9 @@ public class SocketRepository implements MessengerContract.SocketModel {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }).on("joined", args -> {
+            joined = true;
+            Log.d(TAG, "Joined" );
         });
 
         return connectSocketVoidRelay;
@@ -135,7 +139,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
     @Override
     public Observable<Void> sendMessage(String _dealId, String _messageText) {
 
-        if (mSocket.connected()) {
+        if (mSocket.connected() && joined) {
             JSONObject obj = new JSONObject();
             try {
                 obj.put(valToken, mUserToken);
@@ -156,7 +160,7 @@ public class SocketRepository implements MessengerContract.SocketModel {
     @Override
     public Observable<Void> sendImage(String _dealId, String _imageBase64) {
 
-        if (mSocket.connected()) {
+        if (mSocket.connected() && joined) {
 
             JSONObject obj = new JSONObject();
             try {
@@ -202,6 +206,12 @@ public class SocketRepository implements MessengerContract.SocketModel {
             Log.d(TAG, "Disconnect");
         }
         return voidRelay;
+    }
+
+    public void disconnect() {
+        mSocket.off(Socket.EVENT_CONNECT);
+        mSocket.off(Socket.EVENT_MESSAGE);
+        mSocket.disconnect();
     }
 
     private Relay<MessageResponse> getNewMessage = PublishRelay.create();

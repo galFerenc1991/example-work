@@ -220,8 +220,8 @@ public class ChatActivity extends BaseActivity implements ChatContract.View {
     }
 
     @Override
-    public void showParticipants() {
-        ParticipantsActivity_.intent(this).fromWhere(fromWhere).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
+    public void showParticipants(boolean isDealClosed) {
+        ParticipantsActivity_.intent(this).fromWhere(fromWhere).isDealClosed(isDealClosed).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
     }
 
     @Override

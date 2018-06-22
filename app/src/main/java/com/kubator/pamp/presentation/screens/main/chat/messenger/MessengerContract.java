@@ -122,6 +122,8 @@ public interface MessengerContract {
 
         Observable<Void> disconnectSocket();
 
+        void disconnect();
+
         Observable<Void> sendImage(String _dealId, String _messageText);
 
     }

@@ -421,8 +421,7 @@ public class MessengerPresenter implements MessengerContract.Presenter {
     }
 
     private void disconnectSocket() {
-        mSocketModel.disconnectSocket()
-                .subscribe();
+        mSocketModel.disconnect();
     }
 
     @Override

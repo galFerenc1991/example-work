@@ -141,7 +141,7 @@ public class ChatPresenter implements ChatContract.Presenter {
 
     @Override
     public void clickedParticipants() {
-        mView.showParticipants();
+        mView.showParticipants(mGoodDealResponseManager.getGoodDealResponse().state.equals(Constants.STATE_CLOSED));
     }
 
 
