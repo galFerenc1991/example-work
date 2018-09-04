@@ -163,7 +163,7 @@ public class SignUpFragment extends ContentFragment implements SignUpContract.Vi
 
     private void clickedFacebook() {
         LoginManager.getInstance().logOut();
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email", "user_location"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email", "user_location"));
     }
 
     private void signInWithGoogle() {

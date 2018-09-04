@@ -165,7 +165,7 @@ public class LoginFragment extends ContentFragment implements LoginContract.View
     }
 
     private void clickedFacebook() {
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email", "user_location"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile",  "email", "user_location"));
     }
 
     private void signInWithGoogle() {
